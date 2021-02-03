@@ -23,6 +23,13 @@ jobs:
         npm install && npm test
         rm ./test/generated/*.abap
         node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json githubcom
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.18/ghes-2.18.json ghes218
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.19/ghes-2.19.json ghes219
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.20/ghes-2.20.json ghes220
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.21/ghes-2.21.json ghes221
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.22/ghes-2.22.json ghes222
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-3.0/ghes-3.0.json ghes30
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/github.ae/github.ae.json githubae        
         ls
         cp ./test/generated/*.abap ../generated-github/
         cd ../generated-github/
