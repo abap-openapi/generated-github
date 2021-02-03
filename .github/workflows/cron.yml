@@ -3,7 +3,7 @@ name: cron
 on: [push]
 
 jobs:
-  build:
+  cron:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -13,4 +13,6 @@ jobs:
         node-version: '12.x'
     - name: Run npm steps
       run: |
+        cd ..
+        git clone https://github.com/abap-openapi/abap-openapi-client.git
         ls
