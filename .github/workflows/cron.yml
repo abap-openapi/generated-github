@@ -15,4 +15,11 @@ jobs:
       run: |
         cd ..
         git clone https://github.com/abap-openapi/abap-openapi-client.git
+        cd abap-openapi-client
+        npm install && npm test
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json githubcom
         ls
+        cp *.abap ../generated-github/
+        cd ../generated-github/
+        ls
+        git status
