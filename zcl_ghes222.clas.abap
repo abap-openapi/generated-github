@@ -4,9 +4,826 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
   PUBLIC SECTION.
     INTERFACES zif_ghes222.
     METHODS constructor IMPORTING ii_client TYPE REF TO if_http_client.
-  PRIVATE SECTION.
+  PROTECTED SECTION.
     DATA mi_client TYPE REF TO if_http_client.
-    METHODS send_receive.
+    DATA mo_json TYPE REF TO zcl_oapi_json.
+    METHODS send_receive RETURNING VALUE(rv_code) TYPE i.
+    METHODS parse_global_hook
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(global_hook) TYPE zif_ghes222=>global_hook
+      RAISING cx_static_check.
+    METHODS parse_global_hook_2
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(global_hook_2) TYPE zif_ghes222=>global_hook_2
+      RAISING cx_static_check.
+    METHODS parse_enterprise_public_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_public_key) TYPE zif_ghes222=>enterprise_public_key
+      RAISING cx_static_check.
+    METHODS parse_ldap_mapping_team
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(ldap_mapping_team) TYPE zif_ghes222=>ldap_mapping_team
+      RAISING cx_static_check.
+    METHODS parse_ldap_mapping_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(ldap_mapping_user) TYPE zif_ghes222=>ldap_mapping_user
+      RAISING cx_static_check.
+    METHODS parse_organization_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_simple) TYPE zif_ghes222=>organization_simple
+      RAISING cx_static_check.
+    METHODS parse_pre_receive_environment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pre_receive_environment) TYPE zif_ghes222=>pre_receive_environment
+      RAISING cx_static_check.
+    METHODS parse_pre_receive_environment_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pre_receive_environment_downlo) TYPE zif_ghes222=>pre_receive_environment_downlo
+      RAISING cx_static_check.
+    METHODS parse_pre_receive_hook
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pre_receive_hook) TYPE zif_ghes222=>pre_receive_hook
+      RAISING cx_static_check.
+    METHODS parse_simple_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(simple_user) TYPE zif_ghes222=>simple_user
+      RAISING cx_static_check.
+    METHODS parse_app_permissions
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(app_permissions) TYPE zif_ghes222=>app_permissions
+      RAISING cx_static_check.
+    METHODS parse_scoped_installation
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(scoped_installation) TYPE zif_ghes222=>scoped_installation
+      RAISING cx_static_check.
+    METHODS parse_authorization
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(authorization) TYPE zif_ghes222=>authorization
+      RAISING cx_static_check.
+    METHODS parse_integration
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(integration) TYPE zif_ghes222=>integration
+      RAISING cx_static_check.
+    METHODS parse_basic_error
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(basic_error) TYPE zif_ghes222=>basic_error
+      RAISING cx_static_check.
+    METHODS parse_validation_error_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(validation_error_simple) TYPE zif_ghes222=>validation_error_simple
+      RAISING cx_static_check.
+    METHODS parse_enterprise
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise) TYPE zif_ghes222=>enterprise
+      RAISING cx_static_check.
+    METHODS parse_installation_ghes_2
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(installation_ghes_2) TYPE zif_ghes222=>installation_ghes_2
+      RAISING cx_static_check.
+    METHODS parse_license_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(license_simple) TYPE zif_ghes222=>license_simple
+      RAISING cx_static_check.
+    METHODS parse_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository) TYPE zif_ghes222=>repository
+      RAISING cx_static_check.
+    METHODS parse_installation_token
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(installation_token) TYPE zif_ghes222=>installation_token
+      RAISING cx_static_check.
+    METHODS parse_validation_error
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(validation_error) TYPE zif_ghes222=>validation_error
+      RAISING cx_static_check.
+    METHODS parse_application_grant
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(application_grant) TYPE zif_ghes222=>application_grant
+      RAISING cx_static_check.
+    METHODS parse_code_of_conduct
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_of_conduct) TYPE zif_ghes222=>code_of_conduct
+      RAISING cx_static_check.
+    METHODS parse_content_reference_attach
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_reference_attachment) TYPE zif_ghes222=>content_reference_attachment
+      RAISING cx_static_check.
+    METHODS parse_license_info
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(license_info) TYPE zif_ghes222=>license_info
+      RAISING cx_static_check.
+    METHODS parse_enterprise_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_overview) TYPE zif_ghes222=>enterprise_overview
+      RAISING cx_static_check.
+    METHODS parse_runner_groups_enterprise
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_groups_enterprise) TYPE zif_ghes222=>runner_groups_enterprise
+      RAISING cx_static_check.
+    METHODS parse_runner_no_labels
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_no_labels) TYPE zif_ghes222=>runner_no_labels
+      RAISING cx_static_check.
+    METHODS parse_runner_application
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_application) TYPE zif_ghes222=>runner_application
+      RAISING cx_static_check.
+    METHODS parse_authentication_token
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(authentication_token) TYPE zif_ghes222=>authentication_token
+      RAISING cx_static_check.
+    METHODS parse_actor
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actor) TYPE zif_ghes222=>actor
+      RAISING cx_static_check.
+    METHODS parse_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(label) TYPE zif_ghes222=>label
+      RAISING cx_static_check.
+    METHODS parse_milestone
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(milestone) TYPE zif_ghes222=>milestone
+      RAISING cx_static_check.
+    METHODS parse_author_association
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(author_association) TYPE zif_ghes222=>author_association
+      RAISING cx_static_check.
+    METHODS parse_issue_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_simple) TYPE zif_ghes222=>issue_simple
+      RAISING cx_static_check.
+    METHODS parse_reaction_rollup
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(reaction_rollup) TYPE zif_ghes222=>reaction_rollup
+      RAISING cx_static_check.
+    METHODS parse_issue_comment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_comment) TYPE zif_ghes222=>issue_comment
+      RAISING cx_static_check.
+    METHODS parse_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(event) TYPE zif_ghes222=>event
+      RAISING cx_static_check.
+    METHODS parse_link_with_type
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(link_with_type) TYPE zif_ghes222=>link_with_type
+      RAISING cx_static_check.
+    METHODS parse_feed
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(feed) TYPE zif_ghes222=>feed
+      RAISING cx_static_check.
+    METHODS parse_base_gist
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(base_gist) TYPE zif_ghes222=>base_gist
+      RAISING cx_static_check.
+    METHODS parse_gist_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gist_simple) TYPE zif_ghes222=>gist_simple
+      RAISING cx_static_check.
+    METHODS parse_gist_comment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gist_comment) TYPE zif_ghes222=>gist_comment
+      RAISING cx_static_check.
+    METHODS parse_gist_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gist_commit) TYPE zif_ghes222=>gist_commit
+      RAISING cx_static_check.
+    METHODS parse_gitignore_template
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gitignore_template) TYPE zif_ghes222=>gitignore_template
+      RAISING cx_static_check.
+    METHODS parse_issue
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue) TYPE zif_ghes222=>issue
+      RAISING cx_static_check.
+    METHODS parse_license
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(license) TYPE zif_ghes222=>license
+      RAISING cx_static_check.
+    METHODS parse_api_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(api_overview) TYPE zif_ghes222=>api_overview
+      RAISING cx_static_check.
+    METHODS parse_minimal_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(minimal_repository) TYPE zif_ghes222=>minimal_repository
+      RAISING cx_static_check.
+    METHODS parse_thread
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(thread) TYPE zif_ghes222=>thread
+      RAISING cx_static_check.
+    METHODS parse_thread_subscription
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(thread_subscription) TYPE zif_ghes222=>thread_subscription
+      RAISING cx_static_check.
+    METHODS parse_organization_full
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_full) TYPE zif_ghes222=>organization_full
+      RAISING cx_static_check.
+    METHODS parse_runner_groups_org
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_groups_org) TYPE zif_ghes222=>runner_groups_org
+      RAISING cx_static_check.
+    METHODS parse_organization_actions_sec
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_actions_secret) TYPE zif_ghes222=>organization_actions_secret
+      RAISING cx_static_check.
+    METHODS parse_actions_public_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_public_key) TYPE zif_ghes222=>actions_public_key
+      RAISING cx_static_check.
+    METHODS parse_org_hook
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(org_hook) TYPE zif_ghes222=>org_hook
+      RAISING cx_static_check.
+    METHODS parse_webhook_config_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(webhook_config_url) TYPE zif_ghes222=>webhook_config_url
+      RAISING cx_static_check.
+    METHODS parse_webhook_config_content_t
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(webhook_config_content_type) TYPE zif_ghes222=>webhook_config_content_type
+      RAISING cx_static_check.
+    METHODS parse_webhook_config_secret
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(webhook_config_secret) TYPE zif_ghes222=>webhook_config_secret
+      RAISING cx_static_check.
+    METHODS parse_webhook_config_insecure_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(webhook_config_insecure_ssl) TYPE zif_ghes222=>webhook_config_insecure_ssl
+      RAISING cx_static_check.
+    METHODS parse_org_membership
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(org_membership) TYPE zif_ghes222=>org_membership
+      RAISING cx_static_check.
+    METHODS parse_org_pre_receive_hook
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(org_pre_receive_hook) TYPE zif_ghes222=>org_pre_receive_hook
+      RAISING cx_static_check.
+    METHODS parse_project
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(project) TYPE zif_ghes222=>project
+      RAISING cx_static_check.
+    METHODS parse_team_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_simple) TYPE zif_ghes222=>team_simple
+      RAISING cx_static_check.
+    METHODS parse_team
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team) TYPE zif_ghes222=>team
+      RAISING cx_static_check.
+    METHODS parse_team_full
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_full) TYPE zif_ghes222=>team_full
+      RAISING cx_static_check.
+    METHODS parse_team_discussion
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_discussion) TYPE zif_ghes222=>team_discussion
+      RAISING cx_static_check.
+    METHODS parse_team_discussion_comment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_discussion_comment) TYPE zif_ghes222=>team_discussion_comment
+      RAISING cx_static_check.
+    METHODS parse_reaction
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(reaction) TYPE zif_ghes222=>reaction
+      RAISING cx_static_check.
+    METHODS parse_team_membership
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_membership) TYPE zif_ghes222=>team_membership
+      RAISING cx_static_check.
+    METHODS parse_team_project
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_project) TYPE zif_ghes222=>team_project
+      RAISING cx_static_check.
+    METHODS parse_team_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_repository) TYPE zif_ghes222=>team_repository
+      RAISING cx_static_check.
+    METHODS parse_project_card
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(project_card) TYPE zif_ghes222=>project_card
+      RAISING cx_static_check.
+    METHODS parse_project_column
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(project_column) TYPE zif_ghes222=>project_column
+      RAISING cx_static_check.
+    METHODS parse_repository_collaborator_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository_collaborator_permis) TYPE zif_ghes222=>repository_collaborator_permis
+      RAISING cx_static_check.
+    METHODS parse_rate_limit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(rate_limit) TYPE zif_ghes222=>rate_limit
+      RAISING cx_static_check.
+    METHODS parse_rate_limit_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(rate_limit_overview) TYPE zif_ghes222=>rate_limit_overview
+      RAISING cx_static_check.
+    METHODS parse_full_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(full_repository) TYPE zif_ghes222=>full_repository
+      RAISING cx_static_check.
+    METHODS parse_artifact
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(artifact) TYPE zif_ghes222=>artifact
+      RAISING cx_static_check.
+    METHODS parse_job
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(job) TYPE zif_ghes222=>job
+      RAISING cx_static_check.
+    METHODS parse_pull_request_minimal
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_minimal) TYPE zif_ghes222=>pull_request_minimal
+      RAISING cx_static_check.
+    METHODS parse_simple_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(simple_commit) TYPE zif_ghes222=>simple_commit
+      RAISING cx_static_check.
+    METHODS parse_workflow_run
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow_run) TYPE zif_ghes222=>workflow_run
+      RAISING cx_static_check.
+    METHODS parse_actions_secret
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_secret) TYPE zif_ghes222=>actions_secret
+      RAISING cx_static_check.
+    METHODS parse_workflow
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow) TYPE zif_ghes222=>workflow
+      RAISING cx_static_check.
+    METHODS parse_protected_branch_admin_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch_admin_enforce) TYPE zif_ghes222=>protected_branch_admin_enforce
+      RAISING cx_static_check.
+    METHODS parse_protected_branch_pull_re
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch_pull_request_) TYPE zif_ghes222=>protected_branch_pull_request_
+      RAISING cx_static_check.
+    METHODS parse_branch_restriction_polic
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(branch_restriction_policy) TYPE zif_ghes222=>branch_restriction_policy
+      RAISING cx_static_check.
+    METHODS parse_branch_protection
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(branch_protection) TYPE zif_ghes222=>branch_protection
+      RAISING cx_static_check.
+    METHODS parse_short_branch
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(short_branch) TYPE zif_ghes222=>short_branch
+      RAISING cx_static_check.
+    METHODS parse_git_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(git_user) TYPE zif_ghes222=>git_user
+      RAISING cx_static_check.
+    METHODS parse_verification
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(verification) TYPE zif_ghes222=>verification
+      RAISING cx_static_check.
+    METHODS parse_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(commit) TYPE zif_ghes222=>commit
+      RAISING cx_static_check.
+    METHODS parse_branch_with_protection
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(branch_with_protection) TYPE zif_ghes222=>branch_with_protection
+      RAISING cx_static_check.
+    METHODS parse_status_check_policy
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(status_check_policy) TYPE zif_ghes222=>status_check_policy
+      RAISING cx_static_check.
+    METHODS parse_protected_branch
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch) TYPE zif_ghes222=>protected_branch
+      RAISING cx_static_check.
+    METHODS parse_check_run
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(check_run) TYPE zif_ghes222=>check_run
+      RAISING cx_static_check.
+    METHODS parse_check_annotation
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(check_annotation) TYPE zif_ghes222=>check_annotation
+      RAISING cx_static_check.
+    METHODS parse_check_suite
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(check_suite) TYPE zif_ghes222=>check_suite
+      RAISING cx_static_check.
+    METHODS parse_check_suite_preference
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(check_suite_preference) TYPE zif_ghes222=>check_suite_preference
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_stat
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_state) TYPE zif_ghes222=>code_scanning_alert_state
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_ref
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_ref) TYPE zif_ghes222=>code_scanning_alert_ref
+      RAISING cx_static_check.
+    METHODS parse_alert_number
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_number) TYPE zif_ghes222=>alert_number
+      RAISING cx_static_check.
+    METHODS parse_alert_created_at
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_created_at) TYPE zif_ghes222=>alert_created_at
+      RAISING cx_static_check.
+    METHODS parse_alert_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_url) TYPE zif_ghes222=>alert_url
+      RAISING cx_static_check.
+    METHODS parse_alert_html_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_html_url) TYPE zif_ghes222=>alert_html_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_dism
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismissed_) TYPE zif_ghes222=>code_scanning_alert_dismissed_
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_di01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismisse01) TYPE zif_ghes222=>code_scanning_alert_dismisse01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_rule
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_ghes222=>code_scanning_alert_rule
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_t
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_ghes222=>code_scanning_analysis_tool_na
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool) TYPE zif_ghes222=>code_scanning_analysis_tool
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_code
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_code_scann) TYPE zif_ghes222=>code_scanning_alert_code_scann
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_a
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_analysi) TYPE zif_ghes222=>code_scanning_analysis_analysi
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_envi
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_ghes222=>code_scanning_alert_environmen
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_inst
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_instances) TYPE zif_ghes222=>code_scanning_alert_instances
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_co01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_code_sca01) TYPE zif_ghes222=>code_scanning_alert_code_sca01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_set_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_set_state) TYPE zif_ghes222=>code_scanning_alert_set_state
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_r
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_ref) TYPE zif_ghes222=>code_scanning_analysis_ref
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_c
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_commit_) TYPE zif_ghes222=>code_scanning_analysis_commit_
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_created) TYPE zif_ghes222=>code_scanning_analysis_created
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_environ) TYPE zif_ghes222=>code_scanning_analysis_environ
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis03
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_code_sc) TYPE zif_ghes222=>code_scanning_analysis_code_sc
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_s
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_sarif_f) TYPE zif_ghes222=>code_scanning_analysis_sarif_f
+      RAISING cx_static_check.
+    METHODS parse_collaborator
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(collaborator) TYPE zif_ghes222=>collaborator
+      RAISING cx_static_check.
+    METHODS parse_repository_invitation
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository_invitation) TYPE zif_ghes222=>repository_invitation
+      RAISING cx_static_check.
+    METHODS parse_commit_comment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(commit_comment) TYPE zif_ghes222=>commit_comment
+      RAISING cx_static_check.
+    METHODS parse_scim_error
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(scim_error) TYPE zif_ghes222=>scim_error
+      RAISING cx_static_check.
+    METHODS parse_branch_short
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(branch_short) TYPE zif_ghes222=>branch_short
+      RAISING cx_static_check.
+    METHODS parse_link
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(link) TYPE zif_ghes222=>link
+      RAISING cx_static_check.
+    METHODS parse_pull_request_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_simple) TYPE zif_ghes222=>pull_request_simple
+      RAISING cx_static_check.
+    METHODS parse_simple_commit_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(simple_commit_status) TYPE zif_ghes222=>simple_commit_status
+      RAISING cx_static_check.
+    METHODS parse_combined_commit_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(combined_commit_status) TYPE zif_ghes222=>combined_commit_status
+      RAISING cx_static_check.
+    METHODS parse_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(status) TYPE zif_ghes222=>status
+      RAISING cx_static_check.
+    METHODS parse_diff_entry
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(diff_entry) TYPE zif_ghes222=>diff_entry
+      RAISING cx_static_check.
+    METHODS parse_commit_comparison
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(commit_comparison) TYPE zif_ghes222=>commit_comparison
+      RAISING cx_static_check.
+    METHODS parse_content_tree
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_tree) TYPE zif_ghes222=>content_tree
+      RAISING cx_static_check.
+    METHODS parse_content_directory
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_directory) TYPE zif_ghes222=>content_directory
+      RAISING cx_static_check.
+    METHODS parse_content_file
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_file) TYPE zif_ghes222=>content_file
+      RAISING cx_static_check.
+    METHODS parse_content_symlink
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_symlink) TYPE zif_ghes222=>content_symlink
+      RAISING cx_static_check.
+    METHODS parse_content_submodule
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_submodule) TYPE zif_ghes222=>content_submodule
+      RAISING cx_static_check.
+    METHODS parse_file_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(file_commit) TYPE zif_ghes222=>file_commit
+      RAISING cx_static_check.
+    METHODS parse_contributor
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(contributor) TYPE zif_ghes222=>contributor
+      RAISING cx_static_check.
+    METHODS parse_deployment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment) TYPE zif_ghes222=>deployment
+      RAISING cx_static_check.
+    METHODS parse_deployment_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_status) TYPE zif_ghes222=>deployment_status
+      RAISING cx_static_check.
+    METHODS parse_short_blob
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(short_blob) TYPE zif_ghes222=>short_blob
+      RAISING cx_static_check.
+    METHODS parse_blob
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(blob) TYPE zif_ghes222=>blob
+      RAISING cx_static_check.
+    METHODS parse_git_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(git_commit) TYPE zif_ghes222=>git_commit
+      RAISING cx_static_check.
+    METHODS parse_git_ref
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(git_ref) TYPE zif_ghes222=>git_ref
+      RAISING cx_static_check.
+    METHODS parse_git_tag
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(git_tag) TYPE zif_ghes222=>git_tag
+      RAISING cx_static_check.
+    METHODS parse_git_tree
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(git_tree) TYPE zif_ghes222=>git_tree
+      RAISING cx_static_check.
+    METHODS parse_hook_response
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(hook_response) TYPE zif_ghes222=>hook_response
+      RAISING cx_static_check.
+    METHODS parse_hook
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(hook) TYPE zif_ghes222=>hook
+      RAISING cx_static_check.
+    METHODS parse_issue_event_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_label) TYPE zif_ghes222=>issue_event_label
+      RAISING cx_static_check.
+    METHODS parse_issue_event_dismissed_re
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_dismissed_review) TYPE zif_ghes222=>issue_event_dismissed_review
+      RAISING cx_static_check.
+    METHODS parse_issue_event_milestone
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_milestone) TYPE zif_ghes222=>issue_event_milestone
+      RAISING cx_static_check.
+    METHODS parse_issue_event_project_card
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_project_card) TYPE zif_ghes222=>issue_event_project_card
+      RAISING cx_static_check.
+    METHODS parse_issue_event_rename
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_rename) TYPE zif_ghes222=>issue_event_rename
+      RAISING cx_static_check.
+    METHODS parse_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event) TYPE zif_ghes222=>issue_event
+      RAISING cx_static_check.
+    METHODS parse_issue_event_for_issue
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_event_for_issue) TYPE zif_ghes222=>issue_event_for_issue
+      RAISING cx_static_check.
+    METHODS parse_deploy_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deploy_key) TYPE zif_ghes222=>deploy_key
+      RAISING cx_static_check.
+    METHODS parse_language
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(language) TYPE zif_ghes222=>language
+      RAISING cx_static_check.
+    METHODS parse_license_content
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(license_content) TYPE zif_ghes222=>license_content
+      RAISING cx_static_check.
+    METHODS parse_pages_source_hash
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pages_source_hash) TYPE zif_ghes222=>pages_source_hash
+      RAISING cx_static_check.
+    METHODS parse_page
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(page) TYPE zif_ghes222=>page
+      RAISING cx_static_check.
+    METHODS parse_page_build
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(page_build) TYPE zif_ghes222=>page_build
+      RAISING cx_static_check.
+    METHODS parse_page_build_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(page_build_status) TYPE zif_ghes222=>page_build_status
+      RAISING cx_static_check.
+    METHODS parse_repository_pre_receive_h
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository_pre_receive_hook) TYPE zif_ghes222=>repository_pre_receive_hook
+      RAISING cx_static_check.
+    METHODS parse_pull_request
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request) TYPE zif_ghes222=>pull_request
+      RAISING cx_static_check.
+    METHODS parse_pull_request_review_comm
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_review_comment) TYPE zif_ghes222=>pull_request_review_comment
+      RAISING cx_static_check.
+    METHODS parse_pull_request_merge_resul
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_merge_result) TYPE zif_ghes222=>pull_request_merge_result
+      RAISING cx_static_check.
+    METHODS parse_pull_request_review_requ
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_review_request) TYPE zif_ghes222=>pull_request_review_request
+      RAISING cx_static_check.
+    METHODS parse_pull_request_review
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_review) TYPE zif_ghes222=>pull_request_review
+      RAISING cx_static_check.
+    METHODS parse_review_comment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(review_comment) TYPE zif_ghes222=>review_comment
+      RAISING cx_static_check.
+    METHODS parse_release_asset
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(release_asset) TYPE zif_ghes222=>release_asset
+      RAISING cx_static_check.
+    METHODS parse_release
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(release) TYPE zif_ghes222=>release
+      RAISING cx_static_check.
+    METHODS parse_stargazer
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(stargazer) TYPE zif_ghes222=>stargazer
+      RAISING cx_static_check.
+    METHODS parse_code_frequency_stat
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_frequency_stat) TYPE zif_ghes222=>code_frequency_stat
+      RAISING cx_static_check.
+    METHODS parse_commit_activity
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(commit_activity) TYPE zif_ghes222=>commit_activity
+      RAISING cx_static_check.
+    METHODS parse_contributor_activity
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(contributor_activity) TYPE zif_ghes222=>contributor_activity
+      RAISING cx_static_check.
+    METHODS parse_participation_stats
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(participation_stats) TYPE zif_ghes222=>participation_stats
+      RAISING cx_static_check.
+    METHODS parse_repository_subscription
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository_subscription) TYPE zif_ghes222=>repository_subscription
+      RAISING cx_static_check.
+    METHODS parse_tag
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(tag) TYPE zif_ghes222=>tag
+      RAISING cx_static_check.
+    METHODS parse_topic
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(topic) TYPE zif_ghes222=>topic
+      RAISING cx_static_check.
+    METHODS parse_search_result_text_match
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(search_result_text_matches) TYPE zif_ghes222=>search_result_text_matches
+      RAISING cx_static_check.
+    METHODS parse_code_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_search_result_item) TYPE zif_ghes222=>code_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_commit_search_result_ite
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(commit_search_result_item) TYPE zif_ghes222=>commit_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_issue_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(issue_search_result_item) TYPE zif_ghes222=>issue_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_label_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(label_search_result_item) TYPE zif_ghes222=>label_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_repo_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repo_search_result_item) TYPE zif_ghes222=>repo_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_topic_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(topic_search_result_item) TYPE zif_ghes222=>topic_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_user_search_result_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(user_search_result_item) TYPE zif_ghes222=>user_search_result_item
+      RAISING cx_static_check.
+    METHODS parse_configuration_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(configuration_status) TYPE zif_ghes222=>configuration_status
+      RAISING cx_static_check.
+    METHODS parse_maintenance_status
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(maintenance_status) TYPE zif_ghes222=>maintenance_status
+      RAISING cx_static_check.
+    METHODS parse_enterprise_settings
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_settings) TYPE zif_ghes222=>enterprise_settings
+      RAISING cx_static_check.
+    METHODS parse_ssh_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(ssh_key) TYPE zif_ghes222=>ssh_key
+      RAISING cx_static_check.
+    METHODS parse_private_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(private_user) TYPE zif_ghes222=>private_user
+      RAISING cx_static_check.
+    METHODS parse_public_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(public_user) TYPE zif_ghes222=>public_user
+      RAISING cx_static_check.
+    METHODS parse_email
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(email) TYPE zif_ghes222=>email
+      RAISING cx_static_check.
+    METHODS parse_gpg_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gpg_key) TYPE zif_ghes222=>gpg_key
+      RAISING cx_static_check.
+    METHODS parse_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(key) TYPE zif_ghes222=>key
+      RAISING cx_static_check.
+    METHODS parse_starred_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(starred_repository) TYPE zif_ghes222=>starred_repository
+      RAISING cx_static_check.
+    METHODS parse_hovercard
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(hovercard) TYPE zif_ghes222=>hovercard
+      RAISING cx_static_check.
+    METHODS parse_key_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(key_simple) TYPE zif_ghes222=>key_simple
+      RAISING cx_static_check.
 ENDCLASS.
 
 CLASS zcl_ghes222 IMPLEMENTATION.
@@ -15,397 +832,1054 @@ CLASS zcl_ghes222 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_receive.
-    DATA lv_code TYPE i.
-    DATA lv_cdata TYPE string.
     mi_client->send( ).
     mi_client->receive( ).
-    mi_client->response->get_status( IMPORTING code = lv_code ).
+    mi_client->response->get_status( IMPORTING code = rv_code ).
+  ENDMETHOD.
+
+  METHOD parse_global_hook.
+  ENDMETHOD.
+
+  METHOD parse_global_hook_2.
+  ENDMETHOD.
+
+  METHOD parse_enterprise_public_key.
+  ENDMETHOD.
+
+  METHOD parse_ldap_mapping_team.
+  ENDMETHOD.
+
+  METHOD parse_ldap_mapping_user.
+  ENDMETHOD.
+
+  METHOD parse_organization_simple.
+  ENDMETHOD.
+
+  METHOD parse_pre_receive_environment.
+  ENDMETHOD.
+
+  METHOD parse_pre_receive_environment_.
+  ENDMETHOD.
+
+  METHOD parse_pre_receive_hook.
+  ENDMETHOD.
+
+  METHOD parse_simple_user.
+  ENDMETHOD.
+
+  METHOD parse_app_permissions.
+  ENDMETHOD.
+
+  METHOD parse_scoped_installation.
+  ENDMETHOD.
+
+  METHOD parse_authorization.
+  ENDMETHOD.
+
+  METHOD parse_integration.
+  ENDMETHOD.
+
+  METHOD parse_basic_error.
+  ENDMETHOD.
+
+  METHOD parse_validation_error_simple.
+  ENDMETHOD.
+
+  METHOD parse_enterprise.
+  ENDMETHOD.
+
+  METHOD parse_installation_ghes_2.
+  ENDMETHOD.
+
+  METHOD parse_license_simple.
+  ENDMETHOD.
+
+  METHOD parse_repository.
+  ENDMETHOD.
+
+  METHOD parse_installation_token.
+  ENDMETHOD.
+
+  METHOD parse_validation_error.
+  ENDMETHOD.
+
+  METHOD parse_application_grant.
+  ENDMETHOD.
+
+  METHOD parse_code_of_conduct.
+  ENDMETHOD.
+
+  METHOD parse_content_reference_attach.
+  ENDMETHOD.
+
+  METHOD parse_license_info.
+  ENDMETHOD.
+
+  METHOD parse_enterprise_overview.
+  ENDMETHOD.
+
+  METHOD parse_runner_groups_enterprise.
+  ENDMETHOD.
+
+  METHOD parse_runner_no_labels.
+  ENDMETHOD.
+
+  METHOD parse_runner_application.
+  ENDMETHOD.
+
+  METHOD parse_authentication_token.
+  ENDMETHOD.
+
+  METHOD parse_actor.
+  ENDMETHOD.
+
+  METHOD parse_label.
+  ENDMETHOD.
+
+  METHOD parse_milestone.
+  ENDMETHOD.
+
+  METHOD parse_author_association.
+  ENDMETHOD.
+
+  METHOD parse_issue_simple.
+  ENDMETHOD.
+
+  METHOD parse_reaction_rollup.
+  ENDMETHOD.
+
+  METHOD parse_issue_comment.
+  ENDMETHOD.
+
+  METHOD parse_event.
+  ENDMETHOD.
+
+  METHOD parse_link_with_type.
+  ENDMETHOD.
+
+  METHOD parse_feed.
+  ENDMETHOD.
+
+  METHOD parse_base_gist.
+  ENDMETHOD.
+
+  METHOD parse_gist_simple.
+  ENDMETHOD.
+
+  METHOD parse_gist_comment.
+  ENDMETHOD.
+
+  METHOD parse_gist_commit.
+  ENDMETHOD.
+
+  METHOD parse_gitignore_template.
+  ENDMETHOD.
+
+  METHOD parse_issue.
+  ENDMETHOD.
+
+  METHOD parse_license.
+  ENDMETHOD.
+
+  METHOD parse_api_overview.
+  ENDMETHOD.
+
+  METHOD parse_minimal_repository.
+  ENDMETHOD.
+
+  METHOD parse_thread.
+  ENDMETHOD.
+
+  METHOD parse_thread_subscription.
+  ENDMETHOD.
+
+  METHOD parse_organization_full.
+  ENDMETHOD.
+
+  METHOD parse_runner_groups_org.
+  ENDMETHOD.
+
+  METHOD parse_organization_actions_sec.
+  ENDMETHOD.
+
+  METHOD parse_actions_public_key.
+  ENDMETHOD.
+
+  METHOD parse_org_hook.
+  ENDMETHOD.
+
+  METHOD parse_webhook_config_url.
+  ENDMETHOD.
+
+  METHOD parse_webhook_config_content_t.
+  ENDMETHOD.
+
+  METHOD parse_webhook_config_secret.
+  ENDMETHOD.
+
+  METHOD parse_webhook_config_insecure_.
+  ENDMETHOD.
+
+  METHOD parse_org_membership.
+  ENDMETHOD.
+
+  METHOD parse_org_pre_receive_hook.
+  ENDMETHOD.
+
+  METHOD parse_project.
+  ENDMETHOD.
+
+  METHOD parse_team_simple.
+  ENDMETHOD.
+
+  METHOD parse_team.
+  ENDMETHOD.
+
+  METHOD parse_team_full.
+  ENDMETHOD.
+
+  METHOD parse_team_discussion.
+  ENDMETHOD.
+
+  METHOD parse_team_discussion_comment.
+  ENDMETHOD.
+
+  METHOD parse_reaction.
+  ENDMETHOD.
+
+  METHOD parse_team_membership.
+  ENDMETHOD.
+
+  METHOD parse_team_project.
+  ENDMETHOD.
+
+  METHOD parse_team_repository.
+  ENDMETHOD.
+
+  METHOD parse_project_card.
+  ENDMETHOD.
+
+  METHOD parse_project_column.
+  ENDMETHOD.
+
+  METHOD parse_repository_collaborator_.
+  ENDMETHOD.
+
+  METHOD parse_rate_limit.
+  ENDMETHOD.
+
+  METHOD parse_rate_limit_overview.
+  ENDMETHOD.
+
+  METHOD parse_full_repository.
+  ENDMETHOD.
+
+  METHOD parse_artifact.
+  ENDMETHOD.
+
+  METHOD parse_job.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_minimal.
+  ENDMETHOD.
+
+  METHOD parse_simple_commit.
+  ENDMETHOD.
+
+  METHOD parse_workflow_run.
+  ENDMETHOD.
+
+  METHOD parse_actions_secret.
+  ENDMETHOD.
+
+  METHOD parse_workflow.
+  ENDMETHOD.
+
+  METHOD parse_protected_branch_admin_e.
+  ENDMETHOD.
+
+  METHOD parse_protected_branch_pull_re.
+  ENDMETHOD.
+
+  METHOD parse_branch_restriction_polic.
+  ENDMETHOD.
+
+  METHOD parse_branch_protection.
+  ENDMETHOD.
+
+  METHOD parse_short_branch.
+  ENDMETHOD.
+
+  METHOD parse_git_user.
+  ENDMETHOD.
+
+  METHOD parse_verification.
+  ENDMETHOD.
+
+  METHOD parse_commit.
+  ENDMETHOD.
+
+  METHOD parse_branch_with_protection.
+  ENDMETHOD.
+
+  METHOD parse_status_check_policy.
+  ENDMETHOD.
+
+  METHOD parse_protected_branch.
+  ENDMETHOD.
+
+  METHOD parse_check_run.
+  ENDMETHOD.
+
+  METHOD parse_check_annotation.
+  ENDMETHOD.
+
+  METHOD parse_check_suite.
+  ENDMETHOD.
+
+  METHOD parse_check_suite_preference.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_stat.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_ref.
+  ENDMETHOD.
+
+  METHOD parse_alert_number.
+  ENDMETHOD.
+
+  METHOD parse_alert_created_at.
+  ENDMETHOD.
+
+  METHOD parse_alert_url.
+  ENDMETHOD.
+
+  METHOD parse_alert_html_url.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_dism.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_di01.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_rule.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_t.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis01.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_code.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_a.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_envi.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_inst.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_co01.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_set_.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_r.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_c.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis02.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_e.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis03.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_s.
+  ENDMETHOD.
+
+  METHOD parse_collaborator.
+  ENDMETHOD.
+
+  METHOD parse_repository_invitation.
+  ENDMETHOD.
+
+  METHOD parse_commit_comment.
+  ENDMETHOD.
+
+  METHOD parse_scim_error.
+  ENDMETHOD.
+
+  METHOD parse_branch_short.
+  ENDMETHOD.
+
+  METHOD parse_link.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_simple.
+  ENDMETHOD.
+
+  METHOD parse_simple_commit_status.
+  ENDMETHOD.
+
+  METHOD parse_combined_commit_status.
+  ENDMETHOD.
+
+  METHOD parse_status.
+  ENDMETHOD.
+
+  METHOD parse_diff_entry.
+  ENDMETHOD.
+
+  METHOD parse_commit_comparison.
+  ENDMETHOD.
+
+  METHOD parse_content_tree.
+  ENDMETHOD.
+
+  METHOD parse_content_directory.
+  ENDMETHOD.
+
+  METHOD parse_content_file.
+  ENDMETHOD.
+
+  METHOD parse_content_symlink.
+  ENDMETHOD.
+
+  METHOD parse_content_submodule.
+  ENDMETHOD.
+
+  METHOD parse_file_commit.
+  ENDMETHOD.
+
+  METHOD parse_contributor.
+  ENDMETHOD.
+
+  METHOD parse_deployment.
+  ENDMETHOD.
+
+  METHOD parse_deployment_status.
+  ENDMETHOD.
+
+  METHOD parse_short_blob.
+  ENDMETHOD.
+
+  METHOD parse_blob.
+  ENDMETHOD.
+
+  METHOD parse_git_commit.
+  ENDMETHOD.
+
+  METHOD parse_git_ref.
+  ENDMETHOD.
+
+  METHOD parse_git_tag.
+  ENDMETHOD.
+
+  METHOD parse_git_tree.
+  ENDMETHOD.
+
+  METHOD parse_hook_response.
+  ENDMETHOD.
+
+  METHOD parse_hook.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_label.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_dismissed_re.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_milestone.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_project_card.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_rename.
+  ENDMETHOD.
+
+  METHOD parse_issue_event.
+  ENDMETHOD.
+
+  METHOD parse_issue_event_for_issue.
+  ENDMETHOD.
+
+  METHOD parse_deploy_key.
+  ENDMETHOD.
+
+  METHOD parse_language.
+  ENDMETHOD.
+
+  METHOD parse_license_content.
+  ENDMETHOD.
+
+  METHOD parse_pages_source_hash.
+  ENDMETHOD.
+
+  METHOD parse_page.
+  ENDMETHOD.
+
+  METHOD parse_page_build.
+  ENDMETHOD.
+
+  METHOD parse_page_build_status.
+  ENDMETHOD.
+
+  METHOD parse_repository_pre_receive_h.
+  ENDMETHOD.
+
+  METHOD parse_pull_request.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_review_comm.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_merge_resul.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_review_requ.
+  ENDMETHOD.
+
+  METHOD parse_pull_request_review.
+  ENDMETHOD.
+
+  METHOD parse_review_comment.
+  ENDMETHOD.
+
+  METHOD parse_release_asset.
+  ENDMETHOD.
+
+  METHOD parse_release.
+  ENDMETHOD.
+
+  METHOD parse_stargazer.
+  ENDMETHOD.
+
+  METHOD parse_code_frequency_stat.
+  ENDMETHOD.
+
+  METHOD parse_commit_activity.
+  ENDMETHOD.
+
+  METHOD parse_contributor_activity.
+  ENDMETHOD.
+
+  METHOD parse_participation_stats.
+  ENDMETHOD.
+
+  METHOD parse_repository_subscription.
+  ENDMETHOD.
+
+  METHOD parse_tag.
+  ENDMETHOD.
+
+  METHOD parse_topic.
+  ENDMETHOD.
+
+  METHOD parse_search_result_text_match.
+  ENDMETHOD.
+
+  METHOD parse_code_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_commit_search_result_ite.
+  ENDMETHOD.
+
+  METHOD parse_issue_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_label_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_repo_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_topic_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_user_search_result_item.
+  ENDMETHOD.
+
+  METHOD parse_configuration_status.
+  ENDMETHOD.
+
+  METHOD parse_maintenance_status.
+  ENDMETHOD.
+
+  METHOD parse_enterprise_settings.
+  ENDMETHOD.
+
+  METHOD parse_ssh_key.
+  ENDMETHOD.
+
+  METHOD parse_private_user.
+  ENDMETHOD.
+
+  METHOD parse_public_user.
+  ENDMETHOD.
+
+  METHOD parse_email.
+  ENDMETHOD.
+
+  METHOD parse_gpg_key.
+  ENDMETHOD.
+
+  METHOD parse_key.
+  ENDMETHOD.
+
+  METHOD parse_starred_repository.
+  ENDMETHOD.
+
+  METHOD parse_hovercard.
+  ENDMETHOD.
+
+  METHOD parse_key_simple.
   ENDMETHOD.
 
   METHOD zif_ghes222~meta_root.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_global_w.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_global.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_global_we.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_global_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_global.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_global_hook_2( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_global.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_ping_global_w.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}/pings'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_public_k.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys'.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_public.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys/{key_ids}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_ldap_m.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/mapping'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_ldap_mapping_team( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_sync_ldap_map.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/sync'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_ldap01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/mapping'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_ldap_mapping_user( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_sync_ldap_m01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/sync'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_org_na.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_pre_rece.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_pre_re.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_recei.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_environment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_pre_re.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_environment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_pre_re.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_start_pre_rec.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_download_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_environment_( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_pre_re01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_pre_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_rec01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_pre_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_pre_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_personal.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens'.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_person.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens/{token_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_userna.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_impers.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_impers.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_authenticated.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_integration( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_create_from_manifest.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app-manifests/{code}/conversions'.
     REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH code.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_list_installations.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations'.
     IF outdated IS SUPPLIED.
       mi_client->request->set_form_field( name = 'outdated' value = outdated ).
@@ -421,46 +1895,51 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_installation_ghes_2( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_delete_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_create_installation_acces.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}/access_tokens'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_list_gran.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -470,126 +1949,143 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_get_grant.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants/{grant_id}'.
     REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH grant_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_application_grant( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_delete_gr.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants/{grant_id}'.
     REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH grant_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_delete_authorization.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/grant'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_revoke_grant_for_applicat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/grants/{access_token}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_check_token.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_reset_token.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_delete_token.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_check_authorization.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_reset_authorization.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_revoke_authorization_for_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_by_slug.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/apps/{app_slug}'.
     REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH app_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_integration( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_list_auth.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -599,140 +2095,161 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_create_au.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_get_or_cr.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/clients/{client_id}'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_get_or_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/clients/{client_id}/{fingerprint}'.
     REPLACE ALL OCCURRENCES OF '{fingerprint}' IN lv_uri WITH fingerprint.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_get_autho.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
     REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_update_au.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
     REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_delete_au.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
     REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~codes_of_conduct_get_all_codes.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~codes_of_conduct_get_conduct_c.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct/{key}'.
     REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH key.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_of_conduct( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_create_content_attachment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/content_references/{content_reference_id}/attachments'.
     REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH content_reference_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~emojis_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/emojis'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_license_i.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/settings/license'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_license_info( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_type_stat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/stats/{type}'.
     REPLACE ALL OCCURRENCES OF '{type}' IN lv_uri WITH type.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_overview( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_self_hos.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     IF per_page IS SUPPLIED.
@@ -743,60 +2260,67 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_self_h.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_self_host.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_self_h.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_self_h.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_org_acce.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
@@ -808,51 +2332,55 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_set_org_acces.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_add_org_acces.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH org_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_remove_org_ac.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH org_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_self_h01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
@@ -864,51 +2392,55 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_set_self_host.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_add_self_host.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_remove_self_h.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_self_h02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     IF per_page IS SUPPLIED.
@@ -919,70 +2451,77 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_runner_a.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/downloads'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_regist.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/registration-token'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_remove.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/remove-token'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_self_ho01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_no_labels( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_self01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_public_events.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/events'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -992,23 +2531,26 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_get_feeds.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/feeds'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_feed( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -1021,23 +2563,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_create.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_public.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/public'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -1050,13 +2594,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_starred.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/starred'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -1069,46 +2614,52 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_delete.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_comments.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     IF per_page IS SUPPLIED.
@@ -1119,60 +2670,67 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_create_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_get_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_update_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_delete_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_commits.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/commits'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     IF per_page IS SUPPLIED.
@@ -1183,13 +2741,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_forks.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     IF per_page IS SUPPLIED.
@@ -1200,90 +2759,100 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_fork.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_check_is_starred.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_star.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_unstar.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_get_revision.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gitignore_get_all_templates.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gitignore_get_template.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gitignore_template( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_list_repos_accessible_to_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/installation/repositories'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -1293,23 +2862,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_revoke_installation_acces.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/installation/token'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -1349,13 +2920,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~licenses_get_all_commonly_used.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses'.
     IF featured IS SUPPLIED.
       mi_client->request->set_form_field( name = 'featured' value = featured ).
@@ -1365,54 +2937,61 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~licenses_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses/{license}'.
     REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH license.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_license( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~markdown_render.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~markdown_render_raw.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown/raw'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~meta_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/meta'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_api_overview( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_public_events_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/networks/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -1424,13 +3003,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_notifications_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
     IF all IS SUPPLIED.
       mi_client->request->set_form_field( name = 'all' value = all ).
@@ -1452,126 +3032,142 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_mark_notifications_as.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_get_thread.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_thread( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_mark_thread_as_read.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_get_thread_subscripti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_thread_subscription( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_set_thread_subscripti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_thread_subscription( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_delete_thread_subscri.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~meta_get_octocat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/octocat'.
     IF s IS SUPPLIED.
       mi_client->request->set_form_field( name = 's' value = s ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/organizations'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_organization_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_organization_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_self_hosted_runne.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -1582,110 +3178,121 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_self_hosted_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runner.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_org( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_update_self_hosted_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_org( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_self_hosted_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_repo_access_to_se.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_set_repo_access_to_sel.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_add_repo_access_to_sel.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_remove_repo_access_to_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_self_hosted_run01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
@@ -1697,51 +3304,55 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_set_self_hosted_runner.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_add_self_hosted_runner.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_remove_self_hosted_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH runner_group_id.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_self_hosted_run02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -1752,70 +3363,77 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_runner_applicatio.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/downloads'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_registration_to.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/registration-token'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_remove_token_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/remove-token'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runn01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_no_labels( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_self_hosted_r01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_org_secrets.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -1826,110 +3444,121 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_org_public_key.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/public-key'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_public_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_org_secret.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_organization_actions_sec( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_or_update_org_s.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_org_secret.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_selected_repos_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_set_selected_repos_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_add_selected_repo_to_o.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_remove_selected_repo_f.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_public_org_event.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/events'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -1940,13 +3569,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_webhooks.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -1957,79 +3587,89 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_create_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_get_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_update_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_delete_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_ping_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_org_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/installation'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_installation_ghes_2( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_app_installations.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/installations'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -2040,13 +3680,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_for_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/issues'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
@@ -2075,13 +3716,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_members.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
@@ -2098,73 +3740,81 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_check_membership_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_remove_member.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_get_membership_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_set_membership_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_remove_membership_for_use.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_outside_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
@@ -2178,37 +3828,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_convert_member_to_outside.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_remove_outside_collaborat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_pre_re02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF page IS SUPPLIED.
@@ -2216,46 +3869,53 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_rec02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_pre_02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_remove_pre_re.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_for_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF state IS SUPPLIED.
@@ -2269,24 +3929,26 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_create_for_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_public_members.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -2297,49 +3959,53 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_check_public_membership_f.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_set_public_membership_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_remove_public_membership_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_for_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF type IS SUPPLIED.
@@ -2359,24 +4025,26 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF per_page IS SUPPLIED.
@@ -2387,60 +4055,66 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_create.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_by_name.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_discussions_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2455,61 +4129,68 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_create_discussion_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_discussion_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_discussion_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_discussion_comments.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2524,61 +4205,68 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_create_discussion_commen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_comment_i.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_discussion_commen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_discussion_commen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_team_discus.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2593,37 +4281,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_team_disc.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_team_disc.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_team_disc01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2638,37 +4329,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_team_di01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_team_di01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_members_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2683,52 +4377,58 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_membership_for_user_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_membership.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_membership_for_us.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_projects_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2740,49 +4440,54 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_check_permissions_for_pr.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_project_pe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_project_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_repos_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2794,13 +4499,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_check_permissions_for_re.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2808,13 +4514,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_repo_permi.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2822,13 +4529,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_repo_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2836,13 +4544,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_child_in_org.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -2854,90 +4563,102 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_get_card.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_card( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_update_card.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_card( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_delete_card.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_move_card.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}/moves'.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_get_column.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_column( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_update_column.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_column( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_delete_column.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_cards.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     IF archived_state IS SUPPLIED.
@@ -2951,65 +4672,73 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_create_card.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_move_column.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/moves'.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_delete.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_collaborators.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators'.
     IF affiliation IS SUPPLIED.
       mi_client->request->set_form_field( name = 'affiliation' value = affiliation ).
@@ -3022,46 +4751,51 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_add_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_remove_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_get_permission_for_us.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}/permission'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_collaborator_( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_columns.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -3071,79 +4805,89 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_create_column.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~rate_limit_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/rate_limit'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_rate_limit_overview( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/reactions/{reaction_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_full_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_full_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_artifacts_for_rep.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3155,39 +4899,43 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_artifact.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH artifact_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_artifact( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_artifact.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH artifact_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_download_artifact.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}'.
     REPLACE ALL OCCURRENCES OF '{archive_format}' IN lv_uri WITH archive_format.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -3195,39 +4943,42 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH artifact_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_job_for_workflow_r.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/jobs/{job_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH job_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_download_job_logs_for_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/jobs/{job_id}/logs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH job_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_self_hosted_run03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3239,75 +4990,82 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_runner_applicat01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/downloads'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_registration_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/registration-token'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_remove_token_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/remove-token'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runn02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_no_labels( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_self_hosted_r02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/{runner_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH runner_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_workflow_runs_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3325,37 +5083,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_workflow_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow_run( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_workflow_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_workflow_run_arti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3367,25 +5129,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_cancel_workflow_run.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/cancel'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_jobs_for_workflow.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/jobs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3400,49 +5164,53 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_download_workflow_run_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_workflow_run_lo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_re_run_workflow.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/rerun'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_repo_secrets.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3454,64 +5222,71 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_repo_public_key.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/public-key'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_public_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_repo_secret.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_secret( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_or_update_repo_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_delete_repo_secret.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_repo_workflows.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3523,37 +5298,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_workflow.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_workflow_dispat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_list_workflow_runs.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3571,13 +5350,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_assignees.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3589,26 +5369,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_check_user_can_be_assig.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees/{assignee}'.
     REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH assignee.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_branches.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3623,13 +5405,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_branch.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3638,13 +5421,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_branch_with_protection( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_branch_protection.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3653,13 +5438,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_branch_protection( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_branch_protection.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3668,13 +5455,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_branch_protection.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3683,13 +5472,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_admin_branch_protect.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3698,13 +5488,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_admin_e( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_set_admin_branch_protect.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3713,13 +5505,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_admin_e( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_admin_branch_prot.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3728,13 +5522,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_pull_request_review_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3743,13 +5538,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_pull_request_revi.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3758,13 +5554,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_pull_re( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_pull_request_revi.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3773,13 +5571,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_commit_signature_pro.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3788,13 +5587,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_admin_e( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_commit_signature_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3803,13 +5604,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_admin_e( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_commit_signature_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3818,13 +5621,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_status_checks_protec.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3833,13 +5637,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_status_check_policy( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_status_check_prot.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3848,13 +5654,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_status_check_policy( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_status_check_prot.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3863,13 +5671,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_all_status_check_con.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3878,13 +5687,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_add_status_check_context.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3893,13 +5703,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_set_status_check_context.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3908,13 +5719,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_status_check_cont.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3923,13 +5735,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_access_restrictions.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3938,13 +5751,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_branch_restriction_polic( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_access_restrictio.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3953,13 +5768,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_apps_with_access_to_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3968,13 +5784,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_add_app_access_restricti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3983,13 +5800,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_set_app_access_restricti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -3998,13 +5816,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_app_access_restri.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4013,13 +5832,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_teams_with_access_to.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4028,13 +5848,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_add_team_access_restrict.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4043,13 +5864,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_set_team_access_restrict.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4058,13 +5880,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_team_access_restr.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4073,13 +5896,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_users_with_access_to.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4088,13 +5912,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_add_user_access_restrict.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4103,13 +5928,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_set_user_access_restrict.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4118,13 +5944,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_user_access_restr.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4133,51 +5960,57 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_create.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH check_run_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_run( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH check_run_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_run( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_list_annotations.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4190,50 +6023,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_create_suite.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_set_suites_preferences.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/preferences'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_suite_preference( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_get_suite.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH check_suite_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_suite( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_list_for_suite.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4255,26 +6094,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_rerequest_suite.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH check_suite_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_list_alerts_for_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4286,39 +6127,44 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_get_alert.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
     REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_alert_co01( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_update_alert.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_alert_co01( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_list_recent_anal.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/analyses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4330,25 +6176,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_upload_sarif.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/sarifs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_collaborators.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4363,65 +6211,71 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_check_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_add_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_collaborator.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_collaborator_permiss.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}/permission'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_collaborator_( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_commit_comments_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4433,52 +6287,58 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_commit_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_commit_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_commit_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_commit_comm.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4494,39 +6354,43 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_commit_co.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_commit_co.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_commits.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4553,26 +6417,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_branches_for_head_c.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_comments_for_commit.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4585,26 +6451,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_commit_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_pull_requests_assoc.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4617,26 +6485,29 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_commit.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_list_for_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -4658,13 +6529,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_list_suites_for_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -4683,26 +6555,29 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_combined_status_for_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/status'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_combined_commit_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_commit_statuses_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/statuses'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -4715,25 +6590,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~codes_of_conduct_get_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/community/code_of_conduct'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_of_conduct( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_compare_commits.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/compare/{base}...{head}'.
     REPLACE ALL OCCURRENCES OF '{base}' IN lv_uri WITH base.
     REPLACE ALL OCCURRENCES OF '{head}' IN lv_uri WITH head.
@@ -4741,13 +6619,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit_comparison( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_content.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -4757,39 +6637,44 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_or_update_file_co.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_file_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_file.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_file_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_contributors.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4804,13 +6689,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_deployments.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4834,51 +6720,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_deployment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deployment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deployment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_deployment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_deployment_statuses.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4891,26 +6782,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_deployment_status.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deployment_status.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
     REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH status_id.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -4918,25 +6811,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deployment_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_dispatch_event.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/dispatches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_repo_events.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4948,13 +6844,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_forks.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -4969,75 +6866,83 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_fork.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_create_blob.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_blob.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs/{file_sha}'.
     REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH file_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_blob( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_create_commit.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_commit.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits/{commit_sha}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_list_matching_refs.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/matching-refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -5050,101 +6955,112 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/ref/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_ref( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_create_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_update_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_ref( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_delete_ref.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_create_tag.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_tag.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags/{tag_sha}'.
     REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH tag_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_tag( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_create_tree.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_tree.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees/{tree_sha}'.
     REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH tree_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -5154,13 +7070,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_tree( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_webhooks.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5172,97 +7090,108 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_ping_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_test_push_webhook.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_repo_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/installation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_installation_ghes_2( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_invitations.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5274,39 +7203,43 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_invitation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_invitation( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_invitation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5345,25 +7278,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_create.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_comments_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5384,52 +7319,58 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_update_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_delete_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_issue_comme.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5445,39 +7386,43 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_issue_com.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_issue_com.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_events_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5489,78 +7434,88 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_event.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events/{event_id}'.
     REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH event_id.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_event( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_add_assignees.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_remove_assignees.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_comments.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5576,26 +7531,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_create_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_events.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5608,13 +7565,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_labels_on_issue.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5627,52 +7585,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_add_labels.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_set_labels.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_remove_all_labels.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_remove_label.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -5680,39 +7642,42 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_lock.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_unlock.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_issue.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5728,39 +7693,42 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_issue.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_issue.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_events_for_timelin.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5773,13 +7741,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_deploy_keys.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5791,51 +7760,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_deploy_key.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deploy_key.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deploy_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_deploy_key.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_labels_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5847,100 +7821,112 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_create_label.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_label.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_label( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_update_label.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_label( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_delete_label.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_languages.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/languages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_language( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~licenses_get_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/license'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_license_content( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_merge.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/merges'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_milestones.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5961,64 +7947,71 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_create_milestone.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_milestone.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_milestone( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_update_milestone.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_milestone( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_delete_milestone.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_labels_for_milesto.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6031,13 +8024,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_repo_notificatio.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6061,73 +8055,80 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_mark_repo_notificatio.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_pages.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_page( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_pages_site.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_information_about.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_pages_site.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_pages_builds.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6139,50 +8140,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_request_pages_build.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_latest_pages_build.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_page_build( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_pages_build.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/{build_id}'.
     REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH build_id.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_page_build( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_list_pre_re03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6191,49 +8198,56 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_rec03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_pre_receive_h( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_pre_03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_pre_receive_h( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_remove_pre_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_pre_receive_h( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6248,25 +8262,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_create_for_repo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6293,25 +8309,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_create.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_review_comments_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6332,52 +8350,58 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_get_review_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review_comm( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_update_review_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review_comm( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_delete_review_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_pull_reques.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6393,63 +8417,71 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_pull_requ.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_pull_requ.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_get.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_update.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_review_comments.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6470,38 +8502,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_create_review_comment.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_create_reply_for_review_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_commits.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6513,13 +8548,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_files.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/files'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6531,37 +8567,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_check_if_merged.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_merge.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_merge_resul( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_requested_reviewers.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6573,37 +8613,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review_requ( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_request_reviewers.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_remove_requested_reviewe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_reviews.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6615,64 +8659,73 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_create_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_get_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_update_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_delete_pending_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_comments_for_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6685,51 +8738,57 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_dismiss_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_submit_review.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_update_branch.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_readme.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6738,13 +8797,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_file( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_releases.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6756,128 +8817,144 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_release.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_release_asset.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release_asset( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_release_asset.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release_asset( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_release_asset.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_latest_release.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_release_by_tag.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/tags/{tag}'.
     REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH tag.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_release.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_release.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_delete_release.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_release_assets.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6890,13 +8967,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_upload_release_asset.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6909,13 +8987,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_stargazers_for_r.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stargazers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6927,86 +9006,94 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_code_frequency_stats.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/code_frequency'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_commit_activity_stat.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/commit_activity'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_contributors_stats.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_participation_stats.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/participation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_participation_stats( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_punch_card_stats.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/punch_card'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_commit_status.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/statuses/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_watchers_for_rep.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscribers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7018,49 +9105,55 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_get_repo_subscription.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_subscription( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_set_repo_subscription.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_subscription( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_delete_repo_subscript.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_tags.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7072,26 +9165,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_download_tarball_archive.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tarball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_teams.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7103,111 +9198,122 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_all_topics.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_topic( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_replace_all_topics.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_topic( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_transfer.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/transfer'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_enable_vulnerability_ale.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_disable_vulnerability_al.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_download_zipball_archive.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/zipball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_using_template.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{template_owner}/{template_repo}/generate'.
     REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH template_owner.
     REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH template_repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_public.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_code.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/code'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -7224,13 +9330,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_commits.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/commits'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -7247,13 +9354,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_issues_and_pull_request.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/issues'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -7270,13 +9378,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_labels.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/labels'.
     mi_client->request->set_form_field( name = 'repository_id' value = repository_id ).
     mi_client->request->set_form_field( name = 'q' value = q ).
@@ -7288,13 +9397,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_repos.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/repositories'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -7311,24 +9421,26 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_topics.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/topics'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~search_users.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/users'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -7345,153 +9457,173 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_configura.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configcheck'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_configuration_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_start_configu.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configure'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_maintenan.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_maintenance_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_enable_or_dis.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_maintenance_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_settings.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_settings( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_set_settings.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_all_autho.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_add_authorize.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_remove_author.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_enterp.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/start'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_upgrade_licen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/upgrade'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_discussions_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions'.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
@@ -7504,53 +9636,60 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_create_discussion_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_discussion_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_discussion_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_discussion_commen01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments'.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
@@ -7563,53 +9702,60 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_create_discussion_comm01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_comment_l.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_update_discussion_comm01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_discussion_comm01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_team_disc02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -7622,23 +9768,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_team_di02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_team_disc03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/reactions'.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -7651,23 +9799,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_create_for_team_di03.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/reactions'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_members_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members'.
     IF role IS SUPPLIED.
       mi_client->request->set_form_field( name = 'role' value = role ).
@@ -7680,79 +9830,88 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_member_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_member_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_member_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_membership_for_use01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_membersh01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_membership_for_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_projects_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7762,43 +9921,48 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_check_permissions_for_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_project_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_project_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_repos_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7808,49 +9972,53 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_check_permissions_for_02.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_add_or_update_repo_per01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_remove_repo_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_child_legacy.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/teams'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7860,33 +10028,37 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_authenticated.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_update_authenticated.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_private_user( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_emails_for_authenti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7896,33 +10068,36 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_add_email_for_authentica.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_delete_email_for_authent.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_followers_for_authe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/followers'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7932,13 +10107,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_followed_by_authent.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7948,46 +10124,50 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_check_person_is_followed.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_follow.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_unfollow.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_gpg_keys_for_authen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -7997,45 +10177,50 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_create_gpg_key_for_authe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_gpg_key_for_authenti.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH gpg_key_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gpg_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_delete_gpg_key_for_authe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH gpg_key_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_list_installations_for_au.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8045,13 +10230,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_list_installation_repos_f.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     IF per_page IS SUPPLIED.
@@ -8062,37 +10248,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_add_repo_to_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_remove_repo_from_installa.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_for_authenticated_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -8120,13 +10309,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_public_ssh_keys_for.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8136,45 +10326,50 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_create_public_ssh_key_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_public_ssh_key_for_a.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_delete_public_ssh_key_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_memberships_for_auth.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs'.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
@@ -8187,35 +10382,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_get_membership_for_authen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_update_membership_for_aut.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_membership( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_for_authenticated_us.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/orgs'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8225,23 +10425,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_create_for_authentica.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/projects'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_public_emails_for_a.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/public_emails'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8251,13 +10453,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_for_authenticated_u.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
@@ -8288,23 +10491,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_create_for_authenticated.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_invitations_for_aut.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8314,35 +10519,38 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_accept_invitation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_decline_invitation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_repos_starred_by.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -8358,49 +10566,53 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_check_repo_is_starred.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_star_repo_for_authent.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_unstar_repo_for_authe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_watched_repos_fo.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/subscriptions'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8410,13 +10622,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_for_authenticated_u.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/teams'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
@@ -8426,37 +10639,40 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users'.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = per_page ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_by_username.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_events_for_authe.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8467,13 +10683,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_org_events_for_a.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
@@ -8485,13 +10702,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_public_events_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8502,13 +10720,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_followers_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/followers'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8519,13 +10738,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_following_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8536,25 +10756,27 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_check_following_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following/{target_user}'.
     REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH target_user.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gists'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF since IS SUPPLIED.
@@ -8568,13 +10790,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_gpg_keys_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gpg_keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8585,13 +10808,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_context_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/hovercard'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF subject_type IS SUPPLIED.
@@ -8602,24 +10826,28 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hovercard( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_get_user_installation.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/installation'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_installation_ghes_2( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_public_keys_for_use.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8630,13 +10858,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/orgs'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8647,13 +10876,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_list_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/projects'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF state IS SUPPLIED.
@@ -8667,13 +10897,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_received_events_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8684,13 +10915,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_received_public_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8701,13 +10933,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_for_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/repos'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF type IS SUPPLIED.
@@ -8727,35 +10960,38 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_promote_user_.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_demote_site_a.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_repos_starred_01.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/starred'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF sort IS SUPPLIED.
@@ -8772,13 +11008,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_repos_watched_by.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/subscriptions'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF per_page IS SUPPLIED.
@@ -8789,42 +11026,45 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_suspend_user.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_unsuspend_use.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~meta_get_zen.
+    DATA lv_code TYPE i.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/zen'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-*    mi_client->request->set_header_field( name = 'Content-Type' value = 'todo' ).
-*    mi_client->request->set_header_field( name = 'Accept'       value = 'todo' ).
-    send_receive( ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
 ENDCLASS.

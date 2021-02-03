@@ -15,6 +15,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            ping_url TYPE string,
          END OF global_hook.
+
 * Component schema: global-hook-2, object
   TYPES: BEGIN OF global_hook_2,
            type TYPE string,
@@ -28,6 +29,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            ping_url TYPE string,
          END OF global_hook_2.
+
 * Component schema: enterprise-public-key, object
   TYPES: BEGIN OF enterprise_public_key,
            id TYPE string,
@@ -37,6 +39,7 @@ INTERFACE zif_ghes221.
            repository_id TYPE i,
            url TYPE string,
          END OF enterprise_public_key.
+
 * Component schema: ldap-mapping-team, object
   TYPES: BEGIN OF ldap_mapping_team,
            ldap_dn TYPE string,
@@ -53,6 +56,7 @@ INTERFACE zif_ghes221.
            repositories_url TYPE string,
            parent TYPE string,
          END OF ldap_mapping_team.
+
 * Component schema: ldap-mapping-user, object
   TYPES: BEGIN OF ldap_mapping_user,
            ldap_dn TYPE string,
@@ -75,6 +79,7 @@ INTERFACE zif_ghes221.
            type TYPE string,
            site_admin TYPE abap_bool,
          END OF ldap_mapping_user.
+
 * Component schema: organization-simple, object
   TYPES: BEGIN OF organization_simple,
            login TYPE string,
@@ -90,6 +95,7 @@ INTERFACE zif_ghes221.
            avatar_url TYPE string,
            description TYPE string,
          END OF organization_simple.
+
 * Component schema: pre-receive-environment, object
   TYPES: BEGIN OF pre_receive_environment,
            id TYPE i,
@@ -102,6 +108,7 @@ INTERFACE zif_ghes221.
            hooks_count TYPE i,
            download TYPE string,
          END OF pre_receive_environment.
+
 * Component schema: pre-receive-environment-download-status, object
   TYPES: BEGIN OF pre_receive_environment_downlo,
            url TYPE string,
@@ -109,6 +116,7 @@ INTERFACE zif_ghes221.
            downloaded_at TYPE string,
            message TYPE string,
          END OF pre_receive_environment_downlo.
+
 * Component schema: pre-receive-hook, object
   TYPES: BEGIN OF pre_receive_hook,
            id TYPE i,
@@ -119,6 +127,7 @@ INTERFACE zif_ghes221.
            environment TYPE string,
            allow_downstream_configuration TYPE abap_bool,
          END OF pre_receive_hook.
+
 * Component schema: simple-user, object
   TYPES: BEGIN OF simple_user,
            login TYPE string,
@@ -141,6 +150,7 @@ INTERFACE zif_ghes221.
            site_admin TYPE abap_bool,
            starred_at TYPE string,
          END OF simple_user.
+
 * Component schema: app-permissions, object
   TYPES: BEGIN OF app_permissions,
            actions TYPE string,
@@ -174,6 +184,7 @@ INTERFACE zif_ghes221.
            organization_user_blocking TYPE string,
            team_discussions TYPE string,
          END OF app_permissions.
+
 * Component schema: scoped-installation, object
   TYPES: BEGIN OF scoped_installation,
            permissions TYPE string,
@@ -184,6 +195,7 @@ INTERFACE zif_ghes221.
            repositories_url TYPE string,
            account TYPE string,
          END OF scoped_installation.
+
 * Component schema: authorization, object
   TYPES: BEGIN OF authorization,
            id TYPE i,
@@ -201,6 +213,7 @@ INTERFACE zif_ghes221.
            user TYPE string,
            installation TYPE string,
          END OF authorization.
+
 * Component schema: integration, object
   TYPES: BEGIN OF integration,
            id TYPE i,
@@ -221,17 +234,20 @@ INTERFACE zif_ghes221.
            webhook_secret TYPE string,
            pem TYPE string,
          END OF integration.
+
 * Component schema: basic-error, object
   TYPES: BEGIN OF basic_error,
            message TYPE string,
            documentation_url TYPE string,
          END OF basic_error.
+
 * Component schema: validation-error-simple, object
   TYPES: BEGIN OF validation_error_simple,
            message TYPE string,
            documentation_url TYPE string,
            errors TYPE string,
          END OF validation_error_simple.
+
 * Component schema: enterprise, object
   TYPES: BEGIN OF enterprise,
            description TYPE string,
@@ -245,6 +261,7 @@ INTERFACE zif_ghes221.
            updated_at TYPE string,
            avatar_url TYPE string,
          END OF enterprise.
+
 * Component schema: installation-ghes-2, object
   TYPES: BEGIN OF installation_ghes_2,
            id TYPE i,
@@ -266,6 +283,7 @@ INTERFACE zif_ghes221.
            suspended_at TYPE string,
            contact_email TYPE string,
          END OF installation_ghes_2.
+
 * Component schema: license-simple, object
   TYPES: BEGIN OF license_simple,
            key TYPE string,
@@ -275,6 +293,7 @@ INTERFACE zif_ghes221.
            node_id TYPE string,
            html_url TYPE string,
          END OF license_simple.
+
 * Component schema: repository, object
   TYPES: BEGIN OF repository,
            id TYPE i,
@@ -365,6 +384,7 @@ INTERFACE zif_ghes221.
            starred_at TYPE string,
            anonymous_access_enabled TYPE abap_bool,
          END OF repository.
+
 * Component schema: installation-token, object
   TYPES: BEGIN OF installation_token,
            token TYPE string,
@@ -376,12 +396,14 @@ INTERFACE zif_ghes221.
            has_multiple_single_files TYPE abap_bool,
            single_file_paths TYPE string,
          END OF installation_token.
+
 * Component schema: validation-error, object
   TYPES: BEGIN OF validation_error,
            message TYPE string,
            documentation_url TYPE string,
            errors TYPE string,
          END OF validation_error.
+
 * Component schema: application-grant, object
   TYPES: BEGIN OF application_grant,
            id TYPE i,
@@ -392,6 +414,7 @@ INTERFACE zif_ghes221.
            scopes TYPE string,
            user TYPE string,
          END OF application_grant.
+
 * Component schema: code-of-conduct, object
   TYPES: BEGIN OF code_of_conduct,
            key TYPE string,
@@ -400,6 +423,7 @@ INTERFACE zif_ghes221.
            body TYPE string,
            html_url TYPE string,
          END OF code_of_conduct.
+
 * Component schema: content-reference-attachment, object
   TYPES: BEGIN OF content_reference_attachment,
            id TYPE i,
@@ -407,6 +431,7 @@ INTERFACE zif_ghes221.
            body TYPE string,
            node_id TYPE string,
          END OF content_reference_attachment.
+
 * Component schema: license-info, object
   TYPES: BEGIN OF license_info,
            seats TYPE i,
@@ -416,6 +441,7 @@ INTERFACE zif_ghes221.
            days_until_expiration TYPE i,
            expire_at TYPE string,
          END OF license_info.
+
 * Component schema: enterprise-overview, object
   TYPES: BEGIN OF enterprise_overview,
            repos TYPE string,
@@ -429,6 +455,7 @@ INTERFACE zif_ghes221.
            gists TYPE string,
            comments TYPE string,
          END OF enterprise_overview.
+
 * Component schema: actor, object
   TYPES: BEGIN OF actor,
            id TYPE i,
@@ -438,6 +465,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            avatar_url TYPE string,
          END OF actor.
+
 * Component schema: label, object
   TYPES: BEGIN OF label,
            id TYPE i,
@@ -448,6 +476,7 @@ INTERFACE zif_ghes221.
            color TYPE string,
            default TYPE abap_bool,
          END OF label.
+
 * Component schema: milestone, object
   TYPES: BEGIN OF milestone,
            url TYPE string,
@@ -467,8 +496,10 @@ INTERFACE zif_ghes221.
            closed_at TYPE string,
            due_on TYPE string,
          END OF milestone.
+
 * Component schema: author_association, string
   TYPES author_association TYPE string.
+
 * Component schema: issue-simple, object
   TYPES: BEGIN OF issue_simple,
            id TYPE i,
@@ -502,6 +533,7 @@ INTERFACE zif_ghes221.
            repository TYPE string,
            performed_via_github_app TYPE string,
          END OF issue_simple.
+
 * Component schema: reaction-rollup, object
   TYPES: BEGIN OF reaction_rollup,
            url TYPE string,
@@ -515,6 +547,7 @@ INTERFACE zif_ghes221.
            eyes TYPE i,
            rocket TYPE i,
          END OF reaction_rollup.
+
 * Component schema: issue-comment, object
   TYPES: BEGIN OF issue_comment,
            id TYPE i,
@@ -532,6 +565,7 @@ INTERFACE zif_ghes221.
            performed_via_github_app TYPE string,
            reactions TYPE string,
          END OF issue_comment.
+
 * Component schema: event, object
   TYPES: BEGIN OF event,
            id TYPE string,
@@ -543,11 +577,13 @@ INTERFACE zif_ghes221.
            public TYPE abap_bool,
            created_at TYPE string,
          END OF event.
+
 * Component schema: link-with-type, object
   TYPES: BEGIN OF link_with_type,
            href TYPE string,
            type TYPE string,
          END OF link_with_type.
+
 * Component schema: feed, object
   TYPES: BEGIN OF feed,
            timeline_url TYPE string,
@@ -559,6 +595,7 @@ INTERFACE zif_ghes221.
            current_user_organization_urls TYPE string,
            _links TYPE string,
          END OF feed.
+
 * Component schema: base-gist, object
   TYPES: BEGIN OF base_gist,
            url TYPE string,
@@ -582,6 +619,7 @@ INTERFACE zif_ghes221.
            forks TYPE string,
            history TYPE string,
          END OF base_gist.
+
 * Component schema: gist-simple, object
   TYPES: BEGIN OF gist_simple,
            url TYPE string,
@@ -603,6 +641,7 @@ INTERFACE zif_ghes221.
            owner TYPE string,
            truncated TYPE abap_bool,
          END OF gist_simple.
+
 * Component schema: gist-comment, object
   TYPES: BEGIN OF gist_comment,
            id TYPE i,
@@ -614,6 +653,7 @@ INTERFACE zif_ghes221.
            updated_at TYPE string,
            author_association TYPE string,
          END OF gist_comment.
+
 * Component schema: gist-commit, object
   TYPES: BEGIN OF gist_commit,
            url TYPE string,
@@ -622,11 +662,13 @@ INTERFACE zif_ghes221.
            change_status TYPE string,
            committed_at TYPE string,
          END OF gist_commit.
+
 * Component schema: gitignore-template, object
   TYPES: BEGIN OF gitignore_template,
            name TYPE string,
            source TYPE string,
          END OF gitignore_template.
+
 * Component schema: issue, object
   TYPES: BEGIN OF issue,
            id TYPE i,
@@ -662,6 +704,7 @@ INTERFACE zif_ghes221.
            author_association TYPE string,
            reactions TYPE string,
          END OF issue.
+
 * Component schema: license, object
   TYPES: BEGIN OF license,
            key TYPE string,
@@ -678,11 +721,13 @@ INTERFACE zif_ghes221.
            body TYPE string,
            featured TYPE abap_bool,
          END OF license.
+
 * Component schema: api-overview, object
   TYPES: BEGIN OF api_overview,
            verifiable_password_authentica TYPE abap_bool,
            installed_version TYPE string,
          END OF api_overview.
+
 * Component schema: minimal-repository, object
   TYPES: BEGIN OF minimal_repository,
            id TYPE i,
@@ -768,6 +813,7 @@ INTERFACE zif_ghes221.
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
          END OF minimal_repository.
+
 * Component schema: thread, object
   TYPES: BEGIN OF thread,
            id TYPE string,
@@ -780,6 +826,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            subscription_url TYPE string,
          END OF thread.
+
 * Component schema: thread-subscription, object
   TYPES: BEGIN OF thread_subscription,
            subscribed TYPE abap_bool,
@@ -790,6 +837,7 @@ INTERFACE zif_ghes221.
            thread_url TYPE string,
            repository_url TYPE string,
          END OF thread_subscription.
+
 * Component schema: organization-full, object
   TYPES: BEGIN OF organization_full,
            login TYPE string,
@@ -835,6 +883,7 @@ INTERFACE zif_ghes221.
            members_can_create_pages TYPE abap_bool,
            updated_at TYPE string,
          END OF organization_full.
+
 * Component schema: org-hook, object
   TYPES: BEGIN OF org_hook,
            id TYPE i,
@@ -848,14 +897,19 @@ INTERFACE zif_ghes221.
            created_at TYPE string,
            type TYPE string,
          END OF org_hook.
+
 * Component schema: webhook-config-url, string
   TYPES webhook_config_url TYPE string.
+
 * Component schema: webhook-config-content-type, string
   TYPES webhook_config_content_type TYPE string.
+
 * Component schema: webhook-config-secret, string
   TYPES webhook_config_secret TYPE string.
+
 * Component schema: webhook-config-insecure-ssl, string
   TYPES webhook_config_insecure_ssl TYPE string.
+
 * Component schema: org-membership, object
   TYPES: BEGIN OF org_membership,
            url TYPE string,
@@ -866,6 +920,7 @@ INTERFACE zif_ghes221.
            user TYPE string,
            permissions TYPE string,
          END OF org_membership.
+
 * Component schema: org-pre-receive-hook, object
   TYPES: BEGIN OF org_pre_receive_hook,
            id TYPE i,
@@ -874,6 +929,7 @@ INTERFACE zif_ghes221.
            configuration_url TYPE string,
            allow_downstream_configuration TYPE abap_bool,
          END OF org_pre_receive_hook.
+
 * Component schema: project, object
   TYPES: BEGIN OF project,
            owner_url TYPE string,
@@ -892,6 +948,7 @@ INTERFACE zif_ghes221.
            organization_permission TYPE string,
            private TYPE abap_bool,
          END OF project.
+
 * Component schema: team-simple, object
   TYPES: BEGIN OF team_simple,
            id TYPE i,
@@ -907,6 +964,7 @@ INTERFACE zif_ghes221.
            slug TYPE string,
            ldap_dn TYPE string,
          END OF team_simple.
+
 * Component schema: team, object
   TYPES: BEGIN OF team,
            id TYPE i,
@@ -922,6 +980,7 @@ INTERFACE zif_ghes221.
            repositories_url TYPE string,
            parent TYPE string,
          END OF team.
+
 * Component schema: team-full, object
   TYPES: BEGIN OF team_full,
            id TYPE i,
@@ -943,6 +1002,7 @@ INTERFACE zif_ghes221.
            organization TYPE string,
            ldap_dn TYPE string,
          END OF team_full.
+
 * Component schema: team-discussion, object
   TYPES: BEGIN OF team_discussion,
            author TYPE string,
@@ -964,6 +1024,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            reactions TYPE string,
          END OF team_discussion.
+
 * Component schema: team-discussion-comment, object
   TYPES: BEGIN OF team_discussion_comment,
            author TYPE string,
@@ -980,6 +1041,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            reactions TYPE string,
          END OF team_discussion_comment.
+
 * Component schema: reaction, object
   TYPES: BEGIN OF reaction,
            id TYPE i,
@@ -988,12 +1050,14 @@ INTERFACE zif_ghes221.
            content TYPE string,
            created_at TYPE string,
          END OF reaction.
+
 * Component schema: team-membership, object
   TYPES: BEGIN OF team_membership,
            url TYPE string,
            role TYPE string,
            state TYPE string,
          END OF team_membership.
+
 * Component schema: team-project, object
   TYPES: BEGIN OF team_project,
            owner_url TYPE string,
@@ -1013,6 +1077,7 @@ INTERFACE zif_ghes221.
            private TYPE abap_bool,
            permissions TYPE string,
          END OF team_project.
+
 * Component schema: team-repository, object
   TYPES: BEGIN OF team_repository,
            id TYPE i,
@@ -1102,6 +1167,7 @@ INTERFACE zif_ghes221.
            master_branch TYPE string,
            anonymous_access_enabled TYPE abap_bool,
          END OF team_repository.
+
 * Component schema: project-card, object
   TYPES: BEGIN OF project_card,
            url TYPE string,
@@ -1116,6 +1182,7 @@ INTERFACE zif_ghes221.
            content_url TYPE string,
            project_url TYPE string,
          END OF project_card.
+
 * Component schema: project-column, object
   TYPES: BEGIN OF project_column,
            url TYPE string,
@@ -1127,22 +1194,26 @@ INTERFACE zif_ghes221.
            created_at TYPE string,
            updated_at TYPE string,
          END OF project_column.
+
 * Component schema: repository-collaborator-permission, object
   TYPES: BEGIN OF repository_collaborator_permis,
            permission TYPE string,
            user TYPE string,
          END OF repository_collaborator_permis.
+
 * Component schema: rate-limit, object
   TYPES: BEGIN OF rate_limit,
            limit TYPE i,
            remaining TYPE i,
            reset TYPE i,
          END OF rate_limit.
+
 * Component schema: rate-limit-overview, object
   TYPES: BEGIN OF rate_limit_overview,
            resources TYPE string,
            rate TYPE string,
          END OF rate_limit_overview.
+
 * Component schema: full-repository, object
   TYPES: BEGIN OF full_repository,
            id TYPE i,
@@ -1235,11 +1306,13 @@ INTERFACE zif_ghes221.
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
          END OF full_repository.
+
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
            url TYPE string,
            enabled TYPE abap_bool,
          END OF protected_branch_admin_enforce.
+
 * Component schema: protected-branch-pull-request-review, object
   TYPES: BEGIN OF protected_branch_pull_request_,
            url TYPE string,
@@ -1248,6 +1321,7 @@ INTERFACE zif_ghes221.
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
          END OF protected_branch_pull_request_.
+
 * Component schema: branch-restriction-policy, object
   TYPES: BEGIN OF branch_restriction_policy,
            url TYPE string,
@@ -1258,6 +1332,7 @@ INTERFACE zif_ghes221.
            teams TYPE string,
            apps TYPE string,
          END OF branch_restriction_policy.
+
 * Component schema: branch-protection, object
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
@@ -1272,6 +1347,7 @@ INTERFACE zif_ghes221.
            name TYPE string,
            protection_url TYPE string,
          END OF branch_protection.
+
 * Component schema: short-branch, object
   TYPES: BEGIN OF short_branch,
            name TYPE string,
@@ -1280,12 +1356,14 @@ INTERFACE zif_ghes221.
            protection TYPE string,
            protection_url TYPE string,
          END OF short_branch.
+
 * Component schema: git-user, object
   TYPES: BEGIN OF git_user,
            name TYPE string,
            email TYPE string,
            date TYPE string,
          END OF git_user.
+
 * Component schema: verification, object
   TYPES: BEGIN OF verification,
            verified TYPE abap_bool,
@@ -1293,6 +1371,7 @@ INTERFACE zif_ghes221.
            payload TYPE string,
            signature TYPE string,
          END OF verification.
+
 * Component schema: commit, object
   TYPES: BEGIN OF commit,
            url TYPE string,
@@ -1307,6 +1386,7 @@ INTERFACE zif_ghes221.
            stats TYPE string,
            files TYPE string,
          END OF commit.
+
 * Component schema: branch-with-protection, object
   TYPES: BEGIN OF branch_with_protection,
            name TYPE string,
@@ -1318,6 +1398,7 @@ INTERFACE zif_ghes221.
            pattern TYPE string,
            required_approving_review_coun TYPE i,
          END OF branch_with_protection.
+
 * Component schema: status-check-policy, object
   TYPES: BEGIN OF status_check_policy,
            url TYPE string,
@@ -1325,6 +1406,7 @@ INTERFACE zif_ghes221.
            contexts TYPE string,
            contexts_url TYPE string,
          END OF status_check_policy.
+
 * Component schema: protected-branch, object
   TYPES: BEGIN OF protected_branch,
            url TYPE string,
@@ -1337,6 +1419,7 @@ INTERFACE zif_ghes221.
            allow_deletions TYPE string,
            restrictions TYPE string,
          END OF protected_branch.
+
 * Component schema: pull-request-minimal, object
   TYPES: BEGIN OF pull_request_minimal,
            id TYPE i,
@@ -1345,6 +1428,7 @@ INTERFACE zif_ghes221.
            head TYPE string,
            base TYPE string,
          END OF pull_request_minimal.
+
 * Component schema: check-run, object
   TYPES: BEGIN OF check_run,
            id TYPE i,
@@ -1364,6 +1448,7 @@ INTERFACE zif_ghes221.
            app TYPE string,
            pull_requests TYPE string,
          END OF check_run.
+
 * Component schema: check-annotation, object
   TYPES: BEGIN OF check_annotation,
            path TYPE string,
@@ -1377,6 +1462,7 @@ INTERFACE zif_ghes221.
            raw_details TYPE string,
            blob_href TYPE string,
          END OF check_annotation.
+
 * Component schema: simple-commit, object
   TYPES: BEGIN OF simple_commit,
            id TYPE string,
@@ -1386,6 +1472,7 @@ INTERFACE zif_ghes221.
            author TYPE string,
            committer TYPE string,
          END OF simple_commit.
+
 * Component schema: check-suite, object
   TYPES: BEGIN OF check_suite,
            id TYPE i,
@@ -1406,11 +1493,13 @@ INTERFACE zif_ghes221.
            latest_check_runs_count TYPE i,
            check_runs_url TYPE string,
          END OF check_suite.
+
 * Component schema: check-suite-preference, object
   TYPES: BEGIN OF check_suite_preference,
            preferences TYPE string,
            repository TYPE string,
          END OF check_suite_preference.
+
 * Component schema: collaborator, object
   TYPES: BEGIN OF collaborator,
            login TYPE string,
@@ -1433,6 +1522,7 @@ INTERFACE zif_ghes221.
            site_admin TYPE abap_bool,
            permissions TYPE string,
          END OF collaborator.
+
 * Component schema: repository-invitation, object
   TYPES: BEGIN OF repository_invitation,
            id TYPE i,
@@ -1446,6 +1536,7 @@ INTERFACE zif_ghes221.
            html_url TYPE string,
            node_id TYPE string,
          END OF repository_invitation.
+
 * Component schema: commit-comment, object
   TYPES: BEGIN OF commit_comment,
            html_url TYPE string,
@@ -1463,6 +1554,7 @@ INTERFACE zif_ghes221.
            author_association TYPE string,
            reactions TYPE string,
          END OF commit_comment.
+
 * Component schema: scim-error, object
   TYPES: BEGIN OF scim_error,
            message TYPE string,
@@ -1472,16 +1564,19 @@ INTERFACE zif_ghes221.
            scimtype TYPE string,
            schemas TYPE string,
          END OF scim_error.
+
 * Component schema: branch-short, object
   TYPES: BEGIN OF branch_short,
            name TYPE string,
            commit TYPE string,
            protected TYPE abap_bool,
          END OF branch_short.
+
 * Component schema: link, object
   TYPES: BEGIN OF link,
            href TYPE string,
          END OF link.
+
 * Component schema: pull-request-simple, object
   TYPES: BEGIN OF pull_request_simple,
            url TYPE string,
@@ -1520,6 +1615,7 @@ INTERFACE zif_ghes221.
            author_association TYPE string,
            draft TYPE abap_bool,
          END OF pull_request_simple.
+
 * Component schema: simple-commit-status, object
   TYPES: BEGIN OF simple_commit_status,
            description TYPE string,
@@ -1534,6 +1630,7 @@ INTERFACE zif_ghes221.
            created_at TYPE string,
            updated_at TYPE string,
          END OF simple_commit_status.
+
 * Component schema: combined-commit-status, object
   TYPES: BEGIN OF combined_commit_status,
            state TYPE string,
@@ -1544,6 +1641,7 @@ INTERFACE zif_ghes221.
            commit_url TYPE string,
            url TYPE string,
          END OF combined_commit_status.
+
 * Component schema: status, object
   TYPES: BEGIN OF status,
            url TYPE string,
@@ -1558,6 +1656,7 @@ INTERFACE zif_ghes221.
            updated_at TYPE string,
            creator TYPE string,
          END OF status.
+
 * Component schema: diff-entry, object
   TYPES: BEGIN OF diff_entry,
            sha TYPE string,
@@ -1572,6 +1671,7 @@ INTERFACE zif_ghes221.
            patch TYPE string,
            previous_filename TYPE string,
          END OF diff_entry.
+
 * Component schema: commit-comparison, object
   TYPES: BEGIN OF commit_comparison,
            url TYPE string,
@@ -1588,6 +1688,7 @@ INTERFACE zif_ghes221.
            commits TYPE string,
            files TYPE string,
          END OF commit_comparison.
+
 * Component schema: content-tree, object
   TYPES: BEGIN OF content_tree,
            type TYPE string,
@@ -1602,8 +1703,10 @@ INTERFACE zif_ghes221.
            entries TYPE string,
            _links TYPE string,
          END OF content_tree.
+
 * Component schema: content-directory, array
   TYPES content_directory TYPE string.
+
 * Component schema: content-file, object
   TYPES: BEGIN OF content_file,
            type TYPE string,
@@ -1621,6 +1724,7 @@ INTERFACE zif_ghes221.
            target TYPE string,
            submodule_git_url TYPE string,
          END OF content_file.
+
 * Component schema: content-symlink, object
   TYPES: BEGIN OF content_symlink,
            type TYPE string,
@@ -1635,6 +1739,7 @@ INTERFACE zif_ghes221.
            download_url TYPE string,
            _links TYPE string,
          END OF content_symlink.
+
 * Component schema: content-submodule, object
   TYPES: BEGIN OF content_submodule,
            type TYPE string,
@@ -1649,11 +1754,13 @@ INTERFACE zif_ghes221.
            download_url TYPE string,
            _links TYPE string,
          END OF content_submodule.
+
 * Component schema: file-commit, object
   TYPES: BEGIN OF file_commit,
            content TYPE string,
            commit TYPE string,
          END OF file_commit.
+
 * Component schema: contributor, object
   TYPES: BEGIN OF contributor,
            login TYPE string,
@@ -1678,6 +1785,7 @@ INTERFACE zif_ghes221.
            email TYPE string,
            name TYPE string,
          END OF contributor.
+
 * Component schema: deployment, object
   TYPES: BEGIN OF deployment,
            url TYPE string,
@@ -1699,6 +1807,7 @@ INTERFACE zif_ghes221.
            production_environment TYPE abap_bool,
            performed_via_github_app TYPE string,
          END OF deployment.
+
 * Component schema: deployment-status, object
   TYPES: BEGIN OF deployment_status,
            url TYPE string,
@@ -1717,11 +1826,13 @@ INTERFACE zif_ghes221.
            log_url TYPE string,
            performed_via_github_app TYPE string,
          END OF deployment_status.
+
 * Component schema: short-blob, object
   TYPES: BEGIN OF short_blob,
            url TYPE string,
            sha TYPE string,
          END OF short_blob.
+
 * Component schema: blob, object
   TYPES: BEGIN OF blob,
            content TYPE string,
@@ -1732,6 +1843,7 @@ INTERFACE zif_ghes221.
            node_id TYPE string,
            highlighted_content TYPE string,
          END OF blob.
+
 * Component schema: git-commit, object
   TYPES: BEGIN OF git_commit,
            sha TYPE string,
@@ -1745,6 +1857,7 @@ INTERFACE zif_ghes221.
            verification TYPE string,
            html_url TYPE string,
          END OF git_commit.
+
 * Component schema: git-ref, object
   TYPES: BEGIN OF git_ref,
            ref TYPE string,
@@ -1752,6 +1865,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            object TYPE string,
          END OF git_ref.
+
 * Component schema: git-tag, object
   TYPES: BEGIN OF git_tag,
            node_id TYPE string,
@@ -1763,6 +1877,7 @@ INTERFACE zif_ghes221.
            object TYPE string,
            verification TYPE string,
          END OF git_tag.
+
 * Component schema: git-tree, object
   TYPES: BEGIN OF git_tree,
            sha TYPE string,
@@ -1770,12 +1885,14 @@ INTERFACE zif_ghes221.
            truncated TYPE abap_bool,
            tree TYPE string,
          END OF git_tree.
+
 * Component schema: hook-response, object
   TYPES: BEGIN OF hook_response,
            code TYPE i,
            status TYPE string,
            message TYPE string,
          END OF hook_response.
+
 * Component schema: hook, object
   TYPES: BEGIN OF hook,
            type TYPE string,
@@ -1791,11 +1908,13 @@ INTERFACE zif_ghes221.
            ping_url TYPE string,
            last_response TYPE string,
          END OF hook.
+
 * Component schema: issue-event-label, object
   TYPES: BEGIN OF issue_event_label,
            name TYPE string,
            color TYPE string,
          END OF issue_event_label.
+
 * Component schema: issue-event-dismissed-review, object
   TYPES: BEGIN OF issue_event_dismissed_review,
            state TYPE string,
@@ -1803,10 +1922,12 @@ INTERFACE zif_ghes221.
            dismissal_message TYPE string,
            dismissal_commit_id TYPE string,
          END OF issue_event_dismissed_review.
+
 * Component schema: issue-event-milestone, object
   TYPES: BEGIN OF issue_event_milestone,
            title TYPE string,
          END OF issue_event_milestone.
+
 * Component schema: issue-event-project-card, object
   TYPES: BEGIN OF issue_event_project_card,
            url TYPE string,
@@ -1816,11 +1937,13 @@ INTERFACE zif_ghes221.
            column_name TYPE string,
            previous_column_name TYPE string,
          END OF issue_event_project_card.
+
 * Component schema: issue-event-rename, object
   TYPES: BEGIN OF issue_event_rename,
            from TYPE string,
            to TYPE string,
          END OF issue_event_rename.
+
 * Component schema: issue-event, object
   TYPES: BEGIN OF issue_event,
            id TYPE i,
@@ -1845,6 +1968,7 @@ INTERFACE zif_ghes221.
            author_association TYPE string,
            lock_reason TYPE string,
          END OF issue_event.
+
 * Component schema: issue-event-for-issue, object
   TYPES: BEGIN OF issue_event_for_issue,
            id TYPE i,
@@ -1869,6 +1993,7 @@ INTERFACE zif_ghes221.
            body_html TYPE string,
            body_text TYPE string,
          END OF issue_event_for_issue.
+
 * Component schema: deploy-key, object
   TYPES: BEGIN OF deploy_key,
            id TYPE i,
@@ -1879,9 +2004,12 @@ INTERFACE zif_ghes221.
            created_at TYPE string,
            read_only TYPE abap_bool,
          END OF deploy_key.
+
 * Component schema: language, object
   TYPES: BEGIN OF language,
+           dummy TYPE i,
          END OF language.
+
 * Component schema: license-content, object
   TYPES: BEGIN OF license_content,
            name TYPE string,
@@ -1898,11 +2026,13 @@ INTERFACE zif_ghes221.
            _links TYPE string,
            license TYPE string,
          END OF license_content.
+
 * Component schema: pages-source-hash, object
   TYPES: BEGIN OF pages_source_hash,
            branch TYPE string,
            path TYPE string,
          END OF pages_source_hash.
+
 * Component schema: page, object
   TYPES: BEGIN OF page,
            url TYPE string,
@@ -1913,6 +2043,7 @@ INTERFACE zif_ghes221.
            source TYPE string,
            public TYPE abap_bool,
          END OF page.
+
 * Component schema: page-build, object
   TYPES: BEGIN OF page_build,
            url TYPE string,
@@ -1924,11 +2055,13 @@ INTERFACE zif_ghes221.
            created_at TYPE string,
            updated_at TYPE string,
          END OF page_build.
+
 * Component schema: page-build-status, object
   TYPES: BEGIN OF page_build_status,
            url TYPE string,
            status TYPE string,
          END OF page_build_status.
+
 * Component schema: repository-pre-receive-hook, object
   TYPES: BEGIN OF repository_pre_receive_hook,
            id TYPE i,
@@ -1936,6 +2069,7 @@ INTERFACE zif_ghes221.
            enforcement TYPE string,
            configuration_url TYPE string,
          END OF repository_pre_receive_hook.
+
 * Component schema: pull-request, object
   TYPES: BEGIN OF pull_request,
            url TYPE string,
@@ -1986,6 +2120,7 @@ INTERFACE zif_ghes221.
            deletions TYPE i,
            changed_files TYPE i,
          END OF pull_request.
+
 * Component schema: pull-request-review-comment, object
   TYPES: BEGIN OF pull_request_review_comment,
            url TYPE string,
@@ -2017,17 +2152,20 @@ INTERFACE zif_ghes221.
            body_html TYPE string,
            body_text TYPE string,
          END OF pull_request_review_comment.
+
 * Component schema: pull-request-merge-result, object
   TYPES: BEGIN OF pull_request_merge_result,
            sha TYPE string,
            merged TYPE abap_bool,
            message TYPE string,
          END OF pull_request_merge_result.
+
 * Component schema: pull-request-review-request, object
   TYPES: BEGIN OF pull_request_review_request,
            users TYPE string,
            teams TYPE string,
          END OF pull_request_review_request.
+
 * Component schema: pull-request-review, object
   TYPES: BEGIN OF pull_request_review,
            id TYPE i,
@@ -2044,6 +2182,7 @@ INTERFACE zif_ghes221.
            body_text TYPE string,
            author_association TYPE string,
          END OF pull_request_review.
+
 * Component schema: review-comment, object
   TYPES: BEGIN OF review_comment,
            url TYPE string,
@@ -2074,6 +2213,7 @@ INTERFACE zif_ghes221.
            start_line TYPE i,
            original_start_line TYPE i,
          END OF review_comment.
+
 * Component schema: release-asset, object
   TYPES: BEGIN OF release_asset,
            url TYPE string,
@@ -2090,6 +2230,7 @@ INTERFACE zif_ghes221.
            updated_at TYPE string,
            uploader TYPE string,
          END OF release_asset.
+
 * Component schema: release, object
   TYPES: BEGIN OF release,
            url TYPE string,
@@ -2113,30 +2254,36 @@ INTERFACE zif_ghes221.
            body_html TYPE string,
            body_text TYPE string,
          END OF release.
+
 * Component schema: stargazer, object
   TYPES: BEGIN OF stargazer,
            starred_at TYPE string,
            user TYPE string,
          END OF stargazer.
+
 * Component schema: code-frequency-stat, array
   TYPES code_frequency_stat TYPE string.
+
 * Component schema: commit-activity, object
   TYPES: BEGIN OF commit_activity,
            days TYPE string,
            total TYPE i,
            week TYPE i,
          END OF commit_activity.
+
 * Component schema: contributor-activity, object
   TYPES: BEGIN OF contributor_activity,
            author TYPE string,
            total TYPE i,
            weeks TYPE string,
          END OF contributor_activity.
+
 * Component schema: participation-stats, object
   TYPES: BEGIN OF participation_stats,
            all TYPE string,
            owner TYPE string,
          END OF participation_stats.
+
 * Component schema: repository-subscription, object
   TYPES: BEGIN OF repository_subscription,
            subscribed TYPE abap_bool,
@@ -2146,6 +2293,7 @@ INTERFACE zif_ghes221.
            url TYPE string,
            repository_url TYPE string,
          END OF repository_subscription.
+
 * Component schema: tag, object
   TYPES: BEGIN OF tag,
            name TYPE string,
@@ -2154,12 +2302,15 @@ INTERFACE zif_ghes221.
            tarball_url TYPE string,
            node_id TYPE string,
          END OF tag.
+
 * Component schema: topic, object
   TYPES: BEGIN OF topic,
            names TYPE string,
          END OF topic.
+
 * Component schema: search-result-text-matches, array
   TYPES search_result_text_matches TYPE string.
+
 * Component schema: code-search-result-item, object
   TYPES: BEGIN OF code_search_result_item,
            name TYPE string,
@@ -2176,6 +2327,7 @@ INTERFACE zif_ghes221.
            line_numbers TYPE string,
            text_matches TYPE string,
          END OF code_search_result_item.
+
 * Component schema: commit-search-result-item, object
   TYPES: BEGIN OF commit_search_result_item,
            url TYPE string,
@@ -2191,6 +2343,7 @@ INTERFACE zif_ghes221.
            node_id TYPE string,
            text_matches TYPE string,
          END OF commit_search_result_item.
+
 * Component schema: issue-search-result-item, object
   TYPES: BEGIN OF issue_search_result_item,
            url TYPE string,
@@ -2227,6 +2380,7 @@ INTERFACE zif_ghes221.
            timeline_url TYPE string,
            performed_via_github_app TYPE string,
          END OF issue_search_result_item.
+
 * Component schema: label-search-result-item, object
   TYPES: BEGIN OF label_search_result_item,
            id TYPE i,
@@ -2239,6 +2393,7 @@ INTERFACE zif_ghes221.
            score TYPE i,
            text_matches TYPE string,
          END OF label_search_result_item.
+
 * Component schema: repo-search-result-item, object
   TYPES: BEGIN OF repo_search_result_item,
            id TYPE i,
@@ -2325,6 +2480,7 @@ INTERFACE zif_ghes221.
            allow_rebase_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
          END OF repo_search_result_item.
+
 * Component schema: topic-search-result-item, object
   TYPES: BEGIN OF topic_search_result_item,
            name TYPE string,
@@ -2344,6 +2500,7 @@ INTERFACE zif_ghes221.
            related TYPE string,
            aliases TYPE string,
          END OF topic_search_result_item.
+
 * Component schema: user-search-result-item, object
   TYPES: BEGIN OF user_search_result_item,
            login TYPE string,
@@ -2381,27 +2538,32 @@ INTERFACE zif_ghes221.
            company TYPE string,
            suspended_at TYPE string,
          END OF user_search_result_item.
+
 * Component schema: configuration-status, object
   TYPES: BEGIN OF configuration_status,
            status TYPE string,
            progress TYPE string,
          END OF configuration_status.
+
 * Component schema: maintenance-status, object
   TYPES: BEGIN OF maintenance_status,
            status TYPE string,
            scheduled_time TYPE string,
            connection_services TYPE string,
          END OF maintenance_status.
+
 * Component schema: enterprise-settings, object
   TYPES: BEGIN OF enterprise_settings,
            enterprise TYPE string,
            run_list TYPE string,
          END OF enterprise_settings.
+
 * Component schema: ssh-key, object
   TYPES: BEGIN OF ssh_key,
            key TYPE string,
            pretty_print TYPE string,
          END OF ssh_key.
+
 * Component schema: private-user, object
   TYPES: BEGIN OF private_user,
            login TYPE string,
@@ -2446,6 +2608,7 @@ INTERFACE zif_ghes221.
            business_plus TYPE abap_bool,
            ldap_dn TYPE string,
          END OF private_user.
+
 * Component schema: public-user, object
   TYPES: BEGIN OF public_user,
            login TYPE string,
@@ -2487,6 +2650,7 @@ INTERFACE zif_ghes221.
            disk_usage TYPE i,
            collaborators TYPE i,
          END OF public_user.
+
 * Component schema: email, object
   TYPES: BEGIN OF email,
            email TYPE string,
@@ -2494,6 +2658,7 @@ INTERFACE zif_ghes221.
            verified TYPE abap_bool,
            visibility TYPE string,
          END OF email.
+
 * Component schema: gpg-key, object
   TYPES: BEGIN OF gpg_key,
            id TYPE i,
@@ -2510,6 +2675,7 @@ INTERFACE zif_ghes221.
            expires_at TYPE string,
            raw_key TYPE string,
          END OF gpg_key.
+
 * Component schema: key, object
   TYPES: BEGIN OF key,
            key_id TYPE string,
@@ -2521,15 +2687,18 @@ INTERFACE zif_ghes221.
            verified TYPE abap_bool,
            read_only TYPE abap_bool,
          END OF key.
+
 * Component schema: starred-repository, object
   TYPES: BEGIN OF starred_repository,
            starred_at TYPE string,
            repo TYPE string,
          END OF starred_repository.
+
 * Component schema: hovercard, object
   TYPES: BEGIN OF hovercard,
            contexts TYPE string,
          END OF hovercard.
+
 * Component schema: key-simple, object
   TYPES: BEGIN OF key_simple,
            id TYPE i,
@@ -2537,266 +2706,372 @@ INTERFACE zif_ghes221.
          END OF key_simple.
 
 * GET - "GitHub API Root"
+* Operation id: meta/root
 * Response: 200
-*     application/json
+*     application/json, object
   METHODS meta_root
     RAISING cx_static_check.
+
 * GET - "List global webhooks"
+* Operation id: enterprise-admin/list-global-webhooks
 * Parameter: accept, required, header
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_global_w
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a global webhook"
+* Operation id: enterprise-admin/create-global-webhook
 * Parameter: accept, required, header
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/global-hook
+* Body schema: object
   METHODS enterprise_admin_create_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
     RAISING cx_static_check.
+
 * GET - "Get a global webhook"
+* Operation id: enterprise-admin/get-global-webhook
 * Parameter: accept, required, header
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/global-hook
   METHODS enterprise_admin_get_global_we
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
+    RETURNING VALUE(return_data) TYPE global_hook
     RAISING cx_static_check.
+
 * PATCH - "Update a global webhook"
+* Operation id: enterprise-admin/update-global-webhook
 * Parameter: accept, required, header
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/global-hook-2
+* Body schema: object
   METHODS enterprise_admin_update_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
+    RETURNING VALUE(return_data) TYPE global_hook_2
     RAISING cx_static_check.
+
 * DELETE - "Delete a global webhook"
+* Operation id: enterprise-admin/delete-global-webhook
 * Parameter: accept, required, header
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_delete_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
     RAISING cx_static_check.
+
 * POST - "Ping a global webhook"
+* Operation id: enterprise-admin/ping-global-webhook
 * Parameter: accept, required, header
 * Response: 204
   METHODS enterprise_admin_ping_global_w
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
     RAISING cx_static_check.
+
 * GET - "List public keys"
+* Operation id: enterprise-admin/list-public-keys
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_public_k
     IMPORTING
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * DELETE - "Delete a public key"
+* Operation id: enterprise-admin/delete-public-key
 * Response: 204
   METHODS enterprise_admin_delete_public
     RAISING cx_static_check.
+
 * PATCH - "Update LDAP mapping for a team"
+* Operation id: enterprise-admin/update-ldap-mapping-for-team
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/ldap-mapping-team
+* Body schema: object
   METHODS enterprise_admin_update_ldap_m
+    RETURNING VALUE(return_data) TYPE ldap_mapping_team
     RAISING cx_static_check.
+
 * POST - "Sync LDAP mapping for a team"
+* Operation id: enterprise-admin/sync-ldap-mapping-for-team
 * Response: 201
-*     application/json
+*     application/json, object
   METHODS enterprise_admin_sync_ldap_map
     RAISING cx_static_check.
+
 * PATCH - "Update LDAP mapping for a user"
+* Operation id: enterprise-admin/update-ldap-mapping-for-user
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/ldap-mapping-user
+* Body schema: object
   METHODS enterprise_admin_update_ldap01
     IMPORTING
       username TYPE string
+    RETURNING VALUE(return_data) TYPE ldap_mapping_user
     RAISING cx_static_check.
+
 * POST - "Sync LDAP mapping for a user"
+* Operation id: enterprise-admin/sync-ldap-mapping-for-user
 * Parameter: username, required, path
 * Response: 201
-*     application/json
+*     application/json, object
   METHODS enterprise_admin_sync_ldap_m01
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * POST - "Create an organization"
+* Operation id: enterprise-admin/create-org
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/organization-simple
+* Body schema: object
   METHODS enterprise_admin_create_org
     RAISING cx_static_check.
+
 * PATCH - "Update an organization name"
+* Operation id: enterprise-admin/update-org-name
 * Parameter: org, required, path
 * Response: 202
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS enterprise_admin_update_org_na
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "List pre-receive environments"
+* Operation id: enterprise-admin/list-pre-receive-environments
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_pre_rece
     IMPORTING
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a pre-receive environment"
+* Operation id: enterprise-admin/create-pre-receive-environment
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pre-receive-environment
+* Body schema: object
   METHODS enterprise_admin_create_pre_re
     RAISING cx_static_check.
+
 * GET - "Get a pre-receive environment"
+* Operation id: enterprise-admin/get-pre-receive-environment
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pre-receive-environment
   METHODS enterprise_admin_get_pre_recei
+    RETURNING VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
+
 * PATCH - "Update a pre-receive environment"
+* Operation id: enterprise-admin/update-pre-receive-environment
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pre-receive-environment
 * Response: 422
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS enterprise_admin_update_pre_re
+    RETURNING VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
+
 * DELETE - "Delete a pre-receive environment"
+* Operation id: enterprise-admin/delete-pre-receive-environment
 * Response: 204
 * Response: 422
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS enterprise_admin_delete_pre_re
     RAISING cx_static_check.
+
 * POST - "Start a pre-receive environment download"
+* Operation id: enterprise-admin/start-pre-receive-environment-download
 * Response: 202
-*     application/json
+*     application/json, #/components/schemas/pre-receive-environment-download-status
 * Response: 422
-*     application/json
+*     application/json, object
   METHODS enterprise_admin_start_pre_rec
     RAISING cx_static_check.
+
 * GET - "Get the download status for a pre-receive environment"
+* Operation id: enterprise-admin/get-download-status-for-pre-receive-environment
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pre-receive-environment-download-status
   METHODS enterprise_admin_get_download_
+    RETURNING VALUE(return_data) TYPE pre_receive_environment_downlo
     RAISING cx_static_check.
+
 * GET - "List pre-receive hooks"
+* Operation id: enterprise-admin/list-pre-receive-hooks
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_pre_re01
     IMPORTING
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a pre-receive hook"
+* Operation id: enterprise-admin/create-pre-receive-hook
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_create_pre_01
     RAISING cx_static_check.
+
 * GET - "Get a pre-receive hook"
+* Operation id: enterprise-admin/get-pre-receive-hook
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pre-receive-hook
   METHODS enterprise_admin_get_pre_rec01
+    RETURNING VALUE(return_data) TYPE pre_receive_hook
     RAISING cx_static_check.
+
 * PATCH - "Update a pre-receive hook"
+* Operation id: enterprise-admin/update-pre-receive-hook
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_update_pre_01
+    RETURNING VALUE(return_data) TYPE pre_receive_hook
     RAISING cx_static_check.
+
 * DELETE - "Delete a pre-receive hook"
+* Operation id: enterprise-admin/delete-pre-receive-hook
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_delete_pre_01
     RAISING cx_static_check.
+
 * GET - "List personal access tokens"
+* Operation id: enterprise-admin/list-personal-access-tokens
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_personal
     IMPORTING
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * DELETE - "Delete a personal access token"
+* Operation id: enterprise-admin/delete-personal-access-token
 * Response: 204
   METHODS enterprise_admin_delete_person
     RAISING cx_static_check.
+
 * POST - "Create a user"
+* Operation id: enterprise-admin/create-user
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/simple-user
+* Body schema: object
   METHODS enterprise_admin_create_user
     RAISING cx_static_check.
+
 * PATCH - "Update the username for a user"
+* Operation id: enterprise-admin/update-username-for-user
 * Parameter: username, required, path
 * Response: 202
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS enterprise_admin_update_userna
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete a user"
+* Operation id: enterprise-admin/delete-user
 * Parameter: username, required, path
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_delete_user
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * POST - "Create an impersonation OAuth token"
+* Operation id: enterprise-admin/create-impersonation-o-auth-token
 * Parameter: username, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/authorization
+* Body schema: object
   METHODS enterprise_admin_create_impers
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete an impersonation OAuth token"
+* Operation id: enterprise-admin/delete-impersonation-o-auth-token
 * Parameter: username, required, path
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_delete_impers
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get the authenticated app"
+* Operation id: apps/get-authenticated
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/integration
   METHODS apps_get_authenticated
+    RETURNING VALUE(return_data) TYPE integration
     RAISING cx_static_check.
+
 * POST - "Create a GitHub App from a manifest"
+* Operation id: apps/create-from-manifest
 * Parameter: code, required, path
 * Response: 201
-*     application/json
+*     application/json, 
 * Response: 404
 * Response: 422
   METHODS apps_create_from_manifest
     IMPORTING
       code TYPE string
     RAISING cx_static_check.
+
 * GET - "List installations for the authenticated app"
+* Operation id: apps/list-installations
 * Parameter: accept, required, header
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS apps_list_installations
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get an installation for the authenticated app"
+* Operation id: apps/get-installation
 * Parameter: accept, required, header
 * Parameter: installation_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/installation-ghes-2
 * Response: 404
 * Response: 415
   METHODS apps_get_installation
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       installation_id TYPE i
+    RETURNING VALUE(return_data) TYPE installation_ghes_2
     RAISING cx_static_check.
+
 * DELETE - "Delete an installation for the authenticated app"
+* Operation id: apps/delete-installation
 * Parameter: accept, required, header
 * Parameter: installation_id, required, path
 * Response: 204
@@ -2806,26 +3081,31 @@ INTERFACE zif_ghes221.
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       installation_id TYPE i
     RAISING cx_static_check.
+
 * POST - "Create an installation access token for an app"
+* Operation id: apps/create-installation-access-token
 * Parameter: accept, required, header
 * Parameter: installation_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/installation-token
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS apps_create_installation_acces
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       installation_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List your grants"
+* Operation id: oauth-authorizations/list-grants
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -2835,18 +3115,23 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a single grant"
+* Operation id: oauth-authorizations/get-grant
 * Parameter: grant_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/application-grant
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS oauth_authorizations_get_grant
     IMPORTING
       grant_id TYPE i
+    RETURNING VALUE(return_data) TYPE application_grant
     RAISING cx_static_check.
+
 * DELETE - "Delete a grant"
+* Operation id: oauth-authorizations/delete-grant
 * Parameter: grant_id, required, path
 * Response: 204
 * Response: 304
@@ -2856,64 +3141,92 @@ INTERFACE zif_ghes221.
     IMPORTING
       grant_id TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Delete an app authorization"
+* Operation id: apps/delete-authorization
 * Response: 204
 * Response: 422
+* Body schema: object
   METHODS apps_delete_authorization
     RAISING cx_static_check.
+
 * DELETE - "Revoke a grant for an application"
+* Operation id: apps/revoke-grant-for-application
 * Response: 204
   METHODS apps_revoke_grant_for_applicat
     RAISING cx_static_check.
+
 * POST - "Check a token"
+* Operation id: apps/check-token
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS apps_check_token
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * PATCH - "Reset a token"
+* Operation id: apps/reset-token
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 422
+* Body schema: object
   METHODS apps_reset_token
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * DELETE - "Delete an app token"
+* Operation id: apps/delete-token
 * Response: 204
 * Response: 422
+* Body schema: object
   METHODS apps_delete_token
     RAISING cx_static_check.
+
 * GET - "Check an authorization"
+* Operation id: apps/check-authorization
 * Response: 200
-*     application/json
+*     application/json, 
 * Response: 404
   METHODS apps_check_authorization
     RAISING cx_static_check.
+
 * POST - "Reset an authorization"
+* Operation id: apps/reset-authorization
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
   METHODS apps_reset_authorization
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * DELETE - "Revoke an authorization for an application"
+* Operation id: apps/revoke-authorization-for-application
 * Response: 204
   METHODS apps_revoke_authorization_for_
     RAISING cx_static_check.
+
 * GET - "Get an app"
+* Operation id: apps/get-by-slug
 * Parameter: app_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/integration
 * Response: 403
 * Response: 404
 * Response: 415
   METHODS apps_get_by_slug
     IMPORTING
       app_slug TYPE string
+    RETURNING VALUE(return_data) TYPE integration
     RAISING cx_static_check.
+
 * GET - "List your authorizations"
+* Operation id: oauth-authorizations/list-authorizations
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -2923,124 +3236,164 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a new authorization"
+* Operation id: oauth-authorizations/create-authorization
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS oauth_authorizations_create_au
     RAISING cx_static_check.
+
 * PUT - "Get-or-create an authorization for a specific app"
+* Operation id: oauth-authorizations/get-or-create-authorization-for-app
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS oauth_authorizations_get_or_cr
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * PUT - "Get-or-create an authorization for a specific app and fingerprint"
+* Operation id: oauth-authorizations/get-or-create-authorization-for-app-and-fingerprint
 * Parameter: fingerprint, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 422
+* Body schema: object
   METHODS oauth_authorizations_get_or_01
     IMPORTING
       fingerprint TYPE string
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * GET - "Get a single authorization"
+* Operation id: oauth-authorizations/get-authorization
 * Parameter: authorization_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS oauth_authorizations_get_autho
     IMPORTING
       authorization_id TYPE i
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * PATCH - "Update an existing authorization"
+* Operation id: oauth-authorizations/update-authorization
 * Parameter: authorization_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/authorization
 * Response: 422
+* Body schema: object
   METHODS oauth_authorizations_update_au
     IMPORTING
       authorization_id TYPE i
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
+
 * DELETE - "Delete an authorization"
+* Operation id: oauth-authorizations/delete-authorization
 * Parameter: authorization_id, required, path
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS oauth_authorizations_delete_au
     IMPORTING
       authorization_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get all codes of conduct"
+* Operation id: codes-of-conduct/get-all-codes-of-conduct
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 415
   METHODS codes_of_conduct_get_all_codes
     RAISING cx_static_check.
+
 * GET - "Get a code of conduct"
+* Operation id: codes-of-conduct/get-conduct-code
 * Parameter: key, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/code-of-conduct
 * Response: 304
 * Response: 404
 * Response: 415
   METHODS codes_of_conduct_get_conduct_c
     IMPORTING
       key TYPE string
+    RETURNING VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
+
 * POST - "Create a content attachment"
+* Operation id: apps/create-content-attachment
 * Parameter: content_reference_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/content-reference-attachment
 * Response: 304
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS apps_create_content_attachment
     IMPORTING
       content_reference_id TYPE i
+    RETURNING VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
+
 * GET - "Get emojis"
+* Operation id: emojis/get
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
   METHODS emojis_get
     RAISING cx_static_check.
+
 * GET - "Get license information"
+* Operation id: enterprise-admin/get-license-information
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/license-info
   METHODS enterprise_admin_get_license_i
+    RETURNING VALUE(return_data) TYPE license_info
     RAISING cx_static_check.
+
 * GET - "Get statistics"
+* Operation id: enterprise-admin/get-type-stats
 * Parameter: type, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/enterprise-overview
   METHODS enterprise_admin_get_type_stat
     IMPORTING
       type TYPE string
+    RETURNING VALUE(return_data) TYPE enterprise_overview
     RAISING cx_static_check.
+
 * GET - "List public events"
+* Operation id: activity/list-public-events
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 503
@@ -3049,17 +3402,22 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get feeds"
+* Operation id: activity/get-feeds
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/feed
   METHODS activity_get_feeds
+    RETURNING VALUE(return_data) TYPE feed
     RAISING cx_static_check.
+
 * GET - "List gists for the authenticated user"
+* Operation id: gists/list
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
   METHODS gists_list
@@ -3068,21 +3426,26 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a gist"
+* Operation id: gists/create
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/gist-simple
 * Response: 304
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS gists_create
     RAISING cx_static_check.
+
 * GET - "List public gists"
+* Operation id: gists/list-public
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 422
@@ -3092,12 +3455,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List starred gists"
+* Operation id: gists/list-starred
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -3107,43 +3472,55 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a gist"
+* Operation id: gists/get
 * Parameter: gist_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gist-simple
 * Response: 304
 * Response: 403
 * Response: 404
   METHODS gists_get
     IMPORTING
       gist_id TYPE string
+    RETURNING VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
+
 * PATCH - "Update a gist"
+* Operation id: gists/update
 * Parameter: gist_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gist-simple
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS gists_update
     IMPORTING
       gist_id TYPE string
+    RETURNING VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
+
 * DELETE - "Delete a gist"
+* Operation id: gists/delete
 * Parameter: gist_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
+* Body schema: object
   METHODS gists_delete
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * GET - "List gist comments"
+* Operation id: gists/list-comments
 * Parameter: gist_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 404
@@ -3153,22 +3530,27 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a gist comment"
+* Operation id: gists/create-comment
 * Parameter: gist_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/gist-comment
 * Response: 304
 * Response: 403
 * Response: 404
+* Body schema: object
   METHODS gists_create_comment
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a gist comment"
+* Operation id: gists/get-comment
 * Parameter: gist_id, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gist-comment
 * Response: 304
 * Response: 403
 * Response: 404
@@ -3176,36 +3558,46 @@ INTERFACE zif_ghes221.
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
+
 * PATCH - "Update a gist comment"
+* Operation id: gists/update-comment
 * Parameter: gist_id, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gist-comment
 * Response: 404
+* Body schema: object
   METHODS gists_update_comment
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete a gist comment"
+* Operation id: gists/delete-comment
 * Parameter: gist_id, required, path
 * Parameter: comment_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
+* Body schema: object
   METHODS gists_delete_comment
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List gist commits"
+* Operation id: gists/list-commits
 * Parameter: gist_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 404
@@ -3215,12 +3607,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List gist forks"
+* Operation id: gists/list-forks
 * Parameter: gist_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 404
@@ -3230,10 +3624,12 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Fork a gist"
+* Operation id: gists/fork
 * Parameter: gist_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/base-gist
 * Response: 304
 * Response: 403
 * Response: 404
@@ -3242,18 +3638,22 @@ INTERFACE zif_ghes221.
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * GET - "Check if a gist is starred"
+* Operation id: gists/check-is-starred
 * Parameter: gist_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
-*     application/json
+*     application/json, object
   METHODS gists_check_is_starred
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * PUT - "Star a gist"
+* Operation id: gists/star
 * Parameter: gist_id, required, path
 * Response: 204
 * Response: 304
@@ -3263,7 +3663,9 @@ INTERFACE zif_ghes221.
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Unstar a gist"
+* Operation id: gists/unstar
 * Parameter: gist_id, required, path
 * Response: 204
 * Response: 304
@@ -3273,11 +3675,13 @@ INTERFACE zif_ghes221.
     IMPORTING
       gist_id TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a gist revision"
+* Operation id: gists/get-revision
 * Parameter: sha, required, path
 * Parameter: gist_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gist-simple
 * Response: 403
 * Response: 404
 * Response: 422
@@ -3285,28 +3689,36 @@ INTERFACE zif_ghes221.
     IMPORTING
       sha TYPE string
       gist_id TYPE string
+    RETURNING VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
+
 * GET - "Get all gitignore templates"
+* Operation id: gitignore/get-all-templates
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
   METHODS gitignore_get_all_templates
     RAISING cx_static_check.
+
 * GET - "Get a gitignore template"
+* Operation id: gitignore/get-template
 * Parameter: name, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gitignore-template
 * Response: 304
   METHODS gitignore_get_template
     IMPORTING
       name TYPE string
+    RETURNING VALUE(return_data) TYPE gitignore_template
     RAISING cx_static_check.
+
 * GET - "List repositories accessible to the app installation"
+* Operation id: apps/list-repos-accessible-to-installation
 * Parameter: accept, required, header
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 401
 * Response: 403
@@ -3316,11 +3728,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * DELETE - "Revoke an installation access token"
+* Operation id: apps/revoke-installation-access-token
 * Response: 204
   METHODS apps_revoke_installation_acces
     RAISING cx_static_check.
+
 * GET - "List issues assigned to the authenticated user"
+* Operation id: issues/list
 * Parameter: filter, optional, query
 * Parameter: state, optional, query
 * Parameter: sort, optional, query
@@ -3334,7 +3750,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 404
 * Response: 422
@@ -3353,53 +3769,68 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get all commonly used licenses"
+* Operation id: licenses/get-all-commonly-used
 * Parameter: featured, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
   METHODS licenses_get_all_commonly_used
     IMPORTING
       featured TYPE abap_bool OPTIONAL
       per_page TYPE i DEFAULT 30 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a license"
+* Operation id: licenses/get
 * Parameter: license, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/license
 * Response: 304
 * Response: 403
 * Response: 404
   METHODS licenses_get
     IMPORTING
       license TYPE string
+    RETURNING VALUE(return_data) TYPE license
     RAISING cx_static_check.
+
 * POST - "Render a Markdown document"
+* Operation id: markdown/render
 * Response: 200
-*     text/html
+*     text/html, string
 * Response: 304
+* Body schema: object
   METHODS markdown_render
     RAISING cx_static_check.
+
 * POST - "Render a Markdown document in raw mode"
+* Operation id: markdown/render-raw
 * Response: 200
-*     text/html
+*     text/html, string
 * Response: 304
   METHODS markdown_render_raw
     RAISING cx_static_check.
+
 * GET - "Get GitHub Enterprise Server meta information"
+* Operation id: meta/get
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/api-overview
 * Response: 304
   METHODS meta_get
+    RETURNING VALUE(return_data) TYPE api_overview
     RAISING cx_static_check.
+
 * GET - "List public events for a network of repositories"
+* Operation id: activity/list-public-events-for-repo-network
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 301
 * Response: 304
 * Response: 403
@@ -3411,7 +3842,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List notifications for the authenticated user"
+* Operation id: activity/list-notifications-for-authenticated-user
 * Parameter: all, optional, query
 * Parameter: participating, optional, query
 * Parameter: since, optional, query
@@ -3419,7 +3852,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -3433,27 +3866,35 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Mark notifications as read"
+* Operation id: activity/mark-notifications-as-read
 * Response: 202
-*     application/json
+*     application/json, object
 * Response: 205
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS activity_mark_notifications_as
     RAISING cx_static_check.
+
 * GET - "Get a thread"
+* Operation id: activity/get-thread
 * Parameter: thread_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/thread
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS activity_get_thread
     IMPORTING
       thread_id TYPE i
+    RETURNING VALUE(return_data) TYPE thread
     RAISING cx_static_check.
+
 * PATCH - "Mark a thread as read"
+* Operation id: activity/mark-thread-as-read
 * Parameter: thread_id, required, path
 * Response: 205
 * Response: 304
@@ -3462,94 +3903,119 @@ INTERFACE zif_ghes221.
     IMPORTING
       thread_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get a thread subscription for the authenticated user"
+* Operation id: activity/get-thread-subscription-for-authenticated-user
 * Parameter: thread_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/thread-subscription
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS activity_get_thread_subscripti
     IMPORTING
       thread_id TYPE i
+    RETURNING VALUE(return_data) TYPE thread_subscription
     RAISING cx_static_check.
+
 * PUT - "Set a thread subscription"
+* Operation id: activity/set-thread-subscription
 * Parameter: thread_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/thread-subscription
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS activity_set_thread_subscripti
     IMPORTING
       thread_id TYPE i
+    RETURNING VALUE(return_data) TYPE thread_subscription
     RAISING cx_static_check.
+
 * DELETE - "Delete a thread subscription"
+* Operation id: activity/delete-thread-subscription
 * Parameter: thread_id, required, path
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS activity_delete_thread_subscri
     IMPORTING
       thread_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get Octocat"
+* Operation id: meta/get-octocat
 * Parameter: s, optional, query
 * Response: 200
-*     application/octocat-stream
+*     application/octocat-stream, string
   METHODS meta_get_octocat
     IMPORTING
       s TYPE string OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organizations"
+* Operation id: orgs/list
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
   METHODS orgs_list
     IMPORTING
       per_page TYPE i DEFAULT 30 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get an organization"
+* Operation id: orgs/get
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/organization-full
 * Response: 404
   METHODS orgs_get
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE organization_full
     RAISING cx_static_check.
+
 * PATCH - "Update an organization"
+* Operation id: orgs/update
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/organization-full
 * Response: 409
 * Response: 415
 * Response: 422
-*     application/json
+*     application/json, 
+* Body schema: object
   METHODS orgs_update
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE organization_full
     RAISING cx_static_check.
+
 * GET - "List public organization events"
+* Operation id: activity/list-public-org-events
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_public_org_event
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organization webhooks"
+* Operation id: orgs/list-webhooks
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS orgs_list_webhooks
     IMPORTING
@@ -3557,44 +4023,59 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create an organization webhook"
+* Operation id: orgs/create-webhook
 * Parameter: org, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/org-hook
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS orgs_create_webhook
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "Get an organization webhook"
+* Operation id: orgs/get-webhook
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-hook
 * Response: 404
   METHODS orgs_get_webhook
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
+
 * PATCH - "Update an organization webhook"
+* Operation id: orgs/update-webhook
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-hook
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS orgs_update_webhook
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
+
 * DELETE - "Delete an organization webhook"
+* Operation id: orgs/delete-webhook
 * Parameter: org, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS orgs_delete_webhook
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * POST - "Ping an organization webhook"
+* Operation id: orgs/ping-webhook
 * Parameter: org, required, path
 * Response: 204
 * Response: 404
@@ -3602,23 +4083,28 @@ INTERFACE zif_ghes221.
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "Get an organization installation for the authenticated app"
+* Operation id: apps/get-org-installation
 * Parameter: accept, required, header
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/installation-ghes-2
   METHODS apps_get_org_installation
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       org TYPE string
+    RETURNING VALUE(return_data) TYPE installation_ghes_2
     RAISING cx_static_check.
+
 * GET - "List app installations for an organization"
+* Operation id: orgs/list-app-installations
 * Parameter: accept, required, header
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
   METHODS orgs_list_app_installations
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
@@ -3626,7 +4112,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organization issues assigned to the authenticated user"
+* Operation id: issues/list-for-org
 * Parameter: filter, optional, query
 * Parameter: state, optional, query
 * Parameter: sort, optional, query
@@ -3637,7 +4125,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS issues_list_for_org
     IMPORTING
@@ -3651,14 +4139,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organization members"
+* Operation id: orgs/list-members
 * Parameter: filter, optional, query
 * Parameter: role, optional, query
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 302
 * Response: 422
   METHODS orgs_list_members
@@ -3669,7 +4159,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check organization membership for a user"
+* Operation id: orgs/check-membership-for-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -3680,7 +4172,9 @@ INTERFACE zif_ghes221.
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove an organization member"
+* Operation id: orgs/remove-member
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -3690,48 +4184,60 @@ INTERFACE zif_ghes221.
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get organization membership for a user"
+* Operation id: orgs/get-membership-for-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-membership
 * Response: 403
 * Response: 404
   METHODS orgs_get_membership_for_user
     IMPORTING
       org TYPE string
       username TYPE string
+    RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
+
 * PUT - "Set organization membership for a user"
+* Operation id: orgs/set-membership-for-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-membership
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS orgs_set_membership_for_user
     IMPORTING
       org TYPE string
       username TYPE string
+    RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
+
 * DELETE - "Remove organization membership for a user"
+* Operation id: orgs/remove-membership-for-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
 * Response: 403
 * Response: 404
+* Body schema: object
   METHODS orgs_remove_membership_for_use
     IMPORTING
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List outside collaborators for an organization"
+* Operation id: orgs/list-outside-collaborators
 * Parameter: filter, optional, query
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS orgs_list_outside_collaborator
     IMPORTING
       filter TYPE string DEFAULT 'all' OPTIONAL
@@ -3739,71 +4245,90 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Convert an organization member to outside collaborator"
+* Operation id: orgs/convert-member-to-outside-collaborator
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 202
 * Response: 204
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
   METHODS orgs_convert_member_to_outside
     IMPORTING
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove outside collaborator from an organization"
+* Operation id: orgs/remove-outside-collaborator
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
 * Response: 422
-*     application/json
+*     application/json, object
   METHODS orgs_remove_outside_collaborat
     IMPORTING
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List pre-receive hooks for an organization"
+* Operation id: enterprise-admin/list-pre-receive-hooks-for-org
 * Parameter: org, required, path
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_pre_re02
     IMPORTING
       org TYPE string
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a pre-receive hook for an organization"
+* Operation id: enterprise-admin/get-pre-receive-hook-for-org
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-pre-receive-hook
   METHODS enterprise_admin_get_pre_rec02
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_pre_receive_hook
     RAISING cx_static_check.
+
 * PATCH - "Update pre-receive hook enforcement for an organization"
+* Operation id: enterprise-admin/update-pre-receive-hook-enforcement-for-org
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_update_pre_02
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_pre_receive_hook
     RAISING cx_static_check.
+
 * DELETE - "Remove pre-receive hook enforcement for an organization"
+* Operation id: enterprise-admin/remove-pre-receive-hook-enforcement-for-org
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_remove_pre_re
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_pre_receive_hook
     RAISING cx_static_check.
+
 * GET - "List organization projects"
+* Operation id: projects/list-for-org
 * Parameter: state, optional, query
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
   METHODS projects_list_for_org
     IMPORTING
@@ -3812,32 +4337,39 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create an organization project"
+* Operation id: projects/create-for-org
 * Parameter: org, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/project
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS projects_create_for_org
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "List public organization members"
+* Operation id: orgs/list-public-members
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS orgs_list_public_members
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check public organization membership for a user"
+* Operation id: orgs/check-public-membership-for-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -3847,7 +4379,9 @@ INTERFACE zif_ghes221.
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * PUT - "Set public organization membership for the authenticated user"
+* Operation id: orgs/set-public-membership-for-authenticated-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -3857,7 +4391,9 @@ INTERFACE zif_ghes221.
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove public organization membership for the authenticated user"
+* Operation id: orgs/remove-public-membership-for-authenticated-user
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -3866,7 +4402,9 @@ INTERFACE zif_ghes221.
       org TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List organization repositories"
+* Operation id: repos/list-for-org
 * Parameter: type, optional, query
 * Parameter: sort, optional, query
 * Parameter: direction, optional, query
@@ -3874,7 +4412,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_for_org
     IMPORTING
       type TYPE string OPTIONAL
@@ -3884,22 +4422,27 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create an organization repository"
+* Operation id: repos/create-in-org
 * Parameter: org, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/repository
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS repos_create_in_org
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "List teams"
+* Operation id: teams/list
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 403
   METHODS teams_list
     IMPORTING
@@ -3907,54 +4450,68 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a team"
+* Operation id: teams/create
 * Parameter: org, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-full
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS teams_create
     IMPORTING
       org TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a team by name"
+* Operation id: teams/get-by-name
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-full
 * Response: 404
   METHODS teams_get_by_name
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
+
 * PATCH - "Update a team"
+* Operation id: teams/update-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-full
+* Body schema: object
   METHODS teams_update_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete a team"
+* Operation id: teams/delete-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_delete_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List discussions"
+* Operation id: teams/list-discussions-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_discussions_in_org
     IMPORTING
       org TYPE string
@@ -3963,53 +4520,68 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a discussion"
+* Operation id: teams/create-discussion-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-discussion
+* Body schema: object
   METHODS teams_create_discussion_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a discussion"
+* Operation id: teams/get-discussion-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion
   METHODS teams_get_discussion_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
+
 * PATCH - "Update a discussion"
+* Operation id: teams/update-discussion-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion
+* Body schema: object
   METHODS teams_update_discussion_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
+
 * DELETE - "Delete a discussion"
+* Operation id: teams/delete-discussion-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_delete_discussion_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List discussion comments"
+* Operation id: teams/list-discussion-comments-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_discussion_comments
     IMPORTING
       org TYPE string
@@ -4018,53 +4590,68 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a discussion comment"
+* Operation id: teams/create-discussion-comment-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
+* Body schema: object
   METHODS teams_create_discussion_commen
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a discussion comment"
+* Operation id: teams/get-discussion-comment-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
   METHODS teams_get_discussion_comment_i
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
+
 * PATCH - "Update a discussion comment"
+* Operation id: teams/update-discussion-comment-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
+* Body schema: object
   METHODS teams_update_discussion_commen
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete a discussion comment"
+* Operation id: teams/delete-discussion-comment-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_delete_discussion_commen
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List reactions for a team discussion comment"
+* Operation id: reactions/list-for-team-discussion-comment-in-org
 * Parameter: content, optional, query
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS reactions_list_for_team_discus
     IMPORTING
       content TYPE string OPTIONAL
@@ -4073,17 +4660,22 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a team discussion comment"
+* Operation id: reactions/create-for-team-discussion-comment-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
+* Body schema: object
   METHODS reactions_create_for_team_disc
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete team discussion comment reaction"
+* Operation id: reactions/delete-for-team-discussion-comment
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
@@ -4092,14 +4684,16 @@ INTERFACE zif_ghes221.
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List reactions for a team discussion"
+* Operation id: reactions/list-for-team-discussion-in-org
 * Parameter: content, optional, query
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS reactions_list_for_team_disc01
     IMPORTING
       content TYPE string OPTIONAL
@@ -4108,17 +4702,22 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a team discussion"
+* Operation id: reactions/create-for-team-discussion-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
+* Body schema: object
   METHODS reactions_create_for_team_di01
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete team discussion reaction"
+* Operation id: reactions/delete-for-team-discussion
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
@@ -4127,14 +4726,16 @@ INTERFACE zif_ghes221.
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List team members"
+* Operation id: teams/list-members-in-org
 * Parameter: role, optional, query
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_members_in_org
     IMPORTING
       role TYPE string DEFAULT 'all' OPTIONAL
@@ -4143,53 +4744,65 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get team membership for a user"
+* Operation id: teams/get-membership-for-user-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-membership
 * Response: 404
   METHODS teams_get_membership_for_user_
     IMPORTING
       org TYPE string
       team_slug TYPE string
       username TYPE string
+    RETURNING VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
+
 * PUT - "Add or update team membership for a user"
+* Operation id: teams/add-or-update-membership-for-user-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-membership
 * Response: 403
 * Response: 422
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS teams_add_or_update_membership
     IMPORTING
       org TYPE string
       team_slug TYPE string
       username TYPE string
+    RETURNING VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
+
 * DELETE - "Remove team membership for a user"
+* Operation id: teams/remove-membership-for-user-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: username, required, path
 * Response: 204
 * Response: 403
+* Body schema: object
   METHODS teams_remove_membership_for_us
     IMPORTING
       org TYPE string
       team_slug TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List team projects"
+* Operation id: teams/list-projects-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_projects_in_org
     IMPORTING
       org TYPE string
@@ -4197,44 +4810,55 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check team permissions for a project"
+* Operation id: teams/check-permissions-for-project-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-project
 * Response: 404
   METHODS teams_check_permissions_for_pr
     IMPORTING
       org TYPE string
       team_slug TYPE string
+    RETURNING VALUE(return_data) TYPE team_project
     RAISING cx_static_check.
+
 * PUT - "Add or update team project permissions"
+* Operation id: teams/add-or-update-project-permissions-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
 * Response: 403
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS teams_add_or_update_project_pe
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove a project from a team"
+* Operation id: teams/remove-project-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_remove_project_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
     RAISING cx_static_check.
+
 * GET - "List team repositories"
+* Operation id: teams/list-repos-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_repos_in_org
     IMPORTING
       org TYPE string
@@ -4242,13 +4866,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check team permissions for a repository"
+* Operation id: teams/check-permissions-for-repo-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/vnd.github.v3.repository+json
+*     application/vnd.github.v3.repository+json, #/components/schemas/team-repository
 * Response: 204
 * Response: 404
   METHODS teams_check_permissions_for_re
@@ -4258,12 +4884,15 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Add or update team repository permissions"
+* Operation id: teams/add-or-update-repo-permissions-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_add_or_update_repo_permi
     IMPORTING
       org TYPE string
@@ -4271,12 +4900,15 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove a repository from a team"
+* Operation id: teams/remove-repo-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_remove_repo_in_org
     IMPORTING
       org TYPE string
@@ -4284,13 +4916,15 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List child teams"
+* Operation id: teams/list-child-in-org
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_child_in_org
     IMPORTING
       org TYPE string
@@ -4298,10 +4932,12 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a project card"
+* Operation id: projects/get-card
 * Parameter: card_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project-card
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4309,51 +4945,64 @@ INTERFACE zif_ghes221.
   METHODS projects_get_card
     IMPORTING
       card_id TYPE i
+    RETURNING VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
+
 * PATCH - "Update an existing project card"
+* Operation id: projects/update-card
 * Parameter: card_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project-card
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS projects_update_card
     IMPORTING
       card_id TYPE i
+    RETURNING VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
+
 * DELETE - "Delete a project card"
+* Operation id: projects/delete-card
 * Parameter: card_id, required, path
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
+* Body schema: object
   METHODS projects_delete_card
     IMPORTING
       card_id TYPE i
     RAISING cx_static_check.
+
 * POST - "Move a project card"
+* Operation id: projects/move-card
 * Parameter: card_id, required, path
 * Response: 201
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 422
 * Response: 503
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS projects_move_card
     IMPORTING
       card_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get a project column"
+* Operation id: projects/get-column
 * Parameter: column_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project-column
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4361,35 +5010,45 @@ INTERFACE zif_ghes221.
   METHODS projects_get_column
     IMPORTING
       column_id TYPE i
+    RETURNING VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
+
 * PATCH - "Update an existing project column"
+* Operation id: projects/update-column
 * Parameter: column_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project-column
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS projects_update_column
     IMPORTING
       column_id TYPE i
+    RETURNING VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
+
 * DELETE - "Delete a project column"
+* Operation id: projects/delete-column
 * Parameter: column_id, required, path
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
+* Body schema: object
   METHODS projects_delete_column
     IMPORTING
       column_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List project cards"
+* Operation id: projects/list-cards
 * Parameter: archived_state, optional, query
 * Parameter: column_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4400,69 +5059,87 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a project card"
+* Operation id: projects/create-card
 * Parameter: column_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/project-card
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 422
-*     application/json
+*     application/json, 
 * Response: 503
-*     application/json
+*     application/json, object
+* Body schema: 
   METHODS projects_create_card
     IMPORTING
       column_id TYPE i
     RAISING cx_static_check.
+
 * POST - "Move a project column"
+* Operation id: projects/move-column
 * Parameter: column_id, required, path
 * Response: 201
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS projects_move_column
     IMPORTING
       column_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get a project"
+* Operation id: projects/get
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS projects_get
+    RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
+
 * PATCH - "Update a project"
+* Operation id: projects/update
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/project
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS projects_update
+    RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
+
 * DELETE - "Delete a project"
+* Operation id: projects/delete
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
 * Response: 410
+* Body schema: object
   METHODS projects_delete
     RAISING cx_static_check.
+
 * GET - "List project collaborators"
+* Operation id: projects/list-collaborators
 * Parameter: affiliation, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4475,7 +5152,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Add project collaborator"
+* Operation id: projects/add-collaborator
 * Parameter: username, required, path
 * Response: 204
 * Response: 304
@@ -4484,11 +5163,14 @@ INTERFACE zif_ghes221.
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS projects_add_collaborator
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove user as a collaborator"
+* Operation id: projects/remove-collaborator
 * Parameter: username, required, path
 * Response: 204
 * Response: 304
@@ -4497,14 +5179,17 @@ INTERFACE zif_ghes221.
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS projects_remove_collaborator
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get project permission for a user"
+* Operation id: projects/get-permission-for-user
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-collaborator-permission
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4514,12 +5199,15 @@ INTERFACE zif_ghes221.
   METHODS projects_get_permission_for_us
     IMPORTING
       username TYPE string
+    RETURNING VALUE(return_data) TYPE repository_collaborator_permis
     RAISING cx_static_check.
+
 * GET - "List project columns"
+* Operation id: projects/list-columns
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -4528,23 +5216,31 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a project column"
+* Operation id: projects/create-column
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/project-column
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS projects_create_column
     RAISING cx_static_check.
+
 * GET - "Get rate limit status for the authenticated user"
+* Operation id: rate-limit/get
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/rate-limit-overview
 * Response: 304
 * Response: 404
   METHODS rate_limit_get
+    RETURNING VALUE(return_data) TYPE rate_limit_overview
     RAISING cx_static_check.
+
 * DELETE - "Delete a reaction (Legacy)"
+* Operation id: reactions/delete-legacy
 * Response: 204
 * Response: 304
 * Response: 401
@@ -4553,11 +5249,13 @@ INTERFACE zif_ghes221.
 * Response: 415
   METHODS reactions_delete_legacy
     RAISING cx_static_check.
+
 * GET - "Get a repository"
+* Operation id: repos/get
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/full-repository
 * Response: 301
 * Response: 403
 * Response: 404
@@ -4565,39 +5263,49 @@ INTERFACE zif_ghes221.
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE full_repository
     RAISING cx_static_check.
+
 * PATCH - "Update a repository"
+* Operation id: repos/update
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/full-repository
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_update
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE full_repository
     RAISING cx_static_check.
+
 * DELETE - "Delete a repository"
+* Operation id: repos/delete
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
+* Body schema: object
   METHODS repos_delete
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List assignees"
+* Operation id: issues/list-assignees
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS issues_list_assignees
     IMPORTING
@@ -4606,27 +5314,31 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a user can be assigned"
+* Operation id: issues/check-user-can-be-assigned
 * Parameter: assignee, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 404
-*     application/json
+*     application/json, #/components/schemas/basic-error
   METHODS issues_check_user_can_be_assig
     IMPORTING
       assignee TYPE string
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List branches"
+* Operation id: repos/list-branches
 * Parameter: protected, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_list_branches
     IMPORTING
@@ -4636,12 +5348,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a branch"
+* Operation id: repos/get-branch
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/branch-with-protection
 * Response: 404
 * Response: 415
   METHODS repos_get_branch
@@ -4649,73 +5363,92 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE branch_with_protection
     RAISING cx_static_check.
+
 * GET - "Get branch protection"
+* Operation id: repos/get-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/branch-protection
 * Response: 404
   METHODS repos_get_branch_protection
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE branch_protection
     RAISING cx_static_check.
+
 * PUT - "Update branch protection"
+* Operation id: repos/update-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch
 * Response: 403
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS repos_update_branch_protection
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch
     RAISING cx_static_check.
+
 * DELETE - "Delete branch protection"
+* Operation id: repos/delete-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 204
 * Response: 403
+* Body schema: object
   METHODS repos_delete_branch_protection
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get admin branch protection"
+* Operation id: repos/get-admin-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch-admin-enforced
   METHODS repos_get_admin_branch_protect
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
+
 * POST - "Set admin branch protection"
+* Operation id: repos/set-admin-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch-admin-enforced
   METHODS repos_set_admin_branch_protect
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
+
 * DELETE - "Delete admin branch protection"
+* Operation id: repos/delete-admin-branch-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
@@ -4727,70 +5460,87 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get pull request review protection"
+* Operation id: repos/get-pull-request-review-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/vnd.github.luke-cage-preview+json
+*     application/vnd.github.luke-cage-preview+json, #/components/schemas/protected-branch-pull-request-review
   METHODS repos_get_pull_request_review_
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * PATCH - "Update pull request review protection"
+* Operation id: repos/update-pull-request-review-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch-pull-request-review
 * Response: 422
+* Body schema: object
   METHODS repos_update_pull_request_revi
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch_pull_request_
     RAISING cx_static_check.
+
 * DELETE - "Delete pull request review protection"
+* Operation id: repos/delete-pull-request-review-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS repos_delete_pull_request_revi
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get commit signature protection"
+* Operation id: repos/get-commit-signature-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch-admin-enforced
 * Response: 404
   METHODS repos_get_commit_signature_pro
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
+
 * POST - "Create commit signature protection"
+* Operation id: repos/create-commit-signature-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/protected-branch-admin-enforced
 * Response: 404
   METHODS repos_create_commit_signature_
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
+
 * DELETE - "Delete commit signature protection"
+* Operation id: repos/delete-commit-signature-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
@@ -4802,50 +5552,62 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get status checks protection"
+* Operation id: repos/get-status-checks-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/status-check-policy
 * Response: 404
   METHODS repos_get_status_checks_protec
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE status_check_policy
     RAISING cx_static_check.
+
 * PATCH - "Update status check protection"
+* Operation id: repos/update-status-check-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/status-check-policy
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_update_status_check_prot
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE status_check_policy
     RAISING cx_static_check.
+
 * DELETE - "Remove status check protection"
+* Operation id: repos/remove-status-check-protection
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 204
+* Body schema: object
   METHODS repos_remove_status_check_prot
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get all status check contexts"
+* Operation id: repos/get-all-status-check-contexts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_get_all_status_check_con
     IMPORTING
@@ -4853,63 +5615,77 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * POST - "Add status check contexts"
+* Operation id: repos/add-status-check-contexts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_add_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * PUT - "Set status check contexts"
+* Operation id: repos/set-status-check-contexts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_set_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove status check contexts"
+* Operation id: repos/remove-status-check-contexts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_remove_status_check_cont
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get access restrictions"
+* Operation id: repos/get-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/branch-restriction-policy
 * Response: 404
   METHODS repos_get_access_restrictions
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING VALUE(return_data) TYPE branch_restriction_policy
     RAISING cx_static_check.
+
 * DELETE - "Delete access restrictions"
+* Operation id: repos/delete-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
@@ -4920,12 +5696,14 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get apps with access to the protected branch"
+* Operation id: repos/get-apps-with-access-to-protected-branch
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_get_apps_with_access_to_
     IMPORTING
@@ -4933,51 +5711,62 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * POST - "Add app access restrictions"
+* Operation id: repos/add-app-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_add_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * PUT - "Set app access restrictions"
+* Operation id: repos/set-app-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_set_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove app access restrictions"
+* Operation id: repos/remove-app-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_remove_app_access_restri
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get teams with access to the protected branch"
+* Operation id: repos/get-teams-with-access-to-protected-branch
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_get_teams_with_access_to
     IMPORTING
@@ -4985,51 +5774,62 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * POST - "Add team access restrictions"
+* Operation id: repos/add-team-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_add_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * PUT - "Set team access restrictions"
+* Operation id: repos/set-team-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_set_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove team access restrictions"
+* Operation id: repos/remove-team-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_remove_team_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * GET - "Get users with access to the protected branch"
+* Operation id: repos/get-users-with-access-to-protected-branch
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_get_users_with_access_to
     IMPORTING
@@ -5037,87 +5837,108 @@ INTERFACE zif_ghes221.
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * POST - "Add user access restrictions"
+* Operation id: repos/add-user-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_add_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * PUT - "Set user access restrictions"
+* Operation id: repos/set-user-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_set_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove user access restrictions"
+* Operation id: repos/remove-user-access-restrictions
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
+* Body schema: object
   METHODS repos_remove_user_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a check run"
+* Operation id: checks/create
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/check-run
+* Body schema: object
   METHODS checks_create
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a check run"
+* Operation id: checks/get
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_run_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/check-run
   METHODS checks_get
     IMPORTING
       owner TYPE string
       repo TYPE string
       check_run_id TYPE i
+    RETURNING VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
+
 * PATCH - "Update a check run"
+* Operation id: checks/update
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_run_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/check-run
+* Body schema: object
   METHODS checks_update
     IMPORTING
       owner TYPE string
       repo TYPE string
       check_run_id TYPE i
+    RETURNING VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
+
 * GET - "List check run annotations"
+* Operation id: checks/list-annotations
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_run_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS checks_list_annotations
     IMPORTING
       owner TYPE string
@@ -5126,39 +5947,51 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a check suite"
+* Operation id: checks/create-suite
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/check-suite
+* Body schema: object
   METHODS checks_create_suite
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PATCH - "Update repository preferences for check suites"
+* Operation id: checks/set-suites-preferences
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/check-suite-preference
+* Body schema: object
   METHODS checks_set_suites_preferences
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE check_suite_preference
     RAISING cx_static_check.
+
 * GET - "Get a check suite"
+* Operation id: checks/get-suite
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_suite_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/check-suite
   METHODS checks_get_suite
     IMPORTING
       owner TYPE string
       repo TYPE string
       check_suite_id TYPE i
+    RETURNING VALUE(return_data) TYPE check_suite
     RAISING cx_static_check.
+
 * GET - "List check runs in a check suite"
+* Operation id: checks/list-for-suite
 * Parameter: filter, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -5168,7 +6001,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
   METHODS checks_list_for_suite
     IMPORTING
       filter TYPE string DEFAULT 'latest' OPTIONAL
@@ -5180,7 +6013,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Rerequest a check suite"
+* Operation id: checks/rerequest-suite
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_suite_id, required, path
@@ -5191,14 +6026,16 @@ INTERFACE zif_ghes221.
       repo TYPE string
       check_suite_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List repository collaborators"
+* Operation id: repos/list-collaborators
 * Parameter: affiliation, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_list_collaborators
     IMPORTING
@@ -5208,7 +6045,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a user is a repository collaborator"
+* Operation id: repos/check-collaborator
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: username, required, path
@@ -5220,52 +6059,63 @@ INTERFACE zif_ghes221.
       repo TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * PUT - "Add a repository collaborator"
+* Operation id: repos/add-collaborator
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: username, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/repository-invitation
 * Response: 204
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS repos_add_collaborator
     IMPORTING
       owner TYPE string
       repo TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove a repository collaborator"
+* Operation id: repos/remove-collaborator
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: username, required, path
 * Response: 204
+* Body schema: object
   METHODS repos_remove_collaborator
     IMPORTING
       owner TYPE string
       repo TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get repository permissions for a user"
+* Operation id: repos/get-collaborator-permission-level
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-collaborator-permission
 * Response: 404
   METHODS repos_get_collaborator_permiss
     IMPORTING
       owner TYPE string
       repo TYPE string
       username TYPE string
+    RETURNING VALUE(return_data) TYPE repository_collaborator_permis
     RAISING cx_static_check.
+
 * GET - "List commit comments for a repository"
+* Operation id: repos/list-commit-comments-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_commit_comments_for
     IMPORTING
       owner TYPE string
@@ -5273,45 +6123,57 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a commit comment"
+* Operation id: repos/get-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/commit-comment
 * Response: 404
   METHODS repos_get_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
+
 * PATCH - "Update a commit comment"
+* Operation id: repos/update-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/commit-comment
 * Response: 404
+* Body schema: object
   METHODS repos_update_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete a commit comment"
+* Operation id: repos/delete-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS repos_delete_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List reactions for a commit comment"
+* Operation id: reactions/list-for-commit-comment
 * Parameter: content, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -5319,7 +6181,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_commit_comm
@@ -5331,23 +6193,29 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a commit comment"
+* Operation id: reactions/create-for-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS reactions_create_for_commit_co
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
+
 * DELETE - "Delete a commit comment reaction"
+* Operation id: reactions/delete-for-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
@@ -5358,7 +6226,9 @@ INTERFACE zif_ghes221.
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List commits"
+* Operation id: repos/list-commits
 * Parameter: sha, optional, query
 * Parameter: path, optional, query
 * Parameter: author, optional, query
@@ -5369,7 +6239,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 400
 * Response: 404
 * Response: 409
@@ -5386,12 +6256,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List branches for HEAD commit"
+* Operation id: repos/list-branches-for-head-commit
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 415
 * Response: 422
   METHODS repos_list_branches_for_head_c
@@ -5400,14 +6272,16 @@ INTERFACE zif_ghes221.
       repo TYPE string
       commit_sha TYPE string
     RAISING cx_static_check.
+
 * GET - "List commit comments"
+* Operation id: repos/list-comments-for-commit
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_comments_for_commit
     IMPORTING
       owner TYPE string
@@ -5416,28 +6290,33 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a commit comment"
+* Operation id: repos/create-commit-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/commit-comment
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS repos_create_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       commit_sha TYPE string
     RAISING cx_static_check.
+
 * GET - "List pull requests associated with a commit"
+* Operation id: repos/list-pull-requests-associated-with-commit
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 415
   METHODS repos_list_pull_requests_assoc
     IMPORTING
@@ -5447,12 +6326,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a commit"
+* Operation id: repos/get-commit
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/commit
 * Response: 404
 * Response: 422
 * Response: 500
@@ -5461,8 +6342,11 @@ INTERFACE zif_ghes221.
       ref TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE commit
     RAISING cx_static_check.
+
 * GET - "List check runs for a Git reference"
+* Operation id: checks/list-for-ref
 * Parameter: ref, required, path
 * Parameter: filter, optional, query
 * Parameter: owner, required, path
@@ -5472,7 +6356,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
   METHODS checks_list_for_ref
     IMPORTING
       ref TYPE string
@@ -5484,7 +6368,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List check suites for a Git reference"
+* Operation id: checks/list-suites-for-ref
 * Parameter: ref, required, path
 * Parameter: app_id, optional, query
 * Parameter: owner, required, path
@@ -5493,7 +6379,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
   METHODS checks_list_suites_for_ref
     IMPORTING
       ref TYPE string
@@ -5504,27 +6390,32 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get the combined status for a specific reference"
+* Operation id: repos/get-combined-status-for-ref
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/combined-commit-status
 * Response: 404
   METHODS repos_get_combined_status_for_
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE combined_commit_status
     RAISING cx_static_check.
+
 * GET - "List commit statuses for a reference"
+* Operation id: repos/list-commit-statuses-for-ref
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 301
   METHODS repos_list_commit_statuses_for
     IMPORTING
@@ -5534,23 +6425,28 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get the code of conduct for a repository"
+* Operation id: codes-of-conduct/get-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/code-of-conduct
   METHODS codes_of_conduct_get_for_repo
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
+
 * GET - "Compare two commits"
+* Operation id: repos/compare-commits
 * Parameter: base, required, path
 * Parameter: head, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/commit-comparison
 * Response: 404
 * Response: 500
   METHODS repos_compare_commits
@@ -5559,15 +6455,18 @@ INTERFACE zif_ghes221.
       head TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE commit_comparison
     RAISING cx_static_check.
+
 * GET - "Get repository content"
+* Operation id: repos/get-content
 * Parameter: path, required, path
 * Parameter: ref, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/vnd.github.v3.object
-*     application/json
+*     application/vnd.github.v3.object, #/components/schemas/content-tree
+*     application/json, 
 * Response: 302
 * Response: 403
 * Response: 404
@@ -5578,47 +6477,57 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Create or update file contents"
+* Operation id: repos/create-or-update-file-contents
 * Parameter: path, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/file-commit
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/file-commit
 * Response: 404
 * Response: 409
 * Response: 422
+* Body schema: object
   METHODS repos_create_or_update_file_co
     IMPORTING
       path TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
+
 * DELETE - "Delete a file"
+* Operation id: repos/delete-file
 * Parameter: path, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/file-commit
 * Response: 404
 * Response: 409
 * Response: 422
 * Response: 503
+* Body schema: object
   METHODS repos_delete_file
     IMPORTING
       path TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
+
 * GET - "List repository contributors"
+* Operation id: repos/list-contributors
 * Parameter: anon, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 204
 * Response: 403
 * Response: 404
@@ -5630,7 +6539,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List deployments"
+* Operation id: repos/list-deployments
 * Parameter: sha, optional, query
 * Parameter: ref, optional, query
 * Parameter: task, optional, query
@@ -5640,7 +6551,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_deployments
     IMPORTING
       sha TYPE string DEFAULT 'none' OPTIONAL
@@ -5652,35 +6563,43 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a deployment"
+* Operation id: repos/create-deployment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/deployment
 * Response: 202
-*     application/json
+*     application/json, object
 * Response: 409
-*     application/json
+*     application/json, object
 * Response: 422
+* Body schema: object
   METHODS repos_create_deployment
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a deployment"
+* Operation id: repos/get-deployment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: deployment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/deployment
 * Response: 404
   METHODS repos_get_deployment
     IMPORTING
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
+    RETURNING VALUE(return_data) TYPE deployment
     RAISING cx_static_check.
+
 * DELETE - "Delete a deployment"
+* Operation id: repos/delete-deployment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: deployment_id, required, path
@@ -5693,14 +6612,16 @@ INTERFACE zif_ghes221.
       repo TYPE string
       deployment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List deployment statuses"
+* Operation id: repos/list-deployment-statuses
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: deployment_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_list_deployment_statuses
     IMPORTING
@@ -5710,26 +6631,31 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a deployment status"
+* Operation id: repos/create-deployment-status
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: deployment_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/deployment-status
 * Response: 422
+* Body schema: object
   METHODS repos_create_deployment_status
     IMPORTING
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get a deployment status"
+* Operation id: repos/get-deployment-status
 * Parameter: status_id, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: deployment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/deployment-status
 * Response: 404
 * Response: 415
   METHODS repos_get_deployment_status
@@ -5738,24 +6664,30 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
+    RETURNING VALUE(return_data) TYPE deployment_status
     RAISING cx_static_check.
+
 * POST - "Create a repository dispatch event"
+* Operation id: repos/create-dispatch-event
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 422
+* Body schema: object
   METHODS repos_create_dispatch_event
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List repository events"
+* Operation id: activity/list-repo-events
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_repo_events
     IMPORTING
       owner TYPE string
@@ -5763,14 +6695,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List forks"
+* Operation id: repos/list-forks
 * Parameter: sort, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 400
   METHODS repos_list_forks
     IMPORTING
@@ -5780,40 +6714,48 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a fork"
+* Operation id: repos/create-fork
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-*     application/json
+*     application/json, #/components/schemas/repository
 * Response: 400
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_create_fork
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a blob"
+* Operation id: git/create-blob
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/short-blob
 * Response: 403
 * Response: 404
 * Response: 409
 * Response: 422
+* Body schema: object
   METHODS git_create_blob
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a blob"
+* Operation id: git/get-blob
 * Parameter: file_sha, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/blob
 * Response: 403
 * Response: 404
 * Response: 422
@@ -5822,40 +6764,49 @@ INTERFACE zif_ghes221.
       file_sha TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE blob
     RAISING cx_static_check.
+
 * POST - "Create a commit"
+* Operation id: git/create-commit
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/git-commit
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS git_create_commit
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a commit"
+* Operation id: git/get-commit
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/git-commit
 * Response: 404
   METHODS git_get_commit
     IMPORTING
       owner TYPE string
       repo TYPE string
       commit_sha TYPE string
+    RETURNING VALUE(return_data) TYPE git_commit
     RAISING cx_static_check.
+
 * GET - "List matching references"
+* Operation id: git/list-matching-refs
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS git_list_matching_refs
     IMPORTING
       ref TYPE string
@@ -5864,99 +6815,123 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a reference"
+* Operation id: git/get-ref
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/git-ref
 * Response: 404
   METHODS git_get_ref
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
+
 * POST - "Create a reference"
+* Operation id: git/create-ref
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/git-ref
 * Response: 422
+* Body schema: object
   METHODS git_create_ref
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PATCH - "Update a reference"
+* Operation id: git/update-ref
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/git-ref
 * Response: 422
+* Body schema: object
   METHODS git_update_ref
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
+
 * DELETE - "Delete a reference"
+* Operation id: git/delete-ref
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 422
+* Body schema: object
   METHODS git_delete_ref
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a tag object"
+* Operation id: git/create-tag
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/git-tag
 * Response: 422
+* Body schema: object
   METHODS git_create_tag
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a tag"
+* Operation id: git/get-tag
 * Parameter: tag_sha, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/git-tag
 * Response: 404
   METHODS git_get_tag
     IMPORTING
       tag_sha TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE git_tag
     RAISING cx_static_check.
+
 * POST - "Create a tree"
+* Operation id: git/create-tree
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/git-tree
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS git_create_tree
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a tree"
+* Operation id: git/get-tree
 * Parameter: tree_sha, required, path
 * Parameter: recursive, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/git-tree
 * Response: 404
 * Response: 422
   METHODS git_get_tree
@@ -5965,14 +6940,17 @@ INTERFACE zif_ghes221.
       recursive TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE git_tree
     RAISING cx_static_check.
+
 * GET - "List repository webhooks"
+* Operation id: repos/list-webhooks
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_list_webhooks
     IMPORTING
@@ -5981,53 +6959,68 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a repository webhook"
+* Operation id: repos/create-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/hook
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_create_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a repository webhook"
+* Operation id: repos/get-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/hook
 * Response: 404
   METHODS repos_get_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE hook
     RAISING cx_static_check.
+
 * PATCH - "Update a repository webhook"
+* Operation id: repos/update-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/hook
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_update_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE hook
     RAISING cx_static_check.
+
 * DELETE - "Delete a repository webhook"
+* Operation id: repos/delete-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS repos_delete_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Ping a repository webhook"
+* Operation id: repos/ping-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -6037,7 +7030,9 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Test the push repository webhook"
+* Operation id: repos/test-push-webhook
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -6047,12 +7042,14 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a repository installation for the authenticated app"
+* Operation id: apps/get-repo-installation
 * Parameter: accept, required, header
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/installation-ghes-2
 * Response: 301
 * Response: 404
   METHODS apps_get_repo_installation
@@ -6060,14 +7057,17 @@ INTERFACE zif_ghes221.
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE installation_ghes_2
     RAISING cx_static_check.
+
 * GET - "List repository invitations"
+* Operation id: repos/list-invitations
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_invitations
     IMPORTING
       owner TYPE string
@@ -6075,30 +7075,39 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PATCH - "Update a repository invitation"
+* Operation id: repos/update-invitation
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: invitation_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-invitation
+* Body schema: object
   METHODS repos_update_invitation
     IMPORTING
       owner TYPE string
       repo TYPE string
       invitation_id TYPE i
+    RETURNING VALUE(return_data) TYPE repository_invitation
     RAISING cx_static_check.
+
 * DELETE - "Delete a repository invitation"
+* Operation id: repos/delete-invitation
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: invitation_id, required, path
 * Response: 204
+* Body schema: object
   METHODS repos_delete_invitation
     IMPORTING
       owner TYPE string
       repo TYPE string
       invitation_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List repository issues"
+* Operation id: issues/list-for-repo
 * Parameter: milestone, optional, query
 * Parameter: state, optional, query
 * Parameter: assignee, optional, query
@@ -6113,7 +7122,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 301
 * Response: 404
 * Response: 422
@@ -6133,22 +7142,27 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create an issue"
+* Operation id: issues/create
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/issue
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 422
 * Response: 503
+* Body schema: object
   METHODS issues_create
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List issue comments for a repository"
+* Operation id: issues/list-comments-for-repo
 * Parameter: direction, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -6157,7 +7171,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 422
   METHODS issues_list_comments_for_repo
@@ -6170,44 +7184,56 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get an issue comment"
+* Operation id: issues/get-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue-comment
 * Response: 404
   METHODS issues_get_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
+
 * PATCH - "Update an issue comment"
+* Operation id: issues/update-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue-comment
 * Response: 422
+* Body schema: object
   METHODS issues_update_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete an issue comment"
+* Operation id: issues/delete-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 204
+* Body schema: object
   METHODS issues_delete_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List reactions for an issue comment"
+* Operation id: reactions/list-for-issue-comment
 * Parameter: content, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -6215,7 +7241,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_issue_comme
@@ -6227,23 +7253,29 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for an issue comment"
+* Operation id: reactions/create-for-issue-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS reactions_create_for_issue_com
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
+
 * DELETE - "Delete an issue comment reaction"
+* Operation id: reactions/delete-for-issue-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
@@ -6254,13 +7286,15 @@ INTERFACE zif_ghes221.
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List issue events for a repository"
+* Operation id: issues/list-events-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
   METHODS issues_list_events_for_repo
     IMPORTING
@@ -6269,12 +7303,14 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get an issue event"
+* Operation id: issues/get-event
 * Parameter: event_id, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue-event
 * Response: 403
 * Response: 404
 * Response: 410
@@ -6283,13 +7319,16 @@ INTERFACE zif_ghes221.
       event_id TYPE i
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE issue_event
     RAISING cx_static_check.
+
 * GET - "Get an issue"
+* Operation id: issues/get
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue
 * Response: 301
 * Response: 304
 * Response: 404
@@ -6299,50 +7338,64 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+    RETURNING VALUE(return_data) TYPE issue
     RAISING cx_static_check.
+
 * PATCH - "Update an issue"
+* Operation id: issues/update
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue
 * Response: 301
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 422
 * Response: 503
+* Body schema: object
   METHODS issues_update
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+    RETURNING VALUE(return_data) TYPE issue
     RAISING cx_static_check.
+
 * POST - "Add assignees to an issue"
+* Operation id: issues/add-assignees
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/issue-simple
+* Body schema: object
   METHODS issues_add_assignees
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Remove assignees from an issue"
+* Operation id: issues/remove-assignees
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/issue-simple
+* Body schema: object
   METHODS issues_remove_assignees
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+    RETURNING VALUE(return_data) TYPE issue_simple
     RAISING cx_static_check.
+
 * GET - "List issue comments"
+* Operation id: issues/list-comments
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
@@ -6350,7 +7403,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 410
   METHODS issues_list_comments
@@ -6362,30 +7415,35 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create an issue comment"
+* Operation id: issues/create-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/issue-comment
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS issues_create_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * GET - "List issue events"
+* Operation id: issues/list-events
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 410
   METHODS issues_list_events
     IMPORTING
@@ -6395,14 +7453,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List labels for an issue"
+* Operation id: issues/list-labels-on-issue
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 410
   METHODS issues_list_labels_on_issue
     IMPORTING
@@ -6412,53 +7472,64 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Add labels to an issue"
+* Operation id: issues/add-labels
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS issues_add_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * PUT - "Set labels for an issue"
+* Operation id: issues/set-labels
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS issues_set_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Remove all labels from an issue"
+* Operation id: issues/remove-all-labels
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 204
 * Response: 410
+* Body schema: object
   METHODS issues_remove_all_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Remove a label from an issue"
+* Operation id: issues/remove-label
 * Parameter: name, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 410
   METHODS issues_remove_label
@@ -6468,7 +7539,9 @@ INTERFACE zif_ghes221.
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * PUT - "Lock an issue"
+* Operation id: issues/lock
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
@@ -6477,26 +7550,32 @@ INTERFACE zif_ghes221.
 * Response: 404
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS issues_lock
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Unlock an issue"
+* Operation id: issues/unlock
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 204
 * Response: 403
 * Response: 404
+* Body schema: object
   METHODS issues_unlock
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * GET - "List reactions for an issue"
+* Operation id: reactions/list-for-issue
 * Parameter: content, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -6504,7 +7583,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 410
 * Response: 415
@@ -6517,21 +7596,26 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for an issue"
+* Operation id: reactions/create-for-issue
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS reactions_create_for_issue
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Delete an issue reaction"
+* Operation id: reactions/delete-for-issue
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
@@ -6542,14 +7626,16 @@ INTERFACE zif_ghes221.
       repo TYPE string
       issue_number TYPE i
     RAISING cx_static_check.
+
 * GET - "List timeline events for an issue"
+* Operation id: issues/list-events-for-timeline
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 410
 * Response: 415
@@ -6561,13 +7647,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List deploy keys"
+* Operation id: repos/list-deploy-keys
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_deploy_keys
     IMPORTING
       owner TYPE string
@@ -6575,31 +7663,39 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a deploy key"
+* Operation id: repos/create-deploy-key
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/deploy-key
 * Response: 422
+* Body schema: object
   METHODS repos_create_deploy_key
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a deploy key"
+* Operation id: repos/get-deploy-key
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: key_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/deploy-key
 * Response: 404
   METHODS repos_get_deploy_key
     IMPORTING
       owner TYPE string
       repo TYPE string
       key_id TYPE i
+    RETURNING VALUE(return_data) TYPE deploy_key
     RAISING cx_static_check.
+
 * DELETE - "Delete a deploy key"
+* Operation id: repos/delete-deploy-key
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: key_id, required, path
@@ -6610,13 +7706,15 @@ INTERFACE zif_ghes221.
       repo TYPE string
       key_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List labels for a repository"
+* Operation id: issues/list-labels-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS issues_list_labels_for_repo
     IMPORTING
@@ -6625,91 +7723,115 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a label"
+* Operation id: issues/create-label
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/label
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS issues_create_label
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a label"
+* Operation id: issues/get-label
 * Parameter: name, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/label
 * Response: 404
   METHODS issues_get_label
     IMPORTING
       name TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE label
     RAISING cx_static_check.
+
 * PATCH - "Update a label"
+* Operation id: issues/update-label
 * Parameter: name, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/label
+* Body schema: object
   METHODS issues_update_label
     IMPORTING
       name TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE label
     RAISING cx_static_check.
+
 * DELETE - "Delete a label"
+* Operation id: issues/delete-label
 * Parameter: name, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Body schema: object
   METHODS issues_delete_label
     IMPORTING
       name TYPE string
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List repository languages"
+* Operation id: repos/list-languages
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/language
   METHODS repos_list_languages
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE language
     RAISING cx_static_check.
+
 * GET - "Get the license for a repository"
+* Operation id: licenses/get-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/license-content
   METHODS licenses_get_for_repo
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE license_content
     RAISING cx_static_check.
+
 * POST - "Merge a branch"
+* Operation id: repos/merge
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/commit
 * Response: 403
 * Response: 404
-*     application/json
+*     application/json, object
 * Response: 409
-*     application/json
+*     application/json, object
 * Response: 422
+* Body schema: object
   METHODS repos_merge
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List milestones"
+* Operation id: issues/list-milestones
 * Parameter: state, optional, query
 * Parameter: sort, optional, query
 * Parameter: direction, optional, query
@@ -6718,7 +7840,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS issues_list_milestones
     IMPORTING
@@ -6730,63 +7852,78 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a milestone"
+* Operation id: issues/create-milestone
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/milestone
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS issues_create_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a milestone"
+* Operation id: issues/get-milestone
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: milestone_number, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/milestone
 * Response: 404
   METHODS issues_get_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
+    RETURNING VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
+
 * PATCH - "Update a milestone"
+* Operation id: issues/update-milestone
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: milestone_number, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/milestone
+* Body schema: object
   METHODS issues_update_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
+    RETURNING VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
+
 * DELETE - "Delete a milestone"
+* Operation id: issues/delete-milestone
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: milestone_number, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS issues_delete_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
     RAISING cx_static_check.
+
 * GET - "List labels for issues in a milestone"
+* Operation id: issues/list-labels-for-milestone
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: milestone_number, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS issues_list_labels_for_milesto
     IMPORTING
       owner TYPE string
@@ -6795,7 +7932,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List repository notifications for the authenticated user"
+* Operation id: activity/list-repo-notifications-for-authenticated-user
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: all, optional, query
@@ -6805,7 +7944,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_repo_notificatio
     IMPORTING
       owner TYPE string
@@ -6817,69 +7956,86 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Mark repository notifications as read"
+* Operation id: activity/mark-repo-notifications-as-read
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
+* Body schema: object
   METHODS activity_mark_repo_notificatio
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a GitHub Enterprise Server Pages site"
+* Operation id: repos/get-pages
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/page
 * Response: 404
   METHODS repos_get_pages
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE page
     RAISING cx_static_check.
+
 * POST - "Create a GitHub Pages site"
+* Operation id: repos/create-pages-site
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/page
 * Response: 409
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS repos_create_pages_site
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Update information about a GitHub Pages site"
+* Operation id: repos/update-information-about-pages-site
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 400
 * Response: 422
+* Body schema: object
   METHODS repos_update_information_about
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Delete a GitHub Enterprise Server Pages site"
+* Operation id: repos/delete-pages-site
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS repos_delete_pages_site
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List GitHub Enterprise Server Pages builds"
+* Operation id: repos/list-pages-builds
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_pages_builds
     IMPORTING
       owner TYPE string
@@ -6887,88 +8043,111 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Request a GitHub Enterprise Server Pages build"
+* Operation id: repos/request-pages-build
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/page-build-status
   METHODS repos_request_pages_build
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get latest Pages build"
+* Operation id: repos/get-latest-pages-build
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/page-build
   METHODS repos_get_latest_pages_build
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE page_build
     RAISING cx_static_check.
+
 * GET - "Get GitHub Enterprise Server Pages build"
+* Operation id: repos/get-pages-build
 * Parameter: build_id, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/page-build
   METHODS repos_get_pages_build
     IMPORTING
       build_id TYPE i
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE page_build
     RAISING cx_static_check.
+
 * GET - "List pre-receive hooks for a repository"
+* Operation id: enterprise-admin/list-pre-receive-hooks-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_list_pre_re03
     IMPORTING
       owner TYPE string
       repo TYPE string
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a pre-receive hook for a repository"
+* Operation id: enterprise-admin/get-pre-receive-hook-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-pre-receive-hook
   METHODS enterprise_admin_get_pre_rec03
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE repository_pre_receive_hook
     RAISING cx_static_check.
+
 * PATCH - "Update pre-receive hook enforcement for a repository"
+* Operation id: enterprise-admin/update-pre-receive-hook-enforcement-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_update_pre_03
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE repository_pre_receive_hook
     RAISING cx_static_check.
+
 * DELETE - "Remove pre-receive hook enforcement for a repository"
+* Operation id: enterprise-admin/remove-pre-receive-hook-enforcement-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-pre-receive-hook
+* Body schema: object
   METHODS enterprise_admin_remove_pre_01
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE repository_pre_receive_hook
     RAISING cx_static_check.
+
 * GET - "List repository projects"
+* Operation id: projects/list-for-repo
 * Parameter: state, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 401
 * Response: 403
 * Response: 404
@@ -6982,22 +8161,27 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a repository project"
+* Operation id: projects/create-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/project
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 410
 * Response: 422
+* Body schema: object
   METHODS projects_create_for_repo
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List pull requests"
+* Operation id: pulls/list
 * Parameter: state, optional, query
 * Parameter: head, optional, query
 * Parameter: base, optional, query
@@ -7008,7 +8192,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 422
   METHODS pulls_list
@@ -7023,19 +8207,24 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a pull request"
+* Operation id: pulls/create
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pull-request
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS pulls_create
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List review comments in a repository"
+* Operation id: pulls/list-review-comments-for-repo
 * Parameter: direction, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -7044,7 +8233,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS pulls_list_review_comments_for
     IMPORTING
       direction TYPE string OPTIONAL
@@ -7055,44 +8244,56 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a review comment for a pull request"
+* Operation id: pulls/get-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review-comment
 * Response: 404
   METHODS pulls_get_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
+
 * PATCH - "Update a review comment for a pull request"
+* Operation id: pulls/update-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review-comment
+* Body schema: object
   METHODS pulls_update_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete a review comment for a pull request"
+* Operation id: pulls/delete-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 204
 * Response: 404
+* Body schema: object
   METHODS pulls_delete_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List reactions for a pull request review comment"
+* Operation id: reactions/list-for-pull-request-review-comment
 * Parameter: content, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -7100,7 +8301,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_pull_reques
@@ -7112,23 +8313,29 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a pull request review comment"
+* Operation id: reactions/create-for-pull-request-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS reactions_create_for_pull_requ
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
+
 * DELETE - "Delete a pull request comment reaction"
+* Operation id: reactions/delete-for-pull-request-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
@@ -7139,11 +8346,13 @@ INTERFACE zif_ghes221.
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get a pull request"
+* Operation id: pulls/get
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request
 * Response: 304
 * Response: 404
 * Response: 500
@@ -7151,20 +8360,27 @@ INTERFACE zif_ghes221.
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
+
 * PATCH - "Update a pull request"
+* Operation id: pulls/update
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS pulls_update
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
+
 * GET - "List review comments on a pull request"
+* Operation id: pulls/list-review-comments
 * Parameter: direction, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -7173,7 +8389,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS pulls_list_review_comments
     IMPORTING
       direction TYPE string OPTIONAL
@@ -7184,38 +8400,46 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a review comment for a pull request"
+* Operation id: pulls/create-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pull-request-review-comment
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS pulls_create_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a reply for a review comment"
+* Operation id: pulls/create-reply-for-review-comment
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pull-request-review-comment
 * Response: 404
+* Body schema: object
   METHODS pulls_create_reply_for_review_
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List commits on a pull request"
+* Operation id: pulls/list-commits
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS pulls_list_commits
     IMPORTING
       owner TYPE string
@@ -7223,13 +8447,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List pull requests files"
+* Operation id: pulls/list-files
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
 * Response: 500
   METHODS pulls_list_files
@@ -7239,7 +8465,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a pull request has been merged"
+* Operation id: pulls/check-if-merged
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -7249,66 +8477,81 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Merge a pull request"
+* Operation id: pulls/merge
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-merge-result
 * Response: 403
 * Response: 404
 * Response: 405
-*     application/json
+*     application/json, object
 * Response: 409
-*     application/json
+*     application/json, object
 * Response: 422
+* Body schema: object
   METHODS pulls_merge
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE pull_request_merge_result
     RAISING cx_static_check.
+
 * GET - "List requested reviewers for a pull request"
+* Operation id: pulls/list-requested-reviewers
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review-request
   METHODS pulls_list_requested_reviewers
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
+    RETURNING VALUE(return_data) TYPE pull_request_review_request
     RAISING cx_static_check.
+
 * POST - "Request reviewers for a pull request"
+* Operation id: pulls/request-reviewers
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/pull-request-simple
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS pulls_request_reviewers
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove requested reviewers from a pull request"
+* Operation id: pulls/remove-requested-reviewers
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
 * Response: 422
+* Body schema: object
   METHODS pulls_remove_requested_reviewe
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List reviews for a pull request"
+* Operation id: pulls/list-reviews
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS pulls_list_reviews
     IMPORTING
       owner TYPE string
@@ -7316,66 +8559,83 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a review for a pull request"
+* Operation id: pulls/create-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS pulls_create_review
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * GET - "Get a review for a pull request"
+* Operation id: pulls/get-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 404
   METHODS pulls_get_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       review_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * PUT - "Update a review for a pull request"
+* Operation id: pulls/update-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 422
+* Body schema: object
   METHODS pulls_update_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       review_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * DELETE - "Delete a pending review for a pull request"
+* Operation id: pulls/delete-pending-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS pulls_delete_pending_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       review_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * GET - "List comments for a pull request review"
+* Operation id: pulls/list-comments-for-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS pulls_list_comments_for_review
     IMPORTING
@@ -7385,54 +8645,67 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Dismiss a review for a pull request"
+* Operation id: pulls/dismiss-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS pulls_dismiss_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       review_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * POST - "Submit a review for a pull request"
+* Operation id: pulls/submit-review
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: review_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/pull-request-review
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS pulls_submit_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       review_id TYPE i
+    RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
+
 * PUT - "Update a pull request branch"
+* Operation id: pulls/update-branch
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-*     application/json
+*     application/json, object
 * Response: 403
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS pulls_update_branch
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a repository README"
+* Operation id: repos/get-readme
 * Parameter: ref, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/content-file
 * Response: 404
 * Response: 422
   METHODS repos_get_readme
@@ -7440,14 +8713,17 @@ INTERFACE zif_ghes221.
       ref TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
+
 * GET - "List releases"
+* Operation id: repos/list-releases
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS repos_list_releases
     IMPORTING
@@ -7456,23 +8732,28 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a release"
+* Operation id: repos/create-release
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/release
 * Response: 422
+* Body schema: object
   METHODS repos_create_release
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get a release asset"
+* Operation id: repos/get-release-asset
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: asset_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release-asset
 * Response: 302
 * Response: 404
 * Response: 415
@@ -7481,97 +8762,123 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
+    RETURNING VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
+
 * PATCH - "Update a release asset"
+* Operation id: repos/update-release-asset
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: asset_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release-asset
+* Body schema: object
   METHODS repos_update_release_asset
     IMPORTING
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
+    RETURNING VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
+
 * DELETE - "Delete a release asset"
+* Operation id: repos/delete-release-asset
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: asset_id, required, path
 * Response: 204
+* Body schema: object
   METHODS repos_delete_release_asset
     IMPORTING
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
     RAISING cx_static_check.
+
 * GET - "Get the latest release"
+* Operation id: repos/get-latest-release
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release
   METHODS repos_get_latest_release
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
+
 * GET - "Get a release by tag name"
+* Operation id: repos/get-release-by-tag
 * Parameter: tag, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release
 * Response: 404
   METHODS repos_get_release_by_tag
     IMPORTING
       tag TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
+
 * GET - "Get a release"
+* Operation id: repos/get-release
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release
 * Response: 404
   METHODS repos_get_release
     IMPORTING
       owner TYPE string
       repo TYPE string
       release_id TYPE i
+    RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
+
 * PATCH - "Update a release"
+* Operation id: repos/update-release
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/release
+* Body schema: object
   METHODS repos_update_release
     IMPORTING
       owner TYPE string
       repo TYPE string
       release_id TYPE i
+    RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
+
 * DELETE - "Delete a release"
+* Operation id: repos/delete-release
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Response: 204
+* Body schema: object
   METHODS repos_delete_release
     IMPORTING
       owner TYPE string
       repo TYPE string
       release_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List release assets"
+* Operation id: repos/list-release-assets
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_release_assets
     IMPORTING
       owner TYPE string
@@ -7580,14 +8887,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Upload a release asset"
+* Operation id: repos/upload-release-asset
 * Parameter: name, optional, query
 * Parameter: label, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/release-asset
   METHODS repos_upload_release_asset
     IMPORTING
       name TYPE string OPTIONAL
@@ -7596,14 +8905,16 @@ INTERFACE zif_ghes221.
       repo TYPE string
       release_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List stargazers"
+* Operation id: activity/list-stargazers-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
-*     application/vnd.github.v3.star+json
+*     application/json, array
+*     application/vnd.github.v3.star+json, array
 * Response: 422
   METHODS activity_list_stargazers_for_r
     IMPORTING
@@ -7612,76 +8923,92 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get the weekly commit activity"
+* Operation id: repos/get-code-frequency-stats
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_get_code_frequency_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get the last year of commit activity"
+* Operation id: repos/get-commit-activity-stats
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_get_commit_activity_stat
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get all contributor commit activity"
+* Operation id: repos/get-contributors-stats
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_get_contributors_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Get the weekly commit count"
+* Operation id: repos/get-participation-stats
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/participation-stats
 * Response: 404
   METHODS repos_get_participation_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE participation_stats
     RAISING cx_static_check.
+
 * GET - "Get the hourly commit count for each day"
+* Operation id: repos/get-punch-card-stats
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_get_punch_card_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a commit status"
+* Operation id: repos/create-commit-status
 * Parameter: sha, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/status
+* Body schema: object
   METHODS repos_create_commit_status
     IMPORTING
       sha TYPE string
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List watchers"
+* Operation id: activity/list-watchers-for-repo
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_watchers_for_rep
     IMPORTING
       owner TYPE string
@@ -7689,44 +9016,56 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a repository subscription"
+* Operation id: activity/get-repo-subscription
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-subscription
 * Response: 403
 * Response: 404
   METHODS activity_get_repo_subscription
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE repository_subscription
     RAISING cx_static_check.
+
 * PUT - "Set a repository subscription"
+* Operation id: activity/set-repo-subscription
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/repository-subscription
+* Body schema: object
   METHODS activity_set_repo_subscription
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE repository_subscription
     RAISING cx_static_check.
+
 * DELETE - "Delete a repository subscription"
+* Operation id: activity/delete-repo-subscription
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Body schema: object
   METHODS activity_delete_repo_subscript
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List repository tags"
+* Operation id: repos/list-tags
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_tags
     IMPORTING
       owner TYPE string
@@ -7734,7 +9073,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Download a repository archive (tar)"
+* Operation id: repos/download-tarball-archive
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -7745,13 +9086,15 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List repository teams"
+* Operation id: repos/list-teams
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_teams
     IMPORTING
       owner TYPE string
@@ -7759,42 +9102,54 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get all repository topics"
+* Operation id: repos/get-all-topics
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/topic
 * Response: 404
 * Response: 415
   METHODS repos_get_all_topics
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE topic
     RAISING cx_static_check.
+
 * PUT - "Replace all repository topics"
+* Operation id: repos/replace-all-topics
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/topic
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS repos_replace_all_topics
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE topic
     RAISING cx_static_check.
+
 * POST - "Transfer a repository"
+* Operation id: repos/transfer
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-*     application/json
+*     application/json, #/components/schemas/repository
+* Body schema: object
   METHODS repos_transfer
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Enable vulnerability alerts"
+* Operation id: repos/enable-vulnerability-alerts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -7803,7 +9158,9 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Disable vulnerability alerts"
+* Operation id: repos/disable-vulnerability-alerts
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -7812,7 +9169,9 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "Download a repository archive (zip)"
+* Operation id: repos/download-zipball-archive
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -7823,34 +9182,41 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * POST - "Create a repository using a template"
+* Operation id: repos/create-using-template
 * Parameter: template_owner, required, path
 * Parameter: template_repo, required, path
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/repository
+* Body schema: object
   METHODS repos_create_using_template
     IMPORTING
       template_owner TYPE string
       template_repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List public repositories"
+* Operation id: repos/list-public
 * Parameter: visibility, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 422
   METHODS repos_list_public
     IMPORTING
       visibility TYPE string DEFAULT 'public' OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search code"
+* Operation id: search/code
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 403
 * Response: 422
@@ -7863,14 +9229,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search commits"
+* Operation id: search/commits
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 415
   METHODS search_commits
@@ -7881,14 +9249,16 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search issues and pull requests"
+* Operation id: search/issues-and-pull-requests
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 403
 * Response: 422
@@ -7901,13 +9271,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search labels"
+* Operation id: search/labels
 * Parameter: repository_id, required, query
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 403
 * Response: 404
@@ -7919,14 +9291,16 @@ INTERFACE zif_ghes221.
       sort TYPE string OPTIONAL
       order TYPE string DEFAULT 'desc' OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search repositories"
+* Operation id: search/repos
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 422
 * Response: 503
@@ -7938,24 +9312,28 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Search topics"
+* Operation id: search/topics
 * Parameter: q, required, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 415
   METHODS search_topics
     IMPORTING
       q TYPE string
     RAISING cx_static_check.
+
 * GET - "Search users"
+* Operation id: search/users
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 422
 * Response: 503
@@ -7967,179 +9345,262 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get the configuration status"
+* Operation id: enterprise-admin/get-configuration-status
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/configuration-status
   METHODS enterprise_admin_get_configura
+    RETURNING VALUE(return_data) TYPE configuration_status
     RAISING cx_static_check.
+
 * POST - "Start a configuration process"
+* Operation id: enterprise-admin/start-configuration-process
 * Response: 202
   METHODS enterprise_admin_start_configu
     RAISING cx_static_check.
+
 * GET - "Get the maintenance status"
+* Operation id: enterprise-admin/get-maintenance-status
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/maintenance-status
   METHODS enterprise_admin_get_maintenan
+    RETURNING VALUE(return_data) TYPE maintenance_status
     RAISING cx_static_check.
+
 * POST - "Enable or disable maintenance mode"
+* Operation id: enterprise-admin/enable-or-disable-maintenance-mode
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/maintenance-status
+* Body schema: object
   METHODS enterprise_admin_enable_or_dis
+    RETURNING VALUE(return_data) TYPE maintenance_status
     RAISING cx_static_check.
+
 * GET - "Get settings"
+* Operation id: enterprise-admin/get-settings
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/enterprise-settings
   METHODS enterprise_admin_get_settings
+    RETURNING VALUE(return_data) TYPE enterprise_settings
     RAISING cx_static_check.
+
 * PUT - "Set settings"
+* Operation id: enterprise-admin/set-settings
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_set_settings
     RAISING cx_static_check.
+
 * GET - "Get all authorized SSH keys"
+* Operation id: enterprise-admin/get-all-authorized-ssh-keys
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS enterprise_admin_get_all_autho
     RAISING cx_static_check.
+
 * POST - "Add an authorized SSH key"
+* Operation id: enterprise-admin/add-authorized-ssh-key
 * Response: 201
-*     application/json
+*     application/json, array
+* Body schema: object
   METHODS enterprise_admin_add_authorize
     RAISING cx_static_check.
+
 * DELETE - "Remove an authorized SSH key"
+* Operation id: enterprise-admin/remove-authorized-ssh-key
 * Response: 200
-*     application/json
+*     application/json, array
+* Body schema: object
   METHODS enterprise_admin_remove_author
     RAISING cx_static_check.
+
 * POST - "Create a GitHub license"
+* Operation id: enterprise-admin/create-enterprise-server-license
 * Response: 202
+* Body schema: object
   METHODS enterprise_admin_create_enterp
     RAISING cx_static_check.
+
 * POST - "Upgrade a license"
+* Operation id: enterprise-admin/upgrade-license
 * Response: 202
+* Body schema: object
   METHODS enterprise_admin_upgrade_licen
     RAISING cx_static_check.
+
 * GET - "Get a team (Legacy)"
+* Operation id: teams/get-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-full
 * Response: 404
   METHODS teams_get_legacy
+    RETURNING VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
+
 * PATCH - "Update a team (Legacy)"
+* Operation id: teams/update-legacy
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-full
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS teams_update_legacy
     RAISING cx_static_check.
+
 * DELETE - "Delete a team (Legacy)"
+* Operation id: teams/delete-legacy
 * Response: 204
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS teams_delete_legacy
     RAISING cx_static_check.
+
 * GET - "List discussions (Legacy)"
+* Operation id: teams/list-discussions-legacy
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_discussions_legacy
     IMPORTING
       direction TYPE string DEFAULT 'desc' OPTIONAL
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a discussion (Legacy)"
+* Operation id: teams/create-discussion-legacy
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-discussion
+* Body schema: object
   METHODS teams_create_discussion_legacy
     RAISING cx_static_check.
+
 * GET - "Get a discussion (Legacy)"
+* Operation id: teams/get-discussion-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion
   METHODS teams_get_discussion_legacy
+    RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
+
 * PATCH - "Update a discussion (Legacy)"
+* Operation id: teams/update-discussion-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion
+* Body schema: object
   METHODS teams_update_discussion_legacy
+    RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
+
 * DELETE - "Delete a discussion (Legacy)"
+* Operation id: teams/delete-discussion-legacy
 * Response: 204
+* Body schema: object
   METHODS teams_delete_discussion_legacy
     RAISING cx_static_check.
+
 * GET - "List discussion comments (Legacy)"
+* Operation id: teams/list-discussion-comments-legacy
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS teams_list_discussion_commen01
     IMPORTING
       direction TYPE string DEFAULT 'desc' OPTIONAL
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a discussion comment (Legacy)"
+* Operation id: teams/create-discussion-comment-legacy
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
+* Body schema: object
   METHODS teams_create_discussion_comm01
     RAISING cx_static_check.
+
 * GET - "Get a discussion comment (Legacy)"
+* Operation id: teams/get-discussion-comment-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
   METHODS teams_get_discussion_comment_l
+    RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
+
 * PATCH - "Update a discussion comment (Legacy)"
+* Operation id: teams/update-discussion-comment-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-discussion-comment
+* Body schema: object
   METHODS teams_update_discussion_comm01
+    RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
+
 * DELETE - "Delete a discussion comment (Legacy)"
+* Operation id: teams/delete-discussion-comment-legacy
 * Response: 204
+* Body schema: object
   METHODS teams_delete_discussion_comm01
     RAISING cx_static_check.
+
 * GET - "List reactions for a team discussion comment (Legacy)"
+* Operation id: reactions/list-for-team-discussion-comment-legacy
 * Parameter: content, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS reactions_list_for_team_disc02
     IMPORTING
       content TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a team discussion comment (Legacy)"
+* Operation id: reactions/create-for-team-discussion-comment-legacy
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
+* Body schema: object
   METHODS reactions_create_for_team_di02
     RAISING cx_static_check.
+
 * GET - "List reactions for a team discussion (Legacy)"
+* Operation id: reactions/list-for-team-discussion-legacy
 * Parameter: content, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS reactions_list_for_team_disc03
     IMPORTING
       content TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create reaction for a team discussion (Legacy)"
+* Operation id: reactions/create-for-team-discussion-legacy
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/reaction
+* Body schema: object
   METHODS reactions_create_for_team_di03
     RAISING cx_static_check.
+
 * GET - "List team members (Legacy)"
+* Operation id: teams/list-members-legacy
 * Parameter: role, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS teams_list_members_legacy
     IMPORTING
@@ -8147,7 +9608,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get team member (Legacy)"
+* Operation id: teams/get-member-legacy
 * Parameter: username, required, path
 * Response: 204
 * Response: 404
@@ -8155,18 +9618,22 @@ INTERFACE zif_ghes221.
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * PUT - "Add team member (Legacy)"
+* Operation id: teams/add-member-legacy
 * Parameter: username, required, path
 * Response: 204
 * Response: 403
 * Response: 404
 * Response: 422
-*     application/json
+*     application/json, object
   METHODS teams_add_member_legacy
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove team member (Legacy)"
+* Operation id: teams/remove-member-legacy
 * Parameter: username, required, path
 * Response: 204
 * Response: 404
@@ -8174,40 +9641,52 @@ INTERFACE zif_ghes221.
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get team membership for a user (Legacy)"
+* Operation id: teams/get-membership-for-user-legacy
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-membership
 * Response: 404
   METHODS teams_get_membership_for_use01
     IMPORTING
       username TYPE string
+    RETURNING VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
+
 * PUT - "Add or update team membership for a user (Legacy)"
+* Operation id: teams/add-or-update-membership-for-user-legacy
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-membership
 * Response: 403
 * Response: 404
 * Response: 422
-*     application/json
+*     application/json, object
+* Body schema: object
   METHODS teams_add_or_update_membersh01
     IMPORTING
       username TYPE string
+    RETURNING VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
+
 * DELETE - "Remove team membership for a user (Legacy)"
+* Operation id: teams/remove-membership-for-user-legacy
 * Parameter: username, required, path
 * Response: 204
 * Response: 403
+* Body schema: object
   METHODS teams_remove_membership_for_01
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List team projects (Legacy)"
+* Operation id: teams/list-projects-legacy
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
 * Response: 415
   METHODS teams_list_projects_legacy
@@ -8215,45 +9694,58 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check team permissions for a project (Legacy)"
+* Operation id: teams/check-permissions-for-project-legacy
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/team-project
 * Response: 404
 * Response: 415
   METHODS teams_check_permissions_for_01
+    RETURNING VALUE(return_data) TYPE team_project
     RAISING cx_static_check.
+
 * PUT - "Add or update team project permissions (Legacy)"
+* Operation id: teams/add-or-update-project-permissions-legacy
 * Response: 204
 * Response: 403
-*     application/json
+*     application/json, object
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS teams_add_or_update_project_01
     RAISING cx_static_check.
+
 * DELETE - "Remove a project from a team (Legacy)"
+* Operation id: teams/remove-project-legacy
 * Response: 204
 * Response: 404
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS teams_remove_project_legacy
     RAISING cx_static_check.
+
 * GET - "List team repositories (Legacy)"
+* Operation id: teams/list-repos-legacy
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 404
   METHODS teams_list_repos_legacy
     IMPORTING
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check team permissions for a repository (Legacy)"
+* Operation id: teams/check-permissions-for-repo-legacy
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/vnd.github.v3.repository+json
+*     application/vnd.github.v3.repository+json, #/components/schemas/team-repository
 * Response: 204
 * Response: 404
   METHODS teams_check_permissions_for_02
@@ -8261,31 +9753,39 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Add or update team repository permissions (Legacy)"
+* Operation id: teams/add-or-update-repo-permissions-legacy
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
 * Response: 403
 * Response: 422
+* Body schema: object
   METHODS teams_add_or_update_repo_per01
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Remove a repository from a team (Legacy)"
+* Operation id: teams/remove-repo-legacy
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Body schema: object
   METHODS teams_remove_repo_legacy
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List child teams (Legacy)"
+* Operation id: teams/list-child-legacy
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 403
 * Response: 404
 * Response: 422
@@ -8294,29 +9794,37 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get the authenticated user"
+* Operation id: users/get-authenticated
 * Response: 200
-*     application/json
+*     application/json, 
 * Response: 304
 * Response: 401
 * Response: 403
   METHODS users_get_authenticated
     RAISING cx_static_check.
+
 * PATCH - "Update the authenticated user"
+* Operation id: users/update-authenticated
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/private-user
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS users_update_authenticated
+    RETURNING VALUE(return_data) TYPE private_user
     RAISING cx_static_check.
+
 * GET - "List email addresses for the authenticated user"
+* Operation id: users/list-emails-for-authenticated
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8326,30 +9834,38 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Add an email address for the authenticated user"
+* Operation id: users/add-email-for-authenticated
 * Response: 201
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: 
   METHODS users_add_email_for_authentica
     RAISING cx_static_check.
+
 * DELETE - "Delete an email address for the authenticated user"
+* Operation id: users/delete-email-for-authenticated
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: 
   METHODS users_delete_email_for_authent
     RAISING cx_static_check.
+
 * GET - "List followers of the authenticated user"
+* Operation id: users/list-followers-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8358,11 +9874,13 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List the people the authenticated user follows"
+* Operation id: users/list-followed-by-authenticated
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8371,19 +9889,23 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a person is followed by the authenticated user"
+* Operation id: users/check-person-is-followed-by-authenticated
 * Parameter: username, required, path
 * Response: 204
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
-*     application/json
+*     application/json, #/components/schemas/basic-error
   METHODS users_check_person_is_followed
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * PUT - "Follow a user"
+* Operation id: users/follow
 * Parameter: username, required, path
 * Response: 204
 * Response: 304
@@ -8394,7 +9916,9 @@ INTERFACE zif_ghes221.
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Unfollow a user"
+* Operation id: users/unfollow
 * Parameter: username, required, path
 * Response: 204
 * Response: 304
@@ -8405,11 +9929,13 @@ INTERFACE zif_ghes221.
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List GPG keys for the authenticated user"
+* Operation id: users/list-gpg-keys-for-authenticated
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8419,20 +9945,25 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a GPG key for the authenticated user"
+* Operation id: users/create-gpg-key-for-authenticated
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/gpg-key
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS users_create_gpg_key_for_authe
     RAISING cx_static_check.
+
 * GET - "Get a GPG key for the authenticated user"
+* Operation id: users/get-gpg-key-for-authenticated
 * Parameter: gpg_key_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/gpg-key
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8440,8 +9971,11 @@ INTERFACE zif_ghes221.
   METHODS users_get_gpg_key_for_authenti
     IMPORTING
       gpg_key_id TYPE i
+    RETURNING VALUE(return_data) TYPE gpg_key
     RAISING cx_static_check.
+
 * DELETE - "Delete a GPG key for the authenticated user"
+* Operation id: users/delete-gpg-key-for-authenticated
 * Parameter: gpg_key_id, required, path
 * Response: 204
 * Response: 304
@@ -8453,12 +9987,14 @@ INTERFACE zif_ghes221.
     IMPORTING
       gpg_key_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List app installations accessible to the user access token"
+* Operation id: apps/list-installations-for-authenticated-user
 * Parameter: accept, required, header
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8469,13 +10005,15 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List repositories accessible to the user access token"
+* Operation id: apps/list-installation-repos-for-authenticated-user
 * Parameter: accept, required, header
 * Parameter: installation_id, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, object
 * Response: 304
 * Response: 403
 * Response: 404
@@ -8486,7 +10024,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Add a repository to an app installation"
+* Operation id: apps/add-repo-to-installation
 * Parameter: installation_id, required, path
 * Parameter: repository_id, required, path
 * Response: 204
@@ -8498,7 +10038,9 @@ INTERFACE zif_ghes221.
       installation_id TYPE i
       repository_id TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Remove a repository from an app installation"
+* Operation id: apps/remove-repo-from-installation
 * Parameter: installation_id, required, path
 * Parameter: repository_id, required, path
 * Response: 204
@@ -8510,7 +10052,9 @@ INTERFACE zif_ghes221.
       installation_id TYPE i
       repository_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List user account issues assigned to the authenticated user"
+* Operation id: issues/list-for-authenticated-user
 * Parameter: filter, optional, query
 * Parameter: state, optional, query
 * Parameter: sort, optional, query
@@ -8520,7 +10064,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 404
   METHODS issues_list_for_authenticated_
@@ -8534,11 +10078,13 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List public SSH keys for the authenticated user"
+* Operation id: users/list-public-ssh-keys-for-authenticated
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8548,20 +10094,25 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a public SSH key for the authenticated user"
+* Operation id: users/create-public-ssh-key-for-authenticated
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/key
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS users_create_public_ssh_key_fo
     RAISING cx_static_check.
+
 * GET - "Get a public SSH key for the authenticated user"
+* Operation id: users/get-public-ssh-key-for-authenticated
 * Parameter: key_id, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/key
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8569,8 +10120,11 @@ INTERFACE zif_ghes221.
   METHODS users_get_public_ssh_key_for_a
     IMPORTING
       key_id TYPE i
+    RETURNING VALUE(return_data) TYPE key
     RAISING cx_static_check.
+
 * DELETE - "Delete a public SSH key for the authenticated user"
+* Operation id: users/delete-public-ssh-key-for-authenticated
 * Parameter: key_id, required, path
 * Response: 204
 * Response: 304
@@ -8581,12 +10135,14 @@ INTERFACE zif_ghes221.
     IMPORTING
       key_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List organization memberships for the authenticated user"
+* Operation id: orgs/list-memberships-for-authenticated-user
 * Parameter: state, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8597,32 +10153,41 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get an organization membership for the authenticated user"
+* Operation id: orgs/get-membership-for-authenticated-user
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-membership
 * Response: 403
 * Response: 404
   METHODS orgs_get_membership_for_authen
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
+
 * PATCH - "Update an organization membership for the authenticated user"
+* Operation id: orgs/update-membership-for-authenticated-user
 * Parameter: org, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/org-membership
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS orgs_update_membership_for_aut
     IMPORTING
       org TYPE string
+    RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
+
 * GET - "List organizations for the authenticated user"
+* Operation id: orgs/list-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8631,21 +10196,26 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a user project"
+* Operation id: projects/create-for-authenticated-user
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/project
 * Response: 304
 * Response: 401
 * Response: 403
 * Response: 415
 * Response: 422
+* Body schema: object
   METHODS projects_create_for_authentica
     RAISING cx_static_check.
+
 * GET - "List public email addresses for the authenticated user"
+* Operation id: users/list-public-emails-for-authenticated
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8655,7 +10225,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List repositories for the authenticated user"
+* Operation id: repos/list-for-authenticated-user
 * Parameter: visibility, optional, query
 * Parameter: affiliation, optional, query
 * Parameter: type, optional, query
@@ -8666,7 +10238,7 @@ INTERFACE zif_ghes221.
 * Parameter: since, optional, query
 * Parameter: before, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8683,22 +10255,27 @@ INTERFACE zif_ghes221.
       since TYPE string OPTIONAL
       before TYPE string OPTIONAL
     RAISING cx_static_check.
+
 * POST - "Create a repository for the authenticated user"
+* Operation id: repos/create-for-authenticated-user
 * Response: 201
-*     application/json
+*     application/json, #/components/schemas/repository
 * Response: 304
 * Response: 400
 * Response: 401
 * Response: 403
 * Response: 404
 * Response: 422
+* Body schema: object
   METHODS repos_create_for_authenticated
     RAISING cx_static_check.
+
 * GET - "List repository invitations for the authenticated user"
+* Operation id: repos/list-invitations-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8708,7 +10285,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PATCH - "Accept a repository invitation"
+* Operation id: repos/accept-invitation
 * Parameter: invitation_id, required, path
 * Response: 204
 * Response: 304
@@ -8719,7 +10298,9 @@ INTERFACE zif_ghes221.
     IMPORTING
       invitation_id TYPE i
     RAISING cx_static_check.
+
 * DELETE - "Decline a repository invitation"
+* Operation id: repos/decline-invitation
 * Parameter: invitation_id, required, path
 * Response: 204
 * Response: 304
@@ -8730,14 +10311,16 @@ INTERFACE zif_ghes221.
     IMPORTING
       invitation_id TYPE i
     RAISING cx_static_check.
+
 * GET - "List repositories starred by the authenticated user"
+* Operation id: activity/list-repos-starred-by-authenticated-user
 * Parameter: sort, optional, query
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
-*     application/vnd.github.v3.star+json
+*     application/json, array
+*     application/vnd.github.v3.star+json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8748,7 +10331,9 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a repository is starred by the authenticated user"
+* Operation id: activity/check-repo-is-starred-by-authenticated-user
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -8756,13 +10341,15 @@ INTERFACE zif_ghes221.
 * Response: 401
 * Response: 403
 * Response: 404
-*     application/json
+*     application/json, #/components/schemas/basic-error
   METHODS activity_check_repo_is_starred
     IMPORTING
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * PUT - "Star a repository for the authenticated user"
+* Operation id: activity/star-repo-for-authenticated-user
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -8775,7 +10362,9 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Unstar a repository for the authenticated user"
+* Operation id: activity/unstar-repo-for-authenticated-user
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
@@ -8788,11 +10377,13 @@ INTERFACE zif_ghes221.
       owner TYPE string
       repo TYPE string
     RAISING cx_static_check.
+
 * GET - "List repositories watched by the authenticated user"
+* Operation id: activity/list-watched-repos-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 401
 * Response: 403
@@ -8801,11 +10392,13 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List teams for the authenticated user"
+* Operation id: teams/list-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
 * Response: 403
 * Response: 404
@@ -8814,43 +10407,51 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List users"
+* Operation id: users/list
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 304
   METHODS users_list
     IMPORTING
       per_page TYPE i DEFAULT 30 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get a user"
+* Operation id: users/get-by-username
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, 
 * Response: 404
   METHODS users_get_by_username
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List events for the authenticated user"
+* Operation id: activity/list-events-for-authenticated-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_events_for_authe
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organization events for the authenticated user"
+* Operation id: activity/list-org-events-for-authenticated-user
 * Parameter: username, required, path
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_org_events_for_a
     IMPORTING
       username TYPE string
@@ -8858,43 +10459,51 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List public events for a user"
+* Operation id: activity/list-public-events-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_public_events_01
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List followers of a user"
+* Operation id: users/list-followers-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS users_list_followers_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List the people a user follows"
+* Operation id: users/list-following-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS users_list_following_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Check if a user follows another user"
+* Operation id: users/check-following-for-user
 * Parameter: target_user, required, path
 * Parameter: username, required, path
 * Response: 204
@@ -8904,13 +10513,15 @@ INTERFACE zif_ghes221.
       target_user TYPE string
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List gists for a user"
+* Operation id: gists/list-for-user
 * Parameter: username, required, path
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 422
   METHODS gists_list_for_user
     IMPORTING
@@ -8919,24 +10530,28 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List GPG keys for a user"
+* Operation id: users/list-gpg-keys-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS users_list_gpg_keys_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "Get contextual information for a user"
+* Operation id: users/get-context-for-user
 * Parameter: subject_type, optional, query
 * Parameter: subject_id, optional, query
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/hovercard
 * Response: 404
 * Response: 422
   METHODS users_get_context_for_user
@@ -8944,48 +10559,58 @@ INTERFACE zif_ghes221.
       subject_type TYPE string OPTIONAL
       subject_id TYPE string OPTIONAL
       username TYPE string
+    RETURNING VALUE(return_data) TYPE hovercard
     RAISING cx_static_check.
+
 * GET - "Get a user installation for the authenticated app"
+* Operation id: apps/get-user-installation
 * Parameter: accept, required, header
 * Parameter: username, required, path
 * Response: 200
-*     application/json
+*     application/json, #/components/schemas/installation-ghes-2
   METHODS apps_get_user_installation
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       username TYPE string
+    RETURNING VALUE(return_data) TYPE installation_ghes_2
     RAISING cx_static_check.
+
 * GET - "List public keys for a user"
+* Operation id: users/list-public-keys-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS users_list_public_keys_for_use
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List organizations for a user"
+* Operation id: orgs/list-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS orgs_list_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List user projects"
+* Operation id: projects/list-for-user
 * Parameter: state, optional, query
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
 * Response: 415
 * Response: 422
   METHODS projects_list_for_user
@@ -8995,31 +10620,37 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List events received by the authenticated user"
+* Operation id: activity/list-received-events-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_received_events_
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List public events received by a user"
+* Operation id: activity/list-received-public-events-for-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_received_public_
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List repositories for a user"
+* Operation id: repos/list-for-user
 * Parameter: type, optional, query
 * Parameter: sort, optional, query
 * Parameter: direction, optional, query
@@ -9027,7 +10658,7 @@ INTERFACE zif_ghes221.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS repos_list_for_user
     IMPORTING
       type TYPE string DEFAULT 'owner' OPTIONAL
@@ -9037,29 +10668,35 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Promote a user to be a site administrator"
+* Operation id: enterprise-admin/promote-user-to-be-site-administrator
 * Parameter: username, required, path
 * Response: 204
   METHODS enterprise_admin_promote_user_
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Demote a site administrator"
+* Operation id: enterprise-admin/demote-site-administrator
 * Parameter: username, required, path
 * Response: 204
   METHODS enterprise_admin_demote_site_a
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "List repositories starred by a user"
+* Operation id: activity/list-repos-starred-by-user
 * Parameter: username, required, path
 * Parameter: sort, optional, query
 * Parameter: direction, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
-*     application/vnd.github.v3.star+json
+*     application/json, array
+*     application/vnd.github.v3.star+json, array
   METHODS activity_list_repos_starred_01
     IMPORTING
       username TYPE string
@@ -9068,35 +10705,46 @@ INTERFACE zif_ghes221.
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * GET - "List repositories watched by a user"
+* Operation id: activity/list-repos-watched-by-user
 * Parameter: username, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json
+*     application/json, array
   METHODS activity_list_repos_watched_by
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30 OPTIONAL
       page TYPE i DEFAULT 1 OPTIONAL
     RAISING cx_static_check.
+
 * PUT - "Suspend a user"
+* Operation id: enterprise-admin/suspend-user
 * Parameter: username, required, path
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_suspend_user
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * DELETE - "Unsuspend a user"
+* Operation id: enterprise-admin/unsuspend-user
 * Parameter: username, required, path
 * Response: 204
+* Body schema: object
   METHODS enterprise_admin_unsuspend_use
     IMPORTING
       username TYPE string
     RAISING cx_static_check.
+
 * GET - "Get the Zen of GitHub"
+* Operation id: meta/get-zen
 * Response: 200
-*     text/plain
+*     text/plain, string
   METHODS meta_get_zen
     RAISING cx_static_check.
+
 ENDINTERFACE.
