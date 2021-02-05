@@ -710,8 +710,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     global_hook-id = mo_json->value_string( iv_prefix && '/id' ).
     global_hook-name = mo_json->value_string( iv_prefix && '/name' ).
     global_hook-active = mo_json->value_boolean( iv_prefix && '/active' ).
-* todo, object, events, array
-* todo, object, config, object
+* todo, array, events
+* todo, object, config
     global_hook-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     global_hook-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     global_hook-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -723,8 +723,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     global_hook_2-id = mo_json->value_string( iv_prefix && '/id' ).
     global_hook_2-name = mo_json->value_string( iv_prefix && '/name' ).
     global_hook_2-active = mo_json->value_boolean( iv_prefix && '/active' ).
-* todo, object, events, array
-* todo, object, config, object
+* todo, array, events
+* todo, object, config
     global_hook_2-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     global_hook_2-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     global_hook_2-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -753,7 +753,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     ldap_mapping_team-permission = mo_json->value_string( iv_prefix && '/permission' ).
     ldap_mapping_team-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     ldap_mapping_team-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-* todo, object, parent, 
+* todo, , parent
   ENDMETHOD.
 
   METHOD parse_ldap_mapping_user.
@@ -802,7 +802,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pre_receive_environment-default_environment = mo_json->value_boolean( iv_prefix && '/default_environment' ).
     pre_receive_environment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pre_receive_environment-hooks_count = mo_json->value_string( iv_prefix && '/hooks_count' ).
-* todo, object, download, object
+* todo, object, download
   ENDMETHOD.
 
   METHOD parse_pre_receive_environment_.
@@ -817,8 +817,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pre_receive_hook-name = mo_json->value_string( iv_prefix && '/name' ).
     pre_receive_hook-enforcement = mo_json->value_string( iv_prefix && '/enforcement' ).
     pre_receive_hook-script = mo_json->value_string( iv_prefix && '/script' ).
-* todo, object, script_repository, object
-* todo, object, environment, object
+* todo, object, script_repository
+* todo, object, environment
     pre_receive_hook-allow_downstream_configuration = mo_json->value_boolean( iv_prefix && '/allow_downstream_configuration' ).
   ENDMETHOD.
 
@@ -878,44 +878,44 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_scoped_installation.
-* todo, object, permissions, 
+* todo, #/components/schemas/app-permissions, ref?
     scoped_installation-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
     scoped_installation-single_file_name = mo_json->value_string( iv_prefix && '/single_file_name' ).
     scoped_installation-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
-* todo, object, single_file_paths, array
+* todo, array, single_file_paths
     scoped_installation-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-* todo, object, account, 
+* todo, #/components/schemas/simple-user, ref?
   ENDMETHOD.
 
   METHOD parse_authorization.
     authorization-id = mo_json->value_string( iv_prefix && '/id' ).
     authorization-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, scopes, array
+* todo, array, scopes
     authorization-token = mo_json->value_string( iv_prefix && '/token' ).
     authorization-token_last_eight = mo_json->value_string( iv_prefix && '/token_last_eight' ).
     authorization-hashed_token = mo_json->value_string( iv_prefix && '/hashed_token' ).
-* todo, object, app, object
+* todo, object, app
     authorization-note = mo_json->value_string( iv_prefix && '/note' ).
     authorization-note_url = mo_json->value_string( iv_prefix && '/note_url' ).
     authorization-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     authorization-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     authorization-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
-* todo, object, user, 
-* todo, object, installation, 
+* todo, , user
+* todo, , installation
   ENDMETHOD.
 
   METHOD parse_integration.
     integration-id = mo_json->value_string( iv_prefix && '/id' ).
     integration-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-* todo, object, owner, 
+* todo, , owner
     integration-name = mo_json->value_string( iv_prefix && '/name' ).
     integration-description = mo_json->value_string( iv_prefix && '/description' ).
     integration-external_url = mo_json->value_string( iv_prefix && '/external_url' ).
     integration-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     integration-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     integration-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, permissions, object
-* todo, object, events, array
+* todo, object, permissions
+* todo, array, events
     integration-installations_count = mo_json->value_string( iv_prefix && '/installations_count' ).
     integration-client_id = mo_json->value_string( iv_prefix && '/client_id' ).
     integration-client_secret = mo_json->value_string( iv_prefix && '/client_secret' ).
@@ -931,7 +931,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_validation_error_simple.
     validation_error_simple-message = mo_json->value_string( iv_prefix && '/message' ).
     validation_error_simple-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-* todo, object, errors, array
+* todo, array, errors
   ENDMETHOD.
 
   METHOD parse_enterprise.
@@ -949,7 +949,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_installation_ghes_2.
     installation_ghes_2-id = mo_json->value_string( iv_prefix && '/id' ).
-* todo, object, account, 
+* todo, , account
     installation_ghes_2-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
     installation_ghes_2-access_tokens_url = mo_json->value_string( iv_prefix && '/access_tokens_url' ).
     installation_ghes_2-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
@@ -957,13 +957,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     installation_ghes_2-app_id = mo_json->value_string( iv_prefix && '/app_id' ).
     installation_ghes_2-target_id = mo_json->value_string( iv_prefix && '/target_id' ).
     installation_ghes_2-target_type = mo_json->value_string( iv_prefix && '/target_type' ).
-* todo, object, permissions, object
-* todo, object, events, array
+* todo, object, permissions
+* todo, array, events
     installation_ghes_2-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     installation_ghes_2-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     installation_ghes_2-single_file_name = mo_json->value_string( iv_prefix && '/single_file_name' ).
     installation_ghes_2-app_slug = mo_json->value_string( iv_prefix && '/app_slug' ).
-* todo, object, suspended_by, 
+* todo, , suspended_by
     installation_ghes_2-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
     installation_ghes_2-contact_email = mo_json->value_string( iv_prefix && '/contact_email' ).
   ENDMETHOD.
@@ -982,10 +982,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     repository-name = mo_json->value_string( iv_prefix && '/name' ).
     repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-* todo, object, license, 
+* todo, , license
     repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
-* todo, object, permissions, object
-* todo, object, owner, 
+* todo, object, permissions
+* todo, , owner
     repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -1041,7 +1041,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
     repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
     repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
-* todo, object, topics, array
+* todo, array, topics
     repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
     repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
     repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
@@ -1053,7 +1053,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
-* todo, object, template_repository, object
+* todo, object, template_repository
     repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
     repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
@@ -1068,44 +1068,44 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_installation_token.
     installation_token-token = mo_json->value_string( iv_prefix && '/token' ).
     installation_token-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
-* todo, object, permissions, object
+* todo, object, permissions
     installation_token-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
-* todo, object, repositories, array
+* todo, array, repositories
     installation_token-single_file = mo_json->value_string( iv_prefix && '/single_file' ).
     installation_token-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
-* todo, object, single_file_paths, array
+* todo, array, single_file_paths
   ENDMETHOD.
 
   METHOD parse_validation_error.
     validation_error-message = mo_json->value_string( iv_prefix && '/message' ).
     validation_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-* todo, object, errors, array
+* todo, array, errors
   ENDMETHOD.
 
   METHOD parse_application_grant.
     application_grant-id = mo_json->value_string( iv_prefix && '/id' ).
     application_grant-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, app, object
+* todo, object, app
     application_grant-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     application_grant-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, scopes, array
-* todo, object, user, 
+* todo, array, scopes
+* todo, , user
   ENDMETHOD.
 
   METHOD parse_authorization_with_user.
     authorization_with_user-id = mo_json->value_string( iv_prefix && '/id' ).
     authorization_with_user-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, scopes, array
+* todo, array, scopes
     authorization_with_user-token = mo_json->value_string( iv_prefix && '/token' ).
     authorization_with_user-token_last_eight = mo_json->value_string( iv_prefix && '/token_last_eight' ).
     authorization_with_user-hashed_token = mo_json->value_string( iv_prefix && '/hashed_token' ).
-* todo, object, app, object
+* todo, object, app
     authorization_with_user-note = mo_json->value_string( iv_prefix && '/note' ).
     authorization_with_user-note_url = mo_json->value_string( iv_prefix && '/note_url' ).
     authorization_with_user-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     authorization_with_user-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     authorization_with_user-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
-* todo, object, user, object
+* todo, object, user
   ENDMETHOD.
 
   METHOD parse_code_of_conduct.
@@ -1133,16 +1133,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_enterprise_overview.
-* todo, object, repos, object
-* todo, object, hooks, object
-* todo, object, pages, object
-* todo, object, orgs, object
-* todo, object, users, object
-* todo, object, pulls, object
-* todo, object, issues, object
-* todo, object, milestones, object
-* todo, object, gists, object
-* todo, object, comments, object
+* todo, object, repos
+* todo, object, hooks
+* todo, object, pages
+* todo, object, orgs
+* todo, object, users
+* todo, object, pulls
+* todo, object, issues
+* todo, object, milestones
+* todo, object, gists
+* todo, object, comments
   ENDMETHOD.
 
   METHOD parse_actor.
@@ -1174,7 +1174,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     milestone-state = mo_json->value_string( iv_prefix && '/state' ).
     milestone-title = mo_json->value_string( iv_prefix && '/title' ).
     milestone-description = mo_json->value_string( iv_prefix && '/description' ).
-* todo, object, creator, 
+* todo, , creator
     milestone-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     milestone-closed_issues = mo_json->value_string( iv_prefix && '/closed_issues' ).
     milestone-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
@@ -1200,24 +1200,24 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_simple-state = mo_json->value_string( iv_prefix && '/state' ).
     issue_simple-title = mo_json->value_string( iv_prefix && '/title' ).
     issue_simple-body = mo_json->value_string( iv_prefix && '/body' ).
-* todo, object, user, 
-* todo, object, labels, array
-* todo, object, assignee, 
-* todo, object, assignees, array
-* todo, object, milestone, 
+* todo, , user
+* todo, array, labels
+* todo, , assignee
+* todo, array, assignees
+* todo, , milestone
     issue_simple-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue_simple-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     issue_simple-comments = mo_json->value_string( iv_prefix && '/comments' ).
-* todo, object, pull_request, object
+* todo, object, pull_request
     issue_simple-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     issue_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, author_association, 
+* todo, #/components/schemas/author_association, ref?
     issue_simple-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue_simple-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_simple-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
-* todo, object, repository, 
-* todo, object, performed_via_github_app, 
+* todo, #/components/schemas/repository, ref?
+* todo, , performed_via_github_app
   ENDMETHOD.
 
   METHOD parse_reaction_rollup.
@@ -1241,22 +1241,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, object, user, 
+* todo, , user
     issue_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     issue_comment-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
-* todo, object, author_association, 
-* todo, object, performed_via_github_app, 
-* todo, object, reactions, 
+* todo, #/components/schemas/author_association, ref?
+* todo, , performed_via_github_app
+* todo, #/components/schemas/reaction-rollup, ref?
   ENDMETHOD.
 
   METHOD parse_event.
     event-id = mo_json->value_string( iv_prefix && '/id' ).
     event-type = mo_json->value_string( iv_prefix && '/type' ).
-* todo, object, actor, 
-* todo, object, repo, object
-* todo, object, org, 
-* todo, object, payload, object
+* todo, #/components/schemas/actor, ref?
+* todo, object, repo
+* todo, #/components/schemas/actor, ref?
+* todo, object, payload
     event-public = mo_json->value_boolean( iv_prefix && '/public' ).
     event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
   ENDMETHOD.
@@ -1273,8 +1273,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     feed-current_user_url = mo_json->value_string( iv_prefix && '/current_user_url' ).
     feed-current_user_actor_url = mo_json->value_string( iv_prefix && '/current_user_actor_url' ).
     feed-current_user_organization_url = mo_json->value_string( iv_prefix && '/current_user_organization_url' ).
-* todo, object, current_user_organization_urls, array
-* todo, object, _links, object
+* todo, array, current_user_organization_urls
+* todo, object, _links
   ENDMETHOD.
 
   METHOD parse_base_gist.
@@ -1286,18 +1286,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     base_gist-git_pull_url = mo_json->value_string( iv_prefix && '/git_pull_url' ).
     base_gist-git_push_url = mo_json->value_string( iv_prefix && '/git_push_url' ).
     base_gist-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, object, files, object
+* todo, object, files
     base_gist-public = mo_json->value_boolean( iv_prefix && '/public' ).
     base_gist-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     base_gist-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     base_gist-description = mo_json->value_string( iv_prefix && '/description' ).
     base_gist-comments = mo_json->value_string( iv_prefix && '/comments' ).
-* todo, object, user, 
+* todo, , user
     base_gist-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-* todo, object, owner, 
+* todo, , owner
     base_gist-truncated = mo_json->value_boolean( iv_prefix && '/truncated' ).
-* todo, object, forks, array
-* todo, object, history, array
+* todo, array, forks
+* todo, array, history
   ENDMETHOD.
 
   METHOD parse_gist_simple.
@@ -1309,7 +1309,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     gist_simple-git_pull_url = mo_json->value_string( iv_prefix && '/git_pull_url' ).
     gist_simple-git_push_url = mo_json->value_string( iv_prefix && '/git_push_url' ).
     gist_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, object, files, object
+* todo, object, files
     gist_simple-public = mo_json->value_boolean( iv_prefix && '/public' ).
     gist_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     gist_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
@@ -1317,7 +1317,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     gist_simple-comments = mo_json->value_string( iv_prefix && '/comments' ).
     gist_simple-user = mo_json->value_string( iv_prefix && '/user' ).
     gist_simple-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-* todo, object, owner, 
+* todo, #/components/schemas/simple-user, ref?
     gist_simple-truncated = mo_json->value_boolean( iv_prefix && '/truncated' ).
   ENDMETHOD.
 
@@ -1326,17 +1326,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     gist_comment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     gist_comment-url = mo_json->value_string( iv_prefix && '/url' ).
     gist_comment-body = mo_json->value_string( iv_prefix && '/body' ).
-* todo, object, user, 
+* todo, , user
     gist_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     gist_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, author_association, 
+* todo, #/components/schemas/author_association, ref?
   ENDMETHOD.
 
   METHOD parse_gist_commit.
     gist_commit-url = mo_json->value_string( iv_prefix && '/url' ).
     gist_commit-version = mo_json->value_string( iv_prefix && '/version' ).
-* todo, object, user, 
-* todo, object, change_status, object
+* todo, , user
+* todo, object, change_status
     gist_commit-committed_at = mo_json->value_string( iv_prefix && '/committed_at' ).
   ENDMETHOD.
 
@@ -1358,26 +1358,26 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue-state = mo_json->value_string( iv_prefix && '/state' ).
     issue-title = mo_json->value_string( iv_prefix && '/title' ).
     issue-body = mo_json->value_string( iv_prefix && '/body' ).
-* todo, object, user, 
-* todo, object, labels, array
-* todo, object, assignee, 
-* todo, object, assignees, array
-* todo, object, milestone, 
+* todo, , user
+* todo, array, labels
+* todo, , assignee
+* todo, array, assignees
+* todo, , milestone
     issue-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     issue-comments = mo_json->value_string( iv_prefix && '/comments' ).
-* todo, object, pull_request, object
+* todo, object, pull_request
     issue-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     issue-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, closed_by, 
+* todo, , closed_by
     issue-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
-* todo, object, repository, 
-* todo, object, performed_via_github_app, 
-* todo, object, author_association, 
-* todo, object, reactions, 
+* todo, #/components/schemas/repository, ref?
+* todo, , performed_via_github_app
+* todo, #/components/schemas/author_association, ref?
+* todo, #/components/schemas/reaction-rollup, ref?
   ENDMETHOD.
 
   METHOD parse_license.
@@ -1389,9 +1389,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     license-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     license-description = mo_json->value_string( iv_prefix && '/description' ).
     license-implementation = mo_json->value_string( iv_prefix && '/implementation' ).
-* todo, object, permissions, array
-* todo, object, conditions, array
-* todo, object, limitations, array
+* todo, array, permissions
+* todo, array, conditions
+* todo, array, limitations
     license-body = mo_json->value_string( iv_prefix && '/body' ).
     license-featured = mo_json->value_boolean( iv_prefix && '/featured' ).
   ENDMETHOD.
@@ -1407,7 +1407,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     minimal_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     minimal_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     minimal_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-* todo, object, owner, object
+* todo, object, owner
     minimal_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     minimal_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     minimal_repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -1463,7 +1463,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     minimal_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
     minimal_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
     minimal_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
-* todo, object, topics, array
+* todo, array, topics
     minimal_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
     minimal_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
     minimal_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
@@ -1474,11 +1474,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     minimal_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
     minimal_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     minimal_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, permissions, object
-* todo, object, template_repository, object
+* todo, object, permissions
+* todo, object, template_repository
     minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     minimal_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
-* todo, object, license, object
+* todo, object, license
     minimal_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     minimal_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     minimal_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
@@ -1487,8 +1487,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_thread.
     thread-id = mo_json->value_string( iv_prefix && '/id' ).
-* todo, object, repository, 
-* todo, object, subject, object
+* todo, #/components/schemas/minimal-repository, ref?
+* todo, object, subject
     thread-reason = mo_json->value_string( iv_prefix && '/reason' ).
     thread-unread = mo_json->value_boolean( iv_prefix && '/unread' ).
     thread-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
@@ -1540,7 +1540,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     organization_full-disk_usage = mo_json->value_string( iv_prefix && '/disk_usage' ).
     organization_full-collaborators = mo_json->value_string( iv_prefix && '/collaborators' ).
     organization_full-billing_email = mo_json->value_string( iv_prefix && '/billing_email' ).
-* todo, object, plan, object
+* todo, object, plan
     organization_full-default_repository_permission = mo_json->value_string( iv_prefix && '/default_repository_permission' ).
     organization_full-members_can_create_repositorie = mo_json->value_boolean( iv_prefix && '/members_can_create_repositories' ).
     organization_full-two_factor_requirement_enabled = mo_json->value_boolean( iv_prefix && '/two_factor_requirement_enabled' ).
@@ -1554,9 +1554,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     org_hook-url = mo_json->value_string( iv_prefix && '/url' ).
     org_hook-ping_url = mo_json->value_string( iv_prefix && '/ping_url' ).
     org_hook-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, events, array
+* todo, array, events
     org_hook-active = mo_json->value_boolean( iv_prefix && '/active' ).
-* todo, object, config, object
+* todo, object, config
     org_hook-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     org_hook-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     org_hook-type = mo_json->value_string( iv_prefix && '/type' ).
@@ -1583,9 +1583,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     org_membership-state = mo_json->value_string( iv_prefix && '/state' ).
     org_membership-role = mo_json->value_string( iv_prefix && '/role' ).
     org_membership-organization_url = mo_json->value_string( iv_prefix && '/organization_url' ).
-* todo, object, organization, 
-* todo, object, user, 
-* todo, object, permissions, object
+* todo, #/components/schemas/organization-simple, ref?
+* todo, , user
+* todo, object, permissions
   ENDMETHOD.
 
   METHOD parse_org_pre_receive_hook.
@@ -1607,7 +1607,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     project-body = mo_json->value_string( iv_prefix && '/body' ).
     project-number = mo_json->value_string( iv_prefix && '/number' ).
     project-state = mo_json->value_string( iv_prefix && '/state' ).
-* todo, object, creator, 
+* todo, , creator
     project-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     project-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project-organization_permission = mo_json->value_string( iv_prefix && '/organization_permission' ).
@@ -1641,7 +1641,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     team-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     team-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-* todo, object, parent, 
+* todo, , parent
   ENDMETHOD.
 
   METHOD parse_team_full.
@@ -1656,12 +1656,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team_full-permission = mo_json->value_string( iv_prefix && '/permission' ).
     team_full-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     team_full-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-* todo, object, parent, 
+* todo, , parent
     team_full-members_count = mo_json->value_string( iv_prefix && '/members_count' ).
     team_full-repos_count = mo_json->value_string( iv_prefix && '/repos_count' ).
     team_full-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     team_full-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, organization, 
+* todo, #/components/schemas/organization-full, ref?
     team_full-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
   ENDMETHOD.
 
@@ -1670,7 +1670,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     project_card-id = mo_json->value_string( iv_prefix && '/id' ).
     project_card-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     project_card-note = mo_json->value_string( iv_prefix && '/note' ).
-* todo, object, creator, 
+* todo, , creator
     project_card-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     project_card-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project_card-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
@@ -1692,7 +1692,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_repository_collaborator_.
     repository_collaborator_permis-permission = mo_json->value_string( iv_prefix && '/permission' ).
-* todo, object, user, 
+* todo, , user
   ENDMETHOD.
 
   METHOD parse_rate_limit.
@@ -1702,8 +1702,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_rate_limit_overview.
-* todo, object, resources, object
-* todo, object, rate, 
+* todo, object, resources
+* todo, #/components/schemas/rate-limit, ref?
   ENDMETHOD.
 
   METHOD parse_full_repository.
@@ -1711,7 +1711,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     full_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     full_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     full_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-* todo, object, owner, 
+* todo, , owner
     full_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     full_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     full_repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -1767,7 +1767,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     full_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
     full_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
     full_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
-* todo, object, topics, array
+* todo, array, topics
     full_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
     full_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
     full_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
@@ -1778,17 +1778,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     full_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
     full_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     full_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, permissions, object
+* todo, object, permissions
     full_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
-* todo, object, template_repository, object
+* todo, object, template_repository
     full_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     full_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
     full_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     full_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
-* todo, object, license, 
-* todo, object, organization, 
-* todo, object, parent, 
-* todo, object, source, 
+* todo, , license
+* todo, , organization
+* todo, #/components/schemas/repository, ref?
+* todo, #/components/schemas/repository, ref?
     full_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     full_repository-master_branch = mo_json->value_string( iv_prefix && '/master_branch' ).
     full_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
@@ -1803,7 +1803,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_protected_branch_pull_re.
     protected_branch_pull_request_-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, dismissal_restrictions, object
+* todo, object, dismissal_restrictions
     protected_branch_pull_request_-dismiss_stale_reviews = mo_json->value_boolean( iv_prefix && '/dismiss_stale_reviews' ).
     protected_branch_pull_request_-require_code_owner_reviews = mo_json->value_boolean( iv_prefix && '/require_code_owner_reviews' ).
     protected_branch_pull_request_-required_approving_review_coun = mo_json->value_string( iv_prefix && '/required_approving_review_count' ).
@@ -1814,18 +1814,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     branch_restriction_policy-users_url = mo_json->value_string( iv_prefix && '/users_url' ).
     branch_restriction_policy-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
     branch_restriction_policy-apps_url = mo_json->value_string( iv_prefix && '/apps_url' ).
-* todo, object, users, array
-* todo, object, teams, array
-* todo, object, apps, array
-* todo, object, restrictions, array
+* todo, array, users
+* todo, array, teams
+* todo, array, apps
+* todo, array, restrictions
   ENDMETHOD.
 
   METHOD parse_branch_protection.
     branch_protection-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, required_status_checks, object
-* todo, object, enforce_admins, 
-* todo, object, required_pull_request_reviews, 
-* todo, object, restrictions, 
+* todo, object, required_status_checks
+* todo, #/components/schemas/protected-branch-admin-enforced, ref?
+* todo, #/components/schemas/protected-branch-pull-request-review, ref?
+* todo, #/components/schemas/branch-restriction-policy, ref?
     branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
     branch_protection-name = mo_json->value_string( iv_prefix && '/name' ).
     branch_protection-protection_url = mo_json->value_string( iv_prefix && '/protection_url' ).
@@ -1833,9 +1833,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_short_branch.
     short_branch-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, commit, object
+* todo, object, commit
     short_branch-protected = mo_json->value_boolean( iv_prefix && '/protected' ).
-* todo, object, protection, 
+* todo, #/components/schemas/branch-protection, ref?
     short_branch-protection_url = mo_json->value_string( iv_prefix && '/protection_url' ).
   ENDMETHOD.
 
@@ -1858,20 +1858,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     commit-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     commit-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     commit-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-* todo, object, commit, object
-* todo, object, author, 
-* todo, object, committer, 
-* todo, object, parents, array
-* todo, object, stats, object
-* todo, object, files, array
+* todo, object, commit
+* todo, , author
+* todo, , committer
+* todo, array, parents
+* todo, object, stats
+* todo, array, files
   ENDMETHOD.
 
   METHOD parse_branch_with_protection.
     branch_with_protection-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, commit, 
-* todo, object, _links, object
+* todo, #/components/schemas/commit, ref?
+* todo, object, _links
     branch_with_protection-protected = mo_json->value_boolean( iv_prefix && '/protected' ).
-* todo, object, protection, 
+* todo, #/components/schemas/branch-protection, ref?
     branch_with_protection-protection_url = mo_json->value_string( iv_prefix && '/protection_url' ).
     branch_with_protection-pattern = mo_json->value_string( iv_prefix && '/pattern' ).
     branch_with_protection-required_approving_review_coun = mo_json->value_string( iv_prefix && '/required_approving_review_count' ).
@@ -1880,28 +1880,28 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_status_check_policy.
     status_check_policy-url = mo_json->value_string( iv_prefix && '/url' ).
     status_check_policy-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
-* todo, object, contexts, array
+* todo, array, contexts
     status_check_policy-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
   ENDMETHOD.
 
   METHOD parse_protected_branch.
     protected_branch-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, required_status_checks, 
-* todo, object, required_pull_request_reviews, object
-* todo, object, required_signatures, object
-* todo, object, enforce_admins, object
-* todo, object, required_linear_history, object
-* todo, object, allow_force_pushes, object
-* todo, object, allow_deletions, object
-* todo, object, restrictions, 
+* todo, #/components/schemas/status-check-policy, ref?
+* todo, object, required_pull_request_reviews
+* todo, object, required_signatures
+* todo, object, enforce_admins
+* todo, object, required_linear_history
+* todo, object, allow_force_pushes
+* todo, object, allow_deletions
+* todo, #/components/schemas/branch-restriction-policy, ref?
   ENDMETHOD.
 
   METHOD parse_pull_request_minimal.
     pull_request_minimal-id = mo_json->value_string( iv_prefix && '/id' ).
     pull_request_minimal-number = mo_json->value_string( iv_prefix && '/number' ).
     pull_request_minimal-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, head, object
-* todo, object, base, object
+* todo, object, head
+* todo, object, base
   ENDMETHOD.
 
   METHOD parse_check_run.
@@ -1916,11 +1916,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     check_run-conclusion = mo_json->value_string( iv_prefix && '/conclusion' ).
     check_run-started_at = mo_json->value_string( iv_prefix && '/started_at' ).
     check_run-completed_at = mo_json->value_string( iv_prefix && '/completed_at' ).
-* todo, object, output, object
+* todo, object, output
     check_run-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, check_suite, object
-* todo, object, app, 
-* todo, object, pull_requests, 
+* todo, object, check_suite
+* todo, , app
+* todo, , pull_requests
   ENDMETHOD.
 
   METHOD parse_check_annotation.
@@ -1941,8 +1941,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
     simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
     simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
-* todo, object, author, object
-* todo, object, committer, object
+* todo, object, author
+* todo, object, committer
   ENDMETHOD.
 
   METHOD parse_check_suite.
@@ -1955,19 +1955,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     check_suite-url = mo_json->value_string( iv_prefix && '/url' ).
     check_suite-before = mo_json->value_string( iv_prefix && '/before' ).
     check_suite-after = mo_json->value_string( iv_prefix && '/after' ).
-* todo, object, pull_requests, array
-* todo, object, app, 
-* todo, object, repository, 
+* todo, array, pull_requests
+* todo, , app
+* todo, #/components/schemas/minimal-repository, ref?
     check_suite-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     check_suite-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, head_commit, 
+* todo, #/components/schemas/simple-commit, ref?
     check_suite-latest_check_runs_count = mo_json->value_string( iv_prefix && '/latest_check_runs_count' ).
     check_suite-check_runs_url = mo_json->value_string( iv_prefix && '/check_runs_url' ).
   ENDMETHOD.
 
   METHOD parse_check_suite_preference.
-* todo, object, preferences, object
-* todo, object, repository, 
+* todo, object, preferences
+* todo, #/components/schemas/repository, ref?
   ENDMETHOD.
 
   METHOD parse_collaborator.
@@ -1989,14 +1989,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     collaborator-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
     collaborator-type = mo_json->value_string( iv_prefix && '/type' ).
     collaborator-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
-* todo, object, permissions, object
+* todo, object, permissions
   ENDMETHOD.
 
   METHOD parse_repository_invitation.
     repository_invitation-id = mo_json->value_string( iv_prefix && '/id' ).
-* todo, object, repository, 
-* todo, object, invitee, 
-* todo, object, inviter, 
+* todo, #/components/schemas/minimal-repository, ref?
+* todo, , invitee
+* todo, , inviter
     repository_invitation-permissions = mo_json->value_string( iv_prefix && '/permissions' ).
     repository_invitation-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     repository_invitation-expired = mo_json->value_boolean( iv_prefix && '/expired' ).
@@ -2015,17 +2015,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     commit_comment-position = mo_json->value_string( iv_prefix && '/position' ).
     commit_comment-line = mo_json->value_string( iv_prefix && '/line' ).
     commit_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
-* todo, object, user, 
+* todo, , user
     commit_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     commit_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, author_association, 
-* todo, object, reactions, 
+* todo, #/components/schemas/author_association, ref?
+* todo, #/components/schemas/reaction-rollup, ref?
   ENDMETHOD.
 
   METHOD parse_reaction.
     reaction-id = mo_json->value_string( iv_prefix && '/id' ).
     reaction-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-* todo, object, user, 
+* todo, , user
     reaction-content = mo_json->value_string( iv_prefix && '/content' ).
     reaction-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
   ENDMETHOD.
@@ -2036,12 +2036,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     scim_error-detail = mo_json->value_string( iv_prefix && '/detail' ).
     scim_error-status = mo_json->value_string( iv_prefix && '/status' ).
     scim_error-scimtype = mo_json->value_string( iv_prefix && '/scimType' ).
-* todo, object, schemas, array
+* todo, array, schemas
   ENDMETHOD.
 
   METHOD parse_branch_short.
     branch_short-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, commit, object
+* todo, object, commit
     branch_short-protected = mo_json->value_boolean( iv_prefix && '/protected' ).
   ENDMETHOD.
 
@@ -2066,24 +2066,24 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pull_request_simple-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request_simple-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     pull_request_simple-title = mo_json->value_string( iv_prefix && '/title' ).
-* todo, object, user, 
+* todo, , user
     pull_request_simple-body = mo_json->value_string( iv_prefix && '/body' ).
-* todo, object, labels, array
-* todo, object, milestone, 
+* todo, array, labels
+* todo, , milestone
     pull_request_simple-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     pull_request_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pull_request_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     pull_request_simple-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     pull_request_simple-merged_at = mo_json->value_string( iv_prefix && '/merged_at' ).
     pull_request_simple-merge_commit_sha = mo_json->value_string( iv_prefix && '/merge_commit_sha' ).
-* todo, object, assignee, 
-* todo, object, assignees, array
-* todo, object, requested_reviewers, array
-* todo, object, requested_teams, array
-* todo, object, head, object
-* todo, object, base, object
-* todo, object, _links, object
-* todo, object, author_association, 
+* todo, , assignee
+* todo, array, assignees
+* todo, array, requested_reviewers
+* todo, array, requested_teams
+* todo, object, head
+* todo, object, base
+* todo, object, _links
+* todo, #/components/schemas/author_association, ref?
     pull_request_simple-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
   ENDMETHOD.
 
@@ -2103,10 +2103,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_combined_commit_status.
     combined_commit_status-state = mo_json->value_string( iv_prefix && '/state' ).
-* todo, object, statuses, array
+* todo, array, statuses
     combined_commit_status-sha = mo_json->value_string( iv_prefix && '/sha' ).
     combined_commit_status-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
-* todo, object, repository, 
+* todo, #/components/schemas/minimal-repository, ref?
     combined_commit_status-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     combined_commit_status-url = mo_json->value_string( iv_prefix && '/url' ).
   ENDMETHOD.
@@ -2122,7 +2122,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     status-context = mo_json->value_string( iv_prefix && '/context' ).
     status-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     status-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, creator, 
+* todo, #/components/schemas/simple-user, ref?
   ENDMETHOD.
 
   METHOD parse_diff_entry.
@@ -2145,14 +2145,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     commit_comparison-permalink_url = mo_json->value_string( iv_prefix && '/permalink_url' ).
     commit_comparison-diff_url = mo_json->value_string( iv_prefix && '/diff_url' ).
     commit_comparison-patch_url = mo_json->value_string( iv_prefix && '/patch_url' ).
-* todo, object, base_commit, 
-* todo, object, merge_base_commit, 
+* todo, #/components/schemas/commit, ref?
+* todo, #/components/schemas/commit, ref?
     commit_comparison-status = mo_json->value_string( iv_prefix && '/status' ).
     commit_comparison-ahead_by = mo_json->value_string( iv_prefix && '/ahead_by' ).
     commit_comparison-behind_by = mo_json->value_string( iv_prefix && '/behind_by' ).
     commit_comparison-total_commits = mo_json->value_string( iv_prefix && '/total_commits' ).
-* todo, object, commits, array
-* todo, object, files, array
+* todo, array, commits
+* todo, array, files
   ENDMETHOD.
 
   METHOD parse_content_tree.
@@ -2165,8 +2165,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     content_tree-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     content_tree-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     content_tree-download_url = mo_json->value_string( iv_prefix && '/download_url' ).
-* todo, object, entries, array
-* todo, object, _links, object
+* todo, array, entries
+* todo, object, _links
   ENDMETHOD.
 
   METHOD parse_content_directory.
@@ -2185,7 +2185,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     content_file-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     content_file-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     content_file-download_url = mo_json->value_string( iv_prefix && '/download_url' ).
-* todo, object, _links, object
+* todo, object, _links
     content_file-target = mo_json->value_string( iv_prefix && '/target' ).
     content_file-submodule_git_url = mo_json->value_string( iv_prefix && '/submodule_git_url' ).
   ENDMETHOD.
@@ -2201,7 +2201,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     content_symlink-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     content_symlink-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     content_symlink-download_url = mo_json->value_string( iv_prefix && '/download_url' ).
-* todo, object, _links, object
+* todo, object, _links
   ENDMETHOD.
 
   METHOD parse_content_submodule.
@@ -2215,12 +2215,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     content_submodule-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     content_submodule-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     content_submodule-download_url = mo_json->value_string( iv_prefix && '/download_url' ).
-* todo, object, _links, object
+* todo, object, _links
   ENDMETHOD.
 
   METHOD parse_file_commit.
-* todo, object, content, object
-* todo, object, commit, object
+* todo, object, content
+* todo, object, commit
   ENDMETHOD.
 
   METHOD parse_contributor.
@@ -2254,18 +2254,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     deployment-sha = mo_json->value_string( iv_prefix && '/sha' ).
     deployment-ref = mo_json->value_string( iv_prefix && '/ref' ).
     deployment-task = mo_json->value_string( iv_prefix && '/task' ).
-* todo, object, payload, object
+* todo, object, payload
     deployment-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
     deployment-environment = mo_json->value_string( iv_prefix && '/environment' ).
     deployment-description = mo_json->value_string( iv_prefix && '/description' ).
-* todo, object, creator, 
+* todo, , creator
     deployment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     deployment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     deployment-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
     deployment-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
     deployment-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
     deployment-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
-* todo, object, performed_via_github_app, 
+* todo, , performed_via_github_app
   ENDMETHOD.
 
   METHOD parse_deployment_status.
@@ -2273,7 +2273,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     deployment_status-id = mo_json->value_string( iv_prefix && '/id' ).
     deployment_status-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     deployment_status-state = mo_json->value_string( iv_prefix && '/state' ).
-* todo, object, creator, 
+* todo, , creator
     deployment_status-description = mo_json->value_string( iv_prefix && '/description' ).
     deployment_status-environment = mo_json->value_string( iv_prefix && '/environment' ).
     deployment_status-target_url = mo_json->value_string( iv_prefix && '/target_url' ).
@@ -2283,7 +2283,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     deployment_status-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
     deployment_status-environment_url = mo_json->value_string( iv_prefix && '/environment_url' ).
     deployment_status-log_url = mo_json->value_string( iv_prefix && '/log_url' ).
-* todo, object, performed_via_github_app, 
+* todo, , performed_via_github_app
   ENDMETHOD.
 
   METHOD parse_short_blob.
@@ -2305,12 +2305,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     git_commit-sha = mo_json->value_string( iv_prefix && '/sha' ).
     git_commit-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     git_commit-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, author, object
-* todo, object, committer, object
+* todo, object, author
+* todo, object, committer
     git_commit-message = mo_json->value_string( iv_prefix && '/message' ).
-* todo, object, tree, object
-* todo, object, parents, array
-* todo, object, verification, object
+* todo, object, tree
+* todo, array, parents
+* todo, object, verification
     git_commit-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
   ENDMETHOD.
 
@@ -2318,7 +2318,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     git_ref-ref = mo_json->value_string( iv_prefix && '/ref' ).
     git_ref-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     git_ref-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, object, object
+* todo, object, object
   ENDMETHOD.
 
   METHOD parse_git_tag.
@@ -2327,16 +2327,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     git_tag-sha = mo_json->value_string( iv_prefix && '/sha' ).
     git_tag-url = mo_json->value_string( iv_prefix && '/url' ).
     git_tag-message = mo_json->value_string( iv_prefix && '/message' ).
-* todo, object, tagger, object
-* todo, object, object, object
-* todo, object, verification, 
+* todo, object, tagger
+* todo, object, object
+* todo, #/components/schemas/verification, ref?
   ENDMETHOD.
 
   METHOD parse_git_tree.
     git_tree-sha = mo_json->value_string( iv_prefix && '/sha' ).
     git_tree-url = mo_json->value_string( iv_prefix && '/url' ).
     git_tree-truncated = mo_json->value_boolean( iv_prefix && '/truncated' ).
-* todo, object, tree, array
+* todo, array, tree
   ENDMETHOD.
 
   METHOD parse_hook_response.
@@ -2350,14 +2350,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     hook-id = mo_json->value_string( iv_prefix && '/id' ).
     hook-name = mo_json->value_string( iv_prefix && '/name' ).
     hook-active = mo_json->value_boolean( iv_prefix && '/active' ).
-* todo, object, events, array
-* todo, object, config, object
+* todo, array, events
+* todo, object, config
     hook-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     hook-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     hook-url = mo_json->value_string( iv_prefix && '/url' ).
     hook-test_url = mo_json->value_string( iv_prefix && '/test_url' ).
     hook-ping_url = mo_json->value_string( iv_prefix && '/ping_url' ).
-* todo, object, last_response, 
+* todo, #/components/schemas/hook-response, ref?
   ENDMETHOD.
 
   METHOD parse_issue_event_label.
@@ -2394,23 +2394,23 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
     issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, actor, 
+* todo, , actor
     issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
     issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-* todo, object, issue, 
-* todo, object, label, 
-* todo, object, assignee, 
-* todo, object, assigner, 
-* todo, object, review_requester, 
-* todo, object, requested_reviewer, 
-* todo, object, requested_team, 
-* todo, object, dismissed_review, 
-* todo, object, milestone, 
-* todo, object, project_card, 
-* todo, object, rename, 
-* todo, object, author_association, 
+* todo, #/components/schemas/issue-simple, ref?
+* todo, #/components/schemas/issue-event-label, ref?
+* todo, , assignee
+* todo, , assigner
+* todo, , review_requester
+* todo, , requested_reviewer
+* todo, #/components/schemas/team, ref?
+* todo, #/components/schemas/issue-event-dismissed-review, ref?
+* todo, #/components/schemas/issue-event-milestone, ref?
+* todo, #/components/schemas/issue-event-project-card, ref?
+* todo, #/components/schemas/issue-event-rename, ref?
+* todo, #/components/schemas/author_association, ref?
     issue_event-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
   ENDMETHOD.
 
@@ -2418,7 +2418,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_event_for_issue-id = mo_json->value_string( iv_prefix && '/id' ).
     issue_event_for_issue-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     issue_event_for_issue-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, actor, 
+* todo, #/components/schemas/simple-user, ref?
     issue_event_for_issue-event = mo_json->value_string( iv_prefix && '/event' ).
     issue_event_for_issue-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     issue_event_for_issue-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
@@ -2428,7 +2428,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_event_for_issue-message = mo_json->value_string( iv_prefix && '/message' ).
     issue_event_for_issue-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
     issue_event_for_issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, author_association, 
+* todo, #/components/schemas/author_association, ref?
     issue_event_for_issue-body = mo_json->value_string( iv_prefix && '/body' ).
     issue_event_for_issue-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
     issue_event_for_issue-submitted_at = mo_json->value_string( iv_prefix && '/submitted_at' ).
@@ -2463,8 +2463,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     license_content-type = mo_json->value_string( iv_prefix && '/type' ).
     license_content-content = mo_json->value_string( iv_prefix && '/content' ).
     license_content-encoding = mo_json->value_string( iv_prefix && '/encoding' ).
-* todo, object, _links, object
-* todo, object, license, 
+* todo, object, _links
+* todo, , license
   ENDMETHOD.
 
   METHOD parse_pages_source_hash.
@@ -2478,15 +2478,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     page-cname = mo_json->value_string( iv_prefix && '/cname' ).
     page-custom_404 = mo_json->value_boolean( iv_prefix && '/custom_404' ).
     page-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, object, source, 
+* todo, #/components/schemas/pages-source-hash, ref?
     page-public = mo_json->value_boolean( iv_prefix && '/public' ).
   ENDMETHOD.
 
   METHOD parse_page_build.
     page_build-url = mo_json->value_string( iv_prefix && '/url' ).
     page_build-status = mo_json->value_string( iv_prefix && '/status' ).
-* todo, object, error, object
-* todo, object, pusher, 
+* todo, object, error
+* todo, , pusher
     page_build-commit = mo_json->value_string( iv_prefix && '/commit' ).
     page_build-duration = mo_json->value_string( iv_prefix && '/duration' ).
     page_build-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
@@ -2522,30 +2522,30 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pull_request-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     pull_request-title = mo_json->value_string( iv_prefix && '/title' ).
-* todo, object, user, 
+* todo, , user
     pull_request-body = mo_json->value_string( iv_prefix && '/body' ).
-* todo, object, labels, array
-* todo, object, milestone, 
+* todo, array, labels
+* todo, , milestone
     pull_request-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     pull_request-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pull_request-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     pull_request-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     pull_request-merged_at = mo_json->value_string( iv_prefix && '/merged_at' ).
     pull_request-merge_commit_sha = mo_json->value_string( iv_prefix && '/merge_commit_sha' ).
-* todo, object, assignee, 
-* todo, object, assignees, array
-* todo, object, requested_reviewers, array
-* todo, object, requested_teams, array
-* todo, object, head, object
-* todo, object, base, object
-* todo, object, _links, object
-* todo, object, author_association, 
+* todo, , assignee
+* todo, array, assignees
+* todo, array, requested_reviewers
+* todo, array, requested_teams
+* todo, object, head
+* todo, object, base
+* todo, object, _links
+* todo, #/components/schemas/author_association, ref?
     pull_request-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
     pull_request-merged = mo_json->value_boolean( iv_prefix && '/merged' ).
     pull_request-mergeable = mo_json->value_boolean( iv_prefix && '/mergeable' ).
     pull_request-rebaseable = mo_json->value_boolean( iv_prefix && '/rebaseable' ).
     pull_request-mergeable_state = mo_json->value_string( iv_prefix && '/mergeable_state' ).
-* todo, object, merged_by, 
+* todo, , merged_by
     pull_request-comments = mo_json->value_string( iv_prefix && '/comments' ).
     pull_request-review_comments = mo_json->value_string( iv_prefix && '/review_comments' ).
     pull_request-maintainer_can_modify = mo_json->value_boolean( iv_prefix && '/maintainer_can_modify' ).
@@ -2567,15 +2567,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pull_request_review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     pull_request_review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
     pull_request_review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
-* todo, object, user, 
+* todo, #/components/schemas/simple-user, ref?
     pull_request_review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     pull_request_review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pull_request_review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     pull_request_review_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     pull_request_review_comment-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
-* todo, object, author_association, 
-* todo, object, _links, object
-* todo, object, reactions, 
+* todo, #/components/schemas/author_association, ref?
+* todo, object, _links
+* todo, #/components/schemas/reaction-rollup, ref?
     pull_request_review_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     pull_request_review_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
   ENDMETHOD.
@@ -2592,14 +2592,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     legacy_review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     legacy_review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
     legacy_review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
-* todo, object, user, object
+* todo, object, user
     legacy_review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     legacy_review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     legacy_review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     legacy_review_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     legacy_review_comment-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
     legacy_review_comment-author_association = mo_json->value_string( iv_prefix && '/author_association' ).
-* todo, object, _links, object
+* todo, object, _links
   ENDMETHOD.
 
   METHOD parse_pull_request_merge_resul.
@@ -2609,24 +2609,24 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_pull_request_review_requ.
-* todo, object, users, array
-* todo, object, teams, array
+* todo, array, users
+* todo, array, teams
   ENDMETHOD.
 
   METHOD parse_pull_request_review.
     pull_request_review-id = mo_json->value_string( iv_prefix && '/id' ).
     pull_request_review-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-* todo, object, user, 
+* todo, , user
     pull_request_review-body = mo_json->value_string( iv_prefix && '/body' ).
     pull_request_review-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request_review-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     pull_request_review-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
-* todo, object, _links, object
+* todo, object, _links
     pull_request_review-submitted_at = mo_json->value_string( iv_prefix && '/submitted_at' ).
     pull_request_review-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     pull_request_review-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     pull_request_review-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
-* todo, object, author_association, 
+* todo, #/components/schemas/author_association, ref?
   ENDMETHOD.
 
   METHOD parse_review_comment.
@@ -2641,14 +2641,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
     review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
-* todo, object, user, 
+* todo, , user
     review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     review_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     review_comment-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
-* todo, object, author_association, 
-* todo, object, _links, object
+* todo, #/components/schemas/author_association, ref?
+* todo, object, _links
     review_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     review_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     review_comment-side = mo_json->value_string( iv_prefix && '/side' ).
@@ -2672,7 +2672,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     release_asset-download_count = mo_json->value_string( iv_prefix && '/download_count' ).
     release_asset-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     release_asset-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, uploader, 
+* todo, , uploader
   ENDMETHOD.
 
   METHOD parse_release.
@@ -2692,15 +2692,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     release-prerelease = mo_json->value_boolean( iv_prefix && '/prerelease' ).
     release-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     release-published_at = mo_json->value_string( iv_prefix && '/published_at' ).
-* todo, object, author, 
-* todo, object, assets, array
+* todo, #/components/schemas/simple-user, ref?
+* todo, array, assets
     release-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     release-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
   ENDMETHOD.
 
   METHOD parse_stargazer.
     stargazer-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
-* todo, object, user, 
+* todo, , user
   ENDMETHOD.
 
   METHOD parse_code_frequency_stat.
@@ -2708,20 +2708,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_commit_activity.
-* todo, object, days, array
+* todo, array, days
     commit_activity-total = mo_json->value_string( iv_prefix && '/total' ).
     commit_activity-week = mo_json->value_string( iv_prefix && '/week' ).
   ENDMETHOD.
 
   METHOD parse_contributor_activity.
-* todo, object, author, 
+* todo, , author
     contributor_activity-total = mo_json->value_string( iv_prefix && '/total' ).
-* todo, object, weeks, array
+* todo, array, weeks
   ENDMETHOD.
 
   METHOD parse_participation_stats.
-* todo, object, all, array
-* todo, object, owner, array
+* todo, array, all
+* todo, array, owner
   ENDMETHOD.
 
   METHOD parse_repository_subscription.
@@ -2735,14 +2735,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_tag.
     tag-name = mo_json->value_string( iv_prefix && '/name' ).
-* todo, object, commit, object
+* todo, object, commit
     tag-zipball_url = mo_json->value_string( iv_prefix && '/zipball_url' ).
     tag-tarball_url = mo_json->value_string( iv_prefix && '/tarball_url' ).
     tag-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_topic.
-* todo, object, names, array
+* todo, array, names
   ENDMETHOD.
 
   METHOD parse_search_result_text_match.
@@ -2756,13 +2756,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     code_search_result_item-url = mo_json->value_string( iv_prefix && '/url' ).
     code_search_result_item-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     code_search_result_item-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, object, repository, 
+* todo, #/components/schemas/minimal-repository, ref?
     code_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
     code_search_result_item-file_size = mo_json->value_string( iv_prefix && '/file_size' ).
     code_search_result_item-language = mo_json->value_string( iv_prefix && '/language' ).
     code_search_result_item-last_modified_at = mo_json->value_string( iv_prefix && '/last_modified_at' ).
-* todo, object, line_numbers, array
-* todo, object, text_matches, 
+* todo, array, line_numbers
+* todo, #/components/schemas/search-result-text-matches, ref?
   ENDMETHOD.
 
   METHOD parse_commit_search_result_ite.
@@ -2770,14 +2770,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     commit_search_result_item-sha = mo_json->value_string( iv_prefix && '/sha' ).
     commit_search_result_item-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     commit_search_result_item-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-* todo, object, commit, object
-* todo, object, author, 
-* todo, object, committer, 
-* todo, object, parents, array
-* todo, object, repository, 
+* todo, object, commit
+* todo, , author
+* todo, , committer
+* todo, array, parents
+* todo, #/components/schemas/minimal-repository, ref?
     commit_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
     commit_search_result_item-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-* todo, object, text_matches, 
+* todo, #/components/schemas/search-result-text-matches, ref?
   ENDMETHOD.
 
   METHOD parse_issue_search_result_item.
@@ -2793,27 +2793,27 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_search_result_item-title = mo_json->value_string( iv_prefix && '/title' ).
     issue_search_result_item-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue_search_result_item-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
-* todo, object, assignees, array
-* todo, object, user, 
-* todo, object, labels, array
+* todo, array, assignees
+* todo, , user
+* todo, array, labels
     issue_search_result_item-state = mo_json->value_string( iv_prefix && '/state' ).
-* todo, object, assignee, 
-* todo, object, milestone, 
+* todo, , assignee
+* todo, , milestone
     issue_search_result_item-comments = mo_json->value_string( iv_prefix && '/comments' ).
     issue_search_result_item-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_search_result_item-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     issue_search_result_item-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
-* todo, object, text_matches, 
-* todo, object, pull_request, object
+* todo, #/components/schemas/search-result-text-matches, ref?
+* todo, object, pull_request
     issue_search_result_item-body = mo_json->value_string( iv_prefix && '/body' ).
     issue_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
-* todo, object, author_association, 
+* todo, #/components/schemas/author_association, ref?
     issue_search_result_item-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
-* todo, object, repository, 
+* todo, #/components/schemas/repository, ref?
     issue_search_result_item-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue_search_result_item-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_search_result_item-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
-* todo, object, performed_via_github_app, 
+* todo, , performed_via_github_app
   ENDMETHOD.
 
   METHOD parse_label_search_result_item.
@@ -2825,7 +2825,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     label_search_result_item-default = mo_json->value_boolean( iv_prefix && '/default' ).
     label_search_result_item-description = mo_json->value_string( iv_prefix && '/description' ).
     label_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
-* todo, object, text_matches, 
+* todo, #/components/schemas/search-result-text-matches, ref?
   ENDMETHOD.
 
   METHOD parse_repo_search_result_item.
@@ -2833,7 +2833,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repo_search_result_item-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     repo_search_result_item-name = mo_json->value_string( iv_prefix && '/name' ).
     repo_search_result_item-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-* todo, object, owner, 
+* todo, , owner
     repo_search_result_item-private = mo_json->value_boolean( iv_prefix && '/private' ).
     repo_search_result_item-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     repo_search_result_item-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -2895,7 +2895,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repo_search_result_item-forks = mo_json->value_string( iv_prefix && '/forks' ).
     repo_search_result_item-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     repo_search_result_item-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
-* todo, object, topics, array
+* todo, array, topics
     repo_search_result_item-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
     repo_search_result_item-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
     repo_search_result_item-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
@@ -2904,9 +2904,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     repo_search_result_item-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
     repo_search_result_item-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
     repo_search_result_item-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
-* todo, object, license, 
-* todo, object, permissions, object
-* todo, object, text_matches, 
+* todo, , license
+* todo, object, permissions
+* todo, #/components/schemas/search-result-text-matches, ref?
     repo_search_result_item-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     repo_search_result_item-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
     repo_search_result_item-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
@@ -2928,9 +2928,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     topic_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
     topic_search_result_item-repository_count = mo_json->value_string( iv_prefix && '/repository_count' ).
     topic_search_result_item-logo_url = mo_json->value_string( iv_prefix && '/logo_url' ).
-* todo, object, text_matches, 
-* todo, object, related, array
-* todo, object, aliases, array
+* todo, #/components/schemas/search-result-text-matches, ref?
+* todo, array, related
+* todo, array, aliases
   ENDMETHOD.
 
   METHOD parse_user_search_result_item.
@@ -2964,7 +2964,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     user_search_result_item-location = mo_json->value_string( iv_prefix && '/location' ).
     user_search_result_item-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
     user_search_result_item-hireable = mo_json->value_boolean( iv_prefix && '/hireable' ).
-* todo, object, text_matches, 
+* todo, #/components/schemas/search-result-text-matches, ref?
     user_search_result_item-blog = mo_json->value_string( iv_prefix && '/blog' ).
     user_search_result_item-company = mo_json->value_string( iv_prefix && '/company' ).
     user_search_result_item-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
@@ -2972,18 +2972,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_configuration_status.
     configuration_status-status = mo_json->value_string( iv_prefix && '/status' ).
-* todo, object, progress, array
+* todo, array, progress
   ENDMETHOD.
 
   METHOD parse_maintenance_status.
     maintenance_status-status = mo_json->value_string( iv_prefix && '/status' ).
     maintenance_status-scheduled_time = mo_json->value_string( iv_prefix && '/scheduled_time' ).
-* todo, object, connection_services, array
+* todo, array, connection_services
   ENDMETHOD.
 
   METHOD parse_enterprise_settings.
-* todo, object, enterprise, object
-* todo, object, run_list, array
+* todo, object, enterprise
+* todo, array, run_list
   ENDMETHOD.
 
   METHOD parse_ssh_key.
@@ -2992,7 +2992,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_team_discussion.
-* todo, object, author, 
+* todo, , author
     team_discussion-body = mo_json->value_string( iv_prefix && '/body' ).
     team_discussion-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     team_discussion-body_version = mo_json->value_string( iv_prefix && '/body_version' ).
@@ -3009,11 +3009,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team_discussion-title = mo_json->value_string( iv_prefix && '/title' ).
     team_discussion-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     team_discussion-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, reactions, 
+* todo, #/components/schemas/reaction-rollup, ref?
   ENDMETHOD.
 
   METHOD parse_team_discussion_comment.
-* todo, object, author, 
+* todo, , author
     team_discussion_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     team_discussion_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     team_discussion_comment-body_version = mo_json->value_string( iv_prefix && '/body_version' ).
@@ -3025,7 +3025,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team_discussion_comment-number = mo_json->value_string( iv_prefix && '/number' ).
     team_discussion_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     team_discussion_comment-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, object, reactions, 
+* todo, #/components/schemas/reaction-rollup, ref?
   ENDMETHOD.
 
   METHOD parse_team_membership.
@@ -3045,12 +3045,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team_project-body = mo_json->value_string( iv_prefix && '/body' ).
     team_project-number = mo_json->value_string( iv_prefix && '/number' ).
     team_project-state = mo_json->value_string( iv_prefix && '/state' ).
-* todo, object, creator, 
+* todo, #/components/schemas/simple-user, ref?
     team_project-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     team_project-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     team_project-organization_permission = mo_json->value_string( iv_prefix && '/organization_permission' ).
     team_project-private = mo_json->value_boolean( iv_prefix && '/private' ).
-* todo, object, permissions, object
+* todo, object, permissions
   ENDMETHOD.
 
   METHOD parse_team_2.
@@ -3064,7 +3064,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team_2-permission = mo_json->value_string( iv_prefix && '/permission' ).
     team_2-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     team_2-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-* todo, object, parent, object
+* todo, object, parent
   ENDMETHOD.
 
   METHOD parse_private_user.
@@ -3105,7 +3105,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     private_user-disk_usage = mo_json->value_string( iv_prefix && '/disk_usage' ).
     private_user-collaborators = mo_json->value_string( iv_prefix && '/collaborators' ).
     private_user-two_factor_authentication = mo_json->value_boolean( iv_prefix && '/two_factor_authentication' ).
-* todo, object, plan, object
+* todo, object, plan
     private_user-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
     private_user-business_plus = mo_json->value_boolean( iv_prefix && '/business_plus' ).
     private_user-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
@@ -3143,7 +3143,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     public_user-following = mo_json->value_string( iv_prefix && '/following' ).
     public_user-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     public_user-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-* todo, object, plan, object
+* todo, object, plan
     public_user-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
     public_user-private_gists = mo_json->value_string( iv_prefix && '/private_gists' ).
     public_user-total_private_repos = mo_json->value_string( iv_prefix && '/total_private_repos' ).
@@ -3164,8 +3164,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     gpg_key-primary_key_id = mo_json->value_string( iv_prefix && '/primary_key_id' ).
     gpg_key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
     gpg_key-public_key = mo_json->value_string( iv_prefix && '/public_key' ).
-* todo, object, emails, array
-* todo, object, subkeys, array
+* todo, array, emails
+* todo, array, subkeys
     gpg_key-can_sign = mo_json->value_boolean( iv_prefix && '/can_sign' ).
     gpg_key-can_encrypt_comms = mo_json->value_boolean( iv_prefix && '/can_encrypt_comms' ).
     gpg_key-can_encrypt_storage = mo_json->value_boolean( iv_prefix && '/can_encrypt_storage' ).
@@ -3188,11 +3188,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_starred_repository.
     starred_repository-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
-* todo, object, repo, 
+* todo, #/components/schemas/repository, ref?
   ENDMETHOD.
 
   METHOD parse_hovercard.
-* todo, object, contexts, array
+* todo, array, contexts
   ENDMETHOD.
 
   METHOD parse_key_simple.
@@ -3202,6 +3202,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~meta_root.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3213,9 +3214,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_global_w.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3227,6 +3236,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_global.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3238,7 +3248,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_global_we.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3249,7 +3263,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_global.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3260,7 +3278,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_global.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3271,7 +3293,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_ping_global_w.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}/pings'.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3282,9 +3308,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_public_k.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3296,7 +3330,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_public.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys/{key_ids}'.
+    REPLACE ALL OCCURRENCES OF '{key_ids}' IN lv_uri WITH key_ids.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3307,7 +3343,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_ldap_m.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/mapping'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3318,7 +3358,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_sync_ldap_map.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/sync'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3329,6 +3373,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_ldap01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/mapping'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
@@ -3341,6 +3386,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_sync_ldap_m01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/sync'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
@@ -3353,6 +3399,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3364,6 +3411,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_org_na.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
@@ -3376,9 +3424,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_pre_rece.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3390,6 +3446,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_pre_re.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3401,7 +3458,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_pre_recei.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    lv_temp = pre_receive_environment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3412,7 +3473,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_pre_re.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    lv_temp = pre_receive_environment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3423,7 +3488,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_pre_re.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    lv_temp = pre_receive_environment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3434,7 +3503,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_start_pre_rec.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads'.
+    lv_temp = pre_receive_environment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3445,7 +3518,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_download_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest'.
+    lv_temp = pre_receive_environment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3456,9 +3533,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_pre_re01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3470,6 +3555,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_pre_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3481,7 +3567,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_pre_rec01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3492,7 +3582,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_pre_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3503,7 +3597,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_pre_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3514,9 +3612,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_personal.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3528,7 +3634,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_person.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens/{token_id}'.
+    lv_temp = token_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{token_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3539,6 +3649,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3550,6 +3661,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_userna.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
@@ -3562,6 +3674,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -3574,6 +3687,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_impers.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
@@ -3586,6 +3700,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_delete_impers.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -3598,6 +3713,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_authenticated.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3609,6 +3725,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_create_from_manifest.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app-manifests/{code}/conversions'.
     REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH code.
     mi_client->request->set_method( 'POST' ).
@@ -3621,12 +3738,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_list_installations.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3638,8 +3760,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3650,8 +3775,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_delete_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3662,8 +3790,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_create_installation_acces.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}/access_tokens'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3674,12 +3805,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_list_gran.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3691,8 +3827,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_get_grant.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants/{grant_id}'.
-    REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH grant_id.
+    lv_temp = grant_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3703,8 +3842,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_delete_gr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/grants/{grant_id}'.
-    REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH grant_id.
+    lv_temp = grant_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{grant_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3715,7 +3857,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_revoke_gr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/grants/{access_token}'.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    REPLACE ALL OCCURRENCES OF '{access_token}' IN lv_uri WITH access_token.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3726,7 +3871,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_check_aut.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    REPLACE ALL OCCURRENCES OF '{access_token}' IN lv_uri WITH access_token.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3737,7 +3885,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_reset_aut.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    REPLACE ALL OCCURRENCES OF '{access_token}' IN lv_uri WITH access_token.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3748,7 +3899,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_revoke_au.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/tokens/{access_token}'.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    REPLACE ALL OCCURRENCES OF '{access_token}' IN lv_uri WITH access_token.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3759,6 +3913,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_by_slug.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/apps/{app_slug}'.
     REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH app_slug.
     mi_client->request->set_method( 'GET' ).
@@ -3771,12 +3926,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_list_auth.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3788,6 +3948,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_create_au.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3799,7 +3960,9 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_get_or_cr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/clients/{client_id}'.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3810,8 +3973,10 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_get_or_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/clients/{client_id}/{fingerprint}'.
     REPLACE ALL OCCURRENCES OF '{fingerprint}' IN lv_uri WITH fingerprint.
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3822,8 +3987,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_get_autho.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
-    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
+    lv_temp = authorization_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3834,8 +4002,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_update_au.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
-    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
+    lv_temp = authorization_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3846,8 +4017,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~oauth_authorizations_delete_au.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations/{authorization_id}'.
-    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH authorization_id.
+    lv_temp = authorization_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3858,6 +4032,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~codes_of_conduct_get_all_codes.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3869,6 +4044,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~codes_of_conduct_get_conduct_c.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct/{key}'.
     REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH key.
     mi_client->request->set_method( 'GET' ).
@@ -3881,8 +4057,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_create_content_attachment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/content_references/{content_reference_id}/attachments'.
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH content_reference_id.
+    lv_temp = content_reference_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -3893,6 +4072,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~emojis_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/emojis'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3904,6 +4084,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_license_i.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/settings/license'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3915,6 +4096,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_type_stat.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/stats/{type}'.
     REPLACE ALL OCCURRENCES OF '{type}' IN lv_uri WITH type.
     mi_client->request->set_method( 'GET' ).
@@ -3927,12 +4109,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_public_events.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/events'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3944,6 +4131,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_get_feeds.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/feeds'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3955,15 +4143,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3975,6 +4168,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_create.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -3986,15 +4180,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_public.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/public'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4006,15 +4205,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_starred.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/starred'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4026,6 +4230,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
@@ -4038,6 +4243,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PATCH' ).
@@ -4050,6 +4256,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_delete.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
@@ -4062,13 +4269,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_comments.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4080,6 +4292,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_create_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
@@ -4092,9 +4305,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_get_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4105,9 +4321,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_update_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4118,9 +4337,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_delete_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4131,13 +4353,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_commits.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/commits'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4149,13 +4376,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_forks.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4167,6 +4399,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_fork.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
@@ -4179,6 +4412,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_check_is_starred.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
@@ -4191,6 +4425,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_star.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PUT' ).
@@ -4203,6 +4438,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_unstar.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
@@ -4215,6 +4451,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_get_revision.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
@@ -4228,6 +4465,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gitignore_get_all_templates.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4239,6 +4477,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gitignore_get_template.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     mi_client->request->set_method( 'GET' ).
@@ -4251,12 +4490,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_list_repos_accessible_to_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/installation/repositories'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4268,6 +4512,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -4278,17 +4523,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
+    lv_temp = collab.
+    CONDENSE lv_temp.
     IF collab IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'collab' value = collab ).
+      mi_client->request->set_form_field( name = 'collab' value = lv_temp ).
     ENDIF.
+    lv_temp = orgs.
+    CONDENSE lv_temp.
     IF orgs IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'orgs' value = orgs ).
+      mi_client->request->set_form_field( name = 'orgs' value = lv_temp ).
     ENDIF.
+    lv_temp = owned.
+    CONDENSE lv_temp.
     IF owned IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'owned' value = owned ).
+      mi_client->request->set_form_field( name = 'owned' value = lv_temp ).
     ENDIF.
+    lv_temp = pulls.
+    CONDENSE lv_temp.
     IF pulls IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'pulls' value = pulls ).
+      mi_client->request->set_form_field( name = 'pulls' value = lv_temp ).
     ENDIF.
     IF labels IS SUPPLIED.
       mi_client->request->set_form_field( name = 'labels' value = labels ).
@@ -4299,11 +4552,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4315,12 +4572,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~licenses_get_all_commonly_used.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses'.
+    lv_temp = featured.
+    CONDENSE lv_temp.
     IF featured IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'featured' value = featured ).
+      mi_client->request->set_form_field( name = 'featured' value = lv_temp ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4332,6 +4594,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~licenses_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses/{license}'.
     REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH license.
     mi_client->request->set_method( 'GET' ).
@@ -4344,6 +4607,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~markdown_render.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4355,6 +4619,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~markdown_render_raw.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown/raw'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4366,6 +4631,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~meta_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/meta'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4377,14 +4643,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_public_events_fo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/networks/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4396,12 +4667,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_notifications_fo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
+    lv_temp = all.
+    CONDENSE lv_temp.
     IF all IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'all' value = all ).
+      mi_client->request->set_form_field( name = 'all' value = lv_temp ).
     ENDIF.
+    lv_temp = participating.
+    CONDENSE lv_temp.
     IF participating IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'participating' value = participating ).
+      mi_client->request->set_form_field( name = 'participating' value = lv_temp ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -4409,11 +4685,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF before IS SUPPLIED.
       mi_client->request->set_form_field( name = 'before' value = before ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4425,6 +4705,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_mark_notifications_as.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4436,8 +4717,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_get_thread.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
-    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
+    lv_temp = thread_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4448,8 +4732,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_mark_thread_as_read.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
-    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
+    lv_temp = thread_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4460,8 +4747,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_get_thread_subscripti.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
+    lv_temp = thread_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4472,8 +4762,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_set_thread_subscripti.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
+    lv_temp = thread_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4484,8 +4777,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_delete_thread_subscri.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH thread_id.
+    lv_temp = thread_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4496,6 +4792,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~meta_get_octocat.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/octocat'.
     IF s IS SUPPLIED.
       mi_client->request->set_form_field( name = 's' value = s ).
@@ -4510,9 +4807,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/organizations'.
+    lv_temp = since.
+    CONDENSE lv_temp.
+    IF since IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'since' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4524,6 +4829,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
@@ -4536,6 +4842,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
@@ -4548,13 +4855,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_public_org_event.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/events'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4566,13 +4878,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_webhooks.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4584,6 +4901,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_create_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
@@ -4596,8 +4914,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_get_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4608,8 +4930,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_update_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4620,8 +4946,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_delete_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4632,8 +4962,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_ping_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4644,6 +4978,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_org_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/installation'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
@@ -4656,6 +4991,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_for_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/issues'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
@@ -4676,11 +5012,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4692,6 +5032,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_members.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
@@ -4700,11 +5041,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF role IS SUPPLIED.
       mi_client->request->set_form_field( name = 'role' value = role ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4716,6 +5061,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_check_membership_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4729,6 +5075,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_remove_member.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4742,6 +5089,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_get_membership_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4755,6 +5103,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_set_membership_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4768,6 +5117,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_remove_membership_for_use.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4781,16 +5131,21 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_outside_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4802,6 +5157,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_convert_member_to_outside.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4815,6 +5171,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_remove_outside_collaborat.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4828,10 +5185,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_pre_re02.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4843,8 +5208,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_pre_rec02.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4855,8 +5224,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_pre_02.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4867,8 +5240,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_remove_pre_re.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -4879,16 +5256,21 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_for_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4900,6 +5282,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_create_for_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
@@ -4912,13 +5295,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_public_members.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4930,6 +5318,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_check_public_membership_f.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4943,6 +5332,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_set_public_membership_for.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4956,6 +5346,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_remove_public_membership_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -4969,6 +5360,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_for_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF type IS SUPPLIED.
@@ -4980,11 +5372,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -4996,6 +5392,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_in_org.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
@@ -5008,13 +5405,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5026,6 +5428,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_create.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
@@ -5038,6 +5441,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get_by_name.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
@@ -5051,8 +5455,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_get_card.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
-    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
+    lv_temp = card_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5063,8 +5470,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_update_card.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
-    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
+    lv_temp = card_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5075,8 +5485,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_delete_card.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
-    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
+    lv_temp = card_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5087,8 +5500,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_move_card.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}/moves'.
-    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH card_id.
+    lv_temp = card_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5099,8 +5515,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_get_column.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5111,8 +5530,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_update_column.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5123,8 +5545,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_delete_column.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5135,16 +5560,23 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_cards.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     IF archived_state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'archived_state' value = archived_state ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5156,8 +5588,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_create_card.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5168,8 +5603,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_move_column.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/moves'.
-    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH column_id.
+    lv_temp = column_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5180,7 +5618,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5191,7 +5633,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5202,7 +5648,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_delete.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5213,15 +5663,23 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_collaborators.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     IF affiliation IS SUPPLIED.
       mi_client->request->set_form_field( name = 'affiliation' value = affiliation ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5233,7 +5691,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_add_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5245,7 +5707,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_remove_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5257,7 +5723,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_get_permission_for_us.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}/permission'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5269,12 +5739,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_columns.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5286,7 +5764,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_create_column.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5297,6 +5779,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~rate_limit_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/rate_limit'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5308,7 +5791,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_delete.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/reactions/{reaction_id}'.
+    lv_temp = reaction_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5319,6 +5806,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5332,6 +5820,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5345,6 +5834,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5358,14 +5848,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_assignees.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5377,6 +5872,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_check_user_can_be_assig.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees/{assignee}'.
     REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH assignee.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -5391,17 +5887,24 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_branches.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = protected.
+    CONDENSE lv_temp.
     IF protected IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'protected' value = protected ).
+      mi_client->request->set_form_field( name = 'protected' value = lv_temp ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5413,6 +5916,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_branch.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5427,6 +5931,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_branch_protection.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5441,6 +5946,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_branch_protection.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5455,6 +5961,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_branch_protection.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5469,6 +5976,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_admin_branch_protect.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5483,6 +5991,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_set_admin_branch_protect.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5497,6 +6006,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_admin_branch_prot.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5511,6 +6021,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_pull_request_review_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5525,6 +6036,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_pull_request_revi.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5539,6 +6051,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_pull_request_revi.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5553,6 +6066,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_commit_signature_pro.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5567,6 +6081,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_commit_signature_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5581,6 +6096,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_commit_signature_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5595,6 +6111,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_status_checks_protec.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5609,6 +6126,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_status_check_prot.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5623,6 +6141,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_remove_status_check_prot.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5637,6 +6156,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_all_status_check_con.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5651,6 +6171,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_add_status_check_context.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5665,6 +6186,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_set_status_check_context.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5679,6 +6201,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_remove_status_check_cont.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5693,6 +6216,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_access_restrictions.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5707,6 +6231,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_access_restrictio.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5721,6 +6246,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_teams_with_access_to.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5735,6 +6261,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_add_team_access_restrict.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5749,6 +6276,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_set_team_access_restrict.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5763,6 +6291,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_remove_team_access_restr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5777,6 +6306,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_users_with_access_to.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5791,6 +6321,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_add_user_access_restrict.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5805,6 +6336,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_set_user_access_restrict.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5819,6 +6351,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_remove_user_access_restr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5833,6 +6366,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_create.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5846,10 +6380,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH check_run_id.
+    lv_temp = check_run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5860,10 +6397,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH check_run_id.
+    lv_temp = check_run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5874,15 +6414,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_list_annotations.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH check_run_id.
+    lv_temp = check_run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5894,6 +6441,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_create_suite.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5907,6 +6455,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_set_suites_preferences.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/preferences'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -5920,10 +6469,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_get_suite.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH check_suite_id.
+    lv_temp = check_suite_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5934,10 +6486,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_list_for_suite.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH check_suite_id.
+    lv_temp = check_suite_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -5947,11 +6502,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF status IS SUPPLIED.
       mi_client->request->set_form_field( name = 'status' value = status ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5963,10 +6522,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_rerequest_suite.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH check_suite_id.
+    lv_temp = check_suite_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -5977,17 +6539,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_collaborators.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF affiliation IS SUPPLIED.
       mi_client->request->set_form_field( name = 'affiliation' value = affiliation ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -5999,6 +6566,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_check_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6013,6 +6581,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_add_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6027,6 +6596,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_remove_collaborator.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6041,6 +6611,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_collaborator_permiss.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}/permission'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6055,14 +6626,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_commit_comments_for.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6074,10 +6650,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_commit_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6088,10 +6667,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_commit_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6102,10 +6684,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_commit_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6116,18 +6701,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_commit_comm.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6139,10 +6731,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_commit_co.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6153,6 +6748,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_commits.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6171,11 +6767,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6187,6 +6787,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_branches_for_head_c.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6201,15 +6802,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_comments_for_commit.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6221,6 +6827,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_commit_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6235,15 +6842,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_pull_requests_assoc.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6255,6 +6867,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_commit.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6269,6 +6882,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_list_for_ref.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6282,11 +6896,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF status IS SUPPLIED.
       mi_client->request->set_form_field( name = 'status' value = status ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6298,21 +6916,28 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~checks_list_suites_for_ref.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = app_id.
+    CONDENSE lv_temp.
     IF app_id IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'app_id' value = app_id ).
+      mi_client->request->set_form_field( name = 'app_id' value = lv_temp ).
     ENDIF.
     IF check_name IS SUPPLIED.
       mi_client->request->set_form_field( name = 'check_name' value = check_name ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6324,6 +6949,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_combined_status_for_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/status'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6338,15 +6964,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_commit_statuses_for.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/statuses'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6358,6 +6989,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~codes_of_conduct_get_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/community/code_of_conduct'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6371,6 +7003,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_compare_commits.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/compare/{base}...{head}'.
     REPLACE ALL OCCURRENCES OF '{base}' IN lv_uri WITH base.
     REPLACE ALL OCCURRENCES OF '{head}' IN lv_uri WITH head.
@@ -6386,6 +7019,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_content.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6403,6 +7037,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_or_update_file_co.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6417,6 +7052,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_file.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6431,17 +7067,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_contributors.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF anon IS SUPPLIED.
       mi_client->request->set_form_field( name = 'anon' value = anon ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6453,6 +7094,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_deployments.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6468,11 +7110,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF environment IS SUPPLIED.
       mi_client->request->set_form_field( name = 'environment' value = environment ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6484,6 +7130,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_deployment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6497,10 +7144,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_deployment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
+    lv_temp = deployment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6511,15 +7161,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_deployment_statuses.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
+    lv_temp = deployment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6531,10 +7188,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_deployment_status.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
+    lv_temp = deployment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6545,11 +7205,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_deployment_status.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
-    REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH status_id.
+    lv_temp = status_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH deployment_id.
+    lv_temp = deployment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6560,14 +7225,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_repo_events.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6579,17 +7249,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_forks.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6601,6 +7276,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_fork.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6614,6 +7290,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_create_blob.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6627,6 +7304,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_get_blob.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs/{file_sha}'.
     REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH file_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6641,6 +7319,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_create_commit.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6654,6 +7333,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_get_commit.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits/{commit_sha}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6668,6 +7348,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_create_ref.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6681,11 +7362,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_get_all_refs.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{namespace}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6697,6 +7386,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_update_ref.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6711,6 +7401,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_delete_ref.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6725,6 +7416,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_create_tag.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6738,6 +7430,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_get_tag.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags/{tag_sha}'.
     REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH tag_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6752,6 +7445,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_create_tree.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6765,6 +7459,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~git_get_tree.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees/{tree_sha}'.
     REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH tree_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -6782,14 +7477,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_webhooks.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6801,6 +7501,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6814,9 +7515,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6827,9 +7532,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6840,9 +7549,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6853,9 +7566,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_ping_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6866,9 +7583,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_test_push_webhook.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6879,6 +7600,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_repo_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/installation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6892,14 +7614,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_invitations.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6911,10 +7638,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_invitation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
+    lv_temp = invitation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6925,10 +7655,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_invitation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
+    lv_temp = invitation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -6939,6 +7672,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6969,11 +7703,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -6985,6 +7723,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_create.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -6998,6 +7737,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_comments_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7010,11 +7750,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7026,10 +7770,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_get_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7040,10 +7787,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_update_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7054,10 +7804,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_delete_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7068,18 +7821,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_issue_comme.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7091,10 +7851,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_issue_com.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7105,14 +7868,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_events_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7124,8 +7892,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_get_event.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events/{event_id}'.
-    REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH event_id.
+    lv_temp = event_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -7138,10 +7909,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7152,10 +7926,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7166,10 +7943,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_add_assignees.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7180,10 +7960,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_remove_assignees.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7194,18 +7977,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_comments.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7217,10 +8007,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_create_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7231,15 +8024,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_events.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7251,15 +8051,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_labels_on_issue.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7271,10 +8078,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_add_labels.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7285,10 +8095,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_set_labels.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7299,10 +8112,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_remove_all_labels.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7313,11 +8129,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_remove_label.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7328,10 +8147,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_lock.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7342,10 +8164,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_unlock.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7356,18 +8181,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_issue.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7379,10 +8211,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_issue.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7393,15 +8228,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_events_for_timelin.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH issue_number.
+    lv_temp = issue_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7413,14 +8255,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_deploy_keys.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7432,6 +8279,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_deploy_key.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7445,10 +8293,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_deploy_key.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
+    lv_temp = key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7459,10 +8310,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_deploy_key.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
+    lv_temp = key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7473,14 +8327,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_labels_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7492,6 +8351,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_create_label.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7505,6 +8365,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_get_label.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -7519,6 +8380,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_delete_label.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -7533,6 +8395,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_languages.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/languages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7546,6 +8409,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~licenses_get_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/license'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7559,6 +8423,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_merge.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/merges'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7572,6 +8437,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_milestones.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7584,11 +8450,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7600,6 +8470,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_create_milestone.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7613,10 +8484,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_get_milestone.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
+    lv_temp = milestone_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7627,10 +8501,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_update_milestone.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
+    lv_temp = milestone_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7641,10 +8518,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_delete_milestone.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
+    lv_temp = milestone_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7655,15 +8535,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_labels_for_milesto.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH milestone_number.
+    lv_temp = milestone_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7675,14 +8562,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_repo_notificatio.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = all.
+    CONDENSE lv_temp.
     IF all IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'all' value = all ).
+      mi_client->request->set_form_field( name = 'all' value = lv_temp ).
     ENDIF.
+    lv_temp = participating.
+    CONDENSE lv_temp.
     IF participating IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'participating' value = participating ).
+      mi_client->request->set_form_field( name = 'participating' value = lv_temp ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -7690,11 +8582,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF before IS SUPPLIED.
       mi_client->request->set_form_field( name = 'before' value = before ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7706,6 +8602,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_mark_repo_notificatio.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7719,6 +8616,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_pages.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7732,6 +8630,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_pages_site.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7745,6 +8644,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_information_about.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7758,6 +8658,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_pages_site.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7771,14 +8672,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_pages_builds.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7790,6 +8696,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_request_pages_build.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7803,6 +8710,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_latest_pages_build.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7816,8 +8724,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_pages_build.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/{build_id}'.
-    REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH build_id.
+    lv_temp = build_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -7830,11 +8741,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_list_pre_re03.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7846,9 +8765,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_pre_rec03.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7859,9 +8782,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_update_pre_03.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7872,9 +8799,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_remove_pre_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pre_receive_hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -7885,17 +8816,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7907,6 +8843,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_create_for_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7920,6 +8857,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7938,11 +8876,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7954,6 +8896,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_create.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7967,6 +8910,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_review_comments_for.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -7979,11 +8923,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -7995,10 +8943,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_get_review_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8009,10 +8960,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_update_review_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8023,10 +8977,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_delete_review_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8037,18 +8994,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_pull_reques.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8060,10 +9024,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_pull_requ.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8074,9 +9041,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8087,9 +9058,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8100,9 +9075,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_review_comments.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
@@ -8112,11 +9091,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8128,9 +9111,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_create_review_comment_al.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8141,10 +9128,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_create_reply_for_review_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH comment_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8155,14 +9148,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_commits.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8174,14 +9175,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_files.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/files'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8193,9 +9202,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_check_if_merged.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8206,9 +9219,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_merge.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8219,14 +9236,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_requested_reviewers.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8238,9 +9263,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_request_reviewers.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8251,9 +9280,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_remove_requested_reviewe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8264,14 +9297,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_reviews.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8283,9 +9324,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_create_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8296,10 +9341,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_get_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8310,10 +9361,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_update_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8324,10 +9381,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_delete_pending_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8338,15 +9401,25 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_list_comments_for_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8358,10 +9431,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_dismiss_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8372,10 +9451,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_submit_review.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH review_id.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
+    lv_temp = review_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8386,9 +9471,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~pulls_update_branch.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = pull_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8399,6 +9488,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_readme.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8415,14 +9505,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_releases.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8434,6 +9529,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_release.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8447,10 +9543,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_release_asset.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
+    lv_temp = asset_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8461,10 +9560,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_release_asset.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
+    lv_temp = asset_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8475,10 +9577,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_release_asset.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH asset_id.
+    lv_temp = asset_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8489,6 +9594,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_latest_release.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8502,6 +9608,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_release_by_tag.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/tags/{tag}'.
     REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH tag.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -8516,10 +9623,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_release.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8530,10 +9640,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_update_release.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8544,10 +9657,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_delete_release.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -8558,15 +9674,22 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_release_assets.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8578,10 +9701,13 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_upload_release_asset.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH release_id.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     IF name IS SUPPLIED.
       mi_client->request->set_form_field( name = 'name' value = name ).
     ENDIF.
@@ -8598,14 +9724,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_stargazers_for_r.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stargazers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8617,6 +9748,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_code_frequency_stats.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/code_frequency'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8630,6 +9762,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_commit_activity_stat.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/commit_activity'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8643,6 +9776,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_contributors_stats.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8656,6 +9790,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_participation_stats.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/participation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8669,6 +9804,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_punch_card_stats.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/punch_card'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8682,6 +9818,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_commit_status.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/statuses/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -8696,14 +9833,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_watchers_for_rep.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscribers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8715,6 +9857,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_get_repo_subscription.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8728,6 +9871,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_set_repo_subscription.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8741,6 +9885,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_delete_repo_subscript.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8754,14 +9899,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_tags.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8773,6 +9923,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_download_tarball_archive.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tarball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -8787,14 +9938,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_teams.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8806,6 +9962,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_get_all_topics.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8819,6 +9976,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_replace_all_topics.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8832,6 +9990,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_transfer.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/transfer'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8845,6 +10004,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_enable_vulnerability_ale.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8858,6 +10018,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_disable_vulnerability_al.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -8871,6 +10032,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_download_zipball_archive.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/zipball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -8885,6 +10047,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_using_template.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{template_owner}/{template_repo}/generate'.
     REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH template_owner.
     REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH template_repo.
@@ -8898,9 +10061,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_public.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
+    ENDIF.
+    lv_temp = since.
+    CONDENSE lv_temp.
+    IF since IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'since' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8912,6 +10081,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_code.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/code'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -8920,11 +10090,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8936,6 +10110,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_commits.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/commits'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -8944,11 +10119,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8960,6 +10139,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_issues_and_pull_request.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/issues'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -8968,11 +10148,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -8984,8 +10168,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_labels.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/labels'.
-    mi_client->request->set_form_field( name = 'repository_id' value = repository_id ).
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    mi_client->request->set_form_field( name = 'repository_id' value = lv_temp ).
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -9003,6 +10190,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_repos.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/repositories'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -9011,11 +10199,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9027,6 +10219,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_topics.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/topics'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     mi_client->request->set_method( 'GET' ).
@@ -9039,6 +10232,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~search_users.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/users'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
@@ -9047,11 +10241,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9063,6 +10261,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_configura.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configcheck'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9074,6 +10273,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_start_configu.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configure'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9085,6 +10285,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_maintenan.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9096,6 +10297,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_enable_or_dis.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9107,6 +10309,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_settings.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9118,6 +10321,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_set_settings.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9129,6 +10333,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_get_all_autho.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9140,6 +10345,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_add_authorize.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9151,6 +10357,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_remove_author.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9162,6 +10369,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_create_enterp.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/start'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9173,6 +10381,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_upgrade_licen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/upgrade'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9184,7 +10393,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9195,7 +10408,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_update.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9206,7 +10423,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_delete.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9217,12 +10438,23 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_discussions.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9234,7 +10466,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_create_discussion.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9245,7 +10481,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get_discussion.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9256,7 +10499,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_update_discussion.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9267,7 +10517,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_delete_discussion.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9278,12 +10535,26 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_discussion_comments.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9295,7 +10566,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_create_discussion_commen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9306,7 +10584,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get_discussion_comment.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9317,7 +10605,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_update_discussion_commen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9328,7 +10626,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_delete_discussion_commen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9339,12 +10647,29 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_team_discus.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9356,7 +10681,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_team_disc.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
+    lv_temp = comment_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9367,12 +10702,26 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_list_for_team_disc01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/reactions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9384,7 +10733,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~reactions_create_for_team_di01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/discussions/{discussion_number}/reactions'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = discussion_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9395,12 +10751,23 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_members.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     IF role IS SUPPLIED.
       mi_client->request->set_form_field( name = 'role' value = role ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9412,7 +10779,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get_member_legacy.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9424,7 +10795,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_add_member_legacy.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9436,7 +10811,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_remove_member_legacy.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/members/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9448,7 +10827,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_get_membership_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9460,7 +10843,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_add_or_update_membership.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9472,7 +10859,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_remove_membership_for_us.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/memberships/{username}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9484,9 +10875,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_projects.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9498,7 +10900,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_check_permissions_for_pr.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9509,7 +10918,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_add_or_update_project_pe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9520,7 +10936,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_remove_project.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/projects/{project_id}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = project_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9531,9 +10954,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_repos.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9545,7 +10979,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_check_permissions_for_re.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -9558,7 +10996,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_add_or_update_repo_permi.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -9571,7 +11013,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_remove_repo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/repos/{owner}/{repo}'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -9584,9 +11030,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_child.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/teams/{team_id}/teams'.
+    lv_temp = team_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9598,6 +11055,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_get_authenticated.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9609,6 +11067,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_update_authenticated.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9620,12 +11079,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_emails_for_authenti.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9637,6 +11101,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_add_email_for_authentica.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9648,6 +11113,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_delete_email_for_authent.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9659,12 +11125,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_followers_for_authe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/followers'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9676,12 +11147,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_followed_by_authent.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9693,6 +11169,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_check_person_is_followed.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -9705,6 +11182,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_follow.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -9717,6 +11195,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_unfollow.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -9729,12 +11208,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_gpg_keys_for_authen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9746,6 +11230,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_create_gpg_key_for_authe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9757,8 +11242,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_get_gpg_key_for_authenti.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
-    REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH gpg_key_id.
+    lv_temp = gpg_key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9769,8 +11257,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_delete_gpg_key_for_authe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
-    REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH gpg_key_id.
+    lv_temp = gpg_key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9781,12 +11272,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_list_installations_for_au.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9798,13 +11294,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_list_installation_repos_f.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9816,9 +11319,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_add_repo_to_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
-    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9829,9 +11337,14 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_remove_repo_from_installa.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
-    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH installation_id.
-    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH repository_id.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9842,6 +11355,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~issues_list_for_authenticated_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -9861,11 +11375,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9877,12 +11395,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_public_ssh_keys_for.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9894,6 +11417,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_create_public_ssh_key_fo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9905,8 +11429,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_get_public_ssh_key_for_a.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
-    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
+    lv_temp = key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9917,8 +11444,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_delete_public_ssh_key_fo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
-    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH key_id.
+    lv_temp = key_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9929,15 +11459,20 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_memberships_for_auth.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs'.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9949,6 +11484,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_get_membership_for_authen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
@@ -9961,6 +11497,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_update_membership_for_aut.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
@@ -9973,12 +11510,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_for_authenticated_us.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/orgs'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9990,6 +11532,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_create_for_authentica.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/projects'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10001,12 +11544,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_public_emails_for_a.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/public_emails'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10018,6 +11566,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_for_authenticated_u.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
@@ -10034,11 +11583,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -10056,6 +11609,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_create_for_authenticated.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10067,12 +11621,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_invitations_for_aut.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10084,8 +11643,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_accept_invitation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
-    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
+    lv_temp = invitation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10096,8 +11658,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_decline_invitation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
-    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH invitation_id.
+    lv_temp = invitation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10108,6 +11673,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_repos_starred_by.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -10115,11 +11681,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10131,6 +11701,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_check_repo_is_starred.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -10144,6 +11715,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_star_repo_for_authent.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -10157,6 +11729,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_unstar_repo_for_authe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -10170,12 +11743,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_watched_repos_fo.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/subscriptions'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10187,12 +11765,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~teams_list_for_authenticated_u.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/teams'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10204,9 +11787,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users'.
+    lv_temp = since.
+    CONDENSE lv_temp.
+    IF since IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'since' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10218,6 +11809,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_get_by_username.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -10230,13 +11822,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_events_for_authe.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10248,14 +11845,19 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_org_events_for_a.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10267,13 +11869,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_public_events_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10285,13 +11892,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_followers_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/followers'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10303,13 +11915,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_following_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10321,6 +11938,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_check_following_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following/{target_user}'.
     REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH target_user.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -10334,16 +11952,21 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~gists_list_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gists'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10355,13 +11978,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_gpg_keys_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gpg_keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10373,6 +12001,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_get_context_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/hovercard'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF subject_type IS SUPPLIED.
@@ -10391,6 +12020,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~apps_get_user_installation.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/installation'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -10403,13 +12033,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~users_list_public_keys_for_use.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10421,13 +12056,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~orgs_list_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/orgs'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10439,16 +12079,21 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~projects_list_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/projects'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10460,13 +12105,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_received_events_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10478,13 +12128,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_received_public_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10496,6 +12151,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~repos_list_for_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/repos'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF type IS SUPPLIED.
@@ -10507,11 +12163,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10523,6 +12183,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_promote_user_.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -10535,6 +12196,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_demote_site_a.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -10547,6 +12209,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_repos_starred_01.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/starred'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF sort IS SUPPLIED.
@@ -10555,11 +12218,15 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10571,13 +12238,18 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~activity_list_repos_watched_by.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/subscriptions'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'per_page' value = per_page ).
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
     IF page IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'page' value = page ).
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10589,6 +12261,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_suspend_user.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -10601,6 +12274,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~enterprise_admin_unsuspend_use.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -10613,6 +12287,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD zif_ghes218~meta_get_zen.
     DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/zen'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
