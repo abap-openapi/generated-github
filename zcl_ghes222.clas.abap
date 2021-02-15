@@ -824,6 +824,934 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(key_simple) TYPE zif_ghes222=>key_simple
       RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_g
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_gl
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_g
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_gl
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_g
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_gl
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_l
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_ld
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update01
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_o
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_or
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_o
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_or
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_p
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_pr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_p
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_pr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_p
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_pr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create01
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update02
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_02
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete01
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_u
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_us
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_u
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_us
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_u
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_us
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_i
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_im
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_i
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_im
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_create_installation_
+      IMPORTING data TYPE zif_ghes222=>bodyapps_create_installation_a
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_delete_authorization
+      IMPORTING data TYPE zif_ghes222=>bodyapps_delete_authorization
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_check_token
+      IMPORTING data TYPE zif_ghes222=>bodyapps_check_token
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_reset_token
+      IMPORTING data TYPE zif_ghes222=>bodyapps_reset_token
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_delete_token
+      IMPORTING data TYPE zif_ghes222=>bodyapps_delete_token
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_oauth_authorizations_crea
+      IMPORTING data TYPE zif_ghes222=>bodyoauth_authorizations_creat
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_oauth_authorizations_get_
+      IMPORTING data TYPE zif_ghes222=>bodyoauth_authorizations_get_o
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_oauth_authorizations_ge01
+      IMPORTING data TYPE zif_ghes222=>bodyoauth_authorizations_get01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_oauth_authorizations_upda
+      IMPORTING data TYPE zif_ghes222=>bodyoauth_authorizations_updat
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_oauth_authorizations_dele
+      IMPORTING data TYPE zif_ghes222=>bodyoauth_authorizations_delet
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_create_content_attac
+      IMPORTING data TYPE zif_ghes222=>bodyapps_create_content_attach
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_s
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_s
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_s
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_delete_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_org_
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_set_org_a
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_self
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_set_self_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_create
+      IMPORTING data TYPE zif_ghes222=>bodygists_create
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_update
+      IMPORTING data TYPE zif_ghes222=>bodygists_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_delete
+      IMPORTING data TYPE zif_ghes222=>bodygists_delete
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_create_comment
+      IMPORTING data TYPE zif_ghes222=>bodygists_create_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_update_comment
+      IMPORTING data TYPE zif_ghes222=>bodygists_update_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_gists_delete_comment
+      IMPORTING data TYPE zif_ghes222=>bodygists_delete_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_markdown_render
+      IMPORTING data TYPE zif_ghes222=>bodymarkdown_render
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_mark_notificatio
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_mark_notification
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_set_thread_subsc
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_set_thread_subscr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_delete_thread_su
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_delete_thread_sub
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_update
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_self_hoste
+      IMPORTING data TYPE zif_ghes222=>bodyactions_create_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_update_self_hoste
+      IMPORTING data TYPE zif_ghes222=>bodyactions_update_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_self_hoste
+      IMPORTING data TYPE zif_ghes222=>bodyactions_delete_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_repo_access_t
+      IMPORTING data TYPE zif_ghes222=>bodyactions_set_repo_access_to
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_self_hosted_r
+      IMPORTING data TYPE zif_ghes222=>bodyactions_set_self_hosted_ru
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_or_update_
+      IMPORTING data TYPE zif_ghes222=>bodyactions_create_or_update_o
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_org_secret
+      IMPORTING data TYPE zif_ghes222=>bodyactions_delete_org_secret
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_selected_repo
+      IMPORTING data TYPE zif_ghes222=>bodyactions_set_selected_repos
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_create_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_create_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_update_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_update_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_delete_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_delete_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_set_membership_for_u
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_set_membership_for_us
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_remove_membership_fo
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_remove_membership_for
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update03
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_03
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_remove_p
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_remove_pr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_create_for_org
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_create_for_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_in_org
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_in_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_create
+      IMPORTING data TYPE zif_ghes222=>bodyteams_create
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_in_org
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_in_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_in_org
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_in_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_create_discussion_i
+      IMPORTING data TYPE zif_ghes222=>bodyteams_create_discussion_in
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_discussion_i
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_discussion_in
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_discussion_i
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_discussion_in
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_create_discussion_c
+      IMPORTING data TYPE zif_ghes222=>bodyteams_create_discussion_co
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_discussion_c
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_discussion_co
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_discussion_c
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_discussion_co
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_team
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_team_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_te01
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_tea01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_membe
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_member
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_membership_f
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_membership_fo
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_proje
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_projec
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_project_in_o
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_project_in_or
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_repo_
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_repo_p
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_repo_in_org
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_repo_in_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_update_card
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_update_card
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_delete_card
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_delete_card
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_move_card
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_move_card
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_update_column
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_update_column
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_delete_column
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_delete_column
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_create_card
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_create_card
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_move_column
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_move_column
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_update
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_delete
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_delete
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_add_collaborator
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_add_collaborator
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_remove_collabora
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_remove_collaborat
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_create_column
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_create_column
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_or_updat01
+      IMPORTING data TYPE zif_ghes222=>bodyactions_create_or_update_r
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_repo_secre
+      IMPORTING data TYPE zif_ghes222=>bodyactions_delete_repo_secret
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_workflow_d
+      IMPORTING data TYPE zif_ghes222=>bodyactions_create_workflow_di
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_branch_prote
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_branch_protec
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_branch_prote
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_branch_protec
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_pull_request
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_pull_request_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_pull_request
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_pull_request_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_status_check
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_status_check_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_status_check
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_status_check_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_add_status_check_co
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_add_status_check_con
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_set_status_check_co
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_set_status_check_con
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_status_che01
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_status_chec01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_add_app_access_rest
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_add_app_access_restr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_set_app_access_rest
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_set_app_access_restr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_app_access_r
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_app_access_re
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_add_team_access_res
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_add_team_access_rest
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_set_team_access_res
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_set_team_access_rest
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_team_access_
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_team_access_r
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_add_user_access_res
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_add_user_access_rest
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_set_user_access_res
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_set_user_access_rest
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_user_access_
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_user_access_r
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_checks_create
+      IMPORTING data TYPE zif_ghes222=>bodychecks_create
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_checks_update
+      IMPORTING data TYPE zif_ghes222=>bodychecks_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_checks_create_suite
+      IMPORTING data TYPE zif_ghes222=>bodychecks_create_suite
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_checks_set_suites_prefere
+      IMPORTING data TYPE zif_ghes222=>bodychecks_set_suites_preferen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_code_scanning_update_aler
+      IMPORTING data TYPE zif_ghes222=>bodycode_scanning_update_alert
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_code_scanning_upload_sari
+      IMPORTING data TYPE zif_ghes222=>bodycode_scanning_upload_sarif
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_add_collaborator
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_add_collaborator
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_remove_collaborator
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_remove_collaborator
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_commit_comme
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_commit_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_commit_comme
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_commit_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_comm
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_commi
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_commit_comme
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_commit_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_or_update_fi
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_or_update_fil
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_file
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_file
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_deployment
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_deployment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_deployment_s
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_deployment_st
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_dispatch_eve
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_dispatch_even
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_fork
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_fork
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_create_blob
+      IMPORTING data TYPE zif_ghes222=>bodygit_create_blob
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_create_commit
+      IMPORTING data TYPE zif_ghes222=>bodygit_create_commit
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_create_ref
+      IMPORTING data TYPE zif_ghes222=>bodygit_create_ref
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_update_ref
+      IMPORTING data TYPE zif_ghes222=>bodygit_update_ref
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_delete_ref
+      IMPORTING data TYPE zif_ghes222=>bodygit_delete_ref
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_create_tag
+      IMPORTING data TYPE zif_ghes222=>bodygit_create_tag
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_git_create_tree
+      IMPORTING data TYPE zif_ghes222=>bodygit_create_tree
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_webhook
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_webhook
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_invitation
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_invitation
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_invitation
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_invitation
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_create
+      IMPORTING data TYPE zif_ghes222=>bodyissues_create
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_update_comment
+      IMPORTING data TYPE zif_ghes222=>bodyissues_update_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_delete_comment
+      IMPORTING data TYPE zif_ghes222=>bodyissues_delete_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_issu
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_issue
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_update
+      IMPORTING data TYPE zif_ghes222=>bodyissues_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_add_assignees
+      IMPORTING data TYPE zif_ghes222=>bodyissues_add_assignees
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_remove_assignees
+      IMPORTING data TYPE zif_ghes222=>bodyissues_remove_assignees
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_create_comment
+      IMPORTING data TYPE zif_ghes222=>bodyissues_create_comment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_add_labels
+      IMPORTING data TYPE zif_ghes222=>bodyissues_add_labels
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_set_labels
+      IMPORTING data TYPE zif_ghes222=>bodyissues_set_labels
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_remove_all_labels
+      IMPORTING data TYPE zif_ghes222=>bodyissues_remove_all_labels
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_lock
+      IMPORTING data TYPE zif_ghes222=>bodyissues_lock
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_unlock
+      IMPORTING data TYPE zif_ghes222=>bodyissues_unlock
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_is01
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_iss01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_deploy_key
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_deploy_key
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_create_label
+      IMPORTING data TYPE zif_ghes222=>bodyissues_create_label
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_update_label
+      IMPORTING data TYPE zif_ghes222=>bodyissues_update_label
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_delete_label
+      IMPORTING data TYPE zif_ghes222=>bodyissues_delete_label
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_merge
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_merge
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_create_milestone
+      IMPORTING data TYPE zif_ghes222=>bodyissues_create_milestone
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_update_milestone
+      IMPORTING data TYPE zif_ghes222=>bodyissues_update_milestone
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_issues_delete_milestone
+      IMPORTING data TYPE zif_ghes222=>bodyissues_delete_milestone
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_mark_repo_notifi
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_mark_repo_notific
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_pages_site
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_pages_site
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_information_
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_information_a
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_pages_site
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_pages_site
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update04
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_update_04
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_remove01
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_remove_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_create_for_repo
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_create_for_repo
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_create
+      IMPORTING data TYPE zif_ghes222=>bodypulls_create
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_update_review_comme
+      IMPORTING data TYPE zif_ghes222=>bodypulls_update_review_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_delete_review_comme
+      IMPORTING data TYPE zif_ghes222=>bodypulls_delete_review_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_pull
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_pull_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_update
+      IMPORTING data TYPE zif_ghes222=>bodypulls_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_create_review_comme
+      IMPORTING data TYPE zif_ghes222=>bodypulls_create_review_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_create_reply_for_re
+      IMPORTING data TYPE zif_ghes222=>bodypulls_create_reply_for_rev
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_merge
+      IMPORTING data TYPE zif_ghes222=>bodypulls_merge
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_request_reviewers
+      IMPORTING data TYPE zif_ghes222=>bodypulls_request_reviewers
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_remove_requested_re
+      IMPORTING data TYPE zif_ghes222=>bodypulls_remove_requested_rev
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_create_review
+      IMPORTING data TYPE zif_ghes222=>bodypulls_create_review
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_update_review
+      IMPORTING data TYPE zif_ghes222=>bodypulls_update_review
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_delete_pending_revi
+      IMPORTING data TYPE zif_ghes222=>bodypulls_delete_pending_revie
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_dismiss_review
+      IMPORTING data TYPE zif_ghes222=>bodypulls_dismiss_review
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_submit_review
+      IMPORTING data TYPE zif_ghes222=>bodypulls_submit_review
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_pulls_update_branch
+      IMPORTING data TYPE zif_ghes222=>bodypulls_update_branch
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_release
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_release
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_release_asse
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_release_asset
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_release_asse
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_release_asset
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_update_release
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_update_release
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_release
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_delete_release
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_commit_statu
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_commit_status
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_set_repo_subscri
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_set_repo_subscrip
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_activity_delete_repo_subs
+      IMPORTING data TYPE zif_ghes222=>bodyactivity_delete_repo_subsc
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_replace_all_topics
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_replace_all_topics
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_transfer
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_transfer
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_using_templa
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_using_templat
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_enable_o
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_enable_or
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_sett
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_set_setti
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_add_auth
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_add_autho
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_remove_a
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_remove_au
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_e
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_en
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_upgrade_
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_upgrade_l
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_legacy
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_legacy
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_legacy
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_legacy
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_create_discussion_l
+      IMPORTING data TYPE zif_ghes222=>bodyteams_create_discussion_le
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_discussion_l
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_discussion_le
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_discussion_l
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_discussion_le
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_create_discussion01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_create_discussion_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_update_discussion01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_update_discussion_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_delete_discussion01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_delete_discussion_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_te02
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_tea02
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_reactions_create_for_te03
+      IMPORTING data TYPE zif_ghes222=>bodyreactions_create_for_tea03
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_mem01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_memb01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_membership01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_membership_01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_pro01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_proj01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_project_lega
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_project_legac
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_add_or_update_rep01
+      IMPORTING data TYPE zif_ghes222=>bodyteams_add_or_update_repo01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_remove_repo_legacy
+      IMPORTING data TYPE zif_ghes222=>bodyteams_remove_repo_legacy
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_users_update_authenticate
+      IMPORTING data TYPE zif_ghes222=>bodyusers_update_authenticated
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_users_add_email_for_authe
+      IMPORTING data TYPE zif_ghes222=>bodyusers_add_email_for_authen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_users_delete_email_for_au
+      IMPORTING data TYPE zif_ghes222=>bodyusers_delete_email_for_aut
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_users_create_gpg_key_for_
+      IMPORTING data TYPE zif_ghes222=>bodyusers_create_gpg_key_for_a
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_users_create_public_ssh_k
+      IMPORTING data TYPE zif_ghes222=>bodyusers_create_public_ssh_ke
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_orgs_update_membership_fo
+      IMPORTING data TYPE zif_ghes222=>bodyorgs_update_membership_for
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_projects_create_for_authe
+      IMPORTING data TYPE zif_ghes222=>bodyprojects_create_for_authen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_for_authenti
+      IMPORTING data TYPE zif_ghes222=>bodyrepos_create_for_authentic
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_suspend_
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_suspend_u
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_unsuspen
+      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_unsuspend
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
 ENDCLASS.
 
 CLASS zcl_ghes222 IMPLEMENTATION.
@@ -4355,6 +5283,934 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     key_simple-key = mo_json->value_string( iv_prefix && '/key' ).
   ENDMETHOD.
 
+  METHOD json_enterprise_admin_create_g.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_g.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_g.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_l.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_o.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_o.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_p.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_p.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_p.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update02.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_u.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_u.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_u.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_i.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_i.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_create_installation_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_delete_authorization.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_check_token.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_reset_token.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_delete_token.
+* todo
+  ENDMETHOD.
+
+  METHOD json_oauth_authorizations_crea.
+* todo
+  ENDMETHOD.
+
+  METHOD json_oauth_authorizations_get_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_oauth_authorizations_ge01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_oauth_authorizations_upda.
+* todo
+  ENDMETHOD.
+
+  METHOD json_oauth_authorizations_dele.
+* todo
+  ENDMETHOD.
+
+  METHOD json_apps_create_content_attac.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_s.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_s.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_s.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_org_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_self.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_create.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_delete.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_create_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_update_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_gists_delete_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_markdown_render.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_mark_notificatio.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_set_thread_subsc.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_delete_thread_su.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_create_self_hoste.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_update_self_hoste.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_delete_self_hoste.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_set_repo_access_t.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_set_self_hosted_r.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_create_or_update_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_delete_org_secret.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_set_selected_repo.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_create_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_update_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_delete_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_set_membership_for_u.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_remove_membership_fo.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update03.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_remove_p.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_create_for_org.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_in_org.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_create.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_in_org.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_in_org.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_create_discussion_i.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_discussion_i.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_discussion_i.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_create_discussion_c.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_discussion_c.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_discussion_c.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_team.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_te01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_membe.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_membership_f.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_proje.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_project_in_o.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_repo_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_repo_in_org.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_update_card.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_delete_card.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_move_card.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_update_column.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_delete_column.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_create_card.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_move_column.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_delete.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_add_collaborator.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_remove_collabora.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_create_column.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_create_or_updat01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_delete_repo_secre.
+* todo
+  ENDMETHOD.
+
+  METHOD json_actions_create_workflow_d.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_branch_prote.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_branch_prote.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_pull_request.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_pull_request.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_status_check.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_status_check.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_add_status_check_co.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_set_status_check_co.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_status_che01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_add_app_access_rest.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_set_app_access_rest.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_app_access_r.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_add_team_access_res.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_set_team_access_res.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_team_access_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_add_user_access_res.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_set_user_access_res.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_user_access_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_checks_create.
+* todo
+  ENDMETHOD.
+
+  METHOD json_checks_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_checks_create_suite.
+* todo
+  ENDMETHOD.
+
+  METHOD json_checks_set_suites_prefere.
+* todo
+  ENDMETHOD.
+
+  METHOD json_code_scanning_update_aler.
+* todo
+  ENDMETHOD.
+
+  METHOD json_code_scanning_upload_sari.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_add_collaborator.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_remove_collaborator.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_commit_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_commit_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_comm.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_commit_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_or_update_fi.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_file.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_deployment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_deployment_s.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_dispatch_eve.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_fork.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_create_blob.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_create_commit.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_create_ref.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_update_ref.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_delete_ref.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_create_tag.
+* todo
+  ENDMETHOD.
+
+  METHOD json_git_create_tree.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_webhook.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_invitation.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_invitation.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_create.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_update_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_delete_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_issu.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_add_assignees.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_remove_assignees.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_create_comment.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_add_labels.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_set_labels.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_remove_all_labels.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_lock.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_unlock.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_is01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_deploy_key.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_create_label.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_update_label.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_delete_label.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_merge.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_create_milestone.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_update_milestone.
+* todo
+  ENDMETHOD.
+
+  METHOD json_issues_delete_milestone.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_mark_repo_notifi.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_pages_site.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_information_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_pages_site.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update04.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_remove01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_create_for_repo.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_create.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_update_review_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_delete_review_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_pull.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_update.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_create_review_comme.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_create_reply_for_re.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_merge.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_request_reviewers.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_remove_requested_re.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_create_review.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_update_review.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_delete_pending_revi.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_dismiss_review.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_submit_review.
+* todo
+  ENDMETHOD.
+
+  METHOD json_pulls_update_branch.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_release.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_release_asse.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_release_asse.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_update_release.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_delete_release.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_commit_statu.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_set_repo_subscri.
+* todo
+  ENDMETHOD.
+
+  METHOD json_activity_delete_repo_subs.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_replace_all_topics.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_transfer.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_using_templa.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_enable_o.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_sett.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_add_auth.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_remove_a.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_e.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_upgrade_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_legacy.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_legacy.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_create_discussion_l.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_discussion_l.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_discussion_l.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_create_discussion01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_update_discussion01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_delete_discussion01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_te02.
+* todo
+  ENDMETHOD.
+
+  METHOD json_reactions_create_for_te03.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_mem01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_membership01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_pro01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_project_lega.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_add_or_update_rep01.
+* todo
+  ENDMETHOD.
+
+  METHOD json_teams_remove_repo_legacy.
+* todo
+  ENDMETHOD.
+
+  METHOD json_users_update_authenticate.
+* todo
+  ENDMETHOD.
+
+  METHOD json_users_add_email_for_authe.
+* todo
+  ENDMETHOD.
+
+  METHOD json_users_delete_email_for_au.
+* todo
+  ENDMETHOD.
+
+  METHOD json_users_create_gpg_key_for_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_users_create_public_ssh_k.
+* todo
+  ENDMETHOD.
+
+  METHOD json_orgs_update_membership_fo.
+* todo
+  ENDMETHOD.
+
+  METHOD json_projects_create_for_authe.
+* todo
+  ENDMETHOD.
+
+  METHOD json_repos_create_for_authenti.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_suspend_.
+* todo
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_unsuspen.
+* todo
+  ENDMETHOD.
+
   METHOD zif_ghes222~meta_root.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -4395,10 +6251,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_global_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_global_we.
@@ -4425,6 +6282,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -4440,6 +6298,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4505,6 +6364,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_l( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -4533,6 +6393,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -4558,10 +6419,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_o( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_organization_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_org_na.
@@ -4571,6 +6433,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_o( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4605,10 +6468,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_p( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_environment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_recei.
@@ -4635,6 +6499,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_p( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -4650,6 +6515,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_p( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4714,10 +6580,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pre_receive_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_pre_rec01.
@@ -4744,6 +6611,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update02( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -4759,6 +6627,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4808,10 +6677,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_u( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_simple_user( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_update_userna.
@@ -4821,6 +6691,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_u( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4834,6 +6705,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_u( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4847,10 +6719,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_i( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_delete_impers.
@@ -4860,6 +6733,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_i( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -4958,10 +6832,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_installation_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_installation_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_list_gran.
@@ -5023,6 +6898,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_delete_authorization( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5050,6 +6926,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_check_token( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5063,6 +6940,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_reset_token( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5076,6 +6954,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_delete_token( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5165,10 +7044,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/authorizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_oauth_authorizations_crea( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authorization( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~oauth_authorizations_get_or_cr.
@@ -5178,6 +7058,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_oauth_authorizations_get_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5192,6 +7073,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_oauth_authorizations_ge01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5222,6 +7104,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_oauth_authorizations_upda( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5237,6 +7120,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{authorization_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_oauth_authorizations_dele( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5277,6 +7161,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5350,10 +7235,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_s( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_self_host.
@@ -5382,6 +7268,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_s( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5398,6 +7285,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_s( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5440,6 +7328,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_org_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5520,6 +7409,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_self( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5609,8 +7499,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_create_remove.
@@ -5622,8 +7512,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~enterprise_admin_get_self_ho01.
@@ -5723,10 +7613,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_create( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_list_public.
@@ -5799,6 +7690,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5812,6 +7704,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_delete( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5848,10 +7741,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_create_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gist_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_get_comment.
@@ -5880,6 +7774,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_update_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -5896,6 +7791,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_gists_delete_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -5957,8 +7853,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_base_gist( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~gists_check_is_starred.
@@ -6174,6 +8070,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_markdown_render( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6272,6 +8169,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_mark_notificatio( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6332,6 +8230,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_set_thread_subsc( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -6347,6 +8246,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_delete_thread_su( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6410,6 +8310,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -6446,10 +8347,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_self_hoste( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_org( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runner.
@@ -6478,6 +8380,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_update_self_hoste( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -6494,6 +8397,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_self_hoste( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6526,6 +8430,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_repo_access_t( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6606,6 +8511,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_self_hosted_r( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6695,8 +8601,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_remove_token_fo.
@@ -6708,8 +8614,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runn01.
@@ -6802,6 +8708,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_or_update_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6816,6 +8723,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_org_secret( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6844,6 +8752,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_selected_repo( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -6937,10 +8846,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_create_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_org_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_get_webhook.
@@ -6969,6 +8879,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_update_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -6985,6 +8896,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_delete_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -7163,6 +9075,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_set_membership_for_u( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7177,6 +9090,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_remove_membership_fo( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -7286,6 +9200,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update03( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7302,6 +9217,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_remove_p( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7341,10 +9257,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_create_for_org( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~orgs_list_public_members.
@@ -7451,10 +9368,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_in_org( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list.
@@ -7487,10 +9405,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_create( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_by_name.
@@ -7515,10 +9434,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_in_org( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_in_org.
@@ -7529,6 +9449,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_in_org( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -7570,10 +9491,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_create_discussion_i( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_in_org.
@@ -7604,6 +9526,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_discussion_i( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7621,6 +9544,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_discussion_i( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -7668,10 +9592,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_create_discussion_c( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_comment_i.
@@ -7708,6 +9633,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_discussion_c( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7728,6 +9654,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_discussion_c( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -7781,10 +9708,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_team( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_team_disc.
@@ -7851,10 +9779,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_te01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_team_di01.
@@ -7928,6 +9857,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_membe( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -7943,6 +9873,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_membership_f( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8001,6 +9932,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_proje( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8018,6 +9950,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_project_in_o( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8074,6 +10007,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_repo_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8090,6 +10024,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_repo_in_org( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8144,6 +10079,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_update_card( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -8159,6 +10095,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_delete_card( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8174,6 +10111,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_move_card( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8204,6 +10142,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_update_column( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -8219,6 +10158,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_delete_column( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8262,10 +10202,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_create_card( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_card( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~projects_move_column.
@@ -8277,6 +10218,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_move_column( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8307,6 +10249,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -8322,6 +10265,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_delete( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8366,6 +10310,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_add_collaborator( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8382,6 +10327,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_remove_collabora( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8438,10 +10384,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_create_column( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project_column( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~rate_limit_get.
@@ -8493,6 +10440,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -8507,6 +10455,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8671,8 +10620,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_create_remove_token_01.
@@ -8685,8 +10634,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_authentication_token( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~actions_get_self_hosted_runn02.
@@ -8980,6 +10929,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_or_updat01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -8995,6 +10945,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_repo_secre( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9053,6 +11004,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_workflow_d( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9205,6 +11157,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_branch_prote( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9220,6 +11173,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_branch_prote( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9295,6 +11249,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_pull_request( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9310,6 +11265,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_pull_request( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9385,6 +11341,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_status_check( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9400,6 +11357,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_status_check( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9430,6 +11388,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_add_status_check_co( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9445,6 +11404,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_set_status_check_co( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9460,6 +11420,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_status_che01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9520,6 +11481,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_add_app_access_rest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9535,6 +11497,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_set_app_access_rest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9550,6 +11513,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_app_access_r( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9580,6 +11544,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_add_team_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9595,6 +11560,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_set_team_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9610,6 +11576,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_team_access_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9640,6 +11607,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_add_user_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9655,6 +11623,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_set_user_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9670,6 +11639,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_user_access_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9684,10 +11654,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_checks_create( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_run( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_get.
@@ -9718,6 +11689,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_checks_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9759,10 +11731,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_checks_create_suite( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_check_suite( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~checks_set_suites_preferences.
@@ -9773,6 +11746,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_checks_set_suites_prefere( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9901,6 +11875,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_code_scanning_update_aler( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -9939,6 +11914,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_code_scanning_upload_sari( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -9996,10 +11972,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_add_collaborator( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository_invitation( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_remove_collaborator.
@@ -10011,6 +11988,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_remove_collaborator( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10084,6 +12062,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_commit_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -10101,6 +12080,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_commit_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10148,6 +12128,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_comm( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -10262,10 +12243,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_commit_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_pull_requests_assoc.
@@ -10472,6 +12454,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_or_update_fi( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -10487,6 +12470,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_file( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -10564,10 +12548,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_deployment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deployment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deployment.
@@ -10642,10 +12627,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_deployment_s( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deployment_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deployment_status.
@@ -10676,6 +12662,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_dispatch_eve( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10741,6 +12728,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_fork( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10755,10 +12743,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_create_blob( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_short_blob( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_blob.
@@ -10784,10 +12773,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_create_commit( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_commit.
@@ -10853,10 +12843,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_create_ref( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_ref( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_update_ref.
@@ -10868,6 +12859,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_update_ref( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -10883,6 +12875,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_delete_ref( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10897,10 +12890,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_create_tag( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_tag( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_tag.
@@ -10926,10 +12920,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_git_create_tree( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_git_tree( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~git_get_tree.
@@ -10982,10 +12977,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_webhook.
@@ -11016,6 +13012,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11033,6 +13030,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_webhook( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11122,6 +13120,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_invitation( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11139,6 +13138,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_invitation( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11204,10 +13204,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_create( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_comments_for_repo.
@@ -11271,6 +13272,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_update_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11288,6 +13290,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_delete_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11335,6 +13338,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_issu( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11430,6 +13434,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11447,10 +13452,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_add_assignees( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_remove_assignees.
@@ -11464,6 +13470,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_remove_assignees( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11511,10 +13518,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_create_comment( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_issue_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_events.
@@ -11582,6 +13590,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_add_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11599,6 +13608,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_set_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11616,6 +13626,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_remove_all_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11651,6 +13662,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_lock( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11668,6 +13680,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_unlock( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11715,10 +13728,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_is01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_delete_for_issue.
@@ -11800,10 +13814,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_deploy_key( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_deploy_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_deploy_key.
@@ -11872,10 +13887,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_create_label( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_label( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_label.
@@ -11902,6 +13918,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_update_label( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -11917,6 +13934,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_delete_label( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -11959,10 +13977,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_merge( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_commit( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_list_milestones.
@@ -12006,10 +14025,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_create_milestone( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_milestone( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~issues_get_milestone.
@@ -12040,6 +14060,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_update_milestone( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12057,6 +14078,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_issues_delete_milestone( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12138,6 +14160,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_mark_repo_notifi( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12166,10 +14189,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_pages_site( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_page( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_update_information_about.
@@ -12180,6 +14204,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_information_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12194,6 +14219,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_pages_site( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12234,8 +14260,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_page_build_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_latest_pages_build.
@@ -12321,6 +14347,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update04( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12338,6 +14365,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_remove01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12379,10 +14407,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_create_for_repo( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list.
@@ -12432,10 +14461,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_create( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_review_comments_for.
@@ -12499,6 +14529,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_update_review_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12516,6 +14547,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_delete_review_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12563,6 +14595,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_pull( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12617,6 +14650,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_update( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12670,10 +14704,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_create_review_comme( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review_comm( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_create_reply_for_review_.
@@ -12690,10 +14725,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_create_reply_for_re( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_review_comm( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_list_commits.
@@ -12778,6 +14814,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_merge( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12822,10 +14859,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_request_reviewers( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~pulls_remove_requested_reviewe.
@@ -12839,6 +14877,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_remove_requested_re( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -12883,6 +14922,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_create_review( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12923,6 +14963,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_update_review( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12943,6 +14984,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_delete_pending_revi( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -12993,6 +15035,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_dismiss_review( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13013,6 +15056,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_submit_review( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13030,6 +15074,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_pulls_update_branch( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13085,10 +15130,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_release( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_get_release_asset.
@@ -13119,6 +15165,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_release_asse( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13136,6 +15183,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_release_asse( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13199,6 +15247,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_update_release( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13216,6 +15265,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_release( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13268,8 +15318,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_release_asset( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_stargazers_for_r.
@@ -13375,10 +15425,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_commit_statu( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_status( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~activity_list_watchers_for_rep.
@@ -13427,6 +15478,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_set_repo_subscri( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13441,6 +15493,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_activity_delete_repo_subs( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13532,6 +15585,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_replace_all_topics( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13546,6 +15600,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_transfer( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13603,10 +15658,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH template_repo.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_using_templa( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_public.
@@ -13851,6 +15907,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_enable_o( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13875,6 +15932,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_sett( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13899,6 +15957,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_add_auth( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13911,6 +15970,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_remove_a( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13923,6 +15983,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/start'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_e( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13935,6 +15996,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/upgrade'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_upgrade_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -13965,10 +16027,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_legacy( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_full( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_delete_legacy.
@@ -13980,6 +16043,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_legacy( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14023,10 +16087,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_create_discussion_l( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_legacy.
@@ -14059,6 +16124,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_discussion_l( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -14077,6 +16143,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_discussion_l( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14126,10 +16193,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_create_discussion01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_discussion_comment( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_get_discussion_comment_l.
@@ -14168,6 +16236,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_update_discussion01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -14189,6 +16258,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_delete_discussion01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14244,10 +16314,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_te02( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~reactions_list_for_team_disc03.
@@ -14293,10 +16364,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_te03( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~teams_list_members_legacy.
@@ -14401,6 +16473,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_mem01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -14417,6 +16490,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_membership01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14478,6 +16552,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_pro01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14496,6 +16571,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_project_lega( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14555,6 +16631,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_add_or_update_rep01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14572,6 +16649,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_remove_repo_legacy( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14621,6 +16699,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_users_update_authenticate( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -14655,6 +16734,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_users_add_email_for_authe( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14667,6 +16747,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_users_delete_email_for_au( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -14784,10 +16865,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_users_create_gpg_key_for_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_gpg_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_gpg_key_for_authenti.
@@ -14971,10 +17053,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_users_create_public_ssh_k( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_key( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_get_public_ssh_key_for_a.
@@ -15052,6 +17135,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_orgs_update_membership_fo( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -15086,10 +17170,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/projects'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_projects_create_for_authe( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_project( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~users_list_public_emails_for_a.
@@ -15163,10 +17248,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_for_authenti( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_list_invitations_for_aut.
@@ -15816,6 +17902,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_suspend_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -15829,6 +17916,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_unsuspen( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).

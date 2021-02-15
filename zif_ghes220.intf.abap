@@ -3861,6 +3861,1546 @@ INTERFACE zif_ghes220 PUBLIC.
            key TYPE string,
          END OF key_simple.
 
+* Component schema: bodyenterprise_admin_create_gl, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_01,
+           url TYPE string,
+           content_type TYPE string,
+           secret TYPE string,
+           insecure_ssl TYPE string,
+         END OF bodyenterprise_admin_create_01.
+  TYPES: BEGIN OF bodyenterprise_admin_create_gl,
+           name TYPE string,
+           config TYPE bodyenterprise_admin_create_01,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyenterprise_admin_create_gl.
+
+* Component schema: bodyenterprise_admin_update_gl, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_01,
+           url TYPE string,
+           content_type TYPE string,
+           secret TYPE string,
+           insecure_ssl TYPE string,
+         END OF bodyenterprise_admin_update_01.
+  TYPES: BEGIN OF bodyenterprise_admin_update_gl,
+           config TYPE bodyenterprise_admin_update_01,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyenterprise_admin_update_gl.
+
+* Component schema: bodyenterprise_admin_delete_gl, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_01,
+           url TYPE string,
+           content_type TYPE string,
+           secret TYPE string,
+           insecure_ssl TYPE string,
+         END OF bodyenterprise_admin_delete_01.
+  TYPES: BEGIN OF bodyenterprise_admin_delete_gl,
+           config TYPE bodyenterprise_admin_delete_01,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyenterprise_admin_delete_gl.
+
+* Component schema: bodyenterprise_admin_update_ld, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_ld,
+           ldap_dn TYPE string,
+         END OF bodyenterprise_admin_update_ld.
+
+* Component schema: bodyenterprise_admin_update_01, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_01,
+           ldap_dn TYPE string,
+         END OF bodyenterprise_admin_update_01.
+
+* Component schema: bodyenterprise_admin_create_or, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_or,
+           login TYPE string,
+           admin TYPE string,
+           profile_name TYPE string,
+         END OF bodyenterprise_admin_create_or.
+
+* Component schema: bodyenterprise_admin_update_or, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_or,
+           login TYPE string,
+         END OF bodyenterprise_admin_update_or.
+
+* Component schema: bodyenterprise_admin_create_pr, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_pr,
+           name TYPE string,
+           image_url TYPE string,
+         END OF bodyenterprise_admin_create_pr.
+
+* Component schema: bodyenterprise_admin_update_pr, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_pr,
+           name TYPE string,
+           image_url TYPE string,
+         END OF bodyenterprise_admin_update_pr.
+
+* Component schema: bodyenterprise_admin_delete_pr, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_pr,
+           name TYPE string,
+           image_url TYPE string,
+         END OF bodyenterprise_admin_delete_pr.
+
+* Component schema: bodyenterprise_admin_create_01, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_03,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_create_03.
+  TYPES: BEGIN OF bodyenterprise_admin_create_02,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_create_02.
+  TYPES: BEGIN OF bodyenterprise_admin_create_01,
+           name TYPE string,
+           script TYPE string,
+           script_repository TYPE bodyenterprise_admin_create_02,
+           environment TYPE bodyenterprise_admin_create_03,
+           enforcement TYPE string,
+           allow_downstream_configuration TYPE abap_bool,
+         END OF bodyenterprise_admin_create_01.
+
+* Component schema: bodyenterprise_admin_update_02, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_03,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_update_03.
+  TYPES: BEGIN OF bodyenterprise_admin_update_01,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_update_01.
+  TYPES: BEGIN OF bodyenterprise_admin_update_02,
+           name TYPE string,
+           script TYPE string,
+           script_repository TYPE bodyenterprise_admin_update_01,
+           environment TYPE bodyenterprise_admin_update_03,
+           enforcement TYPE string,
+           allow_downstream_configuration TYPE abap_bool,
+         END OF bodyenterprise_admin_update_02.
+
+* Component schema: bodyenterprise_admin_delete_01, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_03,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_delete_03.
+  TYPES: BEGIN OF bodyenterprise_admin_delete_02,
+           dummy_workaround TYPE i,
+         END OF bodyenterprise_admin_delete_02.
+  TYPES: BEGIN OF bodyenterprise_admin_delete_01,
+           name TYPE string,
+           script TYPE string,
+           script_repository TYPE bodyenterprise_admin_delete_02,
+           environment TYPE bodyenterprise_admin_delete_03,
+           enforcement TYPE string,
+           allow_downstream_configuration TYPE abap_bool,
+         END OF bodyenterprise_admin_delete_01.
+
+* Component schema: bodyenterprise_admin_create_us, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_us,
+           login TYPE string,
+           email TYPE string,
+         END OF bodyenterprise_admin_create_us.
+
+* Component schema: bodyenterprise_admin_update_us, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_us,
+           login TYPE string,
+         END OF bodyenterprise_admin_update_us.
+
+* Component schema: bodyenterprise_admin_delete_us, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_us,
+           login TYPE string,
+         END OF bodyenterprise_admin_delete_us.
+
+* Component schema: bodyenterprise_admin_create_im, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_im,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_create_im.
+
+* Component schema: bodyenterprise_admin_delete_im, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_im,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_delete_im.
+
+* Component schema: bodyapps_create_installation_a, object
+  TYPES: BEGIN OF bodyapps_create_installation_a,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           permissions TYPE app_permissions,
+         END OF bodyapps_create_installation_a.
+
+* Component schema: bodyapps_delete_authorization, object
+  TYPES: BEGIN OF bodyapps_delete_authorization,
+           access_token TYPE string,
+         END OF bodyapps_delete_authorization.
+
+* Component schema: bodyapps_check_token, object
+  TYPES: BEGIN OF bodyapps_check_token,
+           access_token TYPE string,
+         END OF bodyapps_check_token.
+
+* Component schema: bodyapps_reset_token, object
+  TYPES: BEGIN OF bodyapps_reset_token,
+           access_token TYPE string,
+         END OF bodyapps_reset_token.
+
+* Component schema: bodyapps_delete_token, object
+  TYPES: BEGIN OF bodyapps_delete_token,
+           access_token TYPE string,
+         END OF bodyapps_delete_token.
+
+* Component schema: bodyoauth_authorizations_creat, object
+  TYPES: BEGIN OF bodyoauth_authorizations_creat,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           note TYPE string,
+           note_url TYPE string,
+           client_id TYPE string,
+           client_secret TYPE string,
+           fingerprint TYPE string,
+         END OF bodyoauth_authorizations_creat.
+
+* Component schema: bodyoauth_authorizations_get_o, object
+  TYPES: BEGIN OF bodyoauth_authorizations_get_o,
+           client_secret TYPE string,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           note TYPE string,
+           note_url TYPE string,
+           fingerprint TYPE string,
+         END OF bodyoauth_authorizations_get_o.
+
+* Component schema: bodyoauth_authorizations_get01, object
+  TYPES: BEGIN OF bodyoauth_authorizations_get01,
+           client_secret TYPE string,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           note TYPE string,
+           note_url TYPE string,
+         END OF bodyoauth_authorizations_get01.
+
+* Component schema: bodyoauth_authorizations_updat, object
+  TYPES: BEGIN OF bodyoauth_authorizations_updat,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           add_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           remove_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           note TYPE string,
+           note_url TYPE string,
+           fingerprint TYPE string,
+         END OF bodyoauth_authorizations_updat.
+
+* Component schema: bodyoauth_authorizations_delet, object
+  TYPES: BEGIN OF bodyoauth_authorizations_delet,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           add_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           remove_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           note TYPE string,
+           note_url TYPE string,
+           fingerprint TYPE string,
+         END OF bodyoauth_authorizations_delet.
+
+* Component schema: bodyapps_create_content_attach, object
+  TYPES: BEGIN OF bodyapps_create_content_attach,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyapps_create_content_attach.
+
+* Component schema: bodygists_create, object
+  TYPES bodygists_create_public TYPE string. "   todo
+  TYPES: BEGIN OF bodygists_create_files,
+           dummy_workaround TYPE i,
+         END OF bodygists_create_files.
+  TYPES: BEGIN OF bodygists_create,
+           description TYPE string,
+           files TYPE bodygists_create_files,
+           public TYPE bodygists_create_public,
+         END OF bodygists_create.
+
+* Component schema: bodygists_update, object
+  TYPES: BEGIN OF bodygists_update_files,
+           dummy_workaround TYPE i,
+         END OF bodygists_update_files.
+  TYPES: BEGIN OF bodygists_update,
+           description TYPE string,
+           files TYPE bodygists_update_files,
+         END OF bodygists_update.
+
+* Component schema: bodygists_delete, object
+  TYPES: BEGIN OF bodygists_delete_files,
+           dummy_workaround TYPE i,
+         END OF bodygists_delete_files.
+  TYPES: BEGIN OF bodygists_delete,
+           description TYPE string,
+           files TYPE bodygists_delete_files,
+         END OF bodygists_delete.
+
+* Component schema: bodygists_create_comment, object
+  TYPES: BEGIN OF bodygists_create_comment,
+           body TYPE string,
+         END OF bodygists_create_comment.
+
+* Component schema: bodygists_update_comment, object
+  TYPES: BEGIN OF bodygists_update_comment,
+           body TYPE string,
+         END OF bodygists_update_comment.
+
+* Component schema: bodygists_delete_comment, object
+  TYPES: BEGIN OF bodygists_delete_comment,
+           body TYPE string,
+         END OF bodygists_delete_comment.
+
+* Component schema: bodymarkdown_render, object
+  TYPES: BEGIN OF bodymarkdown_render,
+           text TYPE string,
+           mode TYPE string,
+           context TYPE string,
+         END OF bodymarkdown_render.
+
+* Component schema: bodyactivity_mark_notification, object
+  TYPES: BEGIN OF bodyactivity_mark_notification,
+           last_read_at TYPE string,
+           read TYPE abap_bool,
+         END OF bodyactivity_mark_notification.
+
+* Component schema: bodyactivity_set_thread_subscr, object
+  TYPES: BEGIN OF bodyactivity_set_thread_subscr,
+           ignored TYPE abap_bool,
+         END OF bodyactivity_set_thread_subscr.
+
+* Component schema: bodyactivity_delete_thread_sub, object
+  TYPES: BEGIN OF bodyactivity_delete_thread_sub,
+           ignored TYPE abap_bool,
+         END OF bodyactivity_delete_thread_sub.
+
+* Component schema: bodyorgs_update, object
+  TYPES: BEGIN OF bodyorgs_update,
+           billing_email TYPE string,
+           company TYPE string,
+           email TYPE string,
+           twitter_username TYPE string,
+           location TYPE string,
+           name TYPE string,
+           description TYPE string,
+           has_organization_projects TYPE abap_bool,
+           has_repository_projects TYPE abap_bool,
+           default_repository_permission TYPE string,
+           members_can_create_repositorie TYPE abap_bool,
+           members_can_create_internal_re TYPE abap_bool,
+           members_can_create_private_rep TYPE abap_bool,
+           members_can_create_public_repo TYPE abap_bool,
+           members_allowed_repository_cre TYPE string,
+           blog TYPE string,
+         END OF bodyorgs_update.
+
+* Component schema: bodyorgs_create_webhook, object
+  TYPES: BEGIN OF bodyorgs_create_webhook_config,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+           username TYPE string,
+           password TYPE string,
+         END OF bodyorgs_create_webhook_config.
+  TYPES: BEGIN OF bodyorgs_create_webhook,
+           name TYPE string,
+           config TYPE bodyorgs_create_webhook_config,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyorgs_create_webhook.
+
+* Component schema: bodyorgs_update_webhook, object
+  TYPES: BEGIN OF bodyorgs_update_webhook_config,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+         END OF bodyorgs_update_webhook_config.
+  TYPES: BEGIN OF bodyorgs_update_webhook,
+           config TYPE bodyorgs_update_webhook_config,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+           name TYPE string,
+         END OF bodyorgs_update_webhook.
+
+* Component schema: bodyorgs_delete_webhook, object
+  TYPES: BEGIN OF bodyorgs_delete_webhook_config,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+         END OF bodyorgs_delete_webhook_config.
+  TYPES: BEGIN OF bodyorgs_delete_webhook,
+           config TYPE bodyorgs_delete_webhook_config,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+           name TYPE string,
+         END OF bodyorgs_delete_webhook.
+
+* Component schema: bodyorgs_set_membership_for_us, object
+  TYPES: BEGIN OF bodyorgs_set_membership_for_us,
+           role TYPE string,
+         END OF bodyorgs_set_membership_for_us.
+
+* Component schema: bodyorgs_remove_membership_for, object
+  TYPES: BEGIN OF bodyorgs_remove_membership_for,
+           role TYPE string,
+         END OF bodyorgs_remove_membership_for.
+
+* Component schema: bodyenterprise_admin_update_03, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_03,
+           enforcement TYPE string,
+           allow_downstream_configuration TYPE abap_bool,
+         END OF bodyenterprise_admin_update_03.
+
+* Component schema: bodyenterprise_admin_remove_pr, object
+  TYPES: BEGIN OF bodyenterprise_admin_remove_pr,
+           enforcement TYPE string,
+           allow_downstream_configuration TYPE abap_bool,
+         END OF bodyenterprise_admin_remove_pr.
+
+* Component schema: bodyprojects_create_for_org, object
+  TYPES: BEGIN OF bodyprojects_create_for_org,
+           name TYPE string,
+           body TYPE string,
+         END OF bodyprojects_create_for_org.
+
+* Component schema: bodyrepos_create_in_org, object
+  TYPES: BEGIN OF bodyrepos_create_in_org,
+           name TYPE string,
+           description TYPE string,
+           homepage TYPE string,
+           private TYPE abap_bool,
+           visibility TYPE string,
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           is_template TYPE abap_bool,
+           team_id TYPE i,
+           auto_init TYPE abap_bool,
+           gitignore_template TYPE string,
+           license_template TYPE string,
+           allow_squash_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           allow_rebase_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+         END OF bodyrepos_create_in_org.
+
+* Component schema: bodyteams_create, object
+  TYPES: BEGIN OF bodyteams_create,
+           name TYPE string,
+           description TYPE string,
+           maintainers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           repo_names TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           privacy TYPE string,
+           permission TYPE string,
+           parent_team_id TYPE i,
+         END OF bodyteams_create.
+
+* Component schema: bodyprojects_update_card, object
+  TYPES: BEGIN OF bodyprojects_update_card,
+           note TYPE string,
+           archived TYPE abap_bool,
+         END OF bodyprojects_update_card.
+
+* Component schema: bodyprojects_delete_card, object
+  TYPES: BEGIN OF bodyprojects_delete_card,
+           note TYPE string,
+           archived TYPE abap_bool,
+         END OF bodyprojects_delete_card.
+
+* Component schema: bodyprojects_move_card, object
+  TYPES: BEGIN OF bodyprojects_move_card,
+           position TYPE string,
+           column_id TYPE i,
+         END OF bodyprojects_move_card.
+
+* Component schema: bodyprojects_update_column, object
+  TYPES: BEGIN OF bodyprojects_update_column,
+           name TYPE string,
+         END OF bodyprojects_update_column.
+
+* Component schema: bodyprojects_delete_column, object
+  TYPES: BEGIN OF bodyprojects_delete_column,
+           name TYPE string,
+         END OF bodyprojects_delete_column.
+
+* Component schema: bodyprojects_create_card, 
+  TYPES bodyprojects_create_card TYPE string. "   todo
+
+* Component schema: bodyprojects_move_column, object
+  TYPES: BEGIN OF bodyprojects_move_column,
+           position TYPE string,
+         END OF bodyprojects_move_column.
+
+* Component schema: bodyprojects_update, object
+  TYPES: BEGIN OF bodyprojects_update,
+           name TYPE string,
+           body TYPE string,
+           state TYPE string,
+           organization_permission TYPE string,
+           private TYPE abap_bool,
+         END OF bodyprojects_update.
+
+* Component schema: bodyprojects_delete, object
+  TYPES: BEGIN OF bodyprojects_delete,
+           name TYPE string,
+           body TYPE string,
+           state TYPE string,
+           organization_permission TYPE string,
+           private TYPE abap_bool,
+         END OF bodyprojects_delete.
+
+* Component schema: bodyprojects_add_collaborator, object
+  TYPES: BEGIN OF bodyprojects_add_collaborator,
+           permission TYPE string,
+         END OF bodyprojects_add_collaborator.
+
+* Component schema: bodyprojects_remove_collaborat, object
+  TYPES: BEGIN OF bodyprojects_remove_collaborat,
+           permission TYPE string,
+         END OF bodyprojects_remove_collaborat.
+
+* Component schema: bodyprojects_create_column, object
+  TYPES: BEGIN OF bodyprojects_create_column,
+           name TYPE string,
+         END OF bodyprojects_create_column.
+
+* Component schema: bodyrepos_update, object
+  TYPES: BEGIN OF bodyrepos_update,
+           name TYPE string,
+           description TYPE string,
+           homepage TYPE string,
+           private TYPE abap_bool,
+           visibility TYPE string,
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           is_template TYPE abap_bool,
+           default_branch TYPE string,
+           allow_squash_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           allow_rebase_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+           archived TYPE abap_bool,
+         END OF bodyrepos_update.
+
+* Component schema: bodyrepos_delete, object
+  TYPES: BEGIN OF bodyrepos_delete,
+           name TYPE string,
+           description TYPE string,
+           homepage TYPE string,
+           private TYPE abap_bool,
+           visibility TYPE string,
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           is_template TYPE abap_bool,
+           default_branch TYPE string,
+           allow_squash_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           allow_rebase_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+           archived TYPE abap_bool,
+         END OF bodyrepos_delete.
+
+* Component schema: bodyrepos_update_branch_protec, object
+  TYPES: BEGIN OF bodyrepos_update_branch_prot04,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_update_branch_prot04.
+  TYPES: BEGIN OF bodyrepos_update_branch_prot03,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_update_branch_prot03.
+  TYPES: BEGIN OF bodyrepos_update_branch_prot02,
+           dismissal_restrictions TYPE bodyrepos_update_branch_prot03,
+           dismiss_stale_reviews TYPE abap_bool,
+           require_code_owner_reviews TYPE abap_bool,
+           required_approving_review_coun TYPE i,
+         END OF bodyrepos_update_branch_prot02.
+  TYPES: BEGIN OF bodyrepos_update_branch_prot01,
+           strict TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_update_branch_prot01.
+  TYPES: BEGIN OF bodyrepos_update_branch_protec,
+           required_status_checks TYPE bodyrepos_update_branch_prot01,
+           enforce_admins TYPE abap_bool,
+           required_pull_request_reviews TYPE bodyrepos_update_branch_prot02,
+           restrictions TYPE bodyrepos_update_branch_prot04,
+           required_linear_history TYPE abap_bool,
+           allow_force_pushes TYPE abap_bool,
+           allow_deletions TYPE abap_bool,
+         END OF bodyrepos_update_branch_protec.
+
+* Component schema: bodyrepos_delete_branch_protec, object
+  TYPES: BEGIN OF bodyrepos_delete_branch_prot04,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_delete_branch_prot04.
+  TYPES: BEGIN OF bodyrepos_delete_branch_prot03,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_delete_branch_prot03.
+  TYPES: BEGIN OF bodyrepos_delete_branch_prot02,
+           dismissal_restrictions TYPE bodyrepos_delete_branch_prot03,
+           dismiss_stale_reviews TYPE abap_bool,
+           require_code_owner_reviews TYPE abap_bool,
+           required_approving_review_coun TYPE i,
+         END OF bodyrepos_delete_branch_prot02.
+  TYPES: BEGIN OF bodyrepos_delete_branch_prot01,
+           strict TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_delete_branch_prot01.
+  TYPES: BEGIN OF bodyrepos_delete_branch_protec,
+           required_status_checks TYPE bodyrepos_delete_branch_prot01,
+           enforce_admins TYPE abap_bool,
+           required_pull_request_reviews TYPE bodyrepos_delete_branch_prot02,
+           restrictions TYPE bodyrepos_delete_branch_prot04,
+           required_linear_history TYPE abap_bool,
+           allow_force_pushes TYPE abap_bool,
+           allow_deletions TYPE abap_bool,
+         END OF bodyrepos_delete_branch_protec.
+
+* Component schema: bodyrepos_update_pull_request_, object
+  TYPES: BEGIN OF bodyrepos_update_pull_reques01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_update_pull_reques01.
+  TYPES: BEGIN OF bodyrepos_update_pull_request_,
+           dismissal_restrictions TYPE bodyrepos_update_pull_reques01,
+           dismiss_stale_reviews TYPE abap_bool,
+           require_code_owner_reviews TYPE abap_bool,
+           required_approving_review_coun TYPE i,
+         END OF bodyrepos_update_pull_request_.
+
+* Component schema: bodyrepos_delete_pull_request_, object
+  TYPES: BEGIN OF bodyrepos_delete_pull_reques01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_delete_pull_reques01.
+  TYPES: BEGIN OF bodyrepos_delete_pull_request_,
+           dismissal_restrictions TYPE bodyrepos_delete_pull_reques01,
+           dismiss_stale_reviews TYPE abap_bool,
+           require_code_owner_reviews TYPE abap_bool,
+           required_approving_review_coun TYPE i,
+         END OF bodyrepos_delete_pull_request_.
+
+* Component schema: bodyrepos_update_status_check_, object
+  TYPES: BEGIN OF bodyrepos_update_status_check_,
+           strict TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_update_status_check_.
+
+* Component schema: bodyrepos_remove_status_check_, object
+  TYPES: BEGIN OF bodyrepos_remove_status_check_,
+           strict TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_remove_status_check_.
+
+* Component schema: bodyrepos_add_status_check_con, object
+  TYPES: BEGIN OF bodyrepos_add_status_check_con,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_add_status_check_con.
+
+* Component schema: bodyrepos_set_status_check_con, object
+  TYPES: BEGIN OF bodyrepos_set_status_check_con,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_set_status_check_con.
+
+* Component schema: bodyrepos_remove_status_chec01, object
+  TYPES: BEGIN OF bodyrepos_remove_status_chec01,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_remove_status_chec01.
+
+* Component schema: bodyrepos_add_app_access_restr, object
+  TYPES: BEGIN OF bodyrepos_add_app_access_restr,
+           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_add_app_access_restr.
+
+* Component schema: bodyrepos_set_app_access_restr, object
+  TYPES: BEGIN OF bodyrepos_set_app_access_restr,
+           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_set_app_access_restr.
+
+* Component schema: bodyrepos_remove_app_access_re, object
+  TYPES: BEGIN OF bodyrepos_remove_app_access_re,
+           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_remove_app_access_re.
+
+* Component schema: bodyrepos_add_team_access_rest, object
+  TYPES: BEGIN OF bodyrepos_add_team_access_rest,
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_add_team_access_rest.
+
+* Component schema: bodyrepos_set_team_access_rest, object
+  TYPES: BEGIN OF bodyrepos_set_team_access_rest,
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_set_team_access_rest.
+
+* Component schema: bodyrepos_remove_team_access_r, object
+  TYPES: BEGIN OF bodyrepos_remove_team_access_r,
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_remove_team_access_r.
+
+* Component schema: bodyrepos_add_user_access_rest, object
+  TYPES: BEGIN OF bodyrepos_add_user_access_rest,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_add_user_access_rest.
+
+* Component schema: bodyrepos_set_user_access_rest, object
+  TYPES: BEGIN OF bodyrepos_set_user_access_rest,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_set_user_access_rest.
+
+* Component schema: bodyrepos_remove_user_access_r, object
+  TYPES: BEGIN OF bodyrepos_remove_user_access_r,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_remove_user_access_r.
+
+* Component schema: bodychecks_create, object
+  TYPES: BEGIN OF bodychecks_create_output,
+           title TYPE string,
+           summary TYPE string,
+           text TYPE string,
+           annotations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           images TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodychecks_create_output.
+  TYPES: BEGIN OF bodychecks_create,
+           name TYPE string,
+           head_sha TYPE string,
+           details_url TYPE string,
+           external_id TYPE string,
+           status TYPE string,
+           started_at TYPE string,
+           conclusion TYPE string,
+           completed_at TYPE string,
+           output TYPE bodychecks_create_output,
+           actions TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodychecks_create.
+
+* Component schema: bodychecks_update, object
+  TYPES: BEGIN OF bodychecks_update_output,
+           title TYPE string,
+           summary TYPE string,
+           text TYPE string,
+           annotations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           images TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodychecks_update_output.
+  TYPES: BEGIN OF bodychecks_update,
+           name TYPE string,
+           details_url TYPE string,
+           external_id TYPE string,
+           started_at TYPE string,
+           status TYPE string,
+           conclusion TYPE string,
+           completed_at TYPE string,
+           output TYPE bodychecks_update_output,
+           actions TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodychecks_update.
+
+* Component schema: bodychecks_create_suite, object
+  TYPES: BEGIN OF bodychecks_create_suite,
+           head_sha TYPE string,
+         END OF bodychecks_create_suite.
+
+* Component schema: bodychecks_set_suites_preferen, object
+  TYPES: BEGIN OF bodychecks_set_suites_preferen,
+           auto_trigger_checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodychecks_set_suites_preferen.
+
+* Component schema: bodyrepos_add_collaborator, object
+  TYPES: BEGIN OF bodyrepos_add_collaborator,
+           permission TYPE string,
+           permissions TYPE string,
+         END OF bodyrepos_add_collaborator.
+
+* Component schema: bodyrepos_remove_collaborator, object
+  TYPES: BEGIN OF bodyrepos_remove_collaborator,
+           permission TYPE string,
+           permissions TYPE string,
+         END OF bodyrepos_remove_collaborator.
+
+* Component schema: bodyrepos_update_commit_commen, object
+  TYPES: BEGIN OF bodyrepos_update_commit_commen,
+           body TYPE string,
+         END OF bodyrepos_update_commit_commen.
+
+* Component schema: bodyrepos_delete_commit_commen, object
+  TYPES: BEGIN OF bodyrepos_delete_commit_commen,
+           body TYPE string,
+         END OF bodyrepos_delete_commit_commen.
+
+* Component schema: bodyreactions_create_for_commi, object
+  TYPES: BEGIN OF bodyreactions_create_for_commi,
+           content TYPE string,
+         END OF bodyreactions_create_for_commi.
+
+* Component schema: bodyrepos_create_commit_commen, object
+  TYPES: BEGIN OF bodyrepos_create_commit_commen,
+           body TYPE string,
+           path TYPE string,
+           position TYPE i,
+           line TYPE i,
+         END OF bodyrepos_create_commit_commen.
+
+* Component schema: bodyrepos_create_or_update_fil, object
+  TYPES: BEGIN OF bodyrepos_create_or_update_f02,
+           name TYPE string,
+           email TYPE string,
+           date TYPE string,
+         END OF bodyrepos_create_or_update_f02.
+  TYPES: BEGIN OF bodyrepos_create_or_update_f01,
+           name TYPE string,
+           email TYPE string,
+           date TYPE string,
+         END OF bodyrepos_create_or_update_f01.
+  TYPES: BEGIN OF bodyrepos_create_or_update_fil,
+           message TYPE string,
+           content TYPE string,
+           sha TYPE string,
+           branch TYPE string,
+           committer TYPE bodyrepos_create_or_update_f01,
+           author TYPE bodyrepos_create_or_update_f02,
+         END OF bodyrepos_create_or_update_fil.
+
+* Component schema: bodyrepos_delete_file, object
+  TYPES: BEGIN OF bodyrepos_delete_file_author,
+           name TYPE string,
+           email TYPE string,
+         END OF bodyrepos_delete_file_author.
+  TYPES: BEGIN OF bodyrepos_delete_file_committe,
+           name TYPE string,
+           email TYPE string,
+         END OF bodyrepos_delete_file_committe.
+  TYPES: BEGIN OF bodyrepos_delete_file,
+           message TYPE string,
+           sha TYPE string,
+           branch TYPE string,
+           committer TYPE bodyrepos_delete_file_committe,
+           author TYPE bodyrepos_delete_file_author,
+         END OF bodyrepos_delete_file.
+
+* Component schema: bodyrepos_create_deployment, object
+  TYPES bodyrepos_create_deployment_pa TYPE string. "   todo
+  TYPES: BEGIN OF bodyrepos_create_deployment,
+           ref TYPE string,
+           task TYPE string,
+           auto_merge TYPE abap_bool,
+           required_contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           payload TYPE bodyrepos_create_deployment_pa,
+           environment TYPE string,
+           description TYPE string,
+           transient_environment TYPE abap_bool,
+           production_environment TYPE abap_bool,
+           created_at TYPE string,
+         END OF bodyrepos_create_deployment.
+
+* Component schema: bodyrepos_create_deployment_st, object
+  TYPES: BEGIN OF bodyrepos_create_deployment_st,
+           state TYPE string,
+           target_url TYPE string,
+           log_url TYPE string,
+           description TYPE string,
+           environment TYPE string,
+           environment_url TYPE string,
+           auto_inactive TYPE abap_bool,
+         END OF bodyrepos_create_deployment_st.
+
+* Component schema: bodyrepos_create_fork, object
+  TYPES: BEGIN OF bodyrepos_create_fork,
+           organization TYPE string,
+         END OF bodyrepos_create_fork.
+
+* Component schema: bodygit_create_blob, object
+  TYPES: BEGIN OF bodygit_create_blob,
+           content TYPE string,
+           encoding TYPE string,
+         END OF bodygit_create_blob.
+
+* Component schema: bodygit_create_commit, object
+  TYPES: BEGIN OF bodygit_create_commit_committe,
+           name TYPE string,
+           email TYPE string,
+           date TYPE string,
+         END OF bodygit_create_commit_committe.
+  TYPES: BEGIN OF bodygit_create_commit_author,
+           name TYPE string,
+           email TYPE string,
+           date TYPE string,
+         END OF bodygit_create_commit_author.
+  TYPES: BEGIN OF bodygit_create_commit,
+           message TYPE string,
+           tree TYPE string,
+           parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           author TYPE bodygit_create_commit_author,
+           committer TYPE bodygit_create_commit_committe,
+           signature TYPE string,
+         END OF bodygit_create_commit.
+
+* Component schema: bodygit_create_ref, object
+  TYPES: BEGIN OF bodygit_create_ref,
+           ref TYPE string,
+           sha TYPE string,
+           key TYPE string,
+         END OF bodygit_create_ref.
+
+* Component schema: bodygit_update_ref, object
+  TYPES: BEGIN OF bodygit_update_ref,
+           sha TYPE string,
+           force TYPE abap_bool,
+         END OF bodygit_update_ref.
+
+* Component schema: bodygit_delete_ref, object
+  TYPES: BEGIN OF bodygit_delete_ref,
+           sha TYPE string,
+           force TYPE abap_bool,
+         END OF bodygit_delete_ref.
+
+* Component schema: bodygit_create_tag, object
+  TYPES: BEGIN OF bodygit_create_tag_tagger,
+           name TYPE string,
+           email TYPE string,
+           date TYPE string,
+         END OF bodygit_create_tag_tagger.
+  TYPES: BEGIN OF bodygit_create_tag,
+           tag TYPE string,
+           message TYPE string,
+           object TYPE string,
+           type TYPE string,
+           tagger TYPE bodygit_create_tag_tagger,
+         END OF bodygit_create_tag.
+
+* Component schema: bodygit_create_tree, object
+  TYPES: BEGIN OF bodygit_create_tree,
+           tree TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           base_tree TYPE string,
+         END OF bodygit_create_tree.
+
+* Component schema: bodyrepos_create_webhook, object
+  TYPES: BEGIN OF bodyrepos_create_webhook_confi,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+           token TYPE string,
+           digest TYPE string,
+         END OF bodyrepos_create_webhook_confi.
+  TYPES: BEGIN OF bodyrepos_create_webhook,
+           name TYPE string,
+           config TYPE bodyrepos_create_webhook_confi,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyrepos_create_webhook.
+
+* Component schema: bodyrepos_update_webhook, object
+  TYPES: BEGIN OF bodyrepos_update_webhook_confi,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+           address TYPE string,
+           room TYPE string,
+         END OF bodyrepos_update_webhook_confi.
+  TYPES: BEGIN OF bodyrepos_update_webhook,
+           config TYPE bodyrepos_update_webhook_confi,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           add_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           remove_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyrepos_update_webhook.
+
+* Component schema: bodyrepos_delete_webhook, object
+  TYPES: BEGIN OF bodyrepos_delete_webhook_confi,
+           url TYPE webhook_config_url,
+           content_type TYPE webhook_config_content_type,
+           secret TYPE webhook_config_secret,
+           insecure_ssl TYPE webhook_config_insecure_ssl,
+           address TYPE string,
+           room TYPE string,
+         END OF bodyrepos_delete_webhook_confi.
+  TYPES: BEGIN OF bodyrepos_delete_webhook,
+           config TYPE bodyrepos_delete_webhook_confi,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           add_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           remove_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           active TYPE abap_bool,
+         END OF bodyrepos_delete_webhook.
+
+* Component schema: bodyrepos_update_invitation, object
+  TYPES: BEGIN OF bodyrepos_update_invitation,
+           permissions TYPE string,
+         END OF bodyrepos_update_invitation.
+
+* Component schema: bodyrepos_delete_invitation, object
+  TYPES: BEGIN OF bodyrepos_delete_invitation,
+           permissions TYPE string,
+         END OF bodyrepos_delete_invitation.
+
+* Component schema: bodyissues_create, object
+  TYPES bodyissues_create_milestone TYPE string. "   todo
+  TYPES bodyissues_create_title TYPE string. "   todo
+  TYPES: BEGIN OF bodyissues_create,
+           title TYPE bodyissues_create_title,
+           body TYPE string,
+           assignee TYPE string,
+           milestone TYPE bodyissues_create_milestone,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_create.
+
+* Component schema: bodyissues_update_comment, object
+  TYPES: BEGIN OF bodyissues_update_comment,
+           body TYPE string,
+         END OF bodyissues_update_comment.
+
+* Component schema: bodyissues_delete_comment, object
+  TYPES: BEGIN OF bodyissues_delete_comment,
+           body TYPE string,
+         END OF bodyissues_delete_comment.
+
+* Component schema: bodyreactions_create_for_issue, object
+  TYPES: BEGIN OF bodyreactions_create_for_issue,
+           content TYPE string,
+         END OF bodyreactions_create_for_issue.
+
+* Component schema: bodyissues_update, object
+  TYPES bodyissues_update_milestone TYPE string. "   todo
+  TYPES bodyissues_update_title TYPE string. "   todo
+  TYPES: BEGIN OF bodyissues_update,
+           title TYPE bodyissues_update_title,
+           body TYPE string,
+           assignee TYPE string,
+           state TYPE string,
+           milestone TYPE bodyissues_update_milestone,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_update.
+
+* Component schema: bodyissues_add_assignees, object
+  TYPES: BEGIN OF bodyissues_add_assignees,
+           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_add_assignees.
+
+* Component schema: bodyissues_remove_assignees, object
+  TYPES: BEGIN OF bodyissues_remove_assignees,
+           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_remove_assignees.
+
+* Component schema: bodyissues_create_comment, object
+  TYPES: BEGIN OF bodyissues_create_comment,
+           body TYPE string,
+         END OF bodyissues_create_comment.
+
+* Component schema: bodyissues_add_labels, object
+  TYPES: BEGIN OF bodyissues_add_labels,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_add_labels.
+
+* Component schema: bodyissues_set_labels, object
+  TYPES: BEGIN OF bodyissues_set_labels,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_set_labels.
+
+* Component schema: bodyissues_remove_all_labels, object
+  TYPES: BEGIN OF bodyissues_remove_all_labels,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyissues_remove_all_labels.
+
+* Component schema: bodyissues_lock, object
+  TYPES: BEGIN OF bodyissues_lock,
+           lock_reason TYPE string,
+         END OF bodyissues_lock.
+
+* Component schema: bodyissues_unlock, object
+  TYPES: BEGIN OF bodyissues_unlock,
+           lock_reason TYPE string,
+         END OF bodyissues_unlock.
+
+* Component schema: bodyreactions_create_for_iss01, object
+  TYPES: BEGIN OF bodyreactions_create_for_iss01,
+           content TYPE string,
+         END OF bodyreactions_create_for_iss01.
+
+* Component schema: bodyrepos_create_deploy_key, object
+  TYPES: BEGIN OF bodyrepos_create_deploy_key,
+           title TYPE string,
+           key TYPE string,
+           read_only TYPE abap_bool,
+         END OF bodyrepos_create_deploy_key.
+
+* Component schema: bodyissues_create_label, object
+  TYPES: BEGIN OF bodyissues_create_label,
+           name TYPE string,
+           color TYPE string,
+           description TYPE string,
+         END OF bodyissues_create_label.
+
+* Component schema: bodyissues_update_label, object
+  TYPES: BEGIN OF bodyissues_update_label,
+           new_name TYPE string,
+           color TYPE string,
+           description TYPE string,
+         END OF bodyissues_update_label.
+
+* Component schema: bodyissues_delete_label, object
+  TYPES: BEGIN OF bodyissues_delete_label,
+           new_name TYPE string,
+           color TYPE string,
+           description TYPE string,
+         END OF bodyissues_delete_label.
+
+* Component schema: bodyrepos_merge, object
+  TYPES: BEGIN OF bodyrepos_merge,
+           base TYPE string,
+           head TYPE string,
+           commit_message TYPE string,
+         END OF bodyrepos_merge.
+
+* Component schema: bodyissues_create_milestone, object
+  TYPES: BEGIN OF bodyissues_create_milestone,
+           title TYPE string,
+           state TYPE string,
+           description TYPE string,
+           due_on TYPE string,
+         END OF bodyissues_create_milestone.
+
+* Component schema: bodyissues_update_milestone, object
+  TYPES: BEGIN OF bodyissues_update_milestone,
+           title TYPE string,
+           state TYPE string,
+           description TYPE string,
+           due_on TYPE string,
+         END OF bodyissues_update_milestone.
+
+* Component schema: bodyissues_delete_milestone, object
+  TYPES: BEGIN OF bodyissues_delete_milestone,
+           title TYPE string,
+           state TYPE string,
+           description TYPE string,
+           due_on TYPE string,
+         END OF bodyissues_delete_milestone.
+
+* Component schema: bodyactivity_mark_repo_notific, object
+  TYPES: BEGIN OF bodyactivity_mark_repo_notific,
+           last_read_at TYPE string,
+         END OF bodyactivity_mark_repo_notific.
+
+* Component schema: bodyrepos_create_pages_site, object
+  TYPES: BEGIN OF bodyrepos_create_pages_site_so,
+           branch TYPE string,
+           path TYPE string,
+         END OF bodyrepos_create_pages_site_so.
+  TYPES: BEGIN OF bodyrepos_create_pages_site,
+           source TYPE bodyrepos_create_pages_site_so,
+         END OF bodyrepos_create_pages_site.
+
+* Component schema: bodyrepos_update_information_a, object
+  TYPES: BEGIN OF bodyrepos_update_information_a,
+           public TYPE abap_bool,
+           source TYPE string,
+         END OF bodyrepos_update_information_a.
+
+* Component schema: bodyrepos_delete_pages_site, object
+  TYPES: BEGIN OF bodyrepos_delete_pages_site,
+           public TYPE abap_bool,
+           source TYPE string,
+         END OF bodyrepos_delete_pages_site.
+
+* Component schema: bodyenterprise_admin_update_04, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_04,
+           enforcement TYPE string,
+         END OF bodyenterprise_admin_update_04.
+
+* Component schema: bodyenterprise_admin_remove_01, object
+  TYPES: BEGIN OF bodyenterprise_admin_remove_01,
+           enforcement TYPE string,
+         END OF bodyenterprise_admin_remove_01.
+
+* Component schema: bodyprojects_create_for_repo, object
+  TYPES: BEGIN OF bodyprojects_create_for_repo,
+           name TYPE string,
+           body TYPE string,
+         END OF bodyprojects_create_for_repo.
+
+* Component schema: bodypulls_create, object
+  TYPES: BEGIN OF bodypulls_create,
+           title TYPE string,
+           head TYPE string,
+           base TYPE string,
+           body TYPE string,
+           maintainer_can_modify TYPE abap_bool,
+           draft TYPE abap_bool,
+           issue TYPE i,
+         END OF bodypulls_create.
+
+* Component schema: bodypulls_update_review_commen, object
+  TYPES: BEGIN OF bodypulls_update_review_commen,
+           body TYPE string,
+         END OF bodypulls_update_review_commen.
+
+* Component schema: bodypulls_delete_review_commen, object
+  TYPES: BEGIN OF bodypulls_delete_review_commen,
+           body TYPE string,
+         END OF bodypulls_delete_review_commen.
+
+* Component schema: bodyreactions_create_for_pull_, object
+  TYPES: BEGIN OF bodyreactions_create_for_pull_,
+           content TYPE string,
+         END OF bodyreactions_create_for_pull_.
+
+* Component schema: bodypulls_update, object
+  TYPES: BEGIN OF bodypulls_update,
+           title TYPE string,
+           body TYPE string,
+           state TYPE string,
+           base TYPE string,
+           maintainer_can_modify TYPE abap_bool,
+         END OF bodypulls_update.
+
+* Component schema: bodypulls_create_review_commen, object
+  TYPES: BEGIN OF bodypulls_create_review_commen,
+           body TYPE string,
+           commit_id TYPE string,
+           path TYPE string,
+           position TYPE i,
+           side TYPE string,
+           line TYPE i,
+           start_line TYPE i,
+           start_side TYPE string,
+           in_reply_to TYPE i,
+         END OF bodypulls_create_review_commen.
+
+* Component schema: bodypulls_create_reply_for_rev, object
+  TYPES: BEGIN OF bodypulls_create_reply_for_rev,
+           body TYPE string,
+         END OF bodypulls_create_reply_for_rev.
+
+* Component schema: bodypulls_merge, object
+  TYPES: BEGIN OF bodypulls_merge,
+           commit_title TYPE string,
+           commit_message TYPE string,
+           sha TYPE string,
+           merge_method TYPE string,
+         END OF bodypulls_merge.
+
+* Component schema: bodypulls_request_reviewers, object
+  TYPES: BEGIN OF bodypulls_request_reviewers,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           team_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodypulls_request_reviewers.
+
+* Component schema: bodypulls_remove_requested_rev, object
+  TYPES: BEGIN OF bodypulls_remove_requested_rev,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           team_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodypulls_remove_requested_rev.
+
+* Component schema: bodypulls_create_review, object
+  TYPES: BEGIN OF bodypulls_create_review,
+           commit_id TYPE string,
+           body TYPE string,
+           event TYPE string,
+           comments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodypulls_create_review.
+
+* Component schema: bodypulls_update_review, object
+  TYPES: BEGIN OF bodypulls_update_review,
+           body TYPE string,
+         END OF bodypulls_update_review.
+
+* Component schema: bodypulls_delete_pending_revie, object
+  TYPES: BEGIN OF bodypulls_delete_pending_revie,
+           body TYPE string,
+         END OF bodypulls_delete_pending_revie.
+
+* Component schema: bodypulls_dismiss_review, object
+  TYPES: BEGIN OF bodypulls_dismiss_review,
+           message TYPE string,
+           event TYPE string,
+         END OF bodypulls_dismiss_review.
+
+* Component schema: bodypulls_submit_review, object
+  TYPES: BEGIN OF bodypulls_submit_review,
+           body TYPE string,
+           event TYPE string,
+         END OF bodypulls_submit_review.
+
+* Component schema: bodypulls_update_branch, object
+  TYPES: BEGIN OF bodypulls_update_branch,
+           expected_head_sha TYPE string,
+         END OF bodypulls_update_branch.
+
+* Component schema: bodyrepos_create_release, object
+  TYPES: BEGIN OF bodyrepos_create_release,
+           tag_name TYPE string,
+           target_commitish TYPE string,
+           name TYPE string,
+           body TYPE string,
+           draft TYPE abap_bool,
+           prerelease TYPE abap_bool,
+         END OF bodyrepos_create_release.
+
+* Component schema: bodyrepos_update_release_asset, object
+  TYPES: BEGIN OF bodyrepos_update_release_asset,
+           name TYPE string,
+           label TYPE string,
+           state TYPE string,
+         END OF bodyrepos_update_release_asset.
+
+* Component schema: bodyrepos_delete_release_asset, object
+  TYPES: BEGIN OF bodyrepos_delete_release_asset,
+           name TYPE string,
+           label TYPE string,
+           state TYPE string,
+         END OF bodyrepos_delete_release_asset.
+
+* Component schema: bodyrepos_update_release, object
+  TYPES: BEGIN OF bodyrepos_update_release,
+           tag_name TYPE string,
+           target_commitish TYPE string,
+           name TYPE string,
+           body TYPE string,
+           draft TYPE abap_bool,
+           prerelease TYPE abap_bool,
+         END OF bodyrepos_update_release.
+
+* Component schema: bodyrepos_delete_release, object
+  TYPES: BEGIN OF bodyrepos_delete_release,
+           tag_name TYPE string,
+           target_commitish TYPE string,
+           name TYPE string,
+           body TYPE string,
+           draft TYPE abap_bool,
+           prerelease TYPE abap_bool,
+         END OF bodyrepos_delete_release.
+
+* Component schema: bodyrepos_create_commit_status, object
+  TYPES: BEGIN OF bodyrepos_create_commit_status,
+           state TYPE string,
+           target_url TYPE string,
+           description TYPE string,
+           context TYPE string,
+         END OF bodyrepos_create_commit_status.
+
+* Component schema: bodyactivity_set_repo_subscrip, object
+  TYPES: BEGIN OF bodyactivity_set_repo_subscrip,
+           subscribed TYPE abap_bool,
+           ignored TYPE abap_bool,
+         END OF bodyactivity_set_repo_subscrip.
+
+* Component schema: bodyactivity_delete_repo_subsc, object
+  TYPES: BEGIN OF bodyactivity_delete_repo_subsc,
+           subscribed TYPE abap_bool,
+           ignored TYPE abap_bool,
+         END OF bodyactivity_delete_repo_subsc.
+
+* Component schema: bodyrepos_replace_all_topics, object
+  TYPES: BEGIN OF bodyrepos_replace_all_topics,
+           names TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_replace_all_topics.
+
+* Component schema: bodyrepos_transfer, object
+  TYPES: BEGIN OF bodyrepos_transfer,
+           new_owner TYPE string,
+           team_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyrepos_transfer.
+
+* Component schema: bodyrepos_create_using_templat, object
+  TYPES: BEGIN OF bodyrepos_create_using_templat,
+           owner TYPE string,
+           name TYPE string,
+           description TYPE string,
+           include_all_branches TYPE abap_bool,
+           private TYPE abap_bool,
+         END OF bodyrepos_create_using_templat.
+
+* Component schema: bodyenterprise_admin_enable_or, object
+  TYPES: BEGIN OF bodyenterprise_admin_enable_or,
+           maintenance TYPE string,
+         END OF bodyenterprise_admin_enable_or.
+
+* Component schema: bodyenterprise_admin_set_setti, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_setti,
+           settings TYPE string,
+         END OF bodyenterprise_admin_set_setti.
+
+* Component schema: bodyenterprise_admin_add_autho, object
+  TYPES: BEGIN OF bodyenterprise_admin_add_autho,
+           authorized_key TYPE string,
+         END OF bodyenterprise_admin_add_autho.
+
+* Component schema: bodyenterprise_admin_remove_au, object
+  TYPES: BEGIN OF bodyenterprise_admin_remove_au,
+           authorized_key TYPE string,
+         END OF bodyenterprise_admin_remove_au.
+
+* Component schema: bodyenterprise_admin_create_en, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_en,
+           license TYPE string,
+           password TYPE string,
+           settings TYPE string,
+         END OF bodyenterprise_admin_create_en.
+
+* Component schema: bodyenterprise_admin_upgrade_l, object
+  TYPES: BEGIN OF bodyenterprise_admin_upgrade_l,
+           license TYPE string,
+         END OF bodyenterprise_admin_upgrade_l.
+
+* Component schema: bodyteams_update, object
+  TYPES: BEGIN OF bodyteams_update,
+           name TYPE string,
+           description TYPE string,
+           privacy TYPE string,
+           permission TYPE string,
+           parent_team_id TYPE i,
+         END OF bodyteams_update.
+
+* Component schema: bodyteams_delete, object
+  TYPES: BEGIN OF bodyteams_delete,
+           name TYPE string,
+           description TYPE string,
+           privacy TYPE string,
+           permission TYPE string,
+           parent_team_id TYPE i,
+         END OF bodyteams_delete.
+
+* Component schema: bodyteams_create_discussion, object
+  TYPES: BEGIN OF bodyteams_create_discussion,
+           title TYPE string,
+           body TYPE string,
+           private TYPE abap_bool,
+         END OF bodyteams_create_discussion.
+
+* Component schema: bodyteams_update_discussion, object
+  TYPES: BEGIN OF bodyteams_update_discussion,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyteams_update_discussion.
+
+* Component schema: bodyteams_delete_discussion, object
+  TYPES: BEGIN OF bodyteams_delete_discussion,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyteams_delete_discussion.
+
+* Component schema: bodyteams_create_discussion_co, object
+  TYPES: BEGIN OF bodyteams_create_discussion_co,
+           body TYPE string,
+         END OF bodyteams_create_discussion_co.
+
+* Component schema: bodyteams_update_discussion_co, object
+  TYPES: BEGIN OF bodyteams_update_discussion_co,
+           body TYPE string,
+         END OF bodyteams_update_discussion_co.
+
+* Component schema: bodyteams_delete_discussion_co, object
+  TYPES: BEGIN OF bodyteams_delete_discussion_co,
+           body TYPE string,
+         END OF bodyteams_delete_discussion_co.
+
+* Component schema: bodyreactions_create_for_team_, object
+  TYPES: BEGIN OF bodyreactions_create_for_team_,
+           content TYPE string,
+         END OF bodyreactions_create_for_team_.
+
+* Component schema: bodyreactions_create_for_tea01, object
+  TYPES: BEGIN OF bodyreactions_create_for_tea01,
+           content TYPE string,
+         END OF bodyreactions_create_for_tea01.
+
+* Component schema: bodyteams_add_or_update_member, object
+  TYPES: BEGIN OF bodyteams_add_or_update_member,
+           role TYPE string,
+         END OF bodyteams_add_or_update_member.
+
+* Component schema: bodyteams_remove_membership_fo, object
+  TYPES: BEGIN OF bodyteams_remove_membership_fo,
+           role TYPE string,
+         END OF bodyteams_remove_membership_fo.
+
+* Component schema: bodyteams_add_or_update_projec, object
+  TYPES: BEGIN OF bodyteams_add_or_update_projec,
+           permission TYPE string,
+         END OF bodyteams_add_or_update_projec.
+
+* Component schema: bodyteams_remove_project, object
+  TYPES: BEGIN OF bodyteams_remove_project,
+           permission TYPE string,
+         END OF bodyteams_remove_project.
+
+* Component schema: bodyteams_add_or_update_repo_p, object
+  TYPES: BEGIN OF bodyteams_add_or_update_repo_p,
+           permission TYPE string,
+         END OF bodyteams_add_or_update_repo_p.
+
+* Component schema: bodyteams_remove_repo, object
+  TYPES: BEGIN OF bodyteams_remove_repo,
+           permission TYPE string,
+         END OF bodyteams_remove_repo.
+
+* Component schema: bodyusers_update_authenticated, object
+  TYPES: BEGIN OF bodyusers_update_authenticated,
+           name TYPE string,
+           email TYPE string,
+           blog TYPE string,
+           twitter_username TYPE string,
+           company TYPE string,
+           location TYPE string,
+           hireable TYPE abap_bool,
+           bio TYPE string,
+         END OF bodyusers_update_authenticated.
+
+* Component schema: bodyusers_add_email_for_authen, 
+  TYPES bodyusers_add_email_for_authen TYPE string. "   todo
+
+* Component schema: bodyusers_delete_email_for_aut, 
+  TYPES bodyusers_delete_email_for_aut TYPE string. "   todo
+
+* Component schema: bodyusers_create_gpg_key_for_a, object
+  TYPES: BEGIN OF bodyusers_create_gpg_key_for_a,
+           armored_public_key TYPE string,
+         END OF bodyusers_create_gpg_key_for_a.
+
+* Component schema: bodyusers_create_public_ssh_ke, object
+  TYPES: BEGIN OF bodyusers_create_public_ssh_ke,
+           title TYPE string,
+           key TYPE string,
+         END OF bodyusers_create_public_ssh_ke.
+
+* Component schema: bodyorgs_update_membership_for, object
+  TYPES: BEGIN OF bodyorgs_update_membership_for,
+           state TYPE string,
+         END OF bodyorgs_update_membership_for.
+
+* Component schema: bodyprojects_create_for_authen, object
+  TYPES: BEGIN OF bodyprojects_create_for_authen,
+           name TYPE string,
+           body TYPE string,
+         END OF bodyprojects_create_for_authen.
+
+* Component schema: bodyrepos_create_for_authentic, object
+  TYPES: BEGIN OF bodyrepos_create_for_authentic,
+           name TYPE string,
+           description TYPE string,
+           homepage TYPE string,
+           private TYPE abap_bool,
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           team_id TYPE i,
+           auto_init TYPE abap_bool,
+           gitignore_template TYPE string,
+           license_template TYPE string,
+           allow_squash_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           allow_rebase_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+           has_downloads TYPE abap_bool,
+           is_template TYPE abap_bool,
+         END OF bodyrepos_create_for_authentic.
+
+* Component schema: bodyenterprise_admin_suspend_u, object
+  TYPES: BEGIN OF bodyenterprise_admin_suspend_u,
+           reason TYPE string,
+         END OF bodyenterprise_admin_suspend_u.
+
+* Component schema: bodyenterprise_admin_unsuspend, object
+  TYPES: BEGIN OF bodyenterprise_admin_unsuspend,
+           reason TYPE string,
+         END OF bodyenterprise_admin_unsuspend.
+
 * GET - "GitHub API Root"
 * Operation id: meta/root
 * Response: 200
@@ -3887,10 +5427,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: accept, required, header
 * Response: 201
 *     application/json, #/components/schemas/global-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_gl
   METHODS enterprise_admin_create_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
+      body TYPE bodyenterprise_admin_create_gl
+    RETURNING VALUE(return_data) TYPE global_hook
     RAISING cx_static_check.
 
 * GET - "Get a global webhook"
@@ -3912,11 +5454,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/global-hook-2
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_gl
   METHODS enterprise_admin_update_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       hook_id TYPE i
+      body TYPE bodyenterprise_admin_update_gl
     RETURNING VALUE(return_data) TYPE global_hook_2
     RAISING cx_static_check.
 
@@ -3925,11 +5468,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: accept, required, header
 * Parameter: hook_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_gl
   METHODS enterprise_admin_delete_global
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       hook_id TYPE i
+      body TYPE bodyenterprise_admin_delete_gl
     RAISING cx_static_check.
 
 * POST - "Ping a global webhook"
@@ -3969,10 +5513,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/ldap-mapping-team
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_ld
   METHODS enterprise_admin_update_ldap_m
     IMPORTING
       team_id TYPE i
+      body TYPE bodyenterprise_admin_update_ld
     RETURNING VALUE(return_data) TYPE ldap_mapping_team
     RAISING cx_static_check.
 
@@ -3991,10 +5536,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: username, required, path
 * Response: 200
 *     application/json, #/components/schemas/ldap-mapping-user
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_01
   METHODS enterprise_admin_update_ldap01
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_update_01
     RETURNING VALUE(return_data) TYPE ldap_mapping_user
     RAISING cx_static_check.
 
@@ -4012,8 +5558,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/create-org
 * Response: 201
 *     application/json, #/components/schemas/organization-simple
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_or
   METHODS enterprise_admin_create_org
+    IMPORTING
+      body TYPE bodyenterprise_admin_create_or
+    RETURNING VALUE(return_data) TYPE organization_simple
     RAISING cx_static_check.
 
 * PATCH - "Update an organization name"
@@ -4021,10 +5570,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: org, required, path
 * Response: 202
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_or
   METHODS enterprise_admin_update_org_na
     IMPORTING
       org TYPE string
+      body TYPE bodyenterprise_admin_update_or
     RAISING cx_static_check.
 
 * GET - "List pre-receive environments"
@@ -4043,8 +5593,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/create-pre-receive-environment
 * Response: 201
 *     application/json, #/components/schemas/pre-receive-environment
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_pr
   METHODS enterprise_admin_create_pre_re
+    IMPORTING
+      body TYPE bodyenterprise_admin_create_pr
+    RETURNING VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
 
 * GET - "Get a pre-receive environment"
@@ -4065,10 +5618,11 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pre-receive-environment
 * Response: 422
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_pr
   METHODS enterprise_admin_update_pre_re
     IMPORTING
       pre_receive_environment_id TYPE i
+      body TYPE bodyenterprise_admin_update_pr
     RETURNING VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
 
@@ -4078,10 +5632,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 422
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_pr
   METHODS enterprise_admin_delete_pre_re
     IMPORTING
       pre_receive_environment_id TYPE i
+      body TYPE bodyenterprise_admin_delete_pr
     RAISING cx_static_check.
 
 * POST - "Start a pre-receive environment download"
@@ -4123,8 +5678,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/create-pre-receive-hook
 * Response: 201
 *     application/json, #/components/schemas/pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_01
   METHODS enterprise_admin_create_pre_01
+    IMPORTING
+      body TYPE bodyenterprise_admin_create_01
+    RETURNING VALUE(return_data) TYPE pre_receive_hook
     RAISING cx_static_check.
 
 * GET - "Get a pre-receive hook"
@@ -4143,10 +5701,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pre_receive_hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_02
   METHODS enterprise_admin_update_pre_01
     IMPORTING
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_update_02
     RETURNING VALUE(return_data) TYPE pre_receive_hook
     RAISING cx_static_check.
 
@@ -4154,10 +5713,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/delete-pre-receive-hook
 * Parameter: pre_receive_hook_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_01
   METHODS enterprise_admin_delete_pre_01
     IMPORTING
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_delete_01
     RAISING cx_static_check.
 
 * GET - "List personal access tokens"
@@ -4185,8 +5745,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/create-user
 * Response: 201
 *     application/json, #/components/schemas/simple-user
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_us
   METHODS enterprise_admin_create_user
+    IMPORTING
+      body TYPE bodyenterprise_admin_create_us
+    RETURNING VALUE(return_data) TYPE simple_user
     RAISING cx_static_check.
 
 * PATCH - "Update the username for a user"
@@ -4194,20 +5757,22 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: username, required, path
 * Response: 202
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_us
   METHODS enterprise_admin_update_userna
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_update_us
     RAISING cx_static_check.
 
 * DELETE - "Delete a user"
 * Operation id: enterprise-admin/delete-user
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_us
   METHODS enterprise_admin_delete_user
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_delete_us
     RAISING cx_static_check.
 
 * POST - "Create an impersonation OAuth token"
@@ -4215,20 +5780,23 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: username, required, path
 * Response: 201
 *     application/json, #/components/schemas/authorization
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_im
   METHODS enterprise_admin_create_impers
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_create_im
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * DELETE - "Delete an impersonation OAuth token"
 * Operation id: enterprise-admin/delete-impersonation-o-auth-token
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_im
   METHODS enterprise_admin_delete_impers
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_delete_im
     RAISING cx_static_check.
 
 * GET - "Get the authenticated app"
@@ -4303,11 +5871,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_create_installation_a
   METHODS apps_create_installation_acces
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.machine-man-preview+json'
       installation_id TYPE i
+      body TYPE bodyapps_create_installation_a
+    RETURNING VALUE(return_data) TYPE installation_token
     RAISING cx_static_check.
 
 * GET - "List your grants"
@@ -4357,10 +5927,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: client_id, required, path
 * Response: 204
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_delete_authorization
   METHODS apps_delete_authorization
     IMPORTING
       client_id TYPE string
+      body TYPE bodyapps_delete_authorization
     RAISING cx_static_check.
 
 * DELETE - "Revoke a grant for an application"
@@ -4381,10 +5952,11 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/authorization
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_check_token
   METHODS apps_check_token
     IMPORTING
       client_id TYPE string
+      body TYPE bodyapps_check_token
     RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
@@ -4394,10 +5966,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/authorization
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_reset_token
   METHODS apps_reset_token
     IMPORTING
       client_id TYPE string
+      body TYPE bodyapps_reset_token
     RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
@@ -4406,10 +5979,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: client_id, required, path
 * Response: 204
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_delete_token
   METHODS apps_delete_token
     IMPORTING
       client_id TYPE string
+      body TYPE bodyapps_delete_token
     RAISING cx_static_check.
 
 * GET - "Check an authorization"
@@ -4488,8 +6062,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyoauth_authorizations_creat
   METHODS oauth_authorizations_create_au
+    IMPORTING
+      body TYPE bodyoauth_authorizations_creat
+    RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * PUT - "Get-or-create an authorization for a specific app"
@@ -4503,10 +6080,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyoauth_authorizations_get_o
   METHODS oauth_authorizations_get_or_cr
     IMPORTING
       client_id TYPE string
+      body TYPE bodyoauth_authorizations_get_o
     RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
@@ -4519,11 +6097,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/authorization
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyoauth_authorizations_get01
   METHODS oauth_authorizations_get_or_01
     IMPORTING
       fingerprint TYPE string
       client_id TYPE string
+      body TYPE bodyoauth_authorizations_get01
     RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
@@ -4547,10 +6126,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/authorization
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyoauth_authorizations_updat
   METHODS oauth_authorizations_update_au
     IMPORTING
       authorization_id TYPE i
+      body TYPE bodyoauth_authorizations_updat
     RETURNING VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
@@ -4561,10 +6141,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyoauth_authorizations_delet
   METHODS oauth_authorizations_delete_au
     IMPORTING
       authorization_id TYPE i
+      body TYPE bodyoauth_authorizations_delet
     RAISING cx_static_check.
 
 * GET - "Get all codes of conduct"
@@ -4601,10 +6182,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 410
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyapps_create_content_attach
   METHODS apps_create_content_attachment
     IMPORTING
       content_reference_id TYPE i
+      body TYPE bodyapps_create_content_attach
     RETURNING VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
@@ -4682,8 +6264,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_create
   METHODS gists_create
+    IMPORTING
+      body TYPE bodygists_create
+    RETURNING VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
 * GET - "List public gists"
@@ -4741,10 +6326,11 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/gist-simple
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_update
   METHODS gists_update
     IMPORTING
       gist_id TYPE string
+      body TYPE bodygists_update
     RETURNING VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
@@ -4755,10 +6341,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 403
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_delete
   METHODS gists_delete
     IMPORTING
       gist_id TYPE string
+      body TYPE bodygists_delete
     RAISING cx_static_check.
 
 * GET - "List gist comments"
@@ -4786,10 +6373,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 403
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_create_comment
   METHODS gists_create_comment
     IMPORTING
       gist_id TYPE string
+      body TYPE bodygists_create_comment
+    RETURNING VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
 
 * GET - "Get a gist comment"
@@ -4815,11 +6404,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/gist-comment
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_update_comment
   METHODS gists_update_comment
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
+      body TYPE bodygists_update_comment
     RETURNING VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
 
@@ -4831,11 +6421,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 403
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodygists_delete_comment
   METHODS gists_delete_comment
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
+      body TYPE bodygists_delete_comment
     RAISING cx_static_check.
 
 * GET - "List gist commits"
@@ -4884,6 +6475,7 @@ INTERFACE zif_ghes220 PUBLIC.
   METHODS gists_fork
     IMPORTING
       gist_id TYPE string
+    RETURNING VALUE(return_data) TYPE base_gist
     RAISING cx_static_check.
 
 * GET - "Check if a gist is starred"
@@ -5049,8 +6641,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     text/html, string
 * Response: 304
-* Body schema: object
+* Body ref: #/components/schemas/bodymarkdown_render
   METHODS markdown_render
+    IMPORTING
+      body TYPE bodymarkdown_render
     RAISING cx_static_check.
 
 * POST - "Render a Markdown document in raw mode"
@@ -5122,8 +6716,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_mark_notification
   METHODS activity_mark_notifications_as
+    IMPORTING
+      body TYPE bodyactivity_mark_notification
     RAISING cx_static_check.
 
 * GET - "Get a thread"
@@ -5173,10 +6769,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_set_thread_subscr
   METHODS activity_set_thread_subscripti
     IMPORTING
       thread_id TYPE i
+      body TYPE bodyactivity_set_thread_subscr
     RETURNING VALUE(return_data) TYPE thread_subscription
     RAISING cx_static_check.
 
@@ -5187,10 +6784,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_delete_thread_sub
   METHODS activity_delete_thread_subscri
     IMPORTING
       thread_id TYPE i
+      body TYPE bodyactivity_delete_thread_sub
     RAISING cx_static_check.
 
 * GET - "Get Octocat"
@@ -5237,10 +6835,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 415
 * Response: 422
 *     application/json, 
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_update
   METHODS orgs_update
     IMPORTING
       org TYPE string
+      body TYPE bodyorgs_update
     RETURNING VALUE(return_data) TYPE organization_full
     RAISING cx_static_check.
 
@@ -5280,10 +6879,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/org-hook
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_create_webhook
   METHODS orgs_create_webhook
     IMPORTING
       org TYPE string
+      body TYPE bodyorgs_create_webhook
+    RETURNING VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
 
 * GET - "Get an organization webhook"
@@ -5308,11 +6909,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/org-hook
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_update_webhook
   METHODS orgs_update_webhook
     IMPORTING
       org TYPE string
       hook_id TYPE i
+      body TYPE bodyorgs_update_webhook
     RETURNING VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
 
@@ -5322,11 +6924,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: hook_id, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_delete_webhook
   METHODS orgs_delete_webhook
     IMPORTING
       org TYPE string
       hook_id TYPE i
+      body TYPE bodyorgs_delete_webhook
     RAISING cx_static_check.
 
 * POST - "Ping an organization webhook"
@@ -5465,11 +7068,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/org-membership
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_set_membership_for_us
   METHODS orgs_set_membership_for_user
     IMPORTING
       org TYPE string
       username TYPE string
+      body TYPE bodyorgs_set_membership_for_us
     RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
@@ -5480,11 +7084,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 403
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_remove_membership_for
   METHODS orgs_remove_membership_for_use
     IMPORTING
       org TYPE string
       username TYPE string
+      body TYPE bodyorgs_remove_membership_for
     RAISING cx_static_check.
 
 * GET - "List outside collaborators for an organization"
@@ -5564,11 +7169,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pre_receive_hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/org-pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_03
   METHODS enterprise_admin_update_pre_02
     IMPORTING
       org TYPE string
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_update_03
     RETURNING VALUE(return_data) TYPE org_pre_receive_hook
     RAISING cx_static_check.
 
@@ -5578,11 +7184,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pre_receive_hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/org-pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_remove_pr
   METHODS enterprise_admin_remove_pre_re
     IMPORTING
       org TYPE string
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_remove_pr
     RETURNING VALUE(return_data) TYPE org_pre_receive_hook
     RAISING cx_static_check.
 
@@ -5613,10 +7220,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_create_for_org
   METHODS projects_create_for_org
     IMPORTING
       org TYPE string
+      body TYPE bodyprojects_create_for_org
+    RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List public organization members"
@@ -5695,10 +7304,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/repository
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_in_org
   METHODS repos_create_in_org
     IMPORTING
       org TYPE string
+      body TYPE bodyrepos_create_in_org
+    RETURNING VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List teams"
@@ -5723,10 +7334,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/team-full
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_create
   METHODS teams_create
     IMPORTING
       org TYPE string
+      body TYPE bodyteams_create
+    RETURNING VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * GET - "Get a team by name"
@@ -5768,10 +7381,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_update_card
   METHODS projects_update_card
     IMPORTING
       card_id TYPE i
+      body TYPE bodyprojects_update_card
     RETURNING VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
 
@@ -5784,10 +7398,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 *     application/json, object
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_delete_card
   METHODS projects_delete_card
     IMPORTING
       card_id TYPE i
+      body TYPE bodyprojects_delete_card
     RAISING cx_static_check.
 
 * POST - "Move a project card"
@@ -5802,10 +7417,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 422
 * Response: 503
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_move_card
   METHODS projects_move_card
     IMPORTING
       card_id TYPE i
+      body TYPE bodyprojects_move_card
     RAISING cx_static_check.
 
 * GET - "Get a project column"
@@ -5831,10 +7447,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_update_column
   METHODS projects_update_column
     IMPORTING
       column_id TYPE i
+      body TYPE bodyprojects_update_column
     RETURNING VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
 
@@ -5845,10 +7462,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_delete_column
   METHODS projects_delete_column
     IMPORTING
       column_id TYPE i
+      body TYPE bodyprojects_delete_column
     RAISING cx_static_check.
 
 * GET - "List project cards"
@@ -5882,10 +7500,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, 
 * Response: 503
 *     application/json, object
-* Body schema: 
+* Body ref: #/components/schemas/bodyprojects_create_card
   METHODS projects_create_card
     IMPORTING
       column_id TYPE i
+      body TYPE bodyprojects_create_card
+    RETURNING VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
 
 * POST - "Move a project column"
@@ -5897,10 +7517,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_move_column
   METHODS projects_move_column
     IMPORTING
       column_id TYPE i
+      body TYPE bodyprojects_move_column
     RAISING cx_static_check.
 
 * GET - "Get a project"
@@ -5929,10 +7550,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_update
   METHODS projects_update
     IMPORTING
       project_id TYPE i
+      body TYPE bodyprojects_update
     RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
@@ -5946,10 +7568,11 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, object
 * Response: 404
 * Response: 410
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_delete
   METHODS projects_delete
     IMPORTING
       project_id TYPE i
+      body TYPE bodyprojects_delete
     RAISING cx_static_check.
 
 * GET - "List project collaborators"
@@ -5985,11 +7608,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_add_collaborator
   METHODS projects_add_collaborator
     IMPORTING
       project_id TYPE i
       username TYPE string
+      body TYPE bodyprojects_add_collaborator
     RAISING cx_static_check.
 
 * DELETE - "Remove user as a collaborator"
@@ -6003,11 +7627,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_remove_collaborat
   METHODS projects_remove_collaborator
     IMPORTING
       project_id TYPE i
       username TYPE string
+      body TYPE bodyprojects_remove_collaborat
     RAISING cx_static_check.
 
 * GET - "Get project permission for a user"
@@ -6055,10 +7680,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_create_column
   METHODS projects_create_column
     IMPORTING
       project_id TYPE i
+      body TYPE bodyprojects_create_column
+    RETURNING VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
 
 * GET - "Get rate limit status for the authenticated user"
@@ -6107,11 +7734,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update
   METHODS repos_update
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_update
     RETURNING VALUE(return_data) TYPE full_repository
     RAISING cx_static_check.
 
@@ -6123,11 +7751,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 *     application/json, object
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete
   METHODS repos_delete
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_delete
     RAISING cx_static_check.
 
 * GET - "List assignees"
@@ -6225,12 +7854,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_branch_protec
   METHODS repos_update_branch_protection
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_update_branch_protec
     RETURNING VALUE(return_data) TYPE protected_branch
     RAISING cx_static_check.
 
@@ -6241,12 +7871,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: branch, required, path
 * Response: 204
 * Response: 403
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_branch_protec
   METHODS repos_delete_branch_protection
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_delete_branch_protec
     RAISING cx_static_check.
 
 * GET - "Get admin branch protection"
@@ -6315,12 +7946,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/protected-branch-pull-request-review
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_pull_request_
   METHODS repos_update_pull_request_revi
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_update_pull_request_
     RETURNING VALUE(return_data) TYPE protected_branch_pull_request_
     RAISING cx_static_check.
 
@@ -6331,12 +7963,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: branch, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_pull_request_
   METHODS repos_delete_pull_request_revi
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_delete_pull_request_
     RAISING cx_static_check.
 
 * GET - "Get commit signature protection"
@@ -6410,12 +8043,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/status-check-policy
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_status_check_
   METHODS repos_update_status_check_prot
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_update_status_check_
     RETURNING VALUE(return_data) TYPE status_check_policy
     RAISING cx_static_check.
 
@@ -6425,12 +8059,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_status_check_
   METHODS repos_remove_status_check_prot
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_remove_status_check_
     RAISING cx_static_check.
 
 * GET - "Get all status check contexts"
@@ -6458,12 +8093,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_add_status_check_con
   METHODS repos_add_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_add_status_check_con
     RAISING cx_static_check.
 
 * PUT - "Set status check contexts"
@@ -6475,12 +8111,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, array
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_set_status_check_con
   METHODS repos_set_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_set_status_check_con
     RAISING cx_static_check.
 
 * DELETE - "Remove status check contexts"
@@ -6492,12 +8129,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, array
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_status_chec01
   METHODS repos_remove_status_check_cont
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_remove_status_chec01
     RAISING cx_static_check.
 
 * GET - "Get access restrictions"
@@ -6552,12 +8190,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_add_app_access_restr
   METHODS repos_add_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_add_app_access_restr
     RAISING cx_static_check.
 
 * PUT - "Set app access restrictions"
@@ -6568,12 +8207,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_set_app_access_restr
   METHODS repos_set_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_set_app_access_restr
     RAISING cx_static_check.
 
 * DELETE - "Remove app access restrictions"
@@ -6584,12 +8224,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_app_access_re
   METHODS repos_remove_app_access_restri
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_remove_app_access_re
     RAISING cx_static_check.
 
 * GET - "Get teams with access to the protected branch"
@@ -6615,12 +8256,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_add_team_access_rest
   METHODS repos_add_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_add_team_access_rest
     RAISING cx_static_check.
 
 * PUT - "Set team access restrictions"
@@ -6631,12 +8273,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_set_team_access_rest
   METHODS repos_set_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_set_team_access_rest
     RAISING cx_static_check.
 
 * DELETE - "Remove team access restrictions"
@@ -6647,12 +8290,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_team_access_r
   METHODS repos_remove_team_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_remove_team_access_r
     RAISING cx_static_check.
 
 * GET - "Get users with access to the protected branch"
@@ -6678,12 +8322,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_add_user_access_rest
   METHODS repos_add_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_add_user_access_rest
     RAISING cx_static_check.
 
 * PUT - "Set user access restrictions"
@@ -6694,12 +8339,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_set_user_access_rest
   METHODS repos_set_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_set_user_access_rest
     RAISING cx_static_check.
 
 * DELETE - "Remove user access restrictions"
@@ -6710,12 +8356,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, array
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_user_access_r
   METHODS repos_remove_user_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+      body TYPE bodyrepos_remove_user_access_r
     RAISING cx_static_check.
 
 * POST - "Create a check run"
@@ -6724,11 +8371,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 201
 *     application/json, #/components/schemas/check-run
-* Body schema: object
+* Body ref: #/components/schemas/bodychecks_create
   METHODS checks_create
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodychecks_create
+    RETURNING VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
 
 * GET - "Get a check run"
@@ -6753,12 +8402,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: check_run_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/check-run
-* Body schema: object
+* Body ref: #/components/schemas/bodychecks_update
   METHODS checks_update
     IMPORTING
       owner TYPE string
       repo TYPE string
       check_run_id TYPE i
+      body TYPE bodychecks_update
     RETURNING VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
 
@@ -6786,11 +8436,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 201
 *     application/json, #/components/schemas/check-suite
-* Body schema: object
+* Body ref: #/components/schemas/bodychecks_create_suite
   METHODS checks_create_suite
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodychecks_create_suite
+    RETURNING VALUE(return_data) TYPE check_suite
     RAISING cx_static_check.
 
 * PATCH - "Update repository preferences for check suites"
@@ -6799,11 +8451,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/check-suite-preference
-* Body schema: object
+* Body ref: #/components/schemas/bodychecks_set_suites_preferen
   METHODS checks_set_suites_preferences
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodychecks_set_suites_preferen
     RETURNING VALUE(return_data) TYPE check_suite_preference
     RAISING cx_static_check.
 
@@ -6902,12 +8555,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_add_collaborator
   METHODS repos_add_collaborator
     IMPORTING
       owner TYPE string
       repo TYPE string
       username TYPE string
+      body TYPE bodyrepos_add_collaborator
+    RETURNING VALUE(return_data) TYPE repository_invitation
     RAISING cx_static_check.
 
 * DELETE - "Remove a repository collaborator"
@@ -6916,12 +8571,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_remove_collaborator
   METHODS repos_remove_collaborator
     IMPORTING
       owner TYPE string
       repo TYPE string
       username TYPE string
+      body TYPE bodyrepos_remove_collaborator
     RAISING cx_static_check.
 
 * GET - "Get repository permissions for a user"
@@ -6980,12 +8636,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/commit-comment
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_commit_commen
   METHODS repos_update_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyrepos_update_commit_commen
     RETURNING VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
 
@@ -6996,12 +8653,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: comment_id, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_commit_commen
   METHODS repos_delete_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyrepos_delete_commit_commen
     RAISING cx_static_check.
 
 * GET - "List reactions for a commit comment"
@@ -7037,12 +8695,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_commi
   METHODS reactions_create_for_commit_co
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyreactions_create_for_commi
     RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
@@ -7119,12 +8778,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/commit-comment
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_commit_commen
   METHODS repos_create_commit_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       commit_sha TYPE string
+      body TYPE bodyrepos_create_commit_commen
+    RETURNING VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
 
 * GET - "List pull requests associated with a commit"
@@ -7309,12 +8970,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 409
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_or_update_fil
   METHODS repos_create_or_update_file_co
     IMPORTING
       path TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_or_update_fil
     RETURNING VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
 
@@ -7329,12 +8991,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 409
 * Response: 422
 * Response: 503
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_file
   METHODS repos_delete_file
     IMPORTING
       path TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_delete_file
     RETURNING VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
 
@@ -7394,11 +9057,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 409
 *     application/json, object
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_deployment
   METHODS repos_create_deployment
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_deployment
+    RETURNING VALUE(return_data) TYPE deployment
     RAISING cx_static_check.
 
 * GET - "Get a deployment"
@@ -7444,12 +9109,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/deployment-status
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_deployment_st
   METHODS repos_create_deployment_status
     IMPORTING
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
+      body TYPE bodyrepos_create_deployment_st
+    RETURNING VALUE(return_data) TYPE deployment_status
     RAISING cx_static_check.
 
 * GET - "Get a deployment status"
@@ -7516,11 +9183,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_fork
   METHODS repos_create_fork
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_fork
     RAISING cx_static_check.
 
 * POST - "Create a blob"
@@ -7533,11 +9201,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 409
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_create_blob
   METHODS git_create_blob
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_create_blob
+    RETURNING VALUE(return_data) TYPE short_blob
     RAISING cx_static_check.
 
 * GET - "Get a blob"
@@ -7566,11 +9236,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/git-commit
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_create_commit
   METHODS git_create_commit
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_create_commit
+    RETURNING VALUE(return_data) TYPE git_commit
     RAISING cx_static_check.
 
 * GET - "Get a commit"
@@ -7630,11 +9302,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/git-ref
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_create_ref
   METHODS git_create_ref
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_create_ref
+    RETURNING VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
 
 * PATCH - "Update a reference"
@@ -7645,12 +9319,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/git-ref
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_update_ref
   METHODS git_update_ref
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_update_ref
     RETURNING VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
 
@@ -7661,12 +9336,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 204
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_delete_ref
   METHODS git_delete_ref
     IMPORTING
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_delete_ref
     RAISING cx_static_check.
 
 * POST - "Create a tag object"
@@ -7676,11 +9352,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/git-tag
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_create_tag
   METHODS git_create_tag
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_create_tag
+    RETURNING VALUE(return_data) TYPE git_tag
     RAISING cx_static_check.
 
 * GET - "Get a tag"
@@ -7708,11 +9386,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodygit_create_tree
   METHODS git_create_tree
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodygit_create_tree
+    RETURNING VALUE(return_data) TYPE git_tree
     RAISING cx_static_check.
 
 * GET - "Get a tree"
@@ -7760,11 +9440,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_webhook
   METHODS repos_create_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_webhook
+    RETURNING VALUE(return_data) TYPE hook
     RAISING cx_static_check.
 
 * GET - "Get a repository webhook"
@@ -7792,12 +9474,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/hook
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_webhook
   METHODS repos_update_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
       hook_id TYPE i
+      body TYPE bodyrepos_update_webhook
     RETURNING VALUE(return_data) TYPE hook
     RAISING cx_static_check.
 
@@ -7808,12 +9491,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: hook_id, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_webhook
   METHODS repos_delete_webhook
     IMPORTING
       owner TYPE string
       repo TYPE string
       hook_id TYPE i
+      body TYPE bodyrepos_delete_webhook
     RAISING cx_static_check.
 
 * POST - "Ping a repository webhook"
@@ -7884,12 +9568,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: invitation_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/repository-invitation
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_invitation
   METHODS repos_update_invitation
     IMPORTING
       owner TYPE string
       repo TYPE string
       invitation_id TYPE i
+      body TYPE bodyrepos_update_invitation
     RETURNING VALUE(return_data) TYPE repository_invitation
     RAISING cx_static_check.
 
@@ -7899,12 +9584,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: invitation_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_invitation
   METHODS repos_delete_invitation
     IMPORTING
       owner TYPE string
       repo TYPE string
       invitation_id TYPE i
+      body TYPE bodyrepos_delete_invitation
     RAISING cx_static_check.
 
 * GET - "List repository issues"
@@ -7955,11 +9641,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 410
 * Response: 422
 * Response: 503
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_create
   METHODS issues_create
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyissues_create
+    RETURNING VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * GET - "List issue comments for a repository"
@@ -8010,12 +9698,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/issue-comment
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_update_comment
   METHODS issues_update_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyissues_update_comment
     RETURNING VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
 
@@ -8025,12 +9714,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: comment_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_delete_comment
   METHODS issues_delete_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyissues_delete_comment
     RAISING cx_static_check.
 
 * GET - "List reactions for an issue comment"
@@ -8066,12 +9756,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_issue
   METHODS reactions_create_for_issue_com
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyreactions_create_for_issue
     RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
@@ -8142,12 +9833,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 410
 * Response: 422
 * Response: 503
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_update
   METHODS issues_update
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_update
     RETURNING VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
@@ -8158,12 +9850,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: issue_number, required, path
 * Response: 201
 *     application/json, #/components/schemas/issue-simple
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_add_assignees
   METHODS issues_add_assignees
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_add_assignees
+    RETURNING VALUE(return_data) TYPE issue_simple
     RAISING cx_static_check.
 
 * DELETE - "Remove assignees from an issue"
@@ -8173,12 +9867,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: issue_number, required, path
 * Response: 200
 *     application/json, #/components/schemas/issue-simple
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_remove_assignees
   METHODS issues_remove_assignees
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_remove_assignees
     RETURNING VALUE(return_data) TYPE issue_simple
     RAISING cx_static_check.
 
@@ -8215,12 +9910,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_create_comment
   METHODS issues_create_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_create_comment
+    RETURNING VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
 
 * GET - "List issue events"
@@ -8270,12 +9967,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, array
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_add_labels
   METHODS issues_add_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_add_labels
     RAISING cx_static_check.
 
 * PUT - "Set labels for an issue"
@@ -8287,12 +9985,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, array
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_set_labels
   METHODS issues_set_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_set_labels
     RAISING cx_static_check.
 
 * DELETE - "Remove all labels from an issue"
@@ -8302,12 +10001,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: issue_number, required, path
 * Response: 204
 * Response: 410
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_remove_all_labels
   METHODS issues_remove_all_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_remove_all_labels
     RAISING cx_static_check.
 
 * DELETE - "Remove a label from an issue"
@@ -8338,12 +10038,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_lock
   METHODS issues_lock
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_lock
     RAISING cx_static_check.
 
 * DELETE - "Unlock an issue"
@@ -8354,12 +10055,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 403
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_unlock
   METHODS issues_unlock
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyissues_unlock
     RAISING cx_static_check.
 
 * GET - "List reactions for an issue"
@@ -8394,12 +10096,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_iss01
   METHODS reactions_create_for_issue
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+      body TYPE bodyreactions_create_for_iss01
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * GET - "List timeline events for an issue"
@@ -8446,11 +10150,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/deploy-key
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_deploy_key
   METHODS repos_create_deploy_key
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_deploy_key
+    RETURNING VALUE(return_data) TYPE deploy_key
     RAISING cx_static_check.
 
 * GET - "Get a deploy key"
@@ -8507,11 +10213,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/label
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_create_label
   METHODS issues_create_label
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyissues_create_label
+    RETURNING VALUE(return_data) TYPE label
     RAISING cx_static_check.
 
 * GET - "Get a label"
@@ -8537,12 +10245,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/label
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_update_label
   METHODS issues_update_label
     IMPORTING
       name TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodyissues_update_label
     RETURNING VALUE(return_data) TYPE label
     RAISING cx_static_check.
 
@@ -8552,12 +10261,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_delete_label
   METHODS issues_delete_label
     IMPORTING
       name TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodyissues_delete_label
     RAISING cx_static_check.
 
 * GET - "List repository languages"
@@ -8598,11 +10308,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 409
 *     application/json, object
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_merge
   METHODS repos_merge
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_merge
+    RETURNING VALUE(return_data) TYPE commit
     RAISING cx_static_check.
 
 * GET - "List milestones"
@@ -8636,11 +10348,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/milestone
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_create_milestone
   METHODS issues_create_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyissues_create_milestone
+    RETURNING VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
 
 * GET - "Get a milestone"
@@ -8666,12 +10380,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: milestone_number, required, path
 * Response: 200
 *     application/json, #/components/schemas/milestone
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_update_milestone
   METHODS issues_update_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
+      body TYPE bodyissues_update_milestone
     RETURNING VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
 
@@ -8682,12 +10397,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: milestone_number, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodyissues_delete_milestone
   METHODS issues_delete_milestone
     IMPORTING
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
+      body TYPE bodyissues_delete_milestone
     RAISING cx_static_check.
 
 * GET - "List labels for issues in a milestone"
@@ -8737,11 +10453,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_mark_repo_notific
   METHODS activity_mark_repo_notificatio
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyactivity_mark_repo_notific
     RAISING cx_static_check.
 
 * GET - "Get a GitHub Enterprise Server Pages site"
@@ -8767,11 +10484,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 409
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_pages_site
   METHODS repos_create_pages_site
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_pages_site
+    RETURNING VALUE(return_data) TYPE page
     RAISING cx_static_check.
 
 * PUT - "Update information about a GitHub Pages site"
@@ -8781,11 +10500,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 400
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_information_a
   METHODS repos_update_information_about
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_update_information_a
     RAISING cx_static_check.
 
 * DELETE - "Delete a GitHub Enterprise Server Pages site"
@@ -8796,11 +10516,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_pages_site
   METHODS repos_delete_pages_site
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_delete_pages_site
     RAISING cx_static_check.
 
 * GET - "List GitHub Enterprise Server Pages builds"
@@ -8829,6 +10550,7 @@ INTERFACE zif_ghes220 PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING VALUE(return_data) TYPE page_build_status
     RAISING cx_static_check.
 
 * GET - "Get latest Pages build"
@@ -8897,12 +10619,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pre_receive_hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/repository-pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_update_04
   METHODS enterprise_admin_update_pre_03
     IMPORTING
       owner TYPE string
       repo TYPE string
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_update_04
     RETURNING VALUE(return_data) TYPE repository_pre_receive_hook
     RAISING cx_static_check.
 
@@ -8913,12 +10636,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pre_receive_hook_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/repository-pre-receive-hook
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_remove_01
   METHODS enterprise_admin_remove_pre_01
     IMPORTING
       owner TYPE string
       repo TYPE string
       pre_receive_hook_id TYPE i
+      body TYPE bodyenterprise_admin_remove_01
     RETURNING VALUE(return_data) TYPE repository_pre_receive_hook
     RAISING cx_static_check.
 
@@ -8956,11 +10680,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 410
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_create_for_repo
   METHODS projects_create_for_repo
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyprojects_create_for_repo
+    RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List pull requests"
@@ -8999,11 +10725,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_create
   METHODS pulls_create
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodypulls_create
+    RETURNING VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
 
 * GET - "List review comments in a repository"
@@ -9051,12 +10779,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: comment_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/pull-request-review-comment
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_update_review_commen
   METHODS pulls_update_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodypulls_update_review_commen
     RETURNING VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
@@ -9067,12 +10796,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: comment_id, required, path
 * Response: 204
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_delete_review_commen
   METHODS pulls_delete_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodypulls_delete_review_commen
     RAISING cx_static_check.
 
 * GET - "List reactions for a pull request review comment"
@@ -9108,12 +10838,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_pull_
   METHODS reactions_create_for_pull_requ
     IMPORTING
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
+      body TYPE bodyreactions_create_for_pull_
     RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
@@ -9144,12 +10875,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_update
   METHODS pulls_update
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_update
     RETURNING VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
 
@@ -9186,12 +10918,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request-review-comment
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_create_review_commen
   METHODS pulls_create_review_comment
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_create_review_commen
+    RETURNING VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * POST - "Create a reply for a review comment"
@@ -9203,13 +10937,15 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/pull-request-review-comment
 * Response: 404
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_create_reply_for_rev
   METHODS pulls_create_reply_for_review_
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
       comment_id TYPE i
+      body TYPE bodypulls_create_reply_for_rev
+    RETURNING VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * GET - "List commits on a pull request"
@@ -9278,12 +11014,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 409
 *     application/json, object
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_merge
   METHODS pulls_merge
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_merge
     RETURNING VALUE(return_data) TYPE pull_request_merge_result
     RAISING cx_static_check.
 
@@ -9315,12 +11052,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request-simple
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_request_reviewers
   METHODS pulls_request_reviewers
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_request_reviewers
+    RETURNING VALUE(return_data) TYPE pull_request_simple
     RAISING cx_static_check.
 
 * DELETE - "Remove requested reviewers from a pull request"
@@ -9330,12 +11069,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: pull_number, required, path
 * Response: 200
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_remove_requested_rev
   METHODS pulls_remove_requested_reviewe
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_remove_requested_rev
     RAISING cx_static_check.
 
 * GET - "List reviews for a pull request"
@@ -9365,12 +11105,13 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request-review
 * Response: 403
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_create_review
   METHODS pulls_create_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_create_review
     RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
@@ -9401,13 +11142,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/pull-request-review
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_update_review
   METHODS pulls_update_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
       review_id TYPE i
+      body TYPE bodypulls_update_review
     RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
@@ -9421,13 +11163,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request-review
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_delete_pending_revie
   METHODS pulls_delete_pending_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
       review_id TYPE i
+      body TYPE bodypulls_delete_pending_revie
     RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
@@ -9462,13 +11205,14 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/pull-request-review
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_dismiss_review
   METHODS pulls_dismiss_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
       review_id TYPE i
+      body TYPE bodypulls_dismiss_review
     RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
@@ -9483,13 +11227,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_submit_review
   METHODS pulls_submit_review
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
       review_id TYPE i
+      body TYPE bodypulls_submit_review
     RETURNING VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
@@ -9503,12 +11248,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodypulls_update_branch
   METHODS pulls_update_branch
     IMPORTING
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
+      body TYPE bodypulls_update_branch
     RAISING cx_static_check.
 
 * GET - "Get a repository README"
@@ -9552,11 +11298,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/release
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_release
   METHODS repos_create_release
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_release
+    RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * GET - "Get a release asset"
@@ -9584,12 +11332,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: asset_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/release-asset
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_release_asset
   METHODS repos_update_release_asset
     IMPORTING
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
+      body TYPE bodyrepos_update_release_asset
     RETURNING VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
@@ -9599,12 +11348,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: asset_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_release_asset
   METHODS repos_delete_release_asset
     IMPORTING
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
+      body TYPE bodyrepos_delete_release_asset
     RAISING cx_static_check.
 
 * GET - "Get the latest release"
@@ -9659,12 +11409,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: release_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/release
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_update_release
   METHODS repos_update_release
     IMPORTING
       owner TYPE string
       repo TYPE string
       release_id TYPE i
+      body TYPE bodyrepos_update_release
     RETURNING VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
@@ -9674,12 +11425,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: release_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_delete_release
   METHODS repos_delete_release
     IMPORTING
       owner TYPE string
       repo TYPE string
       release_id TYPE i
+      body TYPE bodyrepos_delete_release
     RAISING cx_static_check.
 
 * GET - "List release assets"
@@ -9716,6 +11468,7 @@ INTERFACE zif_ghes220 PUBLIC.
       owner TYPE string
       repo TYPE string
       release_id TYPE i
+    RETURNING VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
 * GET - "List stargazers"
@@ -9805,12 +11558,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 201
 *     application/json, #/components/schemas/status
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_commit_status
   METHODS repos_create_commit_status
     IMPORTING
       sha TYPE string
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_create_commit_status
+    RETURNING VALUE(return_data) TYPE status
     RAISING cx_static_check.
 
 * GET - "List watchers"
@@ -9850,11 +11605,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/repository-subscription
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_set_repo_subscrip
   METHODS activity_set_repo_subscription
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyactivity_set_repo_subscrip
     RETURNING VALUE(return_data) TYPE repository_subscription
     RAISING cx_static_check.
 
@@ -9863,11 +11619,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyactivity_delete_repo_subsc
   METHODS activity_delete_repo_subscript
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyactivity_delete_repo_subsc
     RAISING cx_static_check.
 
 * GET - "List repository tags"
@@ -9939,11 +11696,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 404
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_replace_all_topics
   METHODS repos_replace_all_topics
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_replace_all_topics
     RETURNING VALUE(return_data) TYPE topic
     RAISING cx_static_check.
 
@@ -9953,11 +11711,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: repo, required, path
 * Response: 202
 *     application/json, #/components/schemas/repository
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_transfer
   METHODS repos_transfer
     IMPORTING
       owner TYPE string
       repo TYPE string
+      body TYPE bodyrepos_transfer
     RAISING cx_static_check.
 
 * PUT - "Enable vulnerability alerts"
@@ -10001,11 +11760,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: template_repo, required, path
 * Response: 201
 *     application/json, #/components/schemas/repository
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_using_templat
   METHODS repos_create_using_template
     IMPORTING
       template_owner TYPE string
       template_repo TYPE string
+      body TYPE bodyrepos_create_using_templat
+    RETURNING VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List public repositories"
@@ -10186,8 +11947,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/enable-or-disable-maintenance-mode
 * Response: 200
 *     application/json, #/components/schemas/maintenance-status
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_enable_or
   METHODS enterprise_admin_enable_or_dis
+    IMPORTING
+      body TYPE bodyenterprise_admin_enable_or
     RETURNING VALUE(return_data) TYPE maintenance_status
     RAISING cx_static_check.
 
@@ -10202,8 +11965,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * PUT - "Set settings"
 * Operation id: enterprise-admin/set-settings
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_set_setti
   METHODS enterprise_admin_set_settings
+    IMPORTING
+      body TYPE bodyenterprise_admin_set_setti
     RAISING cx_static_check.
 
 * GET - "Get all authorized SSH keys"
@@ -10217,30 +11982,38 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/add-authorized-ssh-key
 * Response: 201
 *     application/json, array
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_add_autho
   METHODS enterprise_admin_add_authorize
+    IMPORTING
+      body TYPE bodyenterprise_admin_add_autho
     RAISING cx_static_check.
 
 * DELETE - "Remove an authorized SSH key"
 * Operation id: enterprise-admin/remove-authorized-ssh-key
 * Response: 200
 *     application/json, array
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_remove_au
   METHODS enterprise_admin_remove_author
+    IMPORTING
+      body TYPE bodyenterprise_admin_remove_au
     RAISING cx_static_check.
 
 * POST - "Create a GitHub license"
 * Operation id: enterprise-admin/create-enterprise-server-license
 * Response: 202
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_create_en
   METHODS enterprise_admin_create_enterp
+    IMPORTING
+      body TYPE bodyenterprise_admin_create_en
     RAISING cx_static_check.
 
 * POST - "Upgrade a license"
 * Operation id: enterprise-admin/upgrade-license
 * Response: 202
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_upgrade_l
   METHODS enterprise_admin_upgrade_licen
+    IMPORTING
+      body TYPE bodyenterprise_admin_upgrade_l
     RAISING cx_static_check.
 
 * GET - "Get a team"
@@ -10259,20 +12032,23 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Response: 201
 *     application/json, #/components/schemas/team-full
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_update
   METHODS teams_update
     IMPORTING
       team_id TYPE i
+      body TYPE bodyteams_update
+    RETURNING VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * DELETE - "Delete a team"
 * Operation id: teams/delete
 * Parameter: team_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_delete
   METHODS teams_delete
     IMPORTING
       team_id TYPE i
+      body TYPE bodyteams_delete
     RAISING cx_static_check.
 
 * GET - "List discussions"
@@ -10296,10 +12072,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Response: 201
 *     application/json, #/components/schemas/team-discussion
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_create_discussion
   METHODS teams_create_discussion
     IMPORTING
       team_id TYPE i
+      body TYPE bodyteams_create_discussion
+    RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * GET - "Get a discussion"
@@ -10321,11 +12099,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: discussion_number, required, path
 * Response: 200
 *     application/json, #/components/schemas/team-discussion
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_update_discussion
   METHODS teams_update_discussion
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
+      body TYPE bodyteams_update_discussion
     RETURNING VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
@@ -10334,11 +12113,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Parameter: discussion_number, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_delete_discussion
   METHODS teams_delete_discussion
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
+      body TYPE bodyteams_delete_discussion
     RAISING cx_static_check.
 
 * GET - "List discussion comments"
@@ -10365,11 +12145,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: discussion_number, required, path
 * Response: 201
 *     application/json, #/components/schemas/team-discussion-comment
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_create_discussion_co
   METHODS teams_create_discussion_commen
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
+      body TYPE bodyteams_create_discussion_co
+    RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * GET - "Get a discussion comment"
@@ -10394,12 +12176,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: comment_number, required, path
 * Response: 200
 *     application/json, #/components/schemas/team-discussion-comment
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_update_discussion_co
   METHODS teams_update_discussion_commen
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
       comment_number TYPE i
+      body TYPE bodyteams_update_discussion_co
     RETURNING VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
@@ -10409,12 +12192,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: discussion_number, required, path
 * Parameter: comment_number, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_delete_discussion_co
   METHODS teams_delete_discussion_commen
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
       comment_number TYPE i
+      body TYPE bodyteams_delete_discussion_co
     RAISING cx_static_check.
 
 * GET - "List reactions for a team discussion comment"
@@ -10447,13 +12231,15 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: comment_number, required, path
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_team_
   METHODS reactions_create_for_team_disc
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.squirrel-girl-preview+json'
       team_id TYPE i
       discussion_number TYPE i
       comment_number TYPE i
+      body TYPE bodyreactions_create_for_team_
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * GET - "List reactions for a team discussion"
@@ -10483,12 +12269,14 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: discussion_number, required, path
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Body schema: object
+* Body ref: #/components/schemas/bodyreactions_create_for_tea01
   METHODS reactions_create_for_team_di01
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.squirrel-girl-preview+json'
       team_id TYPE i
       discussion_number TYPE i
+      body TYPE bodyreactions_create_for_tea01
+    RETURNING VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * GET - "List team members"
@@ -10567,11 +12355,12 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/team-membership
 * Response: 422
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_add_or_update_member
   METHODS teams_add_or_update_membership
     IMPORTING
       team_id TYPE i
       username TYPE string
+      body TYPE bodyteams_add_or_update_member
     RETURNING VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
 
@@ -10580,11 +12369,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_remove_membership_fo
   METHODS teams_remove_membership_for_us
     IMPORTING
       team_id TYPE i
       username TYPE string
+      body TYPE bodyteams_remove_membership_fo
     RAISING cx_static_check.
 
 * GET - "List team projects"
@@ -10627,12 +12417,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 204
 * Response: 403
 *     application/json, object
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_add_or_update_projec
   METHODS teams_add_or_update_project_pe
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.inertia-preview+json'
       team_id TYPE i
       project_id TYPE i
+      body TYPE bodyteams_add_or_update_projec
     RAISING cx_static_check.
 
 * DELETE - "Remove a project from a team"
@@ -10640,11 +12431,12 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: team_id, required, path
 * Parameter: project_id, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_remove_project
   METHODS teams_remove_project
     IMPORTING
       team_id TYPE i
       project_id TYPE i
+      body TYPE bodyteams_remove_project
     RAISING cx_static_check.
 
 * GET - "List team repositories"
@@ -10685,12 +12477,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_add_or_update_repo_p
   METHODS teams_add_or_update_repo_permi
     IMPORTING
       team_id TYPE i
       owner TYPE string
       repo TYPE string
+      body TYPE bodyteams_add_or_update_repo_p
     RAISING cx_static_check.
 
 * DELETE - "Remove a repository from a team"
@@ -10699,12 +12492,13 @@ INTERFACE zif_ghes220 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyteams_remove_repo
   METHODS teams_remove_repo
     IMPORTING
       team_id TYPE i
       owner TYPE string
       repo TYPE string
+      body TYPE bodyteams_remove_repo
     RAISING cx_static_check.
 
 * GET - "List child teams"
@@ -10740,8 +12534,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyusers_update_authenticated
   METHODS users_update_authenticated
+    IMPORTING
+      body TYPE bodyusers_update_authenticated
     RETURNING VALUE(return_data) TYPE private_user
     RAISING cx_static_check.
 
@@ -10770,8 +12566,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: 
+* Body ref: #/components/schemas/bodyusers_add_email_for_authen
   METHODS users_add_email_for_authentica
+    IMPORTING
+      body TYPE bodyusers_add_email_for_authen
     RAISING cx_static_check.
 
 * DELETE - "Delete an email address for the authenticated user"
@@ -10782,8 +12580,10 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: 
+* Body ref: #/components/schemas/bodyusers_delete_email_for_aut
   METHODS users_delete_email_for_authent
+    IMPORTING
+      body TYPE bodyusers_delete_email_for_aut
     RAISING cx_static_check.
 
 * GET - "List followers of the authenticated user"
@@ -10881,8 +12681,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyusers_create_gpg_key_for_a
   METHODS users_create_gpg_key_for_authe
+    IMPORTING
+      body TYPE bodyusers_create_gpg_key_for_a
+    RETURNING VALUE(return_data) TYPE gpg_key
     RAISING cx_static_check.
 
 * GET - "Get a GPG key for the authenticated user"
@@ -11030,8 +12833,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyusers_create_public_ssh_ke
   METHODS users_create_public_ssh_key_fo
+    IMPORTING
+      body TYPE bodyusers_create_public_ssh_ke
+    RETURNING VALUE(return_data) TYPE key
     RAISING cx_static_check.
 
 * GET - "Get a public SSH key for the authenticated user"
@@ -11101,10 +12907,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyorgs_update_membership_for
   METHODS orgs_update_membership_for_aut
     IMPORTING
       org TYPE string
+      body TYPE bodyorgs_update_membership_for
     RETURNING VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
@@ -11132,8 +12939,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 415
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyprojects_create_for_authen
   METHODS projects_create_for_authentica
+    IMPORTING
+      body TYPE bodyprojects_create_for_authen
+    RETURNING VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List public email addresses for the authenticated user"
@@ -11192,8 +13002,11 @@ INTERFACE zif_ghes220 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body schema: object
+* Body ref: #/components/schemas/bodyrepos_create_for_authentic
   METHODS repos_create_for_authenticated
+    IMPORTING
+      body TYPE bodyrepos_create_for_authentic
+    RETURNING VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List repository invitations for the authenticated user"
@@ -11652,20 +13465,22 @@ INTERFACE zif_ghes220 PUBLIC.
 * Operation id: enterprise-admin/suspend-user
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_suspend_u
   METHODS enterprise_admin_suspend_user
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_suspend_u
     RAISING cx_static_check.
 
 * DELETE - "Unsuspend a user"
 * Operation id: enterprise-admin/unsuspend-user
 * Parameter: username, required, path
 * Response: 204
-* Body schema: object
+* Body ref: #/components/schemas/bodyenterprise_admin_unsuspend
   METHODS enterprise_admin_unsuspend_use
     IMPORTING
       username TYPE string
+      body TYPE bodyenterprise_admin_unsuspend
     RAISING cx_static_check.
 
 * GET - "Get the Zen of GitHub"
