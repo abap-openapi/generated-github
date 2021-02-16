@@ -163,8 +163,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF scoped_installation.
 
 * Component schema: authorization, object
-  TYPES authorization_installation TYPE string. "   todo
-  TYPES authorization_user TYPE string. "   todo
   TYPES: BEGIN OF authorization_app,
            client_id TYPE string,
            name TYPE string,
@@ -183,8 +181,8 @@ INTERFACE zif_githubae PUBLIC.
            updated_at TYPE string,
            created_at TYPE string,
            fingerprint TYPE string,
-           user TYPE authorization_user,
-           installation TYPE authorization_installation,
+           user TYPE string,
+           installation TYPE string,
          END OF authorization.
 
 * Component schema: integration, object
@@ -195,12 +193,11 @@ INTERFACE zif_githubae PUBLIC.
            contents TYPE string,
            deployments TYPE string,
          END OF integration_permissions.
-  TYPES integration_owner TYPE string. "   todo
   TYPES: BEGIN OF integration,
            id TYPE i,
            slug TYPE string,
            node_id TYPE string,
-           owner TYPE integration_owner,
+           owner TYPE string,
            name TYPE string,
            description TYPE string,
            external_url TYPE string,
@@ -264,7 +261,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF enterprise.
 
 * Component schema: installation, object
-  TYPES installation_suspended_by TYPE string. "   todo
   TYPES: BEGIN OF installation_permissions,
            deployments TYPE string,
            checks TYPE string,
@@ -275,10 +271,9 @@ INTERFACE zif_githubae PUBLIC.
            issues TYPE string,
            organization_administration TYPE string,
          END OF installation_permissions.
-  TYPES installation_account TYPE string. "   todo
   TYPES: BEGIN OF installation,
            id TYPE i,
-           account TYPE installation_account,
+           account TYPE string,
            repository_selection TYPE string,
            access_tokens_url TYPE string,
            repositories_url TYPE string,
@@ -294,7 +289,7 @@ INTERFACE zif_githubae PUBLIC.
            has_multiple_single_files TYPE abap_bool,
            single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            app_slug TYPE string,
-           suspended_by TYPE installation_suspended_by,
+           suspended_by TYPE string,
            suspended_at TYPE string,
            contact_email TYPE string,
          END OF installation.
@@ -417,7 +412,6 @@ INTERFACE zif_githubae PUBLIC.
            subscribers_count TYPE i,
            network_count TYPE i,
          END OF repository_template_repository.
-  TYPES repository_owner TYPE string. "   todo
   TYPES: BEGIN OF repository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
@@ -425,16 +419,15 @@ INTERFACE zif_githubae PUBLIC.
            push TYPE abap_bool,
            maintain TYPE abap_bool,
          END OF repository_permissions.
-  TYPES repository_license TYPE string. "   todo
   TYPES: BEGIN OF repository,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           license TYPE repository_license,
+           license TYPE string,
            forks TYPE i,
            permissions TYPE repository_permissions,
-           owner TYPE repository_owner,
+           owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -690,7 +683,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF label.
 
 * Component schema: milestone, object
-  TYPES milestone_creator TYPE string. "   todo
   TYPES: BEGIN OF milestone,
            url TYPE string,
            html_url TYPE string,
@@ -701,7 +693,7 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            title TYPE string,
            description TYPE string,
-           creator TYPE milestone_creator,
+           creator TYPE string,
            open_issues TYPE i,
            closed_issues TYPE i,
            created_at TYPE string,
@@ -714,7 +706,6 @@ INTERFACE zif_githubae PUBLIC.
   TYPES author_association TYPE string.
 
 * Component schema: issue-simple, object
-  TYPES issue_simple_performed_via_git TYPE string. "   todo
   TYPES: BEGIN OF issue_simple_pull_request,
            merged_at TYPE string,
            diff_url TYPE string,
@@ -722,9 +713,6 @@ INTERFACE zif_githubae PUBLIC.
            patch_url TYPE string,
            url TYPE string,
          END OF issue_simple_pull_request.
-  TYPES issue_simple_milestone TYPE string. "   todo
-  TYPES issue_simple_assignee TYPE string. "   todo
-  TYPES issue_simple_user TYPE string. "   todo
   TYPES: BEGIN OF issue_simple,
            id TYPE i,
            node_id TYPE string,
@@ -738,11 +726,11 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            title TYPE string,
            body TYPE string,
-           user TYPE issue_simple_user,
+           user TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE issue_simple_assignee,
+           assignee TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE issue_simple_milestone,
+           milestone TYPE string,
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
@@ -755,7 +743,7 @@ INTERFACE zif_githubae PUBLIC.
            body_text TYPE string,
            timeline_url TYPE string,
            repository TYPE repository,
-           performed_via_github_app TYPE issue_simple_performed_via_git,
+           performed_via_github_app TYPE string,
          END OF issue_simple.
 
 * Component schema: reaction-rollup, object
@@ -773,8 +761,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF reaction_rollup.
 
 * Component schema: issue-comment, object
-  TYPES issue_comment_performed_via_gi TYPE string. "   todo
-  TYPES issue_comment_user TYPE string. "   todo
   TYPES: BEGIN OF issue_comment,
            id TYPE i,
            node_id TYPE string,
@@ -783,12 +769,12 @@ INTERFACE zif_githubae PUBLIC.
            body_text TYPE string,
            body_html TYPE string,
            html_url TYPE string,
-           user TYPE issue_comment_user,
+           user TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            issue_url TYPE string,
            author_association TYPE author_association,
-           performed_via_github_app TYPE issue_comment_performed_via_gi,
+           performed_via_github_app TYPE string,
            reactions TYPE reaction_rollup,
          END OF issue_comment.
 
@@ -845,8 +831,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF feed.
 
 * Component schema: base-gist, object
-  TYPES base_gist_owner TYPE string. "   todo
-  TYPES base_gist_user TYPE string. "   todo
   TYPES: BEGIN OF base_gist_files,
            dummy_workaround TYPE i,
          END OF base_gist_files.
@@ -865,9 +849,9 @@ INTERFACE zif_githubae PUBLIC.
            updated_at TYPE string,
            description TYPE string,
            comments TYPE i,
-           user TYPE base_gist_user,
+           user TYPE string,
            comments_url TYPE string,
-           owner TYPE base_gist_owner,
+           owner TYPE string,
            truncated TYPE abap_bool,
            forks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -899,13 +883,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF gist_simple.
 
 * Component schema: gist-comment, object
-  TYPES gist_comment_user TYPE string. "   todo
   TYPES: BEGIN OF gist_comment,
            id TYPE i,
            node_id TYPE string,
            url TYPE string,
            body TYPE string,
-           user TYPE gist_comment_user,
+           user TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            author_association TYPE author_association,
@@ -917,11 +900,10 @@ INTERFACE zif_githubae PUBLIC.
            additions TYPE i,
            deletions TYPE i,
          END OF gist_commit_change_status.
-  TYPES gist_commit_user TYPE string. "   todo
   TYPES: BEGIN OF gist_commit,
            url TYPE string,
            version TYPE string,
-           user TYPE gist_commit_user,
+           user TYPE string,
            change_status TYPE gist_commit_change_status,
            committed_at TYPE string,
          END OF gist_commit.
@@ -933,8 +915,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF gitignore_template.
 
 * Component schema: issue, object
-  TYPES issue_performed_via_github_app TYPE string. "   todo
-  TYPES issue_closed_by TYPE string. "   todo
   TYPES: BEGIN OF issue_pull_request,
            merged_at TYPE string,
            diff_url TYPE string,
@@ -942,9 +922,6 @@ INTERFACE zif_githubae PUBLIC.
            patch_url TYPE string,
            url TYPE string,
          END OF issue_pull_request.
-  TYPES issue_milestone TYPE string. "   todo
-  TYPES issue_assignee TYPE string. "   todo
-  TYPES issue_user TYPE string. "   todo
   TYPES: BEGIN OF issue,
            id TYPE i,
            node_id TYPE string,
@@ -958,11 +935,11 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            title TYPE string,
            body TYPE string,
-           user TYPE issue_user,
+           user TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE issue_assignee,
+           assignee TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE issue_milestone,
+           milestone TYPE string,
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
@@ -970,12 +947,12 @@ INTERFACE zif_githubae PUBLIC.
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           closed_by TYPE issue_closed_by,
+           closed_by TYPE string,
            body_html TYPE string,
            body_text TYPE string,
            timeline_url TYPE string,
            repository TYPE repository,
-           performed_via_github_app TYPE issue_performed_via_github_app,
+           performed_via_github_app TYPE string,
            author_association TYPE author_association,
            reactions TYPE reaction_rollup,
          END OF issue.
@@ -1227,19 +1204,17 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF org_membership_permissions,
            can_create_repository TYPE abap_bool,
          END OF org_membership_permissions.
-  TYPES org_membership_user TYPE string. "   todo
   TYPES: BEGIN OF org_membership,
            url TYPE string,
            state TYPE string,
            role TYPE string,
            organization_url TYPE string,
            organization TYPE organization_simple,
-           user TYPE org_membership_user,
+           user TYPE string,
            permissions TYPE org_membership_permissions,
          END OF org_membership.
 
 * Component schema: project, object
-  TYPES project_creator TYPE string. "   todo
   TYPES: BEGIN OF project,
            owner_url TYPE string,
            url TYPE string,
@@ -1251,7 +1226,7 @@ INTERFACE zif_githubae PUBLIC.
            body TYPE string,
            number TYPE i,
            state TYPE string,
-           creator TYPE project_creator,
+           creator TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            organization_permission TYPE string,
@@ -1275,7 +1250,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_simple.
 
 * Component schema: team, object
-  TYPES team_parent TYPE string. "   todo
   TYPES: BEGIN OF team,
            id TYPE i,
            node_id TYPE string,
@@ -1288,11 +1262,10 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            members_url TYPE string,
            repositories_url TYPE string,
-           parent TYPE team_parent,
+           parent TYPE string,
          END OF team.
 
 * Component schema: team-full, object
-  TYPES team_full_parent TYPE string. "   todo
   TYPES: BEGIN OF team_full,
            id TYPE i,
            node_id TYPE string,
@@ -1305,7 +1278,7 @@ INTERFACE zif_githubae PUBLIC.
            permission TYPE string,
            members_url TYPE string,
            repositories_url TYPE string,
-           parent TYPE team_full_parent,
+           parent TYPE string,
            members_count TYPE i,
            repos_count TYPE i,
            created_at TYPE string,
@@ -1315,9 +1288,8 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_full.
 
 * Component schema: team-discussion, object
-  TYPES team_discussion_author TYPE string. "   todo
   TYPES: BEGIN OF team_discussion,
-           author TYPE team_discussion_author,
+           author TYPE string,
            body TYPE string,
            body_html TYPE string,
            body_version TYPE string,
@@ -1338,9 +1310,8 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_discussion.
 
 * Component schema: team-discussion-comment, object
-  TYPES team_discussion_comment_author TYPE string. "   todo
   TYPES: BEGIN OF team_discussion_comment,
-           author TYPE team_discussion_comment_author,
+           author TYPE string,
            body TYPE string,
            body_html TYPE string,
            body_version TYPE string,
@@ -1356,11 +1327,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_discussion_comment.
 
 * Component schema: reaction, object
-  TYPES reaction_user TYPE string. "   todo
   TYPES: BEGIN OF reaction,
            id TYPE i,
            node_id TYPE string,
-           user TYPE reaction_user,
+           user TYPE string,
            content TYPE string,
            created_at TYPE string,
          END OF reaction.
@@ -1401,7 +1371,6 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF team_repository_template_repos,
            dummy_workaround TYPE i,
          END OF team_repository_template_repos.
-  TYPES team_repository_owner TYPE string. "   todo
   TYPES: BEGIN OF team_repository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
@@ -1409,16 +1378,15 @@ INTERFACE zif_githubae PUBLIC.
            push TYPE abap_bool,
            maintain TYPE abap_bool,
          END OF team_repository_permissions.
-  TYPES team_repository_license TYPE string. "   todo
   TYPES: BEGIN OF team_repository,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           license TYPE team_repository_license,
+           license TYPE string,
            forks TYPE i,
            permissions TYPE team_repository_permissions,
-           owner TYPE team_repository_owner,
+           owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -1500,13 +1468,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_repository.
 
 * Component schema: project-card, object
-  TYPES project_card_creator TYPE string. "   todo
   TYPES: BEGIN OF project_card,
            url TYPE string,
            id TYPE i,
            node_id TYPE string,
            note TYPE string,
-           creator TYPE project_card_creator,
+           creator TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            archived TYPE abap_bool,
@@ -1528,10 +1495,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF project_column.
 
 * Component schema: repository-collaborator-permission, object
-  TYPES repository_collaborator_perm01 TYPE string. "   todo
   TYPES: BEGIN OF repository_collaborator_permis,
            permission TYPE string,
-           user TYPE repository_collaborator_perm01,
+           user TYPE string,
          END OF repository_collaborator_permis.
 
 * Component schema: rate-limit, object
@@ -1556,8 +1522,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF rate_limit_overview.
 
 * Component schema: full-repository, object
-  TYPES full_repository_organization TYPE string. "   todo
-  TYPES full_repository_license TYPE string. "   todo
   TYPES: BEGIN OF full_repository_template_repos,
            dummy_workaround TYPE i,
          END OF full_repository_template_repos.
@@ -1566,13 +1530,12 @@ INTERFACE zif_githubae PUBLIC.
            pull TYPE abap_bool,
            push TYPE abap_bool,
          END OF full_repository_permissions.
-  TYPES full_repository_owner TYPE string. "   todo
   TYPES: BEGIN OF full_repository,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE full_repository_owner,
+           owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -1649,8 +1612,8 @@ INTERFACE zif_githubae PUBLIC.
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
-           license TYPE full_repository_license,
-           organization TYPE full_repository_organization,
+           license TYPE string,
+           organization TYPE string,
            parent TYPE repository,
            source TYPE repository,
            forks TYPE i,
@@ -1757,18 +1720,14 @@ INTERFACE zif_githubae PUBLIC.
            deletions TYPE i,
            total TYPE i,
          END OF commit_stats.
-  TYPES commit_committer TYPE string. "   todo
-  TYPES commit_author TYPE string. "   todo
   TYPES: BEGIN OF commit_commit_tree,
            sha TYPE string,
            url TYPE string,
          END OF commit_commit_tree.
-  TYPES commit_commit_committer TYPE string. "   todo
-  TYPES commit_commit_author TYPE string. "   todo
   TYPES: BEGIN OF commit_commit,
            url TYPE string,
-           author TYPE commit_commit_author,
-           committer TYPE commit_commit_committer,
+           author TYPE string,
+           committer TYPE string,
            message TYPE string,
            comment_count TYPE i,
            tree TYPE commit_commit_tree,
@@ -1781,8 +1740,8 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            comments_url TYPE string,
            commit TYPE commit_commit,
-           author TYPE commit_author,
-           committer TYPE commit_committer,
+           author TYPE string,
+           committer TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            stats TYPE commit_stats,
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -1886,8 +1845,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF pull_request_minimal.
 
 * Component schema: check-run, object
-  TYPES check_run_pull_requests TYPE string. "  #/components/schemas/pull-request-minimal todo
-  TYPES check_run_app TYPE string. "   todo
   TYPES: BEGIN OF check_run_check_suite,
            id TYPE i,
          END OF check_run_check_suite.
@@ -1913,8 +1870,8 @@ INTERFACE zif_githubae PUBLIC.
            output TYPE check_run_output,
            name TYPE string,
            check_suite TYPE check_run_check_suite,
-           app TYPE check_run_app,
-           pull_requests TYPE check_run_pull_requests,
+           app TYPE string,
+           pull_requests TYPE string,
          END OF check_run.
 
 * Component schema: check-annotation, object
@@ -1950,7 +1907,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF simple_commit.
 
 * Component schema: check-suite, object
-  TYPES check_suite_app TYPE string. "   todo
   TYPES: BEGIN OF check_suite,
            id TYPE i,
            node_id TYPE string,
@@ -1962,7 +1918,7 @@ INTERFACE zif_githubae PUBLIC.
            before TYPE string,
            after TYPE string,
            pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           app TYPE check_suite_app,
+           app TYPE string,
            repository TYPE minimal_repository,
            created_at TYPE string,
            updated_at TYPE string,
@@ -2009,13 +1965,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF collaborator.
 
 * Component schema: repository-invitation, object
-  TYPES repository_invitation_inviter TYPE string. "   todo
-  TYPES repository_invitation_invitee TYPE string. "   todo
   TYPES: BEGIN OF repository_invitation,
            id TYPE i,
            repository TYPE minimal_repository,
-           invitee TYPE repository_invitation_invitee,
-           inviter TYPE repository_invitation_inviter,
+           invitee TYPE string,
+           inviter TYPE string,
            permissions TYPE string,
            created_at TYPE string,
            expired TYPE abap_bool,
@@ -2025,7 +1979,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF repository_invitation.
 
 * Component schema: commit-comment, object
-  TYPES commit_comment_user TYPE string. "   todo
   TYPES: BEGIN OF commit_comment,
            html_url TYPE string,
            url TYPE string,
@@ -2036,7 +1989,7 @@ INTERFACE zif_githubae PUBLIC.
            position TYPE i,
            line TYPE i,
            commit_id TYPE string,
-           user TYPE commit_comment_user,
+           user TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            author_association TYPE author_association,
@@ -2088,25 +2041,20 @@ INTERFACE zif_githubae PUBLIC.
            review_comment TYPE link,
            self TYPE link,
          END OF pull_request_simple__links.
-  TYPES pull_request_simple_base_user TYPE string. "   todo
   TYPES: BEGIN OF pull_request_simple_base,
            label TYPE string,
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
-           user TYPE pull_request_simple_base_user,
+           user TYPE string,
          END OF pull_request_simple_base.
-  TYPES pull_request_simple_head_user TYPE string. "   todo
   TYPES: BEGIN OF pull_request_simple_head,
            label TYPE string,
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
-           user TYPE pull_request_simple_head_user,
+           user TYPE string,
          END OF pull_request_simple_head.
-  TYPES pull_request_simple_assignee TYPE string. "   todo
-  TYPES pull_request_simple_milestone TYPE string. "   todo
-  TYPES pull_request_simple_user TYPE string. "   todo
   TYPES: BEGIN OF pull_request_simple,
            url TYPE string,
            id TYPE i,
@@ -2124,17 +2072,17 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            locked TYPE abap_bool,
            title TYPE string,
-           user TYPE pull_request_simple_user,
+           user TYPE string,
            body TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE pull_request_simple_milestone,
+           milestone TYPE string,
            active_lock_reason TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            closed_at TYPE string,
            merged_at TYPE string,
            merge_commit_sha TYPE string,
-           assignee TYPE pull_request_simple_assignee,
+           assignee TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -2386,8 +2334,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF contributor.
 
 * Component schema: deployment, object
-  TYPES deployment_performed_via_githu TYPE string. "   todo
-  TYPES deployment_creator TYPE string. "   todo
   TYPES: BEGIN OF deployment_payload,
            dummy_workaround TYPE i,
          END OF deployment_payload.
@@ -2402,25 +2348,23 @@ INTERFACE zif_githubae PUBLIC.
            original_environment TYPE string,
            environment TYPE string,
            description TYPE string,
-           creator TYPE deployment_creator,
+           creator TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            statuses_url TYPE string,
            repository_url TYPE string,
            transient_environment TYPE abap_bool,
            production_environment TYPE abap_bool,
-           performed_via_github_app TYPE deployment_performed_via_githu,
+           performed_via_github_app TYPE string,
          END OF deployment.
 
 * Component schema: deployment-status, object
-  TYPES deployment_status_performed_vi TYPE string. "   todo
-  TYPES deployment_status_creator TYPE string. "   todo
   TYPES: BEGIN OF deployment_status,
            url TYPE string,
            id TYPE i,
            node_id TYPE string,
            state TYPE string,
-           creator TYPE deployment_status_creator,
+           creator TYPE string,
            description TYPE string,
            environment TYPE string,
            target_url TYPE string,
@@ -2430,7 +2374,7 @@ INTERFACE zif_githubae PUBLIC.
            repository_url TYPE string,
            environment_url TYPE string,
            log_url TYPE string,
-           performed_via_github_app TYPE deployment_status_performed_vi,
+           performed_via_github_app TYPE string,
          END OF deployment_status.
 
 * Component schema: short-blob, object
@@ -2598,26 +2542,21 @@ INTERFACE zif_githubae PUBLIC.
          END OF issue_event_rename.
 
 * Component schema: issue-event, object
-  TYPES issue_event_requested_reviewer TYPE string. "   todo
-  TYPES issue_event_review_requester TYPE string. "   todo
-  TYPES issue_event_assigner TYPE string. "   todo
-  TYPES issue_event_assignee TYPE string. "   todo
-  TYPES issue_event_actor TYPE string. "   todo
   TYPES: BEGIN OF issue_event,
            id TYPE i,
            node_id TYPE string,
            url TYPE string,
-           actor TYPE issue_event_actor,
+           actor TYPE string,
            event TYPE string,
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
            issue TYPE issue_simple,
            label TYPE issue_event_label,
-           assignee TYPE issue_event_assignee,
-           assigner TYPE issue_event_assigner,
-           review_requester TYPE issue_event_review_requester,
-           requested_reviewer TYPE issue_event_requested_reviewer,
+           assignee TYPE string,
+           assigner TYPE string,
+           review_requester TYPE string,
+           requested_reviewer TYPE string,
            requested_team TYPE team,
            dismissed_review TYPE issue_event_dismissed_review,
            milestone TYPE issue_event_milestone,
@@ -2669,7 +2608,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF language.
 
 * Component schema: license-content, object
-  TYPES license_content_license TYPE string. "   todo
   TYPES: BEGIN OF license_content__links,
            git TYPE string,
            html TYPE string,
@@ -2688,7 +2626,7 @@ INTERFACE zif_githubae PUBLIC.
            content TYPE string,
            encoding TYPE string,
            _links TYPE license_content__links,
-           license TYPE license_content_license,
+           license TYPE string,
          END OF license_content.
 
 * Component schema: pages-source-hash, object
@@ -2709,7 +2647,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF page.
 
 * Component schema: page-build, object
-  TYPES page_build_pusher TYPE string. "   todo
   TYPES: BEGIN OF page_build_error,
            message TYPE string,
          END OF page_build_error.
@@ -2717,7 +2654,7 @@ INTERFACE zif_githubae PUBLIC.
            url TYPE string,
            status TYPE string,
            error TYPE page_build_error,
-           pusher TYPE page_build_pusher,
+           pusher TYPE string,
            commit TYPE string,
            duration TYPE i,
            created_at TYPE string,
@@ -2731,7 +2668,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF page_build_status.
 
 * Component schema: pull-request, object
-  TYPES pull_request_merged_by TYPE string. "   todo
   TYPES: BEGIN OF pull_request__links,
            comments TYPE link,
            commits TYPE link,
@@ -2762,7 +2698,6 @@ INTERFACE zif_githubae PUBLIC.
            type TYPE string,
            url TYPE string,
          END OF pull_request_base_user.
-  TYPES pull_request_base_repo_license TYPE string. "   todo
   TYPES: BEGIN OF pull_request_base_repo_permiss,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
@@ -2858,7 +2793,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_merge_commit TYPE abap_bool,
            allow_squash_merge TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
-           license TYPE pull_request_base_repo_license,
+           license TYPE string,
            pushed_at TYPE string,
            size TYPE i,
            ssh_url TYPE string,
@@ -3018,9 +2953,6 @@ INTERFACE zif_githubae PUBLIC.
            sha TYPE string,
            user TYPE pull_request_head_user,
          END OF pull_request_head.
-  TYPES pull_request_assignee TYPE string. "   todo
-  TYPES pull_request_milestone TYPE string. "   todo
-  TYPES pull_request_user TYPE string. "   todo
   TYPES: BEGIN OF pull_request,
            url TYPE string,
            id TYPE i,
@@ -3038,17 +2970,17 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            locked TYPE abap_bool,
            title TYPE string,
-           user TYPE pull_request_user,
+           user TYPE string,
            body TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE pull_request_milestone,
+           milestone TYPE string,
            active_lock_reason TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            closed_at TYPE string,
            merged_at TYPE string,
            merge_commit_sha TYPE string,
-           assignee TYPE pull_request_assignee,
+           assignee TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -3062,7 +2994,7 @@ INTERFACE zif_githubae PUBLIC.
            mergeable TYPE abap_bool,
            rebaseable TYPE abap_bool,
            mergeable_state TYPE string,
-           merged_by TYPE pull_request_merged_by,
+           merged_by TYPE string,
            comments TYPE i,
            review_comments TYPE i,
            maintainer_can_modify TYPE abap_bool,
@@ -3142,11 +3074,10 @@ INTERFACE zif_githubae PUBLIC.
            html TYPE pull_request_review__links_htm,
            pull_request TYPE pull_request_review__links_pul,
          END OF pull_request_review__links.
-  TYPES pull_request_review_user TYPE string. "   todo
   TYPES: BEGIN OF pull_request_review,
            id TYPE i,
            node_id TYPE string,
-           user TYPE pull_request_review_user,
+           user TYPE string,
            body TYPE string,
            state TYPE string,
            html_url TYPE string,
@@ -3165,7 +3096,6 @@ INTERFACE zif_githubae PUBLIC.
            html TYPE link,
            pull_request TYPE link,
          END OF review_comment__links.
-  TYPES review_comment_user TYPE string. "   todo
   TYPES: BEGIN OF review_comment,
            url TYPE string,
            pull_request_review_id TYPE i,
@@ -3178,7 +3108,7 @@ INTERFACE zif_githubae PUBLIC.
            commit_id TYPE string,
            original_commit_id TYPE string,
            in_reply_to_id TYPE i,
-           user TYPE review_comment_user,
+           user TYPE string,
            body TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
@@ -3197,7 +3127,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF review_comment.
 
 * Component schema: release-asset, object
-  TYPES release_asset_uploader TYPE string. "   todo
   TYPES: BEGIN OF release_asset,
            url TYPE string,
            browser_download_url TYPE string,
@@ -3211,7 +3140,7 @@ INTERFACE zif_githubae PUBLIC.
            download_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
-           uploader TYPE release_asset_uploader,
+           uploader TYPE string,
          END OF release_asset.
 
 * Component schema: release, object
@@ -3239,10 +3168,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF release.
 
 * Component schema: stargazer, object
-  TYPES stargazer_user TYPE string. "   todo
   TYPES: BEGIN OF stargazer,
            starred_at TYPE string,
-           user TYPE stargazer_user,
+           user TYPE string,
          END OF stargazer.
 
 * Component schema: code-frequency-stat, array
@@ -3256,9 +3184,8 @@ INTERFACE zif_githubae PUBLIC.
          END OF commit_activity.
 
 * Component schema: contributor-activity, object
-  TYPES contributor_activity_author TYPE string. "   todo
   TYPES: BEGIN OF contributor_activity,
-           author TYPE contributor_activity_author,
+           author TYPE string,
            total TYPE i,
            weeks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF contributor_activity.
@@ -3318,13 +3245,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF code_search_result_item.
 
 * Component schema: commit-search-result-item, object
-  TYPES commit_search_result_item_co04 TYPE string. "   todo
-  TYPES commit_search_result_item_auth TYPE string. "   todo
-  TYPES: BEGIN OF commit_search_result_item_co03,
+  TYPES: BEGIN OF commit_search_result_item_co02,
            sha TYPE string,
            url TYPE string,
-         END OF commit_search_result_item_co03.
-  TYPES commit_search_result_item_co02 TYPE string. "   todo
+         END OF commit_search_result_item_co02.
   TYPES: BEGIN OF commit_search_result_item_co01,
            name TYPE string,
            email TYPE string,
@@ -3332,10 +3256,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF commit_search_result_item_co01.
   TYPES: BEGIN OF commit_search_result_item_comm,
            author TYPE commit_search_result_item_co01,
-           committer TYPE commit_search_result_item_co02,
+           committer TYPE string,
            comment_count TYPE i,
            message TYPE string,
-           tree TYPE commit_search_result_item_co03,
+           tree TYPE commit_search_result_item_co02,
            url TYPE string,
            verification TYPE verification,
          END OF commit_search_result_item_comm.
@@ -3345,8 +3269,8 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            comments_url TYPE string,
            commit TYPE commit_search_result_item_comm,
-           author TYPE commit_search_result_item_auth,
-           committer TYPE commit_search_result_item_co04,
+           author TYPE string,
+           committer TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            repository TYPE minimal_repository,
            score TYPE i,
@@ -3355,7 +3279,6 @@ INTERFACE zif_githubae PUBLIC.
          END OF commit_search_result_item.
 
 * Component schema: issue-search-result-item, object
-  TYPES issue_search_result_item_perfo TYPE string. "   todo
   TYPES: BEGIN OF issue_search_result_item_pull_,
            merged_at TYPE string,
            diff_url TYPE string,
@@ -3363,9 +3286,6 @@ INTERFACE zif_githubae PUBLIC.
            patch_url TYPE string,
            url TYPE string,
          END OF issue_search_result_item_pull_.
-  TYPES issue_search_result_item_miles TYPE string. "   todo
-  TYPES issue_search_result_item_assig TYPE string. "   todo
-  TYPES issue_search_result_item_user TYPE string. "   todo
   TYPES: BEGIN OF issue_search_result_item,
            url TYPE string,
            repository_url TYPE string,
@@ -3380,11 +3300,11 @@ INTERFACE zif_githubae PUBLIC.
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           user TYPE issue_search_result_item_user,
+           user TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            state TYPE string,
-           assignee TYPE issue_search_result_item_assig,
-           milestone TYPE issue_search_result_item_miles,
+           assignee TYPE string,
+           milestone TYPE string,
            comments TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
@@ -3399,7 +3319,7 @@ INTERFACE zif_githubae PUBLIC.
            body_html TYPE string,
            body_text TYPE string,
            timeline_url TYPE string,
-           performed_via_github_app TYPE issue_search_result_item_perfo,
+           performed_via_github_app TYPE string,
          END OF issue_search_result_item.
 
 * Component schema: label-search-result-item, object
@@ -3421,14 +3341,12 @@ INTERFACE zif_githubae PUBLIC.
            pull TYPE abap_bool,
            push TYPE abap_bool,
          END OF repo_search_result_item_permis.
-  TYPES repo_search_result_item_licens TYPE string. "   todo
-  TYPES repo_search_result_item_owner TYPE string. "   todo
   TYPES: BEGIN OF repo_search_result_item,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE repo_search_result_item_owner,
+           owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -3499,7 +3417,7 @@ INTERFACE zif_githubae PUBLIC.
            has_downloads TYPE abap_bool,
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
-           license TYPE repo_search_result_item_licens,
+           license TYPE string,
            permissions TYPE repo_search_result_item_permis,
            text_matches TYPE search_result_text_matches,
            temp_clone_token TYPE string,
@@ -3846,14 +3764,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyenterprise_admin_disable_e.
 
 * Component schema: bodygists_create, object
-  TYPES bodygists_create_public TYPE string. "   todo
   TYPES: BEGIN OF bodygists_create_files,
            dummy_workaround TYPE i,
          END OF bodygists_create_files.
   TYPES: BEGIN OF bodygists_create,
            description TYPE string,
            files TYPE bodygists_create_files,
-           public TYPE bodygists_create_public,
+           public TYPE string,
          END OF bodygists_create.
 
 * Component schema: bodygists_update, object
@@ -4154,9 +4071,6 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF bodyprojects_delete_column,
            name TYPE string,
          END OF bodyprojects_delete_column.
-
-* Component schema: bodyprojects_create_card, 
-  TYPES bodyprojects_create_card TYPE string. "   todo
 
 * Component schema: bodyprojects_move_column, object
   TYPES: BEGIN OF bodyprojects_move_column,
@@ -4519,13 +4433,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_delete_file.
 
 * Component schema: bodyrepos_create_deployment, object
-  TYPES bodyrepos_create_deployment_pa TYPE string. "   todo
   TYPES: BEGIN OF bodyrepos_create_deployment,
            ref TYPE string,
            task TYPE string,
            auto_merge TYPE abap_bool,
            required_contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           payload TYPE bodyrepos_create_deployment_pa,
+           payload TYPE string,
            environment TYPE string,
            description TYPE string,
            transient_environment TYPE abap_bool,
@@ -4683,13 +4596,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_delete_invitation.
 
 * Component schema: bodyissues_create, object
-  TYPES bodyissues_create_milestone TYPE string. "   todo
-  TYPES bodyissues_create_title TYPE string. "   todo
   TYPES: BEGIN OF bodyissues_create,
-           title TYPE bodyissues_create_title,
+           title TYPE string,
            body TYPE string,
            assignee TYPE string,
-           milestone TYPE bodyissues_create_milestone,
+           milestone TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyissues_create.
@@ -4710,14 +4621,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyreactions_create_for_issue.
 
 * Component schema: bodyissues_update, object
-  TYPES bodyissues_update_milestone TYPE string. "   todo
-  TYPES bodyissues_update_title TYPE string. "   todo
   TYPES: BEGIN OF bodyissues_update,
-           title TYPE bodyissues_update_title,
+           title TYPE string,
            body TYPE string,
            assignee TYPE string,
            state TYPE string,
-           milestone TYPE bodyissues_update_milestone,
+           milestone TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyissues_update.
@@ -4841,19 +4750,17 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_create_pages_site.
 
 * Component schema: bodyrepos_update_information_a, object
-  TYPES bodyrepos_update_information01 TYPE string. "   todo
   TYPES: BEGIN OF bodyrepos_update_information_a,
            cname TYPE string,
            public TYPE abap_bool,
-           source TYPE bodyrepos_update_information01,
+           source TYPE string,
          END OF bodyrepos_update_information_a.
 
 * Component schema: bodyrepos_delete_pages_site, object
-  TYPES bodyrepos_delete_pages_site_so TYPE string. "   todo
   TYPES: BEGIN OF bodyrepos_delete_pages_site,
            cname TYPE string,
            public TYPE abap_bool,
-           source TYPE bodyrepos_delete_pages_site_so,
+           source TYPE string,
          END OF bodyrepos_delete_pages_site.
 
 * Component schema: bodyprojects_create_for_repo, object
@@ -5211,11 +5118,771 @@ INTERFACE zif_githubae PUBLIC.
            reason TYPE string,
          END OF bodyenterprise_admin_unsuspend.
 
+* Component schema: response_meta_root, object
+  TYPES: BEGIN OF response_meta_root,
+           current_user_url TYPE string,
+           current_user_authorizations_ht TYPE string,
+           authorizations_url TYPE string,
+           code_search_url TYPE string,
+           commit_search_url TYPE string,
+           emails_url TYPE string,
+           emojis_url TYPE string,
+           events_url TYPE string,
+           feeds_url TYPE string,
+           followers_url TYPE string,
+           following_url TYPE string,
+           gists_url TYPE string,
+           hub_url TYPE string,
+           issue_search_url TYPE string,
+           issues_url TYPE string,
+           keys_url TYPE string,
+           label_search_url TYPE string,
+           notifications_url TYPE string,
+           organization_url TYPE string,
+           organization_repositories_url TYPE string,
+           organization_teams_url TYPE string,
+           public_gists_url TYPE string,
+           rate_limit_url TYPE string,
+           repository_url TYPE string,
+           repository_search_url TYPE string,
+           current_user_repositories_url TYPE string,
+           starred_url TYPE string,
+           starred_gists_url TYPE string,
+           topic_search_url TYPE string,
+           user_url TYPE string,
+           user_organizations_url TYPE string,
+           user_repositories_url TYPE string,
+           user_search_url TYPE string,
+         END OF response_meta_root.
+
+* Component schema: response_enterprise_admin_list_global_w, array
+  TYPES response_enterprise_admin_list TYPE STANDARD TABLE OF global_hook WITH DEFAULT KEY.
+
+* Component schema: response_enterprise_admin_list_public_k, array
+  TYPES response_enterprise_admin_li01 TYPE STANDARD TABLE OF enterprise_public_key WITH DEFAULT KEY.
+
+* Component schema: response_enterprise_admin_update_org_na, object
+  TYPES: BEGIN OF response_enterprise_admin_upda,
+           message TYPE string,
+           url TYPE string,
+         END OF response_enterprise_admin_upda.
+
+* Component schema: response_enterprise_admin_list_pre_rece, array
+  TYPES response_enterprise_admin_li02 TYPE STANDARD TABLE OF pre_receive_environment WITH DEFAULT KEY.
+
+* Component schema: response_enterprise_admin_update_pre_re, object
+  TYPES: BEGIN OF response_enterprise_admin_up01,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_up01.
+
+* Component schema: response_enterprise_admin_delete_pre_re, object
+  TYPES: BEGIN OF response_enterprise_admin_dele,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_dele.
+
+* Component schema: response_enterprise_admin_start_pre_rec, object
+  TYPES: BEGIN OF response_enterprise_admin_star,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_star.
+
+* Component schema: response_enterprise_admin_list_personal, array
+  TYPES response_enterprise_admin_li03 TYPE STANDARD TABLE OF authorization WITH DEFAULT KEY.
+
+* Component schema: response_apps_list_installations, array
+  TYPES response_apps_list_installatio TYPE STANDARD TABLE OF installation WITH DEFAULT KEY.
+
+* Component schema: response_codes_of_conduct_get_all_codes, array
+  TYPES response_codes_of_conduct_get_ TYPE STANDARD TABLE OF code_of_conduct WITH DEFAULT KEY.
+
+* Component schema: response_emojis_get, object
+  TYPES: BEGIN OF response_emojis_get,
+           dummy_workaround TYPE i,
+         END OF response_emojis_get.
+
+* Component schema: response_activity_list_public_events, array
+  TYPES response_activity_list_public_ TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_gists_list, array
+  TYPES response_gists_list TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_public, array
+  TYPES response_gists_list_public TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_starred, array
+  TYPES response_gists_list_starred TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_comments, array
+  TYPES response_gists_list_comments TYPE STANDARD TABLE OF gist_comment WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_commits, array
+  TYPES response_gists_list_commits TYPE STANDARD TABLE OF gist_commit WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_forks, array
+  TYPES response_gists_list_forks TYPE STANDARD TABLE OF gist_simple WITH DEFAULT KEY.
+
+* Component schema: response_gists_check_is_starred, object
+  TYPES: BEGIN OF response_gists_check_is_starre,
+           dummy_workaround TYPE i,
+         END OF response_gists_check_is_starre.
+
+* Component schema: response_gitignore_get_all_templates, array
+  TYPES response_gitignore_get_all_tem TYPE string. " array  todo
+
+* Component schema: response_apps_list_repos_accessible_to_, object
+  TYPES: BEGIN OF response_apps_list_repos_acces,
+           total_count TYPE i,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           repository_selection TYPE string,
+         END OF response_apps_list_repos_acces.
+
+* Component schema: response_issues_list, array
+  TYPES response_issues_list TYPE STANDARD TABLE OF issue WITH DEFAULT KEY.
+
+* Component schema: response_licenses_get_all_commonly_used, array
+  TYPES response_licenses_get_all_comm TYPE STANDARD TABLE OF license_simple WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_public_events_fo, array
+  TYPES response_activity_list_publi01 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_notifications_fo, array
+  TYPES response_activity_list_notific TYPE STANDARD TABLE OF thread WITH DEFAULT KEY.
+
+* Component schema: response_activity_mark_notifications_as, object
+  TYPES: BEGIN OF response_activity_mark_notific,
+           message TYPE string,
+         END OF response_activity_mark_notific.
+
+* Component schema: response_orgs_list, array
+  TYPES response_orgs_list TYPE STANDARD TABLE OF organization_simple WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_public_org_event, array
+  TYPES response_activity_list_publi02 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_webhooks, array
+  TYPES response_orgs_list_webhooks TYPE STANDARD TABLE OF org_hook WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_app_installations, object
+  TYPES: BEGIN OF response_orgs_list_app_install,
+           total_count TYPE i,
+           installations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_orgs_list_app_install.
+
+* Component schema: response_issues_list_for_org, array
+  TYPES response_issues_list_for_org TYPE STANDARD TABLE OF issue WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_members, array
+  TYPES response_orgs_list_members TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_outside_collaborator, array
+  TYPES response_orgs_list_outside_col TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_orgs_convert_member_to_outside, object
+  TYPES: BEGIN OF response_orgs_convert_member_t,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_orgs_convert_member_t.
+
+* Component schema: response_orgs_remove_outside_collaborat, object
+  TYPES: BEGIN OF response_orgs_remove_outside_c,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_orgs_remove_outside_c.
+
+* Component schema: response_projects_list_for_org, array
+  TYPES response_projects_list_for_org TYPE STANDARD TABLE OF project WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_public_members, array
+  TYPES response_orgs_list_public_memb TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_for_org, array
+  TYPES response_repos_list_for_org TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_teams_list, array
+  TYPES response_teams_list TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_discussions_in_org, array
+  TYPES response_teams_list_discussion TYPE STANDARD TABLE OF team_discussion WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_discussion_comments, array
+  TYPES response_teams_list_discussi01 TYPE STANDARD TABLE OF team_discussion_comment WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_team_discus, array
+  TYPES response_reactions_list_for_te TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_team_disc01, array
+  TYPES response_reactions_list_for_01 TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_members_in_org, array
+  TYPES response_teams_list_members_in TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_teams_add_or_update_membership, object
+  TYPES: BEGIN OF response_teams_add_or_update_m,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_teams_add_or_update_m.
+
+* Component schema: response_teams_list_projects_in_org, array
+  TYPES response_teams_list_projects_i TYPE STANDARD TABLE OF team_project WITH DEFAULT KEY.
+
+* Component schema: response_teams_add_or_update_project_pe, object
+  TYPES: BEGIN OF response_teams_add_or_update_p,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_teams_add_or_update_p.
+
+* Component schema: response_teams_list_repos_in_org, array
+  TYPES response_teams_list_repos_in_o TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_child_in_org, array
+  TYPES response_teams_list_child_in_o TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_projects_delete_card, object
+  TYPES: BEGIN OF response_projects_delete_card,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_delete_card.
+
+* Component schema: response_projects_move_card, object
+  TYPES: BEGIN OF response_projects_move_card,
+           dummy_workaround TYPE i,
+         END OF response_projects_move_card.
+
+* Component schema: response_projects_move_card, object
+  TYPES: BEGIN OF response_projects_move_card01,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_move_card01.
+
+* Component schema: response_projects_move_card, object
+  TYPES: BEGIN OF response_projects_move_card02,
+           code TYPE string,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_move_card02.
+
+* Component schema: response_projects_list_cards, array
+  TYPES response_projects_list_cards TYPE STANDARD TABLE OF project_card WITH DEFAULT KEY.
+
+* Component schema: response_projects_create_card, object
+  TYPES: BEGIN OF response_projects_create_card,
+           code TYPE string,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_create_card.
+
+* Component schema: response_projects_move_column, object
+  TYPES: BEGIN OF response_projects_move_column,
+           dummy_workaround TYPE i,
+         END OF response_projects_move_column.
+
+* Component schema: response_projects_update, object
+  TYPES: BEGIN OF response_projects_update,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_update.
+
+* Component schema: response_projects_delete, object
+  TYPES: BEGIN OF response_projects_delete,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_projects_delete.
+
+* Component schema: response_projects_list_collaborators, array
+  TYPES response_projects_list_collabo TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_projects_list_columns, array
+  TYPES response_projects_list_columns TYPE STANDARD TABLE OF project_column WITH DEFAULT KEY.
+
+* Component schema: response_repos_delete, object
+  TYPES: BEGIN OF response_repos_delete,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_repos_delete.
+
+* Component schema: response_issues_list_assignees, array
+  TYPES response_issues_list_assignees TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_branches, array
+  TYPES response_repos_list_branches TYPE STANDARD TABLE OF short_branch WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_all_status_check_con, array
+  TYPES response_repos_get_all_status_ TYPE string. " array  todo
+
+* Component schema: response_repos_add_status_check_context, array
+  TYPES response_repos_add_status_chec TYPE string. " array  todo
+
+* Component schema: response_repos_set_status_check_context, array
+  TYPES response_repos_set_status_chec TYPE string. " array  todo
+
+* Component schema: response_repos_remove_status_check_cont, array
+  TYPES response_repos_remove_status_c TYPE string. " array  todo
+
+* Component schema: response_repos_get_apps_with_access_to_, array
+  TYPES response_repos_get_apps_with_a TYPE STANDARD TABLE OF integration WITH DEFAULT KEY.
+
+* Component schema: response_repos_add_app_access_restricti, array
+  TYPES response_repos_add_app_access_ TYPE STANDARD TABLE OF integration WITH DEFAULT KEY.
+
+* Component schema: response_repos_set_app_access_restricti, array
+  TYPES response_repos_set_app_access_ TYPE STANDARD TABLE OF integration WITH DEFAULT KEY.
+
+* Component schema: response_repos_remove_app_access_restri, array
+  TYPES response_repos_remove_app_acce TYPE STANDARD TABLE OF integration WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_teams_with_access_to, array
+  TYPES response_repos_get_teams_with_ TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_repos_add_team_access_restrict, array
+  TYPES response_repos_add_team_access TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_repos_set_team_access_restrict, array
+  TYPES response_repos_set_team_access TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_repos_remove_team_access_restr, array
+  TYPES response_repos_remove_team_acc TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_users_with_access_to, array
+  TYPES response_repos_get_users_with_ TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_add_user_access_restrict, array
+  TYPES response_repos_add_user_access TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_set_user_access_restrict, array
+  TYPES response_repos_set_user_access TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_remove_user_access_restr, array
+  TYPES response_repos_remove_user_acc TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_checks_list_annotations, array
+  TYPES response_checks_list_annotatio TYPE STANDARD TABLE OF check_annotation WITH DEFAULT KEY.
+
+* Component schema: response_checks_list_for_suite, object
+  TYPES: BEGIN OF response_checks_list_for_suite,
+           total_count TYPE i,
+           check_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_checks_list_for_suite.
+
+* Component schema: response_repos_list_collaborators, array
+  TYPES response_repos_list_collaborat TYPE STANDARD TABLE OF collaborator WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_commit_comments_for, array
+  TYPES response_repos_list_commit_com TYPE STANDARD TABLE OF commit_comment WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_commit_comm, array
+  TYPES response_reactions_list_for_co TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_commits, array
+  TYPES response_repos_list_commits TYPE STANDARD TABLE OF commit WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_branches_for_head_c, array
+  TYPES response_repos_list_branches_f TYPE STANDARD TABLE OF branch_short WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_comments_for_commit, array
+  TYPES response_repos_list_comments_f TYPE STANDARD TABLE OF commit_comment WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_pull_requests_assoc, array
+  TYPES response_repos_list_pull_reque TYPE STANDARD TABLE OF pull_request_simple WITH DEFAULT KEY.
+
+* Component schema: response_checks_list_for_ref, object
+  TYPES: BEGIN OF response_checks_list_for_ref,
+           total_count TYPE i,
+           check_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_checks_list_for_ref.
+
+* Component schema: response_checks_list_suites_for_ref, object
+  TYPES: BEGIN OF response_checks_list_suites_fo,
+           total_count TYPE i,
+           check_suites TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_checks_list_suites_fo.
+
+* Component schema: response_repos_list_commit_statuses_for, array
+  TYPES response_repos_list_commit_sta TYPE STANDARD TABLE OF status WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_contributors, array
+  TYPES response_repos_list_contributo TYPE STANDARD TABLE OF contributor WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_deployments, array
+  TYPES response_repos_list_deployment TYPE STANDARD TABLE OF deployment WITH DEFAULT KEY.
+
+* Component schema: response_repos_create_deployment, object
+  TYPES: BEGIN OF response_repos_create_deployme,
+           message TYPE string,
+         END OF response_repos_create_deployme.
+
+* Component schema: response_repos_create_deployment, object
+  TYPES: BEGIN OF response_repos_create_deploy01,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_repos_create_deploy01.
+
+* Component schema: response_repos_list_deployment_statuses, array
+  TYPES response_repos_list_deployme01 TYPE STANDARD TABLE OF deployment_status WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_repo_events, array
+  TYPES response_activity_list_repo_ev TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_forks, array
+  TYPES response_repos_list_forks TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_git_list_matching_refs, array
+  TYPES response_git_list_matching_ref TYPE STANDARD TABLE OF git_ref WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_webhooks, array
+  TYPES response_repos_list_webhooks TYPE STANDARD TABLE OF hook WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_invitations, array
+  TYPES response_repos_list_invitation TYPE STANDARD TABLE OF repository_invitation WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_for_repo, array
+  TYPES response_issues_list_for_repo TYPE STANDARD TABLE OF issue_simple WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_comments_for_repo, array
+  TYPES response_issues_list_comments_ TYPE STANDARD TABLE OF issue_comment WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_issue_comme, array
+  TYPES response_reactions_list_for_is TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_events_for_repo, array
+  TYPES response_issues_list_events_fo TYPE STANDARD TABLE OF issue_event WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_comments, array
+  TYPES response_issues_list_comments TYPE STANDARD TABLE OF issue_comment WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_events, array
+  TYPES response_issues_list_events TYPE STANDARD TABLE OF issue_event_for_issue WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_labels_on_issue, array
+  TYPES response_issues_list_labels_on TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_issues_add_labels, array
+  TYPES response_issues_add_labels TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_issues_set_labels, array
+  TYPES response_issues_set_labels TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_issues_remove_label, array
+  TYPES response_issues_remove_label TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_issue, array
+  TYPES response_reactions_list_for_02 TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_events_for_timelin, array
+  TYPES response_issues_list_events_01 TYPE STANDARD TABLE OF issue_event_for_issue WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_deploy_keys, array
+  TYPES response_repos_list_deploy_key TYPE STANDARD TABLE OF deploy_key WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_labels_for_repo, array
+  TYPES response_issues_list_labels_fo TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_repos_merge, object
+  TYPES: BEGIN OF response_repos_merge,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_repos_merge.
+
+* Component schema: response_repos_merge, object
+  TYPES: BEGIN OF response_repos_merge01,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_repos_merge01.
+
+* Component schema: response_issues_list_milestones, array
+  TYPES response_issues_list_milestone TYPE STANDARD TABLE OF milestone WITH DEFAULT KEY.
+
+* Component schema: response_issues_list_labels_for_milesto, array
+  TYPES response_issues_list_labels_01 TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_repo_notificatio, array
+  TYPES response_activity_list_repo_no TYPE STANDARD TABLE OF thread WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_pages_builds, array
+  TYPES response_repos_list_pages_buil TYPE STANDARD TABLE OF page_build WITH DEFAULT KEY.
+
+* Component schema: response_projects_list_for_repo, array
+  TYPES response_projects_list_for_rep TYPE STANDARD TABLE OF project WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list, array
+  TYPES response_pulls_list TYPE STANDARD TABLE OF pull_request_simple WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list_review_comments_for, array
+  TYPES response_pulls_list_review_com TYPE STANDARD TABLE OF pull_request_review_comment WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_pull_reques, array
+  TYPES response_reactions_list_for_pu TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list_review_comments, array
+  TYPES response_pulls_list_review_c01 TYPE STANDARD TABLE OF pull_request_review_comment WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list_commits, array
+  TYPES response_pulls_list_commits TYPE STANDARD TABLE OF commit WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list_files, array
+  TYPES response_pulls_list_files TYPE STANDARD TABLE OF diff_entry WITH DEFAULT KEY.
+
+* Component schema: response_pulls_merge, object
+  TYPES: BEGIN OF response_pulls_merge,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_pulls_merge.
+
+* Component schema: response_pulls_merge, object
+  TYPES: BEGIN OF response_pulls_merge01,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_pulls_merge01.
+
+* Component schema: response_pulls_list_reviews, array
+  TYPES response_pulls_list_reviews TYPE STANDARD TABLE OF pull_request_review WITH DEFAULT KEY.
+
+* Component schema: response_pulls_list_comments_for_review, array
+  TYPES response_pulls_list_comments_f TYPE STANDARD TABLE OF review_comment WITH DEFAULT KEY.
+
+* Component schema: response_pulls_update_branch, object
+  TYPES: BEGIN OF response_pulls_update_branch,
+           message TYPE string,
+           url TYPE string,
+         END OF response_pulls_update_branch.
+
+* Component schema: response_repos_list_releases, array
+  TYPES response_repos_list_releases TYPE STANDARD TABLE OF release WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_release_assets, array
+  TYPES response_repos_list_release_as TYPE STANDARD TABLE OF release_asset WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_stargazers_for_r, array
+  TYPES response_activity_list_stargaz TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_code_frequency_stats, array
+  TYPES response_repos_get_code_freque TYPE STANDARD TABLE OF code_frequency_stat WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_commit_activity_stat, array
+  TYPES response_repos_get_commit_acti TYPE STANDARD TABLE OF commit_activity WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_contributors_stats, array
+  TYPES response_repos_get_contributor TYPE STANDARD TABLE OF contributor_activity WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_punch_card_stats, array
+  TYPES response_repos_get_punch_card_ TYPE STANDARD TABLE OF code_frequency_stat WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_watchers_for_rep, array
+  TYPES response_activity_list_watcher TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_tags, array
+  TYPES response_repos_list_tags TYPE STANDARD TABLE OF tag WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_teams, array
+  TYPES response_repos_list_teams TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_public, array
+  TYPES response_repos_list_public TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_search_code, object
+  TYPES: BEGIN OF response_search_code,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_code.
+
+* Component schema: response_search_commits, object
+  TYPES: BEGIN OF response_search_commits,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_commits.
+
+* Component schema: response_search_issues_and_pull_request, object
+  TYPES: BEGIN OF response_search_issues_and_pul,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_issues_and_pul.
+
+* Component schema: response_search_labels, object
+  TYPES: BEGIN OF response_search_labels,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_labels.
+
+* Component schema: response_search_repos, object
+  TYPES: BEGIN OF response_search_repos,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_repos.
+
+* Component schema: response_search_topics, object
+  TYPES: BEGIN OF response_search_topics,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_topics.
+
+* Component schema: response_search_users, object
+  TYPES: BEGIN OF response_search_users,
+           total_count TYPE i,
+           incomplete_results TYPE abap_bool,
+           items TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_search_users.
+
+* Component schema: response_teams_list_discussions_legacy, array
+  TYPES response_teams_list_discussi02 TYPE STANDARD TABLE OF team_discussion WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_discussion_commen01, array
+  TYPES response_teams_list_discussi03 TYPE STANDARD TABLE OF team_discussion_comment WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_team_disc02, array
+  TYPES response_reactions_list_for_03 TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_team_disc03, array
+  TYPES response_reactions_list_for_04 TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_members_legacy, array
+  TYPES response_teams_list_members_le TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_teams_add_member_legacy, object
+  TYPES: BEGIN OF response_teams_add_member_lega,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           documentation_url TYPE string,
+         END OF response_teams_add_member_lega.
+
+* Component schema: response_teams_add_or_update_membersh01, object
+  TYPES: BEGIN OF response_teams_add_or_update01,
+           message TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           documentation_url TYPE string,
+         END OF response_teams_add_or_update01.
+
+* Component schema: response_teams_list_projects_legacy, array
+  TYPES response_teams_list_projects_l TYPE STANDARD TABLE OF team_project WITH DEFAULT KEY.
+
+* Component schema: response_teams_add_or_update_project_01, object
+  TYPES: BEGIN OF response_teams_add_or_update02,
+           message TYPE string,
+           documentation_url TYPE string,
+         END OF response_teams_add_or_update02.
+
+* Component schema: response_teams_list_repos_legacy, array
+  TYPES response_teams_list_repos_lega TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_child_legacy, array
+  TYPES response_teams_list_child_lega TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
+
+* Component schema: response_users_list_followers_for_authe, array
+  TYPES response_users_list_followers_ TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_users_list_followed_by_authent, array
+  TYPES response_users_list_followed_b TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_users_list_gpg_keys_for_authen, array
+  TYPES response_users_list_gpg_keys_f TYPE STANDARD TABLE OF gpg_key WITH DEFAULT KEY.
+
+* Component schema: response_apps_list_installations_for_au, object
+  TYPES: BEGIN OF response_apps_list_installat01,
+           total_count TYPE i,
+           installations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_apps_list_installat01.
+
+* Component schema: response_apps_list_installation_repos_f, object
+  TYPES: BEGIN OF response_apps_list_installat02,
+           total_count TYPE i,
+           repository_selection TYPE string,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_apps_list_installat02.
+
+* Component schema: response_issues_list_for_authenticated_, array
+  TYPES response_issues_list_for_authe TYPE STANDARD TABLE OF issue WITH DEFAULT KEY.
+
+* Component schema: response_users_list_public_ssh_keys_for, array
+  TYPES response_users_list_public_ssh TYPE STANDARD TABLE OF key WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_memberships_for_auth, array
+  TYPES response_orgs_list_memberships TYPE STANDARD TABLE OF org_membership WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_for_authenticated_us, array
+  TYPES response_orgs_list_for_authent TYPE STANDARD TABLE OF organization_simple WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_for_authenticated_u, array
+  TYPES response_repos_list_for_authen TYPE STANDARD TABLE OF repository WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_invitations_for_aut, array
+  TYPES response_repos_list_invitati01 TYPE STANDARD TABLE OF repository_invitation WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_repos_starred_by, array
+  TYPES response_activity_list_repos_s TYPE STANDARD TABLE OF repository WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_watched_repos_fo, array
+  TYPES response_activity_list_watched TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_teams_list_for_authenticated_u, array
+  TYPES response_teams_list_for_authen TYPE STANDARD TABLE OF team_full WITH DEFAULT KEY.
+
+* Component schema: response_users_list, array
+  TYPES response_users_list TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_events_for_authe, array
+  TYPES response_activity_list_events_ TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_org_events_for_a, array
+  TYPES response_activity_list_org_eve TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_public_events_01, array
+  TYPES response_activity_list_publi03 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_users_list_followers_for_user, array
+  TYPES response_users_list_follower01 TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_users_list_following_for_user, array
+  TYPES response_users_list_following_ TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_gists_list_for_user, array
+  TYPES response_gists_list_for_user TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
+
+* Component schema: response_users_list_gpg_keys_for_user, array
+  TYPES response_users_list_gpg_keys01 TYPE STANDARD TABLE OF gpg_key WITH DEFAULT KEY.
+
+* Component schema: response_users_list_public_keys_for_use, array
+  TYPES response_users_list_public_key TYPE STANDARD TABLE OF key_simple WITH DEFAULT KEY.
+
+* Component schema: response_orgs_list_for_user, array
+  TYPES response_orgs_list_for_user TYPE STANDARD TABLE OF organization_simple WITH DEFAULT KEY.
+
+* Component schema: response_projects_list_for_user, array
+  TYPES response_projects_list_for_use TYPE STANDARD TABLE OF project WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_received_events_, array
+  TYPES response_activity_list_receive TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_received_public_, array
+  TYPES response_activity_list_recei01 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_for_user, array
+  TYPES response_repos_list_for_user TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_repos_starred_01, array
+  TYPES response_activity_list_repos01 TYPE STANDARD TABLE OF repository WITH DEFAULT KEY.
+
+* Component schema: response_activity_list_repos_watched_by, array
+  TYPES response_activity_list_repos_w TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
 * GET - "GitHub API Root"
 * Operation id: meta/root
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_meta_root
   METHODS meta_root
+    RETURNING
+      VALUE(return_data) TYPE response_meta_root
     RAISING cx_static_check.
 
 * GET - "List global webhooks"
@@ -5224,12 +5891,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_enterprise_admin_list_global_w
   METHODS enterprise_admin_list_global_w
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_list
     RAISING cx_static_check.
 
 * POST - "Create a global webhook"
@@ -5242,7 +5911,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       body TYPE bodyenterprise_admin_create_gl
-    RETURNING VALUE(return_data) TYPE global_hook
+    RETURNING
+      VALUE(return_data) TYPE global_hook
     RAISING cx_static_check.
 
 * GET - "Get a global webhook"
@@ -5255,7 +5925,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       hook_id TYPE i
-    RETURNING VALUE(return_data) TYPE global_hook
+    RETURNING
+      VALUE(return_data) TYPE global_hook
     RAISING cx_static_check.
 
 * PATCH - "Update a global webhook"
@@ -5270,7 +5941,8 @@ INTERFACE zif_githubae PUBLIC.
       accept TYPE string DEFAULT 'application/vnd.github.superpro-preview+json'
       hook_id TYPE i
       body TYPE bodyenterprise_admin_update_gl
-    RETURNING VALUE(return_data) TYPE global_hook_2
+    RETURNING
+      VALUE(return_data) TYPE global_hook_2
     RAISING cx_static_check.
 
 * DELETE - "Delete a global webhook"
@@ -5302,11 +5974,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_enterprise_admin_list_public_k
   METHODS enterprise_admin_list_public_k
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li01
     RAISING cx_static_check.
 
 * DELETE - "Delete a public key"
@@ -5326,14 +6000,15 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_create_org
     IMPORTING
       body TYPE bodyenterprise_admin_create_or
-    RETURNING VALUE(return_data) TYPE organization_simple
+    RETURNING
+      VALUE(return_data) TYPE organization_simple
     RAISING cx_static_check.
 
 * PATCH - "Update an organization name"
 * Operation id: enterprise-admin/update-org-name
 * Parameter: org, required, path
 * Response: 202
-*     application/json, object
+*     application/json, #/components/schemas/response_enterprise_admin_update_org_na
 * Body ref: #/components/schemas/bodyenterprise_admin_update_or
   METHODS enterprise_admin_update_org_na
     IMPORTING
@@ -5346,11 +6021,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_enterprise_admin_list_pre_rece
   METHODS enterprise_admin_list_pre_rece
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li02
     RAISING cx_static_check.
 
 * POST - "Create a pre-receive environment"
@@ -5361,7 +6038,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_create_pre_re
     IMPORTING
       body TYPE bodyenterprise_admin_create_pr
-    RETURNING VALUE(return_data) TYPE pre_receive_environment
+    RETURNING
+      VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
 
 * GET - "Get a pre-receive environment"
@@ -5372,7 +6050,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_get_pre_recei
     IMPORTING
       pre_receive_environment_id TYPE i
-    RETURNING VALUE(return_data) TYPE pre_receive_environment
+    RETURNING
+      VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
 
 * PATCH - "Update a pre-receive environment"
@@ -5381,13 +6060,14 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/pre-receive-environment
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_enterprise_admin_update_pre_re
 * Body ref: #/components/schemas/bodyenterprise_admin_update_pr
   METHODS enterprise_admin_update_pre_re
     IMPORTING
       pre_receive_environment_id TYPE i
       body TYPE bodyenterprise_admin_update_pr
-    RETURNING VALUE(return_data) TYPE pre_receive_environment
+    RETURNING
+      VALUE(return_data) TYPE pre_receive_environment
     RAISING cx_static_check.
 
 * DELETE - "Delete a pre-receive environment"
@@ -5395,7 +6075,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: pre_receive_environment_id, required, path
 * Response: 204
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_enterprise_admin_delete_pre_re
 * Body ref: #/components/schemas/bodyenterprise_admin_delete_pr
   METHODS enterprise_admin_delete_pre_re
     IMPORTING
@@ -5409,7 +6089,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 202
 *     application/json, #/components/schemas/pre-receive-environment-download-status
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_enterprise_admin_start_pre_rec
   METHODS enterprise_admin_start_pre_rec
     IMPORTING
       pre_receive_environment_id TYPE i
@@ -5423,7 +6103,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_get_download_
     IMPORTING
       pre_receive_environment_id TYPE i
-    RETURNING VALUE(return_data) TYPE pre_receive_environment_downlo
+    RETURNING
+      VALUE(return_data) TYPE pre_receive_environment_downlo
     RAISING cx_static_check.
 
 * GET - "List personal access tokens"
@@ -5431,11 +6112,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_enterprise_admin_list_personal
   METHODS enterprise_admin_list_personal
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li03
     RAISING cx_static_check.
 
 * DELETE - "Delete a personal access token"
@@ -5466,7 +6149,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       username TYPE string
       body TYPE bodyenterprise_admin_create_im
-    RETURNING VALUE(return_data) TYPE authorization
+    RETURNING
+      VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * DELETE - "Delete an impersonation OAuth token"
@@ -5485,14 +6169,15 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/integration
   METHODS apps_get_authenticated
-    RETURNING VALUE(return_data) TYPE integration
+    RETURNING
+      VALUE(return_data) TYPE integration
     RAISING cx_static_check.
 
 * POST - "Create a GitHub App from a manifest"
 * Operation id: apps/create-from-manifest
 * Parameter: code, required, path
 * Response: 201
-*     application/json, 
+*     application/json, string
 * Response: 404
 * Response: 422
   METHODS apps_create_from_manifest
@@ -5505,7 +6190,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/webhook-config
   METHODS apps_get_webhook_config_for_ap
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * PATCH - "Update a webhook configuration for an app"
@@ -5516,7 +6202,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS apps_update_webhook_config_for
     IMPORTING
       body TYPE bodyapps_update_webhook_config
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * GET - "List installations for the authenticated app"
@@ -5526,13 +6213,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: page, optional, query
 * Parameter: since, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_apps_list_installations
   METHODS apps_list_installations
     IMPORTING
       outdated TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
       since TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_apps_list_installatio
     RAISING cx_static_check.
 
 * GET - "Get an installation for the authenticated app"
@@ -5545,7 +6234,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS apps_get_installation
     IMPORTING
       installation_id TYPE i
-    RETURNING VALUE(return_data) TYPE installation
+    RETURNING
+      VALUE(return_data) TYPE installation
     RAISING cx_static_check.
 
 * DELETE - "Delete an installation for the authenticated app"
@@ -5573,7 +6263,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       installation_id TYPE i
       body TYPE bodyapps_create_installation_a
-    RETURNING VALUE(return_data) TYPE installation_token
+    RETURNING
+      VALUE(return_data) TYPE installation_token
     RAISING cx_static_check.
 
 * DELETE - "Delete an app authorization"
@@ -5611,7 +6302,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       client_id TYPE string
       body TYPE bodyapps_check_token
-    RETURNING VALUE(return_data) TYPE authorization
+    RETURNING
+      VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * PATCH - "Reset a token"
@@ -5625,7 +6317,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       client_id TYPE string
       body TYPE bodyapps_reset_token
-    RETURNING VALUE(return_data) TYPE authorization
+    RETURNING
+      VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * DELETE - "Delete an app token"
@@ -5645,7 +6338,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: client_id, required, path
 * Parameter: access_token, required, path
 * Response: 200
-*     application/json, 
+*     application/json, string
 * Response: 404
   METHODS apps_check_authorization
     IMPORTING
@@ -5663,7 +6356,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       client_id TYPE string
       access_token TYPE string
-    RETURNING VALUE(return_data) TYPE authorization
+    RETURNING
+      VALUE(return_data) TYPE authorization
     RAISING cx_static_check.
 
 * DELETE - "Revoke an authorization for an application"
@@ -5688,16 +6382,19 @@ INTERFACE zif_githubae PUBLIC.
   METHODS apps_get_by_slug
     IMPORTING
       app_slug TYPE string
-    RETURNING VALUE(return_data) TYPE integration
+    RETURNING
+      VALUE(return_data) TYPE integration
     RAISING cx_static_check.
 
 * GET - "Get all codes of conduct"
 * Operation id: codes-of-conduct/get-all-codes-of-conduct
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_codes_of_conduct_get_all_codes
 * Response: 304
 * Response: 415
   METHODS codes_of_conduct_get_all_codes
+    RETURNING
+      VALUE(return_data) TYPE response_codes_of_conduct_get_
     RAISING cx_static_check.
 
 * GET - "Get a code of conduct"
@@ -5711,7 +6408,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS codes_of_conduct_get_conduct_c
     IMPORTING
       key TYPE string
-    RETURNING VALUE(return_data) TYPE code_of_conduct
+    RETURNING
+      VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
 * POST - "Create a content attachment"
@@ -5730,15 +6428,18 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       content_reference_id TYPE i
       body TYPE bodyapps_create_content_attach
-    RETURNING VALUE(return_data) TYPE content_reference_attachment
+    RETURNING
+      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 * GET - "Get emojis"
 * Operation id: emojis/get
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_emojis_get
 * Response: 304
   METHODS emojis_get
+    RETURNING
+      VALUE(return_data) TYPE response_emojis_get
     RAISING cx_static_check.
 
 * GET - "Get the global announcement banner"
@@ -5746,7 +6447,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/announcement
   METHODS enterprise_admin_get_announcem
-    RETURNING VALUE(return_data) TYPE announcement
+    RETURNING
+      VALUE(return_data) TYPE announcement
     RAISING cx_static_check.
 
 * PATCH - "Set the global announcement banner"
@@ -5757,7 +6459,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_set_announcem
     IMPORTING
       body TYPE announcement
-    RETURNING VALUE(return_data) TYPE announcement
+    RETURNING
+      VALUE(return_data) TYPE announcement
     RAISING cx_static_check.
 
 * DELETE - "Remove the global announcement banner"
@@ -5771,7 +6474,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/encryption-key
   METHODS enterprise_admin_get_encryptio
-    RETURNING VALUE(return_data) TYPE encryption_key
+    RETURNING
+      VALUE(return_data) TYPE encryption_key
     RAISING cx_static_check.
 
 * PATCH - "Update an encryption key"
@@ -5803,7 +6507,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_get_encrypt01
     IMPORTING
       request_id TYPE string
-    RETURNING VALUE(return_data) TYPE encryption_status
+    RETURNING
+      VALUE(return_data) TYPE encryption_status
     RAISING cx_static_check.
 
 * GET - "Get license information"
@@ -5811,7 +6516,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/license-info
   METHODS enterprise_admin_get_license_i
-    RETURNING VALUE(return_data) TYPE license_info
+    RETURNING
+      VALUE(return_data) TYPE license_info
     RAISING cx_static_check.
 
 * GET - "Get statistics"
@@ -5822,7 +6528,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS enterprise_admin_get_type_stat
     IMPORTING
       type TYPE string
-    RETURNING VALUE(return_data) TYPE enterprise_overview
+    RETURNING
+      VALUE(return_data) TYPE enterprise_overview
     RAISING cx_static_check.
 
 * GET - "List public events"
@@ -5830,7 +6537,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_public_events
 * Response: 304
 * Response: 403
 * Response: 503
@@ -5838,6 +6545,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_public_
     RAISING cx_static_check.
 
 * GET - "Get feeds"
@@ -5845,7 +6554,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/feed
   METHODS activity_get_feeds
-    RETURNING VALUE(return_data) TYPE feed
+    RETURNING
+      VALUE(return_data) TYPE feed
     RAISING cx_static_check.
 
 * GET - "List gists for the authenticated user"
@@ -5854,7 +6564,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list
 * Response: 304
 * Response: 403
   METHODS gists_list
@@ -5862,6 +6572,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list
     RAISING cx_static_check.
 
 * POST - "Create a gist"
@@ -5876,7 +6588,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS gists_create
     IMPORTING
       body TYPE bodygists_create
-    RETURNING VALUE(return_data) TYPE gist_simple
+    RETURNING
+      VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
 * GET - "List public gists"
@@ -5885,7 +6598,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_public
 * Response: 304
 * Response: 403
 * Response: 422
@@ -5894,6 +6607,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_public
     RAISING cx_static_check.
 
 * GET - "List starred gists"
@@ -5902,7 +6617,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_starred
 * Response: 304
 * Response: 401
 * Response: 403
@@ -5911,6 +6626,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_starred
     RAISING cx_static_check.
 
 * GET - "Get a gist"
@@ -5924,7 +6641,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS gists_get
     IMPORTING
       gist_id TYPE string
-    RETURNING VALUE(return_data) TYPE gist_simple
+    RETURNING
+      VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
 * PATCH - "Update a gist"
@@ -5939,7 +6657,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       gist_id TYPE string
       body TYPE bodygists_update
-    RETURNING VALUE(return_data) TYPE gist_simple
+    RETURNING
+      VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
 * DELETE - "Delete a gist"
@@ -5962,7 +6681,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_comments
 * Response: 304
 * Response: 403
 * Response: 404
@@ -5971,6 +6690,8 @@ INTERFACE zif_githubae PUBLIC.
       gist_id TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_comments
     RAISING cx_static_check.
 
 * POST - "Create a gist comment"
@@ -5986,7 +6707,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       gist_id TYPE string
       body TYPE bodygists_create_comment
-    RETURNING VALUE(return_data) TYPE gist_comment
+    RETURNING
+      VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
 
 * GET - "Get a gist comment"
@@ -6002,7 +6724,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       gist_id TYPE string
       comment_id TYPE i
-    RETURNING VALUE(return_data) TYPE gist_comment
+    RETURNING
+      VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
 
 * PATCH - "Update a gist comment"
@@ -6018,7 +6741,8 @@ INTERFACE zif_githubae PUBLIC.
       gist_id TYPE string
       comment_id TYPE i
       body TYPE bodygists_update_comment
-    RETURNING VALUE(return_data) TYPE gist_comment
+    RETURNING
+      VALUE(return_data) TYPE gist_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete a gist comment"
@@ -6043,7 +6767,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_commits
 * Response: 304
 * Response: 403
 * Response: 404
@@ -6052,6 +6776,8 @@ INTERFACE zif_githubae PUBLIC.
       gist_id TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_commits
     RAISING cx_static_check.
 
 * GET - "List gist forks"
@@ -6060,7 +6786,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_forks
 * Response: 304
 * Response: 403
 * Response: 404
@@ -6069,6 +6795,8 @@ INTERFACE zif_githubae PUBLIC.
       gist_id TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_forks
     RAISING cx_static_check.
 
 * POST - "Fork a gist"
@@ -6083,7 +6811,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS gists_fork
     IMPORTING
       gist_id TYPE string
-    RETURNING VALUE(return_data) TYPE base_gist
+    RETURNING
+      VALUE(return_data) TYPE base_gist
     RAISING cx_static_check.
 
 * GET - "Check if a gist is starred"
@@ -6093,7 +6822,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 304
 * Response: 403
 * Response: 404
-*     application/json, object
+*     application/json, #/components/schemas/response_gists_check_is_starred
   METHODS gists_check_is_starred
     IMPORTING
       gist_id TYPE string
@@ -6136,15 +6865,18 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       sha TYPE string
       gist_id TYPE string
-    RETURNING VALUE(return_data) TYPE gist_simple
+    RETURNING
+      VALUE(return_data) TYPE gist_simple
     RAISING cx_static_check.
 
 * GET - "Get all gitignore templates"
 * Operation id: gitignore/get-all-templates
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gitignore_get_all_templates
 * Response: 304
   METHODS gitignore_get_all_templates
+    RETURNING
+      VALUE(return_data) TYPE response_gitignore_get_all_tem
     RAISING cx_static_check.
 
 * GET - "Get a gitignore template"
@@ -6156,7 +6888,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS gitignore_get_template
     IMPORTING
       name TYPE string
-    RETURNING VALUE(return_data) TYPE gitignore_template
+    RETURNING
+      VALUE(return_data) TYPE gitignore_template
     RAISING cx_static_check.
 
 * GET - "List repositories accessible to the app installation"
@@ -6164,7 +6897,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_apps_list_repos_accessible_to_
 * Response: 304
 * Response: 401
 * Response: 403
@@ -6172,6 +6905,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_apps_list_repos_acces
     RAISING cx_static_check.
 
 * DELETE - "Revoke an installation access token"
@@ -6195,7 +6930,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list
 * Response: 304
 * Response: 404
 * Response: 422
@@ -6213,6 +6948,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list
     RAISING cx_static_check.
 
 * GET - "Get all commonly used licenses"
@@ -6220,12 +6957,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: featured, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_licenses_get_all_commonly_used
 * Response: 304
   METHODS licenses_get_all_commonly_used
     IMPORTING
       featured TYPE abap_bool OPTIONAL
       per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_licenses_get_all_comm
     RAISING cx_static_check.
 
 * GET - "Get a license"
@@ -6239,7 +6978,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS licenses_get
     IMPORTING
       license TYPE string
-    RETURNING VALUE(return_data) TYPE license
+    RETURNING
+      VALUE(return_data) TYPE license
     RAISING cx_static_check.
 
 * POST - "Render a Markdown document"
@@ -6267,7 +7007,8 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/api-overview
 * Response: 304
   METHODS meta_get
-    RETURNING VALUE(return_data) TYPE api_overview
+    RETURNING
+      VALUE(return_data) TYPE api_overview
     RAISING cx_static_check.
 
 * GET - "List public events for a network of repositories"
@@ -6277,7 +7018,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_public_events_fo
 * Response: 301
 * Response: 304
 * Response: 403
@@ -6288,6 +7029,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_publi01
     RAISING cx_static_check.
 
 * GET - "List notifications for the authenticated user"
@@ -6299,7 +7042,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_notifications_fo
 * Response: 304
 * Response: 401
 * Response: 403
@@ -6312,12 +7055,14 @@ INTERFACE zif_githubae PUBLIC.
       before TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_notific
     RAISING cx_static_check.
 
 * PUT - "Mark notifications as read"
 * Operation id: activity/mark-notifications-as-read
 * Response: 202
-*     application/json, object
+*     application/json, #/components/schemas/response_activity_mark_notifications_as
 * Response: 205
 * Response: 304
 * Response: 401
@@ -6339,7 +7084,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS activity_get_thread
     IMPORTING
       thread_id TYPE i
-    RETURNING VALUE(return_data) TYPE thread
+    RETURNING
+      VALUE(return_data) TYPE thread
     RAISING cx_static_check.
 
 * PATCH - "Mark a thread as read"
@@ -6364,7 +7110,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS activity_get_thread_subscripti
     IMPORTING
       thread_id TYPE i
-    RETURNING VALUE(return_data) TYPE thread_subscription
+    RETURNING
+      VALUE(return_data) TYPE thread_subscription
     RAISING cx_static_check.
 
 * PUT - "Set a thread subscription"
@@ -6380,7 +7127,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       thread_id TYPE i
       body TYPE bodyactivity_set_thread_subscr
-    RETURNING VALUE(return_data) TYPE thread_subscription
+    RETURNING
+      VALUE(return_data) TYPE thread_subscription
     RAISING cx_static_check.
 
 * DELETE - "Delete a thread subscription"
@@ -6412,12 +7160,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list
 * Response: 304
   METHODS orgs_list
     IMPORTING
       since TYPE i OPTIONAL
       per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list
     RAISING cx_static_check.
 
 * GET - "Get an organization"
@@ -6429,7 +7179,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS orgs_get
     IMPORTING
       org TYPE string
-    RETURNING VALUE(return_data) TYPE organization_full
+    RETURNING
+      VALUE(return_data) TYPE organization_full
     RAISING cx_static_check.
 
 * PATCH - "Update an organization"
@@ -6440,13 +7191,14 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 409
 * Response: 415
 * Response: 422
-*     application/json, 
+*     application/json, string
 * Body ref: #/components/schemas/bodyorgs_update
   METHODS orgs_update
     IMPORTING
       org TYPE string
       body TYPE bodyorgs_update
-    RETURNING VALUE(return_data) TYPE organization_full
+    RETURNING
+      VALUE(return_data) TYPE organization_full
     RAISING cx_static_check.
 
 * GET - "List public organization events"
@@ -6455,12 +7207,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_public_org_event
   METHODS activity_list_public_org_event
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_publi02
     RAISING cx_static_check.
 
 * GET - "List organization webhooks"
@@ -6469,13 +7223,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_webhooks
 * Response: 404
   METHODS orgs_list_webhooks
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_webhooks
     RAISING cx_static_check.
 
 * POST - "Create an organization webhook"
@@ -6490,7 +7246,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyorgs_create_webhook
-    RETURNING VALUE(return_data) TYPE org_hook
+    RETURNING
+      VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
 
 * GET - "Get an organization webhook"
@@ -6504,7 +7261,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       hook_id TYPE i
-    RETURNING VALUE(return_data) TYPE org_hook
+    RETURNING
+      VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
 
 * PATCH - "Update an organization webhook"
@@ -6521,7 +7279,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       hook_id TYPE i
       body TYPE bodyorgs_update_webhook
-    RETURNING VALUE(return_data) TYPE org_hook
+    RETURNING
+      VALUE(return_data) TYPE org_hook
     RAISING cx_static_check.
 
 * DELETE - "Delete an organization webhook"
@@ -6548,7 +7307,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       hook_id TYPE i
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * PATCH - "Update a webhook configuration for an organization"
@@ -6563,7 +7323,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       hook_id TYPE i
       body TYPE bodyorgs_update_webhook_config
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * POST - "Ping an organization webhook"
@@ -6586,7 +7347,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS apps_get_org_installation
     IMPORTING
       org TYPE string
-    RETURNING VALUE(return_data) TYPE installation
+    RETURNING
+      VALUE(return_data) TYPE installation
     RAISING cx_static_check.
 
 * GET - "List app installations for an organization"
@@ -6595,12 +7357,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_orgs_list_app_installations
   METHODS orgs_list_app_installations
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_app_install
     RAISING cx_static_check.
 
 * GET - "List organization issues assigned to the authenticated user"
@@ -6615,7 +7379,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_for_org
 * Response: 404
   METHODS issues_list_for_org
     IMPORTING
@@ -6628,6 +7392,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_for_org
     RAISING cx_static_check.
 
 * GET - "List organization members"
@@ -6638,7 +7404,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_members
 * Response: 302
 * Response: 422
   METHODS orgs_list_members
@@ -6648,6 +7414,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_members
     RAISING cx_static_check.
 
 * GET - "Check organization membership for a user"
@@ -6687,7 +7455,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       username TYPE string
-    RETURNING VALUE(return_data) TYPE org_membership
+    RETURNING
+      VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
 * PUT - "Set organization membership for a user"
@@ -6704,7 +7473,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       username TYPE string
       body TYPE bodyorgs_set_membership_for_us
-    RETURNING VALUE(return_data) TYPE org_membership
+    RETURNING
+      VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
 * DELETE - "Remove organization membership for a user"
@@ -6729,13 +7499,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_outside_collaborator
   METHODS orgs_list_outside_collaborator
     IMPORTING
       filter TYPE string DEFAULT 'all'
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_outside_col
     RAISING cx_static_check.
 
 * PUT - "Convert an organization member to outside collaborator"
@@ -6745,7 +7517,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 202
 * Response: 204
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_orgs_convert_member_to_outside
 * Response: 404
   METHODS orgs_convert_member_to_outside
     IMPORTING
@@ -6759,7 +7531,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: username, required, path
 * Response: 204
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_orgs_remove_outside_collaborat
   METHODS orgs_remove_outside_collaborat
     IMPORTING
       org TYPE string
@@ -6773,7 +7545,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_for_org
 * Response: 422
   METHODS projects_list_for_org
     IMPORTING
@@ -6781,6 +7553,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_for_org
     RAISING cx_static_check.
 
 * POST - "Create an organization project"
@@ -6798,7 +7572,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyprojects_create_for_org
-    RETURNING VALUE(return_data) TYPE project
+    RETURNING
+      VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List public organization members"
@@ -6807,12 +7582,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_public_members
   METHODS orgs_list_public_members
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_public_memb
     RAISING cx_static_check.
 
 * GET - "Check public organization membership for a user"
@@ -6859,7 +7636,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_for_org
   METHODS repos_list_for_org
     IMPORTING
       type TYPE string OPTIONAL
@@ -6868,6 +7645,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_for_org
     RAISING cx_static_check.
 
 * POST - "Create an organization repository"
@@ -6882,7 +7661,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyrepos_create_in_org
-    RETURNING VALUE(return_data) TYPE repository
+    RETURNING
+      VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List teams"
@@ -6891,13 +7671,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list
 * Response: 403
   METHODS teams_list
     IMPORTING
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list
     RAISING cx_static_check.
 
 * POST - "Create a team"
@@ -6912,7 +7694,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyteams_create
-    RETURNING VALUE(return_data) TYPE team_full
+    RETURNING
+      VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * GET - "Get a team by name"
@@ -6926,7 +7709,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       team_slug TYPE string
-    RETURNING VALUE(return_data) TYPE team_full
+    RETURNING
+      VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * PATCH - "Update a team"
@@ -6941,7 +7725,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       team_slug TYPE string
       body TYPE bodyteams_update_in_org
-    RETURNING VALUE(return_data) TYPE team_full
+    RETURNING
+      VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * DELETE - "Delete a team"
@@ -6965,7 +7750,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_discussions_in_org
   METHODS teams_list_discussions_in_org
     IMPORTING
       org TYPE string
@@ -6973,6 +7758,8 @@ INTERFACE zif_githubae PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_discussion
     RAISING cx_static_check.
 
 * POST - "Create a discussion"
@@ -6987,7 +7774,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       team_slug TYPE string
       body TYPE bodyteams_create_discussion_in
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * GET - "Get a discussion"
@@ -7002,7 +7790,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       team_slug TYPE string
       discussion_number TYPE i
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * PATCH - "Update a discussion"
@@ -7019,7 +7808,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       discussion_number TYPE i
       body TYPE bodyteams_update_discussion_in
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * DELETE - "Delete a discussion"
@@ -7046,7 +7836,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_discussion_comments
   METHODS teams_list_discussion_comments
     IMPORTING
       org TYPE string
@@ -7055,6 +7845,8 @@ INTERFACE zif_githubae PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_discussi01
     RAISING cx_static_check.
 
 * POST - "Create a discussion comment"
@@ -7071,7 +7863,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       discussion_number TYPE i
       body TYPE bodyteams_create_discussion_co
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * GET - "Get a discussion comment"
@@ -7088,7 +7881,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       discussion_number TYPE i
       comment_number TYPE i
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * PATCH - "Update a discussion comment"
@@ -7107,7 +7901,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       comment_number TYPE i
       body TYPE bodyteams_update_discussion_co
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete a discussion comment"
@@ -7137,7 +7932,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_team_discus
   METHODS reactions_list_for_team_discus
     IMPORTING
       content TYPE string OPTIONAL
@@ -7147,6 +7942,8 @@ INTERFACE zif_githubae PUBLIC.
       comment_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_te
     RAISING cx_static_check.
 
 * POST - "Create reaction for a team discussion comment"
@@ -7165,7 +7962,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       comment_number TYPE i
       body TYPE bodyreactions_create_for_team_
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete team discussion comment reaction"
@@ -7194,7 +7992,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_team_disc01
   METHODS reactions_list_for_team_disc01
     IMPORTING
       content TYPE string OPTIONAL
@@ -7203,6 +8001,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_01
     RAISING cx_static_check.
 
 * POST - "Create reaction for a team discussion"
@@ -7219,7 +8019,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       discussion_number TYPE i
       body TYPE bodyreactions_create_for_tea01
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete team discussion reaction"
@@ -7245,7 +8046,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_members_in_org
   METHODS teams_list_members_in_org
     IMPORTING
       role TYPE string DEFAULT 'all'
@@ -7253,6 +8054,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_members_in
     RAISING cx_static_check.
 
 * GET - "Get team membership for a user"
@@ -7268,7 +8071,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       team_slug TYPE string
       username TYPE string
-    RETURNING VALUE(return_data) TYPE team_membership
+    RETURNING
+      VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
 
 * PUT - "Add or update team membership for a user"
@@ -7280,7 +8084,7 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/team-membership
 * Response: 403
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_teams_add_or_update_membership
 * Body ref: #/components/schemas/bodyteams_add_or_update_member
   METHODS teams_add_or_update_membership
     IMPORTING
@@ -7288,7 +8092,8 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       username TYPE string
       body TYPE bodyteams_add_or_update_member
-    RETURNING VALUE(return_data) TYPE team_membership
+    RETURNING
+      VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
 
 * DELETE - "Remove team membership for a user"
@@ -7314,13 +8119,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_projects_in_org
   METHODS teams_list_projects_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_projects_i
     RAISING cx_static_check.
 
 * GET - "Check team permissions for a project"
@@ -7336,7 +8143,8 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       team_slug TYPE string
       project_id TYPE i
-    RETURNING VALUE(return_data) TYPE team_project
+    RETURNING
+      VALUE(return_data) TYPE team_project
     RAISING cx_static_check.
 
 * PUT - "Add or update team project permissions"
@@ -7346,7 +8154,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: project_id, required, path
 * Response: 204
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_teams_add_or_update_project_pe
 * Body ref: #/components/schemas/bodyteams_add_or_update_projec
   METHODS teams_add_or_update_project_pe
     IMPORTING
@@ -7378,13 +8186,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_repos_in_org
   METHODS teams_list_repos_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_repos_in_o
     RAISING cx_static_check.
 
 * GET - "Check team permissions for a repository"
@@ -7446,13 +8256,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_child_in_org
   METHODS teams_list_child_in_org
     IMPORTING
       org TYPE string
       team_slug TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_child_in_o
     RAISING cx_static_check.
 
 * GET - "Get a project card"
@@ -7467,7 +8279,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS projects_get_card
     IMPORTING
       card_id TYPE i
-    RETURNING VALUE(return_data) TYPE project_card
+    RETURNING
+      VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
 
 * PATCH - "Update an existing project card"
@@ -7485,7 +8298,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       card_id TYPE i
       body TYPE bodyprojects_update_card
-    RETURNING VALUE(return_data) TYPE project_card
+    RETURNING
+      VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
 
 * DELETE - "Delete a project card"
@@ -7495,7 +8309,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_delete_card
 * Response: 404
 * Body ref: #/components/schemas/bodyprojects_delete_card
   METHODS projects_delete_card
@@ -7508,19 +8322,21 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: projects/move-card
 * Parameter: card_id, required, path
 * Response: 201
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_move_card
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_move_card
 * Response: 422
 * Response: 503
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_move_card
 * Body ref: #/components/schemas/bodyprojects_move_card
   METHODS projects_move_card
     IMPORTING
       card_id TYPE i
       body TYPE bodyprojects_move_card
+    RETURNING
+      VALUE(return_data) TYPE response_projects_move_card
     RAISING cx_static_check.
 
 * GET - "Get a project column"
@@ -7535,7 +8351,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS projects_get_column
     IMPORTING
       column_id TYPE i
-    RETURNING VALUE(return_data) TYPE project_column
+    RETURNING
+      VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
 
 * PATCH - "Update an existing project column"
@@ -7551,7 +8368,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       column_id TYPE i
       body TYPE bodyprojects_update_column
-    RETURNING VALUE(return_data) TYPE project_column
+    RETURNING
+      VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
 
 * DELETE - "Delete a project column"
@@ -7575,7 +8393,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_cards
 * Response: 304
 * Response: 401
 * Response: 403
@@ -7585,6 +8403,8 @@ INTERFACE zif_githubae PUBLIC.
       column_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_cards
     RAISING cx_static_check.
 
 * POST - "Create a project card"
@@ -7596,22 +8416,22 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 422
-*     application/json, 
+*     application/json, string
 * Response: 503
-*     application/json, object
-* Body ref: #/components/schemas/bodyprojects_create_card
+*     application/json, #/components/schemas/response_projects_create_card
+* Body schema: string
   METHODS projects_create_card
     IMPORTING
       column_id TYPE i
-      body TYPE bodyprojects_create_card
-    RETURNING VALUE(return_data) TYPE project_card
+    RETURNING
+      VALUE(return_data) TYPE project_card
     RAISING cx_static_check.
 
 * POST - "Move a project column"
 * Operation id: projects/move-column
 * Parameter: column_id, required, path
 * Response: 201
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_move_column
 * Response: 304
 * Response: 401
 * Response: 403
@@ -7621,6 +8441,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       column_id TYPE i
       body TYPE bodyprojects_move_column
+    RETURNING
+      VALUE(return_data) TYPE response_projects_move_column
     RAISING cx_static_check.
 
 * GET - "Get a project"
@@ -7634,7 +8456,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS projects_get
     IMPORTING
       project_id TYPE i
-    RETURNING VALUE(return_data) TYPE project
+    RETURNING
+      VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * PATCH - "Update a project"
@@ -7645,7 +8468,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_update
 * Response: 404
 * Response: 410
 * Response: 422
@@ -7654,7 +8477,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       project_id TYPE i
       body TYPE bodyprojects_update
-    RETURNING VALUE(return_data) TYPE project
+    RETURNING
+      VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * DELETE - "Delete a project"
@@ -7664,7 +8488,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 304
 * Response: 401
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_projects_delete
 * Response: 404
 * Response: 410
 * Body ref: #/components/schemas/bodyprojects_delete
@@ -7681,7 +8505,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_collaborators
 * Response: 304
 * Response: 401
 * Response: 403
@@ -7694,6 +8518,8 @@ INTERFACE zif_githubae PUBLIC.
       project_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_collabo
     RAISING cx_static_check.
 
 * PUT - "Add project collaborator"
@@ -7750,7 +8576,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       project_id TYPE i
       username TYPE string
-    RETURNING VALUE(return_data) TYPE repository_collaborator_permis
+    RETURNING
+      VALUE(return_data) TYPE repository_collaborator_permis
     RAISING cx_static_check.
 
 * GET - "List project columns"
@@ -7759,7 +8586,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_columns
 * Response: 304
 * Response: 401
 * Response: 403
@@ -7768,6 +8595,8 @@ INTERFACE zif_githubae PUBLIC.
       project_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_columns
     RAISING cx_static_check.
 
 * POST - "Create a project column"
@@ -7784,7 +8613,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       project_id TYPE i
       body TYPE bodyprojects_create_column
-    RETURNING VALUE(return_data) TYPE project_column
+    RETURNING
+      VALUE(return_data) TYPE project_column
     RAISING cx_static_check.
 
 * GET - "Get rate limit status for the authenticated user"
@@ -7794,7 +8624,8 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 304
 * Response: 404
   METHODS rate_limit_get
-    RETURNING VALUE(return_data) TYPE rate_limit_overview
+    RETURNING
+      VALUE(return_data) TYPE rate_limit_overview
     RAISING cx_static_check.
 
 * DELETE - "Delete a reaction (Legacy)"
@@ -7824,7 +8655,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE full_repository
+    RETURNING
+      VALUE(return_data) TYPE full_repository
     RAISING cx_static_check.
 
 * PATCH - "Update a repository"
@@ -7842,7 +8674,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_update
-    RETURNING VALUE(return_data) TYPE full_repository
+    RETURNING
+      VALUE(return_data) TYPE full_repository
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository"
@@ -7851,7 +8684,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Response: 204
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_repos_delete
 * Response: 404
 * Body ref: #/components/schemas/bodyrepos_delete
   METHODS repos_delete
@@ -7868,7 +8701,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_assignees
 * Response: 404
   METHODS issues_list_assignees
     IMPORTING
@@ -7876,6 +8709,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_assignees
     RAISING cx_static_check.
 
 * GET - "Check if a user can be assigned"
@@ -7901,7 +8736,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_branches
 * Response: 404
   METHODS repos_list_branches
     IMPORTING
@@ -7910,6 +8745,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_branches
     RAISING cx_static_check.
 
 * GET - "Get a branch"
@@ -7926,7 +8763,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE branch_with_protection
+    RETURNING
+      VALUE(return_data) TYPE branch_with_protection
     RAISING cx_static_check.
 
 * GET - "Get branch protection"
@@ -7942,7 +8780,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE branch_protection
+    RETURNING
+      VALUE(return_data) TYPE branch_protection
     RAISING cx_static_check.
 
 * PUT - "Update branch protection"
@@ -7963,7 +8802,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_update_branch_protec
-    RETURNING VALUE(return_data) TYPE protected_branch
+    RETURNING
+      VALUE(return_data) TYPE protected_branch
     RAISING cx_static_check.
 
 * DELETE - "Delete branch protection"
@@ -7994,7 +8834,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
 
 * POST - "Set admin branch protection"
@@ -8009,7 +8850,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
 
 * DELETE - "Delete admin branch protection"
@@ -8055,7 +8897,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_update_pull_request_
-    RETURNING VALUE(return_data) TYPE protected_branch_pull_request_
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_pull_request_
     RAISING cx_static_check.
 
 * DELETE - "Delete pull request review protection"
@@ -8087,7 +8930,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
 
 * POST - "Create commit signature protection"
@@ -8103,7 +8947,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE protected_branch_admin_enforce
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_admin_enforce
     RAISING cx_static_check.
 
 * DELETE - "Delete commit signature protection"
@@ -8133,7 +8978,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE status_check_policy
+    RETURNING
+      VALUE(return_data) TYPE status_check_policy
     RAISING cx_static_check.
 
 * PATCH - "Update status check protection"
@@ -8152,7 +8998,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_update_status_check_
-    RETURNING VALUE(return_data) TYPE status_check_policy
+    RETURNING
+      VALUE(return_data) TYPE status_check_policy
     RAISING cx_static_check.
 
 * DELETE - "Remove status check protection"
@@ -8176,13 +9023,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_all_status_check_con
 * Response: 404
   METHODS repos_get_all_status_check_con
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_all_status_
     RAISING cx_static_check.
 
 * POST - "Add status check contexts"
@@ -8191,7 +9040,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_add_status_check_context
 * Response: 403
 * Response: 404
 * Response: 422
@@ -8202,6 +9051,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_add_status_check_con
+    RETURNING
+      VALUE(return_data) TYPE response_repos_add_status_chec
     RAISING cx_static_check.
 
 * PUT - "Set status check contexts"
@@ -8210,7 +9061,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_set_status_check_context
 * Response: 404
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_set_status_check_con
@@ -8220,6 +9071,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_set_status_check_con
+    RETURNING
+      VALUE(return_data) TYPE response_repos_set_status_chec
     RAISING cx_static_check.
 
 * DELETE - "Remove status check contexts"
@@ -8228,7 +9081,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_remove_status_check_cont
 * Response: 404
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_remove_status_chec01
@@ -8238,6 +9091,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_remove_status_chec01
+    RETURNING
+      VALUE(return_data) TYPE response_repos_remove_status_c
     RAISING cx_static_check.
 
 * GET - "Get access restrictions"
@@ -8253,7 +9108,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       branch TYPE string
-    RETURNING VALUE(return_data) TYPE branch_restriction_policy
+    RETURNING
+      VALUE(return_data) TYPE branch_restriction_policy
     RAISING cx_static_check.
 
 * DELETE - "Delete access restrictions"
@@ -8275,13 +9131,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_apps_with_access_to_
 * Response: 404
   METHODS repos_get_apps_with_access_to_
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_apps_with_a
     RAISING cx_static_check.
 
 * POST - "Add app access restrictions"
@@ -8290,7 +9148,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_add_app_access_restricti
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_add_app_access_restr
   METHODS repos_add_app_access_restricti
@@ -8299,6 +9157,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_add_app_access_restr
+    RETURNING
+      VALUE(return_data) TYPE response_repos_add_app_access_
     RAISING cx_static_check.
 
 * PUT - "Set app access restrictions"
@@ -8307,7 +9167,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_set_app_access_restricti
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_set_app_access_restr
   METHODS repos_set_app_access_restricti
@@ -8316,6 +9176,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_set_app_access_restr
+    RETURNING
+      VALUE(return_data) TYPE response_repos_set_app_access_
     RAISING cx_static_check.
 
 * DELETE - "Remove app access restrictions"
@@ -8324,7 +9186,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_remove_app_access_restri
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_remove_app_access_re
   METHODS repos_remove_app_access_restri
@@ -8333,6 +9195,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_remove_app_access_re
+    RETURNING
+      VALUE(return_data) TYPE response_repos_remove_app_acce
     RAISING cx_static_check.
 
 * GET - "Get teams with access to the protected branch"
@@ -8341,13 +9205,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_teams_with_access_to
 * Response: 404
   METHODS repos_get_teams_with_access_to
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_teams_with_
     RAISING cx_static_check.
 
 * POST - "Add team access restrictions"
@@ -8356,7 +9222,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_add_team_access_restrict
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_add_team_access_rest
   METHODS repos_add_team_access_restrict
@@ -8365,6 +9231,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_add_team_access_rest
+    RETURNING
+      VALUE(return_data) TYPE response_repos_add_team_access
     RAISING cx_static_check.
 
 * PUT - "Set team access restrictions"
@@ -8373,7 +9241,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_set_team_access_restrict
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_set_team_access_rest
   METHODS repos_set_team_access_restrict
@@ -8382,6 +9250,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_set_team_access_rest
+    RETURNING
+      VALUE(return_data) TYPE response_repos_set_team_access
     RAISING cx_static_check.
 
 * DELETE - "Remove team access restrictions"
@@ -8390,7 +9260,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_remove_team_access_restr
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_remove_team_access_r
   METHODS repos_remove_team_access_restr
@@ -8399,6 +9269,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_remove_team_access_r
+    RETURNING
+      VALUE(return_data) TYPE response_repos_remove_team_acc
     RAISING cx_static_check.
 
 * GET - "Get users with access to the protected branch"
@@ -8407,13 +9279,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_users_with_access_to
 * Response: 404
   METHODS repos_get_users_with_access_to
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_users_with_
     RAISING cx_static_check.
 
 * POST - "Add user access restrictions"
@@ -8422,7 +9296,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_add_user_access_restrict
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_add_user_access_rest
   METHODS repos_add_user_access_restrict
@@ -8431,6 +9305,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_add_user_access_rest
+    RETURNING
+      VALUE(return_data) TYPE response_repos_add_user_access
     RAISING cx_static_check.
 
 * PUT - "Set user access restrictions"
@@ -8439,7 +9315,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_set_user_access_restrict
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_set_user_access_rest
   METHODS repos_set_user_access_restrict
@@ -8448,6 +9324,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_set_user_access_rest
+    RETURNING
+      VALUE(return_data) TYPE response_repos_set_user_access
     RAISING cx_static_check.
 
 * DELETE - "Remove user access restrictions"
@@ -8456,7 +9334,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_remove_user_access_restr
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_remove_user_access_r
   METHODS repos_remove_user_access_restr
@@ -8465,6 +9343,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_remove_user_access_r
+    RETURNING
+      VALUE(return_data) TYPE response_repos_remove_user_acc
     RAISING cx_static_check.
 
 * POST - "Rename a branch"
@@ -8484,7 +9364,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       branch TYPE string
       body TYPE bodyrepos_rename_branch
-    RETURNING VALUE(return_data) TYPE branch_with_protection
+    RETURNING
+      VALUE(return_data) TYPE branch_with_protection
     RAISING cx_static_check.
 
 * POST - "Create a check run"
@@ -8499,7 +9380,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodychecks_create
-    RETURNING VALUE(return_data) TYPE check_run
+    RETURNING
+      VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
 
 * GET - "Get a check run"
@@ -8514,7 +9396,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       check_run_id TYPE i
-    RETURNING VALUE(return_data) TYPE check_run
+    RETURNING
+      VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
 
 * PATCH - "Update a check run"
@@ -8531,7 +9414,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       check_run_id TYPE i
       body TYPE bodychecks_update
-    RETURNING VALUE(return_data) TYPE check_run
+    RETURNING
+      VALUE(return_data) TYPE check_run
     RAISING cx_static_check.
 
 * GET - "List check run annotations"
@@ -8542,7 +9426,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_checks_list_annotations
   METHODS checks_list_annotations
     IMPORTING
       owner TYPE string
@@ -8550,6 +9434,8 @@ INTERFACE zif_githubae PUBLIC.
       check_run_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_checks_list_annotatio
     RAISING cx_static_check.
 
 * POST - "Create a check suite"
@@ -8564,7 +9450,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodychecks_create_suite
-    RETURNING VALUE(return_data) TYPE check_suite
+    RETURNING
+      VALUE(return_data) TYPE check_suite
     RAISING cx_static_check.
 
 * PATCH - "Update repository preferences for check suites"
@@ -8579,7 +9466,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodychecks_set_suites_preferen
-    RETURNING VALUE(return_data) TYPE check_suite_preference
+    RETURNING
+      VALUE(return_data) TYPE check_suite_preference
     RAISING cx_static_check.
 
 * GET - "Get a check suite"
@@ -8594,7 +9482,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       check_suite_id TYPE i
-    RETURNING VALUE(return_data) TYPE check_suite
+    RETURNING
+      VALUE(return_data) TYPE check_suite
     RAISING cx_static_check.
 
 * GET - "List check runs in a check suite"
@@ -8608,7 +9497,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_checks_list_for_suite
   METHODS checks_list_for_suite
     IMPORTING
       filter TYPE string DEFAULT 'latest'
@@ -8619,6 +9508,8 @@ INTERFACE zif_githubae PUBLIC.
       status TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_checks_list_for_suite
     RAISING cx_static_check.
 
 * POST - "Rerequest a check suite"
@@ -8642,7 +9533,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_collaborators
 * Response: 404
   METHODS repos_list_collaborators
     IMPORTING
@@ -8651,6 +9542,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_collaborat
     RAISING cx_static_check.
 
 * GET - "Check if a user is a repository collaborator"
@@ -8684,7 +9577,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       username TYPE string
       body TYPE bodyrepos_add_collaborator
-    RETURNING VALUE(return_data) TYPE repository_invitation
+    RETURNING
+      VALUE(return_data) TYPE repository_invitation
     RAISING cx_static_check.
 
 * DELETE - "Remove a repository collaborator"
@@ -8715,7 +9609,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       username TYPE string
-    RETURNING VALUE(return_data) TYPE repository_collaborator_permis
+    RETURNING
+      VALUE(return_data) TYPE repository_collaborator_permis
     RAISING cx_static_check.
 
 * GET - "List commit comments for a repository"
@@ -8725,13 +9620,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_commit_comments_for
   METHODS repos_list_commit_comments_for
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_commit_com
     RAISING cx_static_check.
 
 * GET - "Get a commit comment"
@@ -8747,7 +9644,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
-    RETURNING VALUE(return_data) TYPE commit_comment
+    RETURNING
+      VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
 
 * PATCH - "Update a commit comment"
@@ -8765,7 +9663,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodyrepos_update_commit_commen
-    RETURNING VALUE(return_data) TYPE commit_comment
+    RETURNING
+      VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete a commit comment"
@@ -8793,7 +9692,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_commit_comm
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_commit_comm
@@ -8804,6 +9703,8 @@ INTERFACE zif_githubae PUBLIC.
       comment_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_co
     RAISING cx_static_check.
 
 * POST - "Create reaction for a commit comment"
@@ -8824,7 +9725,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodyreactions_create_for_commi
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete a commit comment reaction"
@@ -8854,7 +9756,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_commits
 * Response: 400
 * Response: 404
 * Response: 409
@@ -8870,6 +9772,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_commits
     RAISING cx_static_check.
 
 * GET - "List branches for HEAD commit"
@@ -8878,7 +9782,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: commit_sha, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_branches_for_head_c
 * Response: 415
 * Response: 422
   METHODS repos_list_branches_for_head_c
@@ -8886,6 +9790,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       commit_sha TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_branches_f
     RAISING cx_static_check.
 
 * GET - "List commit comments"
@@ -8896,7 +9802,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_comments_for_commit
   METHODS repos_list_comments_for_commit
     IMPORTING
       owner TYPE string
@@ -8904,6 +9810,8 @@ INTERFACE zif_githubae PUBLIC.
       commit_sha TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_comments_f
     RAISING cx_static_check.
 
 * POST - "Create a commit comment"
@@ -8922,7 +9830,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       commit_sha TYPE string
       body TYPE bodyrepos_create_commit_commen
-    RETURNING VALUE(return_data) TYPE commit_comment
+    RETURNING
+      VALUE(return_data) TYPE commit_comment
     RAISING cx_static_check.
 
 * GET - "List pull requests associated with a commit"
@@ -8933,7 +9842,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_pull_requests_assoc
 * Response: 415
   METHODS repos_list_pull_requests_assoc
     IMPORTING
@@ -8942,6 +9851,8 @@ INTERFACE zif_githubae PUBLIC.
       commit_sha TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_pull_reque
     RAISING cx_static_check.
 
 * GET - "Get a commit"
@@ -8959,7 +9870,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE commit
+    RETURNING
+      VALUE(return_data) TYPE commit
     RAISING cx_static_check.
 
 * GET - "List check runs for a Git reference"
@@ -8973,7 +9885,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_checks_list_for_ref
   METHODS checks_list_for_ref
     IMPORTING
       ref TYPE string
@@ -8984,6 +9896,8 @@ INTERFACE zif_githubae PUBLIC.
       status TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_checks_list_for_ref
     RAISING cx_static_check.
 
 * GET - "List check suites for a Git reference"
@@ -8996,7 +9910,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_checks_list_suites_for_ref
   METHODS checks_list_suites_for_ref
     IMPORTING
       ref TYPE string
@@ -9006,6 +9920,8 @@ INTERFACE zif_githubae PUBLIC.
       check_name TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_checks_list_suites_fo
     RAISING cx_static_check.
 
 * GET - "Get the combined status for a specific reference"
@@ -9021,7 +9937,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE combined_commit_status
+    RETURNING
+      VALUE(return_data) TYPE combined_commit_status
     RAISING cx_static_check.
 
 * GET - "List commit statuses for a reference"
@@ -9032,7 +9949,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_commit_statuses_for
 * Response: 301
   METHODS repos_list_commit_statuses_for
     IMPORTING
@@ -9041,6 +9958,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_commit_sta
     RAISING cx_static_check.
 
 * GET - "Get the code of conduct for a repository"
@@ -9053,7 +9972,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE code_of_conduct
+    RETURNING
+      VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
 * GET - "Compare two commits"
@@ -9072,7 +9992,8 @@ INTERFACE zif_githubae PUBLIC.
       head TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE commit_comparison
+    RETURNING
+      VALUE(return_data) TYPE commit_comparison
     RAISING cx_static_check.
 
 * GET - "Get repository content"
@@ -9083,7 +10004,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/vnd.github.v3.object, #/components/schemas/content-tree
-*     application/json, 
+*     application/json, string
 * Response: 302
 * Response: 403
 * Response: 404
@@ -9114,7 +10035,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_or_update_fil
-    RETURNING VALUE(return_data) TYPE file_commit
+    RETURNING
+      VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
 
 * DELETE - "Delete a file"
@@ -9135,7 +10057,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_delete_file
-    RETURNING VALUE(return_data) TYPE file_commit
+    RETURNING
+      VALUE(return_data) TYPE file_commit
     RAISING cx_static_check.
 
 * GET - "List repository contributors"
@@ -9146,7 +10069,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_contributors
 * Response: 204
 * Response: 403
 * Response: 404
@@ -9157,6 +10080,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_contributo
     RAISING cx_static_check.
 
 * GET - "List deployments"
@@ -9170,7 +10095,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_deployments
   METHODS repos_list_deployments
     IMPORTING
       sha TYPE string DEFAULT 'none'
@@ -9181,6 +10106,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_deployment
     RAISING cx_static_check.
 
 * POST - "Create a deployment"
@@ -9190,9 +10117,9 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/deployment
 * Response: 202
-*     application/json, object
+*     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 409
-*     application/json, object
+*     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_create_deployment
   METHODS repos_create_deployment
@@ -9200,7 +10127,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_deployment
-    RETURNING VALUE(return_data) TYPE deployment
+    RETURNING
+      VALUE(return_data) TYPE deployment
     RAISING cx_static_check.
 
 * GET - "Get a deployment"
@@ -9216,7 +10144,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
-    RETURNING VALUE(return_data) TYPE deployment
+    RETURNING
+      VALUE(return_data) TYPE deployment
     RAISING cx_static_check.
 
 * DELETE - "Delete a deployment"
@@ -9242,7 +10171,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_deployment_statuses
 * Response: 404
   METHODS repos_list_deployment_statuses
     IMPORTING
@@ -9251,6 +10180,8 @@ INTERFACE zif_githubae PUBLIC.
       deployment_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_deployme01
     RAISING cx_static_check.
 
 * POST - "Create a deployment status"
@@ -9268,7 +10199,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       deployment_id TYPE i
       body TYPE bodyrepos_create_deployment_st
-    RETURNING VALUE(return_data) TYPE deployment_status
+    RETURNING
+      VALUE(return_data) TYPE deployment_status
     RAISING cx_static_check.
 
 * GET - "Get a deployment status"
@@ -9287,7 +10219,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       deployment_id TYPE i
-    RETURNING VALUE(return_data) TYPE deployment_status
+    RETURNING
+      VALUE(return_data) TYPE deployment_status
     RAISING cx_static_check.
 
 * GET - "List repository events"
@@ -9297,13 +10230,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_repo_events
   METHODS activity_list_repo_events
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_repo_ev
     RAISING cx_static_check.
 
 * GET - "List forks"
@@ -9314,7 +10249,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_forks
 * Response: 400
   METHODS repos_list_forks
     IMPORTING
@@ -9323,6 +10258,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_forks
     RAISING cx_static_check.
 
 * POST - "Create a fork"
@@ -9359,7 +10296,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_create_blob
-    RETURNING VALUE(return_data) TYPE short_blob
+    RETURNING
+      VALUE(return_data) TYPE short_blob
     RAISING cx_static_check.
 
 * GET - "Get a blob"
@@ -9377,7 +10315,8 @@ INTERFACE zif_githubae PUBLIC.
       file_sha TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE blob
+    RETURNING
+      VALUE(return_data) TYPE blob
     RAISING cx_static_check.
 
 * POST - "Create a commit"
@@ -9394,7 +10333,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_create_commit
-    RETURNING VALUE(return_data) TYPE git_commit
+    RETURNING
+      VALUE(return_data) TYPE git_commit
     RAISING cx_static_check.
 
 * GET - "Get a commit"
@@ -9410,7 +10350,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       commit_sha TYPE string
-    RETURNING VALUE(return_data) TYPE git_commit
+    RETURNING
+      VALUE(return_data) TYPE git_commit
     RAISING cx_static_check.
 
 * GET - "List matching references"
@@ -9421,7 +10362,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_git_list_matching_refs
   METHODS git_list_matching_refs
     IMPORTING
       ref TYPE string
@@ -9429,6 +10370,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_git_list_matching_ref
     RAISING cx_static_check.
 
 * GET - "Get a reference"
@@ -9444,7 +10387,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE git_ref
+    RETURNING
+      VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
 
 * POST - "Create a reference"
@@ -9460,7 +10404,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_create_ref
-    RETURNING VALUE(return_data) TYPE git_ref
+    RETURNING
+      VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
 
 * PATCH - "Update a reference"
@@ -9478,7 +10423,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_update_ref
-    RETURNING VALUE(return_data) TYPE git_ref
+    RETURNING
+      VALUE(return_data) TYPE git_ref
     RAISING cx_static_check.
 
 * DELETE - "Delete a reference"
@@ -9510,7 +10456,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_create_tag
-    RETURNING VALUE(return_data) TYPE git_tag
+    RETURNING
+      VALUE(return_data) TYPE git_tag
     RAISING cx_static_check.
 
 * GET - "Get a tag"
@@ -9526,7 +10473,8 @@ INTERFACE zif_githubae PUBLIC.
       tag_sha TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE git_tag
+    RETURNING
+      VALUE(return_data) TYPE git_tag
     RAISING cx_static_check.
 
 * POST - "Create a tree"
@@ -9544,7 +10492,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodygit_create_tree
-    RETURNING VALUE(return_data) TYPE git_tree
+    RETURNING
+      VALUE(return_data) TYPE git_tree
     RAISING cx_static_check.
 
 * GET - "Get a tree"
@@ -9563,7 +10512,8 @@ INTERFACE zif_githubae PUBLIC.
       recursive TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE git_tree
+    RETURNING
+      VALUE(return_data) TYPE git_tree
     RAISING cx_static_check.
 
 * GET - "List repository webhooks"
@@ -9573,7 +10523,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_webhooks
 * Response: 404
   METHODS repos_list_webhooks
     IMPORTING
@@ -9581,6 +10531,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_webhooks
     RAISING cx_static_check.
 
 * POST - "Create a repository webhook"
@@ -9598,7 +10550,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_webhook
-    RETURNING VALUE(return_data) TYPE hook
+    RETURNING
+      VALUE(return_data) TYPE hook
     RAISING cx_static_check.
 
 * GET - "Get a repository webhook"
@@ -9614,7 +10567,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       hook_id TYPE i
-    RETURNING VALUE(return_data) TYPE hook
+    RETURNING
+      VALUE(return_data) TYPE hook
     RAISING cx_static_check.
 
 * PATCH - "Update a repository webhook"
@@ -9633,7 +10587,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       hook_id TYPE i
       body TYPE bodyrepos_update_webhook
-    RETURNING VALUE(return_data) TYPE hook
+    RETURNING
+      VALUE(return_data) TYPE hook
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository webhook"
@@ -9664,7 +10619,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       hook_id TYPE i
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * PATCH - "Update a webhook configuration for a repository"
@@ -9681,7 +10637,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       hook_id TYPE i
       body TYPE bodyrepos_update_webhook_confi
-    RETURNING VALUE(return_data) TYPE webhook_config
+    RETURNING
+      VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
 * POST - "Ping a repository webhook"
@@ -9724,7 +10681,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE installation
+    RETURNING
+      VALUE(return_data) TYPE installation
     RAISING cx_static_check.
 
 * GET - "List repository invitations"
@@ -9734,13 +10692,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_invitations
   METHODS repos_list_invitations
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_invitation
     RAISING cx_static_check.
 
 * PATCH - "Update a repository invitation"
@@ -9757,7 +10717,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       invitation_id TYPE i
       body TYPE bodyrepos_update_invitation
-    RETURNING VALUE(return_data) TYPE repository_invitation
+    RETURNING
+      VALUE(return_data) TYPE repository_invitation
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository invitation"
@@ -9791,7 +10752,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_for_repo
 * Response: 301
 * Response: 404
 * Response: 422
@@ -9810,6 +10771,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_for_repo
     RAISING cx_static_check.
 
 * POST - "Create an issue"
@@ -9829,7 +10792,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyissues_create
-    RETURNING VALUE(return_data) TYPE issue
+    RETURNING
+      VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * GET - "List issue comments for a repository"
@@ -9842,7 +10806,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_comments_for_repo
 * Response: 404
 * Response: 422
   METHODS issues_list_comments_for_repo
@@ -9854,6 +10818,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_comments_
     RAISING cx_static_check.
 
 * GET - "Get an issue comment"
@@ -9869,7 +10835,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
-    RETURNING VALUE(return_data) TYPE issue_comment
+    RETURNING
+      VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
 
 * PATCH - "Update an issue comment"
@@ -9887,7 +10854,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodyissues_update_comment
-    RETURNING VALUE(return_data) TYPE issue_comment
+    RETURNING
+      VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete an issue comment"
@@ -9914,7 +10882,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_issue_comme
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_issue_comme
@@ -9925,6 +10893,8 @@ INTERFACE zif_githubae PUBLIC.
       comment_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_is
     RAISING cx_static_check.
 
 * POST - "Create reaction for an issue comment"
@@ -9945,7 +10915,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodyreactions_create_for_issue
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete an issue comment reaction"
@@ -9970,7 +10941,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_events_for_repo
 * Response: 422
   METHODS issues_list_events_for_repo
     IMPORTING
@@ -9978,6 +10949,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_events_fo
     RAISING cx_static_check.
 
 * GET - "Get an issue event"
@@ -9995,7 +10968,8 @@ INTERFACE zif_githubae PUBLIC.
       event_id TYPE i
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE issue_event
+    RETURNING
+      VALUE(return_data) TYPE issue_event
     RAISING cx_static_check.
 
 * GET - "Get an issue"
@@ -10014,7 +10988,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-    RETURNING VALUE(return_data) TYPE issue
+    RETURNING
+      VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * PATCH - "Update an issue"
@@ -10037,7 +11012,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_update
-    RETURNING VALUE(return_data) TYPE issue
+    RETURNING
+      VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * POST - "Add assignees to an issue"
@@ -10054,7 +11030,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_add_assignees
-    RETURNING VALUE(return_data) TYPE issue_simple
+    RETURNING
+      VALUE(return_data) TYPE issue_simple
     RAISING cx_static_check.
 
 * DELETE - "Remove assignees from an issue"
@@ -10071,7 +11048,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_remove_assignees
-    RETURNING VALUE(return_data) TYPE issue_simple
+    RETURNING
+      VALUE(return_data) TYPE issue_simple
     RAISING cx_static_check.
 
 * GET - "List issue comments"
@@ -10083,7 +11061,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_comments
 * Response: 404
 * Response: 410
   METHODS issues_list_comments
@@ -10094,6 +11072,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_comments
     RAISING cx_static_check.
 
 * POST - "Create an issue comment"
@@ -10114,7 +11094,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_create_comment
-    RETURNING VALUE(return_data) TYPE issue_comment
+    RETURNING
+      VALUE(return_data) TYPE issue_comment
     RAISING cx_static_check.
 
 * GET - "List issue events"
@@ -10125,7 +11106,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_events
 * Response: 410
   METHODS issues_list_events
     IMPORTING
@@ -10134,6 +11115,8 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_events
     RAISING cx_static_check.
 
 * GET - "List labels for an issue"
@@ -10144,7 +11127,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_labels_on_issue
 * Response: 410
   METHODS issues_list_labels_on_issue
     IMPORTING
@@ -10153,6 +11136,8 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_labels_on
     RAISING cx_static_check.
 
 * POST - "Add labels to an issue"
@@ -10161,7 +11146,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_add_labels
 * Response: 410
 * Response: 422
 * Body ref: #/components/schemas/bodyissues_add_labels
@@ -10171,6 +11156,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_add_labels
+    RETURNING
+      VALUE(return_data) TYPE response_issues_add_labels
     RAISING cx_static_check.
 
 * PUT - "Set labels for an issue"
@@ -10179,7 +11166,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_set_labels
 * Response: 410
 * Response: 422
 * Body ref: #/components/schemas/bodyissues_set_labels
@@ -10189,6 +11176,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyissues_set_labels
+    RETURNING
+      VALUE(return_data) TYPE response_issues_set_labels
     RAISING cx_static_check.
 
 * DELETE - "Remove all labels from an issue"
@@ -10214,7 +11203,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_remove_label
 * Response: 404
 * Response: 410
   METHODS issues_remove_label
@@ -10223,6 +11212,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_issues_remove_label
     RAISING cx_static_check.
 
 * PUT - "Lock an issue"
@@ -10270,7 +11261,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_issue
 * Response: 404
 * Response: 410
 * Response: 415
@@ -10282,6 +11273,8 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_02
     RAISING cx_static_check.
 
 * POST - "Create reaction for an issue"
@@ -10300,7 +11293,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       issue_number TYPE i
       body TYPE bodyreactions_create_for_iss01
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete an issue reaction"
@@ -10326,7 +11320,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_events_for_timelin
 * Response: 404
 * Response: 410
 * Response: 415
@@ -10337,6 +11331,8 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_events_01
     RAISING cx_static_check.
 
 * GET - "List deploy keys"
@@ -10346,13 +11342,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_deploy_keys
   METHODS repos_list_deploy_keys
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_deploy_key
     RAISING cx_static_check.
 
 * POST - "Create a deploy key"
@@ -10368,7 +11366,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_deploy_key
-    RETURNING VALUE(return_data) TYPE deploy_key
+    RETURNING
+      VALUE(return_data) TYPE deploy_key
     RAISING cx_static_check.
 
 * GET - "Get a deploy key"
@@ -10384,7 +11383,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       key_id TYPE i
-    RETURNING VALUE(return_data) TYPE deploy_key
+    RETURNING
+      VALUE(return_data) TYPE deploy_key
     RAISING cx_static_check.
 
 * DELETE - "Delete a deploy key"
@@ -10407,7 +11407,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_labels_for_repo
 * Response: 404
   METHODS issues_list_labels_for_repo
     IMPORTING
@@ -10415,6 +11415,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_labels_fo
     RAISING cx_static_check.
 
 * POST - "Create a label"
@@ -10431,7 +11433,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyissues_create_label
-    RETURNING VALUE(return_data) TYPE label
+    RETURNING
+      VALUE(return_data) TYPE label
     RAISING cx_static_check.
 
 * GET - "Get a label"
@@ -10447,7 +11450,8 @@ INTERFACE zif_githubae PUBLIC.
       name TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE label
+    RETURNING
+      VALUE(return_data) TYPE label
     RAISING cx_static_check.
 
 * PATCH - "Update a label"
@@ -10464,7 +11468,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyissues_update_label
-    RETURNING VALUE(return_data) TYPE label
+    RETURNING
+      VALUE(return_data) TYPE label
     RAISING cx_static_check.
 
 * DELETE - "Delete a label"
@@ -10492,7 +11497,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE language
+    RETURNING
+      VALUE(return_data) TYPE language
     RAISING cx_static_check.
 
 * GET - "Get the license for a repository"
@@ -10505,7 +11511,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE license_content
+    RETURNING
+      VALUE(return_data) TYPE license_content
     RAISING cx_static_check.
 
 * POST - "Merge a branch"
@@ -10516,9 +11523,9 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/commit
 * Response: 403
 * Response: 404
-*     application/json, object
+*     application/json, #/components/schemas/response_repos_merge
 * Response: 409
-*     application/json, object
+*     application/json, #/components/schemas/response_repos_merge
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_merge
   METHODS repos_merge
@@ -10526,7 +11533,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_merge
-    RETURNING VALUE(return_data) TYPE commit
+    RETURNING
+      VALUE(return_data) TYPE commit
     RAISING cx_static_check.
 
 * GET - "List milestones"
@@ -10539,7 +11547,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_milestones
 * Response: 404
   METHODS issues_list_milestones
     IMPORTING
@@ -10550,6 +11558,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_milestone
     RAISING cx_static_check.
 
 * POST - "Create a milestone"
@@ -10566,7 +11576,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyissues_create_milestone
-    RETURNING VALUE(return_data) TYPE milestone
+    RETURNING
+      VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
 
 * GET - "Get a milestone"
@@ -10582,7 +11593,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       milestone_number TYPE i
-    RETURNING VALUE(return_data) TYPE milestone
+    RETURNING
+      VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
 
 * PATCH - "Update a milestone"
@@ -10599,7 +11611,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       milestone_number TYPE i
       body TYPE bodyissues_update_milestone
-    RETURNING VALUE(return_data) TYPE milestone
+    RETURNING
+      VALUE(return_data) TYPE milestone
     RAISING cx_static_check.
 
 * DELETE - "Delete a milestone"
@@ -10626,7 +11639,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_labels_for_milesto
   METHODS issues_list_labels_for_milesto
     IMPORTING
       owner TYPE string
@@ -10634,6 +11647,8 @@ INTERFACE zif_githubae PUBLIC.
       milestone_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_labels_01
     RAISING cx_static_check.
 
 * GET - "List repository notifications for the authenticated user"
@@ -10647,7 +11662,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_repo_notificatio
   METHODS activity_list_repo_notificatio
     IMPORTING
       owner TYPE string
@@ -10658,6 +11673,8 @@ INTERFACE zif_githubae PUBLIC.
       before TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_repo_no
     RAISING cx_static_check.
 
 * PUT - "Mark repository notifications as read"
@@ -10684,7 +11701,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE page
+    RETURNING
+      VALUE(return_data) TYPE page
     RAISING cx_static_check.
 
 * POST - "Create a GitHub AE Pages site"
@@ -10702,7 +11720,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_pages_site
-    RETURNING VALUE(return_data) TYPE page
+    RETURNING
+      VALUE(return_data) TYPE page
     RAISING cx_static_check.
 
 * PUT - "Update information about a GitHub AE Pages site"
@@ -10743,13 +11762,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_pages_builds
   METHODS repos_list_pages_builds
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_pages_buil
     RAISING cx_static_check.
 
 * POST - "Request a GitHub AE Pages build"
@@ -10762,7 +11783,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE page_build_status
+    RETURNING
+      VALUE(return_data) TYPE page_build_status
     RAISING cx_static_check.
 
 * GET - "Get latest Pages build"
@@ -10775,7 +11797,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE page_build
+    RETURNING
+      VALUE(return_data) TYPE page_build
     RAISING cx_static_check.
 
 * GET - "Get GitHub AE Pages build"
@@ -10790,7 +11813,8 @@ INTERFACE zif_githubae PUBLIC.
       build_id TYPE i
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE page_build
+    RETURNING
+      VALUE(return_data) TYPE page_build
     RAISING cx_static_check.
 
 * GET - "List repository projects"
@@ -10801,7 +11825,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_for_repo
 * Response: 401
 * Response: 403
 * Response: 404
@@ -10814,6 +11838,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_for_rep
     RAISING cx_static_check.
 
 * POST - "Create a repository project"
@@ -10833,7 +11859,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyprojects_create_for_repo
-    RETURNING VALUE(return_data) TYPE project
+    RETURNING
+      VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List pull requests"
@@ -10848,7 +11875,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list
 * Response: 304
 * Response: 422
   METHODS pulls_list
@@ -10862,6 +11889,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list
     RAISING cx_static_check.
 
 * POST - "Create a pull request"
@@ -10878,7 +11907,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodypulls_create
-    RETURNING VALUE(return_data) TYPE pull_request
+    RETURNING
+      VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
 
 * GET - "List review comments in a repository"
@@ -10891,7 +11921,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_review_comments_for
   METHODS pulls_list_review_comments_for
     IMPORTING
       direction TYPE string OPTIONAL
@@ -10901,6 +11931,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_review_com
     RAISING cx_static_check.
 
 * GET - "Get a review comment for a pull request"
@@ -10916,7 +11948,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       comment_id TYPE i
-    RETURNING VALUE(return_data) TYPE pull_request_review_comment
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * PATCH - "Update a review comment for a pull request"
@@ -10933,7 +11966,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodypulls_update_review_commen
-    RETURNING VALUE(return_data) TYPE pull_request_review_comment
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete a review comment for a pull request"
@@ -10961,7 +11995,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_pull_reques
 * Response: 404
 * Response: 415
   METHODS reactions_list_for_pull_reques
@@ -10972,6 +12006,8 @@ INTERFACE zif_githubae PUBLIC.
       comment_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_pu
     RAISING cx_static_check.
 
 * POST - "Create reaction for a pull request review comment"
@@ -10992,7 +12028,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       comment_id TYPE i
       body TYPE bodyreactions_create_for_pull_
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * DELETE - "Delete a pull request comment reaction"
@@ -11025,7 +12062,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       pull_number TYPE i
-    RETURNING VALUE(return_data) TYPE pull_request
+    RETURNING
+      VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
 
 * PATCH - "Update a pull request"
@@ -11044,7 +12082,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_update
-    RETURNING VALUE(return_data) TYPE pull_request
+    RETURNING
+      VALUE(return_data) TYPE pull_request
     RAISING cx_static_check.
 
 * GET - "List review comments on a pull request"
@@ -11058,7 +12097,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_review_comments
   METHODS pulls_list_review_comments
     IMPORTING
       direction TYPE string OPTIONAL
@@ -11069,6 +12108,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_review_c01
     RAISING cx_static_check.
 
 * POST - "Create a review comment for a pull request"
@@ -11087,7 +12128,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_create_review_commen
-    RETURNING VALUE(return_data) TYPE pull_request_review_comment
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * POST - "Create a reply for a review comment"
@@ -11107,7 +12149,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       comment_id TYPE i
       body TYPE bodypulls_create_reply_for_rev
-    RETURNING VALUE(return_data) TYPE pull_request_review_comment
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review_comment
     RAISING cx_static_check.
 
 * GET - "List commits on a pull request"
@@ -11118,7 +12161,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_commits
   METHODS pulls_list_commits
     IMPORTING
       owner TYPE string
@@ -11126,6 +12169,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_commits
     RAISING cx_static_check.
 
 * GET - "List pull requests files"
@@ -11136,7 +12181,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_files
 * Response: 422
 * Response: 500
   METHODS pulls_list_files
@@ -11146,6 +12191,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_files
     RAISING cx_static_check.
 
 * GET - "Check if a pull request has been merged"
@@ -11172,9 +12219,9 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 405
-*     application/json, object
+*     application/json, #/components/schemas/response_pulls_merge
 * Response: 409
-*     application/json, object
+*     application/json, #/components/schemas/response_pulls_merge
 * Response: 422
 * Body ref: #/components/schemas/bodypulls_merge
   METHODS pulls_merge
@@ -11183,7 +12230,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_merge
-    RETURNING VALUE(return_data) TYPE pull_request_merge_result
+    RETURNING
+      VALUE(return_data) TYPE pull_request_merge_result
     RAISING cx_static_check.
 
 * GET - "List requested reviewers for a pull request"
@@ -11202,7 +12250,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
-    RETURNING VALUE(return_data) TYPE pull_request_review_request
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review_request
     RAISING cx_static_check.
 
 * POST - "Request reviewers for a pull request"
@@ -11221,7 +12270,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_request_reviewers
-    RETURNING VALUE(return_data) TYPE pull_request_simple
+    RETURNING
+      VALUE(return_data) TYPE pull_request_simple
     RAISING cx_static_check.
 
 * DELETE - "Remove requested reviewers from a pull request"
@@ -11248,7 +12298,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_reviews
   METHODS pulls_list_reviews
     IMPORTING
       owner TYPE string
@@ -11256,6 +12306,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_reviews
     RAISING cx_static_check.
 
 * POST - "Create a review for a pull request"
@@ -11274,7 +12326,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_create_review
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * GET - "Get a review for a pull request"
@@ -11292,7 +12345,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       pull_number TYPE i
       review_id TYPE i
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * PUT - "Update a review for a pull request"
@@ -11312,7 +12366,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       review_id TYPE i
       body TYPE bodypulls_update_review
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * DELETE - "Delete a pending review for a pull request"
@@ -11333,7 +12388,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       review_id TYPE i
       body TYPE bodypulls_delete_pending_revie
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * GET - "List comments for a pull request review"
@@ -11345,7 +12401,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_pulls_list_comments_for_review
 * Response: 404
   METHODS pulls_list_comments_for_review
     IMPORTING
@@ -11355,6 +12411,8 @@ INTERFACE zif_githubae PUBLIC.
       review_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_pulls_list_comments_f
     RAISING cx_static_check.
 
 * PUT - "Dismiss a review for a pull request"
@@ -11375,7 +12433,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       review_id TYPE i
       body TYPE bodypulls_dismiss_review
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * POST - "Submit a review for a pull request"
@@ -11397,7 +12456,8 @@ INTERFACE zif_githubae PUBLIC.
       pull_number TYPE i
       review_id TYPE i
       body TYPE bodypulls_submit_review
-    RETURNING VALUE(return_data) TYPE pull_request_review
+    RETURNING
+      VALUE(return_data) TYPE pull_request_review
     RAISING cx_static_check.
 
 * PUT - "Update a pull request branch"
@@ -11406,7 +12466,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: pull_number, required, path
 * Response: 202
-*     application/json, object
+*     application/json, #/components/schemas/response_pulls_update_branch
 * Response: 403
 * Response: 415
 * Response: 422
@@ -11433,7 +12493,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE content_file
+    RETURNING
+      VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
 
 * GET - "List releases"
@@ -11443,7 +12504,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_releases
 * Response: 404
   METHODS repos_list_releases
     IMPORTING
@@ -11451,6 +12512,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_releases
     RAISING cx_static_check.
 
 * POST - "Create a release"
@@ -11466,7 +12529,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_release
-    RETURNING VALUE(return_data) TYPE release
+    RETURNING
+      VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * GET - "Get a release asset"
@@ -11484,7 +12548,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       asset_id TYPE i
-    RETURNING VALUE(return_data) TYPE release_asset
+    RETURNING
+      VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
 * PATCH - "Update a release asset"
@@ -11501,7 +12566,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       asset_id TYPE i
       body TYPE bodyrepos_update_release_asset
-    RETURNING VALUE(return_data) TYPE release_asset
+    RETURNING
+      VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
 * DELETE - "Delete a release asset"
@@ -11529,7 +12595,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE release
+    RETURNING
+      VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * GET - "Get a release by tag name"
@@ -11545,7 +12612,8 @@ INTERFACE zif_githubae PUBLIC.
       tag TYPE string
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE release
+    RETURNING
+      VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * GET - "Get a release"
@@ -11561,7 +12629,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       release_id TYPE i
-    RETURNING VALUE(return_data) TYPE release
+    RETURNING
+      VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * PATCH - "Update a release"
@@ -11578,7 +12647,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       release_id TYPE i
       body TYPE bodyrepos_update_release
-    RETURNING VALUE(return_data) TYPE release
+    RETURNING
+      VALUE(return_data) TYPE release
     RAISING cx_static_check.
 
 * DELETE - "Delete a release"
@@ -11604,7 +12674,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_release_assets
   METHODS repos_list_release_assets
     IMPORTING
       owner TYPE string
@@ -11612,6 +12682,8 @@ INTERFACE zif_githubae PUBLIC.
       release_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_release_as
     RAISING cx_static_check.
 
 * POST - "Upload a release asset"
@@ -11630,7 +12702,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       release_id TYPE i
-    RETURNING VALUE(return_data) TYPE release_asset
+    RETURNING
+      VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
 * GET - "List stargazers"
@@ -11640,7 +12713,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_stargazers_for_r
 *     application/vnd.github.v3.star+json, array
 * Response: 422
   METHODS activity_list_stargazers_for_r
@@ -11649,6 +12722,8 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_stargaz
     RAISING cx_static_check.
 
 * GET - "Get the weekly commit activity"
@@ -11656,11 +12731,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_code_frequency_stats
   METHODS repos_get_code_frequency_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_code_freque
     RAISING cx_static_check.
 
 * GET - "Get the last year of commit activity"
@@ -11668,11 +12745,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_commit_activity_stat
   METHODS repos_get_commit_activity_stat
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_commit_acti
     RAISING cx_static_check.
 
 * GET - "Get all contributor commit activity"
@@ -11680,11 +12759,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_contributors_stats
   METHODS repos_get_contributors_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_contributor
     RAISING cx_static_check.
 
 * GET - "Get the weekly commit count"
@@ -11698,7 +12779,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE participation_stats
+    RETURNING
+      VALUE(return_data) TYPE participation_stats
     RAISING cx_static_check.
 
 * GET - "Get the hourly commit count for each day"
@@ -11706,11 +12788,13 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_get_punch_card_stats
   METHODS repos_get_punch_card_stats
     IMPORTING
       owner TYPE string
       repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_punch_card_
     RAISING cx_static_check.
 
 * POST - "Create a commit status"
@@ -11727,7 +12811,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_commit_status
-    RETURNING VALUE(return_data) TYPE status
+    RETURNING
+      VALUE(return_data) TYPE status
     RAISING cx_static_check.
 
 * GET - "List watchers"
@@ -11737,13 +12822,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_watchers_for_rep
   METHODS activity_list_watchers_for_rep
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_watcher
     RAISING cx_static_check.
 
 * GET - "Get a repository subscription"
@@ -11758,7 +12845,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE repository_subscription
+    RETURNING
+      VALUE(return_data) TYPE repository_subscription
     RAISING cx_static_check.
 
 * PUT - "Set a repository subscription"
@@ -11773,7 +12861,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyactivity_set_repo_subscrip
-    RETURNING VALUE(return_data) TYPE repository_subscription
+    RETURNING
+      VALUE(return_data) TYPE repository_subscription
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository subscription"
@@ -11796,13 +12885,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_tags
   METHODS repos_list_tags
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_tags
     RAISING cx_static_check.
 
 * GET - "Download a repository archive (tar)"
@@ -11825,13 +12916,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_teams
   METHODS repos_list_teams
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_teams
     RAISING cx_static_check.
 
 * GET - "Get all repository topics"
@@ -11846,7 +12939,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
-    RETURNING VALUE(return_data) TYPE topic
+    RETURNING
+      VALUE(return_data) TYPE topic
     RAISING cx_static_check.
 
 * PUT - "Replace all repository topics"
@@ -11864,7 +12958,8 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_replace_all_topics
-    RETURNING VALUE(return_data) TYPE topic
+    RETURNING
+      VALUE(return_data) TYPE topic
     RAISING cx_static_check.
 
 * POST - "Transfer a repository"
@@ -11928,19 +13023,22 @@ INTERFACE zif_githubae PUBLIC.
       template_owner TYPE string
       template_repo TYPE string
       body TYPE bodyrepos_create_using_templat
-    RETURNING VALUE(return_data) TYPE repository
+    RETURNING
+      VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List public repositories"
 * Operation id: repos/list-public
 * Parameter: since, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_public
 * Response: 304
 * Response: 422
   METHODS repos_list_public
     IMPORTING
       since TYPE i OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_public
     RAISING cx_static_check.
 
 * GET - "Search code"
@@ -11951,7 +13049,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_code
 * Response: 304
 * Response: 403
 * Response: 422
@@ -11963,6 +13061,8 @@ INTERFACE zif_githubae PUBLIC.
       order TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_search_code
     RAISING cx_static_check.
 
 * GET - "Search commits"
@@ -11973,7 +13073,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_commits
 * Response: 304
 * Response: 415
   METHODS search_commits
@@ -11983,6 +13083,8 @@ INTERFACE zif_githubae PUBLIC.
       order TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_search_commits
     RAISING cx_static_check.
 
 * GET - "Search issues and pull requests"
@@ -11993,7 +13095,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_issues_and_pull_request
 * Response: 304
 * Response: 403
 * Response: 422
@@ -12005,6 +13107,8 @@ INTERFACE zif_githubae PUBLIC.
       order TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_search_issues_and_pul
     RAISING cx_static_check.
 
 * GET - "Search labels"
@@ -12014,7 +13118,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_labels
 * Response: 304
 * Response: 403
 * Response: 404
@@ -12025,6 +13129,8 @@ INTERFACE zif_githubae PUBLIC.
       q TYPE string
       sort TYPE string OPTIONAL
       order TYPE string DEFAULT 'desc'
+    RETURNING
+      VALUE(return_data) TYPE response_search_labels
     RAISING cx_static_check.
 
 * GET - "Search repositories"
@@ -12035,7 +13141,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_repos
 * Response: 304
 * Response: 422
 * Response: 503
@@ -12046,18 +13152,22 @@ INTERFACE zif_githubae PUBLIC.
       order TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_search_repos
     RAISING cx_static_check.
 
 * GET - "Search topics"
 * Operation id: search/topics
 * Parameter: q, required, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_topics
 * Response: 304
 * Response: 415
   METHODS search_topics
     IMPORTING
       q TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_search_topics
     RAISING cx_static_check.
 
 * GET - "Search users"
@@ -12068,7 +13178,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_search_users
 * Response: 304
 * Response: 422
 * Response: 503
@@ -12079,6 +13189,8 @@ INTERFACE zif_githubae PUBLIC.
       order TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_search_users
     RAISING cx_static_check.
 
 * GET - "Get a team (Legacy)"
@@ -12090,7 +13202,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS teams_get_legacy
     IMPORTING
       team_id TYPE i
-    RETURNING VALUE(return_data) TYPE team_full
+    RETURNING
+      VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * PATCH - "Update a team (Legacy)"
@@ -12106,7 +13219,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       team_id TYPE i
       body TYPE bodyteams_update_legacy
-    RETURNING VALUE(return_data) TYPE team_full
+    RETURNING
+      VALUE(return_data) TYPE team_full
     RAISING cx_static_check.
 
 * DELETE - "Delete a team (Legacy)"
@@ -12129,13 +13243,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_discussions_legacy
   METHODS teams_list_discussions_legacy
     IMPORTING
       team_id TYPE i
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_discussi02
     RAISING cx_static_check.
 
 * POST - "Create a discussion (Legacy)"
@@ -12148,7 +13264,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       team_id TYPE i
       body TYPE bodyteams_create_discussion_le
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * GET - "Get a discussion (Legacy)"
@@ -12161,7 +13278,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       team_id TYPE i
       discussion_number TYPE i
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * PATCH - "Update a discussion (Legacy)"
@@ -12176,7 +13294,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       discussion_number TYPE i
       body TYPE bodyteams_update_discussion_le
-    RETURNING VALUE(return_data) TYPE team_discussion
+    RETURNING
+      VALUE(return_data) TYPE team_discussion
     RAISING cx_static_check.
 
 * DELETE - "Delete a discussion (Legacy)"
@@ -12200,7 +13319,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_discussion_commen01
   METHODS teams_list_discussion_commen01
     IMPORTING
       team_id TYPE i
@@ -12208,6 +13327,8 @@ INTERFACE zif_githubae PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_discussi03
     RAISING cx_static_check.
 
 * POST - "Create a discussion comment (Legacy)"
@@ -12222,7 +13343,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       discussion_number TYPE i
       body TYPE bodyteams_create_discussion_01
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * GET - "Get a discussion comment (Legacy)"
@@ -12237,7 +13359,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       discussion_number TYPE i
       comment_number TYPE i
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * PATCH - "Update a discussion comment (Legacy)"
@@ -12254,7 +13377,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       comment_number TYPE i
       body TYPE bodyteams_update_discussion_01
-    RETURNING VALUE(return_data) TYPE team_discussion_comment
+    RETURNING
+      VALUE(return_data) TYPE team_discussion_comment
     RAISING cx_static_check.
 
 * DELETE - "Delete a discussion comment (Legacy)"
@@ -12281,7 +13405,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_team_disc02
   METHODS reactions_list_for_team_disc02
     IMPORTING
       content TYPE string OPTIONAL
@@ -12290,6 +13414,8 @@ INTERFACE zif_githubae PUBLIC.
       comment_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_03
     RAISING cx_static_check.
 
 * POST - "Create reaction for a team discussion comment (Legacy)"
@@ -12306,7 +13432,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       comment_number TYPE i
       body TYPE bodyreactions_create_for_tea02
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * GET - "List reactions for a team discussion (Legacy)"
@@ -12317,7 +13444,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_reactions_list_for_team_disc03
   METHODS reactions_list_for_team_disc03
     IMPORTING
       content TYPE string OPTIONAL
@@ -12325,6 +13452,8 @@ INTERFACE zif_githubae PUBLIC.
       discussion_number TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_04
     RAISING cx_static_check.
 
 * POST - "Create reaction for a team discussion (Legacy)"
@@ -12339,7 +13468,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       discussion_number TYPE i
       body TYPE bodyreactions_create_for_tea03
-    RETURNING VALUE(return_data) TYPE reaction
+    RETURNING
+      VALUE(return_data) TYPE reaction
     RAISING cx_static_check.
 
 * GET - "List team members (Legacy)"
@@ -12349,7 +13479,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_members_legacy
 * Response: 404
   METHODS teams_list_members_legacy
     IMPORTING
@@ -12357,6 +13487,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_members_le
     RAISING cx_static_check.
 
 * GET - "Get team member (Legacy)"
@@ -12379,7 +13511,7 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_teams_add_member_legacy
   METHODS teams_add_member_legacy
     IMPORTING
       team_id TYPE i
@@ -12409,7 +13541,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       team_id TYPE i
       username TYPE string
-    RETURNING VALUE(return_data) TYPE team_membership
+    RETURNING
+      VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
 
 * PUT - "Add or update team membership for a user (Legacy)"
@@ -12421,14 +13554,15 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-*     application/json, object
+*     application/json, #/components/schemas/response_teams_add_or_update_membersh01
 * Body ref: #/components/schemas/bodyteams_add_or_update_memb01
   METHODS teams_add_or_update_membersh01
     IMPORTING
       team_id TYPE i
       username TYPE string
       body TYPE bodyteams_add_or_update_memb01
-    RETURNING VALUE(return_data) TYPE team_membership
+    RETURNING
+      VALUE(return_data) TYPE team_membership
     RAISING cx_static_check.
 
 * DELETE - "Remove team membership for a user (Legacy)"
@@ -12451,7 +13585,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_projects_legacy
 * Response: 404
 * Response: 415
   METHODS teams_list_projects_legacy
@@ -12459,6 +13593,8 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_projects_l
     RAISING cx_static_check.
 
 * GET - "Check team permissions for a project (Legacy)"
@@ -12473,7 +13609,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       team_id TYPE i
       project_id TYPE i
-    RETURNING VALUE(return_data) TYPE team_project
+    RETURNING
+      VALUE(return_data) TYPE team_project
     RAISING cx_static_check.
 
 * PUT - "Add or update team project permissions (Legacy)"
@@ -12482,7 +13619,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: project_id, required, path
 * Response: 204
 * Response: 403
-*     application/json, object
+*     application/json, #/components/schemas/response_teams_add_or_update_project_01
 * Response: 404
 * Response: 415
 * Response: 422
@@ -12516,13 +13653,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_repos_legacy
 * Response: 404
   METHODS teams_list_repos_legacy
     IMPORTING
       team_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_repos_lega
     RAISING cx_static_check.
 
 * GET - "Check team permissions for a repository (Legacy)"
@@ -12579,7 +13718,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_child_legacy
 * Response: 403
 * Response: 404
 * Response: 422
@@ -12588,12 +13727,14 @@ INTERFACE zif_githubae PUBLIC.
       team_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_child_lega
     RAISING cx_static_check.
 
 * GET - "Get the authenticated user"
 * Operation id: users/get-authenticated
 * Response: 200
-*     application/json, 
+*     application/json, string
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12613,7 +13754,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS users_update_authenticated
     IMPORTING
       body TYPE bodyusers_update_authenticated
-    RETURNING VALUE(return_data) TYPE private_user
+    RETURNING
+      VALUE(return_data) TYPE private_user
     RAISING cx_static_check.
 
 * GET - "List followers of the authenticated user"
@@ -12621,7 +13763,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_followers_for_authe
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12629,6 +13771,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_followers_
     RAISING cx_static_check.
 
 * GET - "List the people the authenticated user follows"
@@ -12636,7 +13780,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_followed_by_authent
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12644,6 +13788,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_followed_b
     RAISING cx_static_check.
 
 * GET - "Check if a person is followed by the authenticated user"
@@ -12691,7 +13837,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_gpg_keys_for_authen
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12700,6 +13846,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_gpg_keys_f
     RAISING cx_static_check.
 
 * POST - "Create a GPG key for the authenticated user"
@@ -12715,7 +13863,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS users_create_gpg_key_for_authe
     IMPORTING
       body TYPE bodyusers_create_gpg_key_for_a
-    RETURNING VALUE(return_data) TYPE gpg_key
+    RETURNING
+      VALUE(return_data) TYPE gpg_key
     RAISING cx_static_check.
 
 * GET - "Get a GPG key for the authenticated user"
@@ -12730,7 +13879,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS users_get_gpg_key_for_authenti
     IMPORTING
       gpg_key_id TYPE i
-    RETURNING VALUE(return_data) TYPE gpg_key
+    RETURNING
+      VALUE(return_data) TYPE gpg_key
     RAISING cx_static_check.
 
 * DELETE - "Delete a GPG key for the authenticated user"
@@ -12752,7 +13902,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_apps_list_installations_for_au
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12761,6 +13911,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_apps_list_installat01
     RAISING cx_static_check.
 
 * GET - "List repositories accessible to the user access token"
@@ -12769,7 +13921,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, object
+*     application/json, #/components/schemas/response_apps_list_installation_repos_f
 * Response: 304
 * Response: 403
 * Response: 404
@@ -12778,6 +13930,8 @@ INTERFACE zif_githubae PUBLIC.
       installation_id TYPE i
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_apps_list_installat02
     RAISING cx_static_check.
 
 * PUT - "Add a repository to an app installation"
@@ -12819,7 +13973,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_issues_list_for_authenticated_
 * Response: 304
 * Response: 404
   METHODS issues_list_for_authenticated_
@@ -12832,6 +13986,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_issues_list_for_authe
     RAISING cx_static_check.
 
 * GET - "List public SSH keys for the authenticated user"
@@ -12839,7 +13995,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_public_ssh_keys_for
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12848,6 +14004,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_public_ssh
     RAISING cx_static_check.
 
 * POST - "Create a public SSH key for the authenticated user"
@@ -12863,7 +14021,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS users_create_public_ssh_key_fo
     IMPORTING
       body TYPE bodyusers_create_public_ssh_ke
-    RETURNING VALUE(return_data) TYPE key
+    RETURNING
+      VALUE(return_data) TYPE key
     RAISING cx_static_check.
 
 * GET - "Get a public SSH key for the authenticated user"
@@ -12878,7 +14037,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS users_get_public_ssh_key_for_a
     IMPORTING
       key_id TYPE i
-    RETURNING VALUE(return_data) TYPE key
+    RETURNING
+      VALUE(return_data) TYPE key
     RAISING cx_static_check.
 
 * DELETE - "Delete a public SSH key for the authenticated user"
@@ -12900,7 +14060,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_memberships_for_auth
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12910,6 +14070,8 @@ INTERFACE zif_githubae PUBLIC.
       state TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_memberships
     RAISING cx_static_check.
 
 * GET - "Get an organization membership for the authenticated user"
@@ -12922,7 +14084,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS orgs_get_membership_for_authen
     IMPORTING
       org TYPE string
-    RETURNING VALUE(return_data) TYPE org_membership
+    RETURNING
+      VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
 * PATCH - "Update an organization membership for the authenticated user"
@@ -12938,7 +14101,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyorgs_update_membership_for
-    RETURNING VALUE(return_data) TYPE org_membership
+    RETURNING
+      VALUE(return_data) TYPE org_membership
     RAISING cx_static_check.
 
 * GET - "List organizations for the authenticated user"
@@ -12946,7 +14110,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_for_authenticated_us
 * Response: 304
 * Response: 401
 * Response: 403
@@ -12954,6 +14118,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_for_authent
     RAISING cx_static_check.
 
 * POST - "Create a user project"
@@ -12969,7 +14135,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS projects_create_for_authentica
     IMPORTING
       body TYPE bodyprojects_create_for_authen
-    RETURNING VALUE(return_data) TYPE project
+    RETURNING
+      VALUE(return_data) TYPE project
     RAISING cx_static_check.
 
 * GET - "List repositories for the authenticated user"
@@ -12984,7 +14151,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: since, optional, query
 * Parameter: before, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_for_authenticated_u
 * Response: 304
 * Response: 401
 * Response: 403
@@ -13000,6 +14167,8 @@ INTERFACE zif_githubae PUBLIC.
       page TYPE i DEFAULT 1
       since TYPE string OPTIONAL
       before TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_for_authen
     RAISING cx_static_check.
 
 * POST - "Create a repository for the authenticated user"
@@ -13016,7 +14185,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS repos_create_for_authenticated
     IMPORTING
       body TYPE bodyrepos_create_for_authentic
-    RETURNING VALUE(return_data) TYPE repository
+    RETURNING
+      VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
 * GET - "List repository invitations for the authenticated user"
@@ -13024,7 +14194,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_invitations_for_aut
 * Response: 304
 * Response: 401
 * Response: 403
@@ -13033,6 +14203,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_invitati01
     RAISING cx_static_check.
 
 * PATCH - "Accept a repository invitation"
@@ -13068,7 +14240,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_repos_starred_by
 *     application/vnd.github.v3.star+json, array
 * Response: 304
 * Response: 401
@@ -13079,6 +14251,8 @@ INTERFACE zif_githubae PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_repos_s
     RAISING cx_static_check.
 
 * GET - "Check if a repository is starred by the authenticated user"
@@ -13132,7 +14306,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_watched_repos_fo
 * Response: 304
 * Response: 401
 * Response: 403
@@ -13140,6 +14314,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_watched
     RAISING cx_static_check.
 
 * GET - "List teams for the authenticated user"
@@ -13147,7 +14323,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_teams_list_for_authenticated_u
 * Response: 304
 * Response: 403
 * Response: 404
@@ -13155,6 +14331,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_teams_list_for_authen
     RAISING cx_static_check.
 
 * GET - "List users"
@@ -13162,19 +14340,21 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list
 * Response: 304
   METHODS users_list
     IMPORTING
       since TYPE i OPTIONAL
       per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_users_list
     RAISING cx_static_check.
 
 * GET - "Get a user"
 * Operation id: users/get-by-username
 * Parameter: username, required, path
 * Response: 200
-*     application/json, 
+*     application/json, string
 * Response: 404
   METHODS users_get_by_username
     IMPORTING
@@ -13187,12 +14367,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_events_for_authe
   METHODS activity_list_events_for_authe
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_events_
     RAISING cx_static_check.
 
 * GET - "List organization events for the authenticated user"
@@ -13202,13 +14384,15 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_org_events_for_a
   METHODS activity_list_org_events_for_a
     IMPORTING
       username TYPE string
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_org_eve
     RAISING cx_static_check.
 
 * GET - "List public events for a user"
@@ -13217,12 +14401,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_public_events_01
   METHODS activity_list_public_events_01
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_publi03
     RAISING cx_static_check.
 
 * GET - "List followers of a user"
@@ -13231,12 +14417,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_followers_for_user
   METHODS users_list_followers_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_follower01
     RAISING cx_static_check.
 
 * GET - "List the people a user follows"
@@ -13245,12 +14433,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_following_for_user
   METHODS users_list_following_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_following_
     RAISING cx_static_check.
 
 * GET - "Check if a user follows another user"
@@ -13272,7 +14462,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_gists_list_for_user
 * Response: 422
   METHODS gists_list_for_user
     IMPORTING
@@ -13280,6 +14470,8 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_gists_list_for_user
     RAISING cx_static_check.
 
 * GET - "List GPG keys for a user"
@@ -13288,12 +14480,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_gpg_keys_for_user
   METHODS users_list_gpg_keys_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_gpg_keys01
     RAISING cx_static_check.
 
 * GET - "Get contextual information for a user"
@@ -13310,7 +14504,8 @@ INTERFACE zif_githubae PUBLIC.
       subject_type TYPE string OPTIONAL
       subject_id TYPE string OPTIONAL
       username TYPE string
-    RETURNING VALUE(return_data) TYPE hovercard
+    RETURNING
+      VALUE(return_data) TYPE hovercard
     RAISING cx_static_check.
 
 * GET - "Get a user installation for the authenticated app"
@@ -13321,7 +14516,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS apps_get_user_installation
     IMPORTING
       username TYPE string
-    RETURNING VALUE(return_data) TYPE installation
+    RETURNING
+      VALUE(return_data) TYPE installation
     RAISING cx_static_check.
 
 * GET - "List public keys for a user"
@@ -13330,12 +14526,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_users_list_public_keys_for_use
   METHODS users_list_public_keys_for_use
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_users_list_public_key
     RAISING cx_static_check.
 
 * GET - "List organizations for a user"
@@ -13344,12 +14542,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_orgs_list_for_user
   METHODS orgs_list_for_user
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_for_user
     RAISING cx_static_check.
 
 * GET - "List user projects"
@@ -13359,7 +14559,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_projects_list_for_user
 * Response: 415
 * Response: 422
   METHODS projects_list_for_user
@@ -13368,6 +14568,8 @@ INTERFACE zif_githubae PUBLIC.
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_projects_list_for_use
     RAISING cx_static_check.
 
 * GET - "List events received by the authenticated user"
@@ -13376,12 +14578,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_received_events_
   METHODS activity_list_received_events_
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_receive
     RAISING cx_static_check.
 
 * GET - "List public events received by a user"
@@ -13390,12 +14594,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_received_public_
   METHODS activity_list_received_public_
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_recei01
     RAISING cx_static_check.
 
 * GET - "List repositories for a user"
@@ -13407,7 +14613,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_repos_list_for_user
   METHODS repos_list_for_user
     IMPORTING
       type TYPE string DEFAULT 'owner'
@@ -13416,6 +14622,8 @@ INTERFACE zif_githubae PUBLIC.
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_for_user
     RAISING cx_static_check.
 
 * GET - "List repositories starred by a user"
@@ -13426,7 +14634,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_repos_starred_01
 *     application/vnd.github.v3.star+json, array
   METHODS activity_list_repos_starred_01
     IMPORTING
@@ -13435,6 +14643,8 @@ INTERFACE zif_githubae PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_repos01
     RAISING cx_static_check.
 
 * GET - "List repositories watched by a user"
@@ -13443,12 +14653,14 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, array
+*     application/json, #/components/schemas/response_activity_list_repos_watched_by
   METHODS activity_list_repos_watched_by
     IMPORTING
       username TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_activity_list_repos_w
     RAISING cx_static_check.
 
 * PUT - "Suspend a user"
