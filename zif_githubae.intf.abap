@@ -3,19 +3,19 @@ INTERFACE zif_githubae PUBLIC.
 * GitHub v3 REST API
 
 * Component schema: global-hook, object
-  TYPES: BEGIN OF global_hook_config,
+  TYPES: BEGIN OF subglobal_hook_config,
            url TYPE string,
            content_type TYPE string,
            insecure_ssl TYPE string,
            secret TYPE string,
-         END OF global_hook_config.
+         END OF subglobal_hook_config.
   TYPES: BEGIN OF global_hook,
            type TYPE string,
            id TYPE i,
            name TYPE string,
            active TYPE abap_bool,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           config TYPE global_hook_config,
+           config TYPE subglobal_hook_config,
            updated_at TYPE string,
            created_at TYPE string,
            url TYPE string,
@@ -23,18 +23,18 @@ INTERFACE zif_githubae PUBLIC.
          END OF global_hook.
 
 * Component schema: global-hook-2, object
-  TYPES: BEGIN OF global_hook_2_config,
+  TYPES: BEGIN OF subglobal_hook_2_config,
            url TYPE string,
            content_type TYPE string,
            insecure_ssl TYPE string,
-         END OF global_hook_2_config.
+         END OF subglobal_hook_2_config.
   TYPES: BEGIN OF global_hook_2,
            type TYPE string,
            id TYPE i,
            name TYPE string,
            active TYPE abap_bool,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           config TYPE global_hook_2_config,
+           config TYPE subglobal_hook_2_config,
            updated_at TYPE string,
            created_at TYPE string,
            url TYPE string,
@@ -68,12 +68,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF organization_simple.
 
 * Component schema: pre-receive-environment, object
-  TYPES: BEGIN OF pre_receive_environment_downlo,
+  TYPES: BEGIN OF subpre_receive_environment_dow,
            url TYPE string,
            state TYPE string,
            downloaded_at TYPE string,
            message TYPE string,
-         END OF pre_receive_environment_downlo.
+         END OF subpre_receive_environment_dow.
   TYPES: BEGIN OF pre_receive_environment,
            id TYPE i,
            name TYPE string,
@@ -83,7 +83,7 @@ INTERFACE zif_githubae PUBLIC.
            default_environment TYPE abap_bool,
            created_at TYPE string,
            hooks_count TYPE i,
-           download TYPE pre_receive_environment_downlo,
+           download TYPE subpre_receive_environment_dow,
          END OF pre_receive_environment.
 
 * Component schema: pre-receive-environment-download-status, object
@@ -163,11 +163,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF scoped_installation.
 
 * Component schema: authorization, object
-  TYPES: BEGIN OF authorization_app,
+  TYPES: BEGIN OF subauthorization_app,
            client_id TYPE string,
            name TYPE string,
            url TYPE string,
-         END OF authorization_app.
+         END OF subauthorization_app.
   TYPES: BEGIN OF authorization,
            id TYPE i,
            url TYPE string,
@@ -175,7 +175,7 @@ INTERFACE zif_githubae PUBLIC.
            token TYPE string,
            token_last_eight TYPE string,
            hashed_token TYPE string,
-           app TYPE authorization_app,
+           app TYPE subauthorization_app,
            note TYPE string,
            note_url TYPE string,
            updated_at TYPE string,
@@ -186,13 +186,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF authorization.
 
 * Component schema: integration, object
-  TYPES: BEGIN OF integration_permissions,
+  TYPES: BEGIN OF subintegration_permissions,
            issues TYPE string,
            checks TYPE string,
            metadata TYPE string,
            contents TYPE string,
            deployments TYPE string,
-         END OF integration_permissions.
+         END OF subintegration_permissions.
   TYPES: BEGIN OF integration,
            id TYPE i,
            slug TYPE string,
@@ -204,7 +204,7 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           permissions TYPE integration_permissions,
+           permissions TYPE subintegration_permissions,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            installations_count TYPE i,
            client_id TYPE string,
@@ -261,7 +261,7 @@ INTERFACE zif_githubae PUBLIC.
          END OF enterprise.
 
 * Component schema: installation, object
-  TYPES: BEGIN OF installation_permissions,
+  TYPES: BEGIN OF subinstallation_permissions,
            deployments TYPE string,
            checks TYPE string,
            metadata TYPE string,
@@ -270,7 +270,7 @@ INTERFACE zif_githubae PUBLIC.
            statuses TYPE string,
            issues TYPE string,
            organization_administration TYPE string,
-         END OF installation_permissions.
+         END OF subinstallation_permissions.
   TYPES: BEGIN OF installation,
            id TYPE i,
            account TYPE string,
@@ -281,7 +281,7 @@ INTERFACE zif_githubae PUBLIC.
            app_id TYPE i,
            target_id TYPE i,
            target_type TYPE string,
-           permissions TYPE installation_permissions,
+           permissions TYPE subinstallation_permissions,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            created_at TYPE string,
            updated_at TYPE string,
@@ -305,12 +305,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF license_simple.
 
 * Component schema: repository, object
-  TYPES: BEGIN OF repository_template_reposito02,
+  TYPES: BEGIN OF subsubrepository_template_re01,
            admin TYPE abap_bool,
            push TYPE abap_bool,
            pull TYPE abap_bool,
-         END OF repository_template_reposito02.
-  TYPES: BEGIN OF repository_template_reposito01,
+         END OF subsubrepository_template_re01.
+  TYPES: BEGIN OF subsubrepository_template_repo,
            login TYPE string,
            id TYPE i,
            node_id TYPE string,
@@ -329,13 +329,13 @@ INTERFACE zif_githubae PUBLIC.
            received_events_url TYPE string,
            type TYPE string,
            site_admin TYPE abap_bool,
-         END OF repository_template_reposito01.
-  TYPES: BEGIN OF repository_template_repository,
+         END OF subsubrepository_template_repo.
+  TYPES: BEGIN OF subrepository_template_reposit,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE repository_template_reposito01,
+           owner TYPE subsubrepository_template_repo,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -403,7 +403,7 @@ INTERFACE zif_githubae PUBLIC.
            pushed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           permissions TYPE repository_template_reposito02,
+           permissions TYPE subsubrepository_template_re01,
            allow_rebase_merge TYPE abap_bool,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
@@ -411,14 +411,14 @@ INTERFACE zif_githubae PUBLIC.
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
-         END OF repository_template_repository.
-  TYPES: BEGIN OF repository_permissions,
+         END OF subrepository_template_reposit.
+  TYPES: BEGIN OF subrepository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            triage TYPE abap_bool,
            push TYPE abap_bool,
            maintain TYPE abap_bool,
-         END OF repository_permissions.
+         END OF subrepository_permissions.
   TYPES: BEGIN OF repository,
            id TYPE i,
            node_id TYPE string,
@@ -426,7 +426,7 @@ INTERFACE zif_githubae PUBLIC.
            full_name TYPE string,
            license TYPE string,
            forks TYPE i,
-           permissions TYPE repository_permissions,
+           permissions TYPE subrepository_permissions,
            owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
@@ -496,7 +496,7 @@ INTERFACE zif_githubae PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            allow_rebase_merge TYPE abap_bool,
-           template_repository TYPE repository_template_repository,
+           template_repository TYPE subrepository_template_reposit,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
@@ -510,16 +510,16 @@ INTERFACE zif_githubae PUBLIC.
          END OF repository.
 
 * Component schema: installation-token, object
-  TYPES: BEGIN OF installation_token_permissions,
+  TYPES: BEGIN OF subinstallation_token_permissi,
            issues TYPE string,
            contents TYPE string,
            metadata TYPE string,
            single_file TYPE string,
-         END OF installation_token_permissions.
+         END OF subinstallation_token_permissi.
   TYPES: BEGIN OF installation_token,
            token TYPE string,
            expires_at TYPE string,
-           permissions TYPE installation_token_permissions,
+           permissions TYPE subinstallation_token_permissi,
            repository_selection TYPE string,
            repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            single_file TYPE string,
@@ -594,71 +594,71 @@ INTERFACE zif_githubae PUBLIC.
          END OF license_info.
 
 * Component schema: enterprise-overview, object
-  TYPES: BEGIN OF enterprise_overview_comments,
+  TYPES: BEGIN OF subenterprise_overview_comment,
            total_commit_comments TYPE i,
            total_gist_comments TYPE i,
            total_issue_comments TYPE i,
            total_pull_request_comments TYPE i,
-         END OF enterprise_overview_comments.
-  TYPES: BEGIN OF enterprise_overview_gists,
+         END OF subenterprise_overview_comment.
+  TYPES: BEGIN OF subenterprise_overview_gists,
            total_gists TYPE i,
            private_gists TYPE i,
            public_gists TYPE i,
-         END OF enterprise_overview_gists.
-  TYPES: BEGIN OF enterprise_overview_milestones,
+         END OF subenterprise_overview_gists.
+  TYPES: BEGIN OF subenterprise_overview_milesto,
            total_milestones TYPE i,
            open_milestones TYPE i,
            closed_milestones TYPE i,
-         END OF enterprise_overview_milestones.
-  TYPES: BEGIN OF enterprise_overview_issues,
+         END OF subenterprise_overview_milesto.
+  TYPES: BEGIN OF subenterprise_overview_issues,
            total_issues TYPE i,
            open_issues TYPE i,
            closed_issues TYPE i,
-         END OF enterprise_overview_issues.
-  TYPES: BEGIN OF enterprise_overview_pulls,
+         END OF subenterprise_overview_issues.
+  TYPES: BEGIN OF subenterprise_overview_pulls,
            total_pulls TYPE i,
            merged_pulls TYPE i,
            mergeable_pulls TYPE i,
            unmergeable_pulls TYPE i,
-         END OF enterprise_overview_pulls.
-  TYPES: BEGIN OF enterprise_overview_users,
+         END OF subenterprise_overview_pulls.
+  TYPES: BEGIN OF subenterprise_overview_users,
            total_users TYPE i,
            admin_users TYPE i,
            suspended_users TYPE i,
-         END OF enterprise_overview_users.
-  TYPES: BEGIN OF enterprise_overview_orgs,
+         END OF subenterprise_overview_users.
+  TYPES: BEGIN OF subenterprise_overview_orgs,
            total_orgs TYPE i,
            disabled_orgs TYPE i,
            total_teams TYPE i,
            total_team_members TYPE i,
-         END OF enterprise_overview_orgs.
-  TYPES: BEGIN OF enterprise_overview_pages,
+         END OF subenterprise_overview_orgs.
+  TYPES: BEGIN OF subenterprise_overview_pages,
            total_pages TYPE i,
-         END OF enterprise_overview_pages.
-  TYPES: BEGIN OF enterprise_overview_hooks,
+         END OF subenterprise_overview_pages.
+  TYPES: BEGIN OF subenterprise_overview_hooks,
            total_hooks TYPE i,
            active_hooks TYPE i,
            inactive_hooks TYPE i,
-         END OF enterprise_overview_hooks.
-  TYPES: BEGIN OF enterprise_overview_repos,
+         END OF subenterprise_overview_hooks.
+  TYPES: BEGIN OF subenterprise_overview_repos,
            total_repos TYPE i,
            root_repos TYPE i,
            fork_repos TYPE i,
            org_repos TYPE i,
            total_pushes TYPE i,
            total_wikis TYPE i,
-         END OF enterprise_overview_repos.
+         END OF subenterprise_overview_repos.
   TYPES: BEGIN OF enterprise_overview,
-           repos TYPE enterprise_overview_repos,
-           hooks TYPE enterprise_overview_hooks,
-           pages TYPE enterprise_overview_pages,
-           orgs TYPE enterprise_overview_orgs,
-           users TYPE enterprise_overview_users,
-           pulls TYPE enterprise_overview_pulls,
-           issues TYPE enterprise_overview_issues,
-           milestones TYPE enterprise_overview_milestones,
-           gists TYPE enterprise_overview_gists,
-           comments TYPE enterprise_overview_comments,
+           repos TYPE subenterprise_overview_repos,
+           hooks TYPE subenterprise_overview_hooks,
+           pages TYPE subenterprise_overview_pages,
+           orgs TYPE subenterprise_overview_orgs,
+           users TYPE subenterprise_overview_users,
+           pulls TYPE subenterprise_overview_pulls,
+           issues TYPE subenterprise_overview_issues,
+           milestones TYPE subenterprise_overview_milesto,
+           gists TYPE subenterprise_overview_gists,
+           comments TYPE subenterprise_overview_comment,
          END OF enterprise_overview.
 
 * Component schema: actor, object
@@ -706,13 +706,13 @@ INTERFACE zif_githubae PUBLIC.
   TYPES author_association TYPE string.
 
 * Component schema: issue-simple, object
-  TYPES: BEGIN OF issue_simple_pull_request,
+  TYPES: BEGIN OF subissue_simple_pull_request,
            merged_at TYPE string,
            diff_url TYPE string,
            html_url TYPE string,
            patch_url TYPE string,
            url TYPE string,
-         END OF issue_simple_pull_request.
+         END OF subissue_simple_pull_request.
   TYPES: BEGIN OF issue_simple,
            id TYPE i,
            node_id TYPE string,
@@ -734,7 +734,7 @@ INTERFACE zif_githubae PUBLIC.
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
-           pull_request TYPE issue_simple_pull_request,
+           pull_request TYPE subissue_simple_pull_request,
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
@@ -779,24 +779,24 @@ INTERFACE zif_githubae PUBLIC.
          END OF issue_comment.
 
 * Component schema: event, object
-  TYPES: BEGIN OF event_payload,
+  TYPES: BEGIN OF subevent_payload,
            action TYPE string,
            issue TYPE issue_simple,
            comment TYPE issue_comment,
            pages TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF event_payload.
-  TYPES: BEGIN OF event_repo,
+         END OF subevent_payload.
+  TYPES: BEGIN OF subevent_repo,
            id TYPE i,
            name TYPE string,
            url TYPE string,
-         END OF event_repo.
+         END OF subevent_repo.
   TYPES: BEGIN OF event,
            id TYPE string,
            type TYPE string,
            actor TYPE actor,
-           repo TYPE event_repo,
+           repo TYPE subevent_repo,
            org TYPE actor,
-           payload TYPE event_payload,
+           payload TYPE subevent_payload,
            public TYPE abap_bool,
            created_at TYPE string,
          END OF event.
@@ -808,7 +808,7 @@ INTERFACE zif_githubae PUBLIC.
          END OF link_with_type.
 
 * Component schema: feed, object
-  TYPES: BEGIN OF feed__links,
+  TYPES: BEGIN OF subfeed__links,
            timeline TYPE link_with_type,
            user TYPE link_with_type,
            security_advisories TYPE link_with_type,
@@ -817,7 +817,7 @@ INTERFACE zif_githubae PUBLIC.
            current_user_actor TYPE link_with_type,
            current_user_organization TYPE link_with_type,
            current_user_organizations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF feed__links.
+         END OF subfeed__links.
   TYPES: BEGIN OF feed,
            timeline_url TYPE string,
            user_url TYPE string,
@@ -827,13 +827,13 @@ INTERFACE zif_githubae PUBLIC.
            current_user_organization_url TYPE string,
            current_user_organization_urls TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            security_advisories_url TYPE string,
-           _links TYPE feed__links,
+           _links TYPE subfeed__links,
          END OF feed.
 
 * Component schema: base-gist, object
-  TYPES: BEGIN OF base_gist_files,
+  TYPES: BEGIN OF subbase_gist_files,
            dummy_workaround TYPE i,
-         END OF base_gist_files.
+         END OF subbase_gist_files.
   TYPES: BEGIN OF base_gist,
            url TYPE string,
            forks_url TYPE string,
@@ -843,7 +843,7 @@ INTERFACE zif_githubae PUBLIC.
            git_pull_url TYPE string,
            git_push_url TYPE string,
            html_url TYPE string,
-           files TYPE base_gist_files,
+           files TYPE subbase_gist_files,
            public TYPE abap_bool,
            created_at TYPE string,
            updated_at TYPE string,
@@ -858,9 +858,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF base_gist.
 
 * Component schema: gist-simple, object
-  TYPES: BEGIN OF gist_simple_files,
+  TYPES: BEGIN OF subgist_simple_files,
            dummy_workaround TYPE i,
-         END OF gist_simple_files.
+         END OF subgist_simple_files.
   TYPES: BEGIN OF gist_simple,
            url TYPE string,
            forks_url TYPE string,
@@ -870,7 +870,7 @@ INTERFACE zif_githubae PUBLIC.
            git_pull_url TYPE string,
            git_push_url TYPE string,
            html_url TYPE string,
-           files TYPE gist_simple_files,
+           files TYPE subgist_simple_files,
            public TYPE abap_bool,
            created_at TYPE string,
            updated_at TYPE string,
@@ -895,16 +895,16 @@ INTERFACE zif_githubae PUBLIC.
          END OF gist_comment.
 
 * Component schema: gist-commit, object
-  TYPES: BEGIN OF gist_commit_change_status,
+  TYPES: BEGIN OF subgist_commit_change_status,
            total TYPE i,
            additions TYPE i,
            deletions TYPE i,
-         END OF gist_commit_change_status.
+         END OF subgist_commit_change_status.
   TYPES: BEGIN OF gist_commit,
            url TYPE string,
            version TYPE string,
            user TYPE string,
-           change_status TYPE gist_commit_change_status,
+           change_status TYPE subgist_commit_change_status,
            committed_at TYPE string,
          END OF gist_commit.
 
@@ -915,13 +915,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF gitignore_template.
 
 * Component schema: issue, object
-  TYPES: BEGIN OF issue_pull_request,
+  TYPES: BEGIN OF subissue_pull_request,
            merged_at TYPE string,
            diff_url TYPE string,
            html_url TYPE string,
            patch_url TYPE string,
            url TYPE string,
-         END OF issue_pull_request.
+         END OF subissue_pull_request.
   TYPES: BEGIN OF issue,
            id TYPE i,
            node_id TYPE string,
@@ -943,7 +943,7 @@ INTERFACE zif_githubae PUBLIC.
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
-           pull_request TYPE issue_pull_request,
+           pull_request TYPE subissue_pull_request,
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
@@ -975,13 +975,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF license.
 
 * Component schema: api-overview, object
-  TYPES: BEGIN OF api_overview_ssh_key_fingerpri,
+  TYPES: BEGIN OF subapi_overview_ssh_key_finger,
            sha256_rsa TYPE string,
            sha256_dsa TYPE string,
-         END OF api_overview_ssh_key_fingerpri.
+         END OF subapi_overview_ssh_key_finger.
   TYPES: BEGIN OF api_overview,
            verifiable_password_authentica TYPE abap_bool,
-           ssh_key_fingerprints TYPE api_overview_ssh_key_fingerpri,
+           ssh_key_fingerprints TYPE subapi_overview_ssh_key_finger,
            hooks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            web TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            api TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -992,30 +992,30 @@ INTERFACE zif_githubae PUBLIC.
          END OF api_overview.
 
 * Component schema: minimal-repository, object
-  TYPES: BEGIN OF minimal_repository_license,
+  TYPES: BEGIN OF subminimal_repository_license,
            key TYPE string,
            name TYPE string,
            spdx_id TYPE string,
            url TYPE string,
            node_id TYPE string,
-         END OF minimal_repository_license.
-  TYPES: BEGIN OF minimal_repository_template_re,
+         END OF subminimal_repository_license.
+  TYPES: BEGIN OF subminimal_repository_template,
            dummy_workaround TYPE i,
-         END OF minimal_repository_template_re.
-  TYPES: BEGIN OF minimal_repository_permissions,
+         END OF subminimal_repository_template.
+  TYPES: BEGIN OF subminimal_repository_permissi,
            admin TYPE abap_bool,
            push TYPE abap_bool,
            pull TYPE abap_bool,
-         END OF minimal_repository_permissions.
-  TYPES: BEGIN OF minimal_repository_owner,
+         END OF subminimal_repository_permissi.
+  TYPES: BEGIN OF subminimal_repository_owner,
            dummy_workaround TYPE i,
-         END OF minimal_repository_owner.
+         END OF subminimal_repository_owner.
   TYPES: BEGIN OF minimal_repository,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE minimal_repository_owner,
+           owner TYPE subminimal_repository_owner,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -1083,29 +1083,29 @@ INTERFACE zif_githubae PUBLIC.
            pushed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           permissions TYPE minimal_repository_permissions,
-           template_repository TYPE minimal_repository_template_re,
+           permissions TYPE subminimal_repository_permissi,
+           template_repository TYPE subminimal_repository_template,
            temp_clone_token TYPE string,
            delete_branch_on_merge TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
-           license TYPE minimal_repository_license,
+           license TYPE subminimal_repository_license,
            forks TYPE i,
            open_issues TYPE i,
            watchers TYPE i,
          END OF minimal_repository.
 
 * Component schema: thread, object
-  TYPES: BEGIN OF thread_subject,
+  TYPES: BEGIN OF subthread_subject,
            title TYPE string,
            url TYPE string,
            latest_comment_url TYPE string,
            type TYPE string,
-         END OF thread_subject.
+         END OF subthread_subject.
   TYPES: BEGIN OF thread,
            id TYPE string,
            repository TYPE minimal_repository,
-           subject TYPE thread_subject,
+           subject TYPE subthread_subject,
            reason TYPE string,
            unread TYPE abap_bool,
            updated_at TYPE string,
@@ -1126,13 +1126,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF thread_subscription.
 
 * Component schema: organization-full, object
-  TYPES: BEGIN OF organization_full_plan,
+  TYPES: BEGIN OF suborganization_full_plan,
            name TYPE string,
            space TYPE i,
            private_repos TYPE i,
            filled_seats TYPE i,
            seats TYPE i,
-         END OF organization_full_plan.
+         END OF suborganization_full_plan.
   TYPES: BEGIN OF organization_full,
            login TYPE string,
            id TYPE i,
@@ -1168,7 +1168,7 @@ INTERFACE zif_githubae PUBLIC.
            disk_usage TYPE i,
            collaborators TYPE i,
            billing_email TYPE string,
-           plan TYPE organization_full_plan,
+           plan TYPE suborganization_full_plan,
            default_repository_permission TYPE string,
            members_can_create_repositorie TYPE abap_bool,
            two_factor_requirement_enabled TYPE abap_bool,
@@ -1181,12 +1181,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF organization_full.
 
 * Component schema: org-hook, object
-  TYPES: BEGIN OF org_hook_config,
+  TYPES: BEGIN OF suborg_hook_config,
            url TYPE string,
            insecure_ssl TYPE string,
            content_type TYPE string,
            secret TYPE string,
-         END OF org_hook_config.
+         END OF suborg_hook_config.
   TYPES: BEGIN OF org_hook,
            id TYPE i,
            url TYPE string,
@@ -1194,16 +1194,16 @@ INTERFACE zif_githubae PUBLIC.
            name TYPE string,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
-           config TYPE org_hook_config,
+           config TYPE suborg_hook_config,
            updated_at TYPE string,
            created_at TYPE string,
            type TYPE string,
          END OF org_hook.
 
 * Component schema: org-membership, object
-  TYPES: BEGIN OF org_membership_permissions,
+  TYPES: BEGIN OF suborg_membership_permissions,
            can_create_repository TYPE abap_bool,
-         END OF org_membership_permissions.
+         END OF suborg_membership_permissions.
   TYPES: BEGIN OF org_membership,
            url TYPE string,
            state TYPE string,
@@ -1211,7 +1211,7 @@ INTERFACE zif_githubae PUBLIC.
            organization_url TYPE string,
            organization TYPE organization_simple,
            user TYPE string,
-           permissions TYPE org_membership_permissions,
+           permissions TYPE suborg_membership_permissions,
          END OF org_membership.
 
 * Component schema: project, object
@@ -1343,11 +1343,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF team_membership.
 
 * Component schema: team-project, object
-  TYPES: BEGIN OF team_project_permissions,
+  TYPES: BEGIN OF subteam_project_permissions,
            read TYPE abap_bool,
            write TYPE abap_bool,
            admin TYPE abap_bool,
-         END OF team_project_permissions.
+         END OF subteam_project_permissions.
   TYPES: BEGIN OF team_project,
            owner_url TYPE string,
            url TYPE string,
@@ -1364,20 +1364,20 @@ INTERFACE zif_githubae PUBLIC.
            updated_at TYPE string,
            organization_permission TYPE string,
            private TYPE abap_bool,
-           permissions TYPE team_project_permissions,
+           permissions TYPE subteam_project_permissions,
          END OF team_project.
 
 * Component schema: team-repository, object
-  TYPES: BEGIN OF team_repository_template_repos,
+  TYPES: BEGIN OF subteam_repository_template_re,
            dummy_workaround TYPE i,
-         END OF team_repository_template_repos.
-  TYPES: BEGIN OF team_repository_permissions,
+         END OF subteam_repository_template_re.
+  TYPES: BEGIN OF subteam_repository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            triage TYPE abap_bool,
            push TYPE abap_bool,
            maintain TYPE abap_bool,
-         END OF team_repository_permissions.
+         END OF subteam_repository_permissions.
   TYPES: BEGIN OF team_repository,
            id TYPE i,
            node_id TYPE string,
@@ -1385,7 +1385,7 @@ INTERFACE zif_githubae PUBLIC.
            full_name TYPE string,
            license TYPE string,
            forks TYPE i,
-           permissions TYPE team_repository_permissions,
+           permissions TYPE subteam_repository_permissions,
            owner TYPE string,
            private TYPE abap_bool,
            html_url TYPE string,
@@ -1455,7 +1455,7 @@ INTERFACE zif_githubae PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            allow_rebase_merge TYPE abap_bool,
-           template_repository TYPE team_repository_template_repos,
+           template_repository TYPE subteam_repository_template_re,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
@@ -1508,28 +1508,28 @@ INTERFACE zif_githubae PUBLIC.
          END OF rate_limit.
 
 * Component schema: rate-limit-overview, object
-  TYPES: BEGIN OF rate_limit_overview_resources,
+  TYPES: BEGIN OF subrate_limit_overview_resourc,
            core TYPE rate_limit,
            graphql TYPE rate_limit,
            search TYPE rate_limit,
            source_import TYPE rate_limit,
            integration_manifest TYPE rate_limit,
            code_scanning_upload TYPE rate_limit,
-         END OF rate_limit_overview_resources.
+         END OF subrate_limit_overview_resourc.
   TYPES: BEGIN OF rate_limit_overview,
-           resources TYPE rate_limit_overview_resources,
+           resources TYPE subrate_limit_overview_resourc,
            rate TYPE rate_limit,
          END OF rate_limit_overview.
 
 * Component schema: full-repository, object
-  TYPES: BEGIN OF full_repository_template_repos,
+  TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
-         END OF full_repository_template_repos.
-  TYPES: BEGIN OF full_repository_permissions,
+         END OF subfull_repository_template_re.
+  TYPES: BEGIN OF subfull_repository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            push TYPE abap_bool,
-         END OF full_repository_permissions.
+         END OF subfull_repository_permissions.
   TYPES: BEGIN OF full_repository,
            id TYPE i,
            node_id TYPE string,
@@ -1603,9 +1603,9 @@ INTERFACE zif_githubae PUBLIC.
            pushed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           permissions TYPE full_repository_permissions,
+           permissions TYPE subfull_repository_permissions,
            allow_rebase_merge TYPE abap_bool,
-           template_repository TYPE full_repository_template_repos,
+           template_repository TYPE subfull_repository_template_re,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
@@ -1630,16 +1630,16 @@ INTERFACE zif_githubae PUBLIC.
          END OF protected_branch_admin_enforce.
 
 * Component schema: protected-branch-pull-request-review, object
-  TYPES: BEGIN OF protected_branch_pull_reques01,
+  TYPES: BEGIN OF subprotected_branch_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            url TYPE string,
            users_url TYPE string,
            teams_url TYPE string,
-         END OF protected_branch_pull_reques01.
+         END OF subprotected_branch_pull_reque.
   TYPES: BEGIN OF protected_branch_pull_request_,
            url TYPE string,
-           dismissal_restrictions TYPE protected_branch_pull_reques01,
+           dismissal_restrictions TYPE subprotected_branch_pull_reque,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
@@ -1657,43 +1657,43 @@ INTERFACE zif_githubae PUBLIC.
          END OF branch_restriction_policy.
 
 * Component schema: branch-protection, object
-  TYPES: BEGIN OF branch_protection_allow_deleti,
+  TYPES: BEGIN OF subbranch_protection_allow_del,
            enabled TYPE abap_bool,
-         END OF branch_protection_allow_deleti.
-  TYPES: BEGIN OF branch_protection_allow_force_,
+         END OF subbranch_protection_allow_del.
+  TYPES: BEGIN OF subbranch_protection_allow_for,
            enabled TYPE abap_bool,
-         END OF branch_protection_allow_force_.
-  TYPES: BEGIN OF branch_protection_required_lin,
+         END OF subbranch_protection_allow_for.
+  TYPES: BEGIN OF subbranch_protection_require01,
            enabled TYPE abap_bool,
-         END OF branch_protection_required_lin.
-  TYPES: BEGIN OF branch_protection_required_sta,
+         END OF subbranch_protection_require01.
+  TYPES: BEGIN OF subbranch_protection_required_,
            url TYPE string,
            enforcement_level TYPE string,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            contexts_url TYPE string,
-         END OF branch_protection_required_sta.
+         END OF subbranch_protection_required_.
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
-           required_status_checks TYPE branch_protection_required_sta,
+           required_status_checks TYPE subbranch_protection_required_,
            enforce_admins TYPE protected_branch_admin_enforce,
            required_pull_request_reviews TYPE protected_branch_pull_request_,
            restrictions TYPE branch_restriction_policy,
-           required_linear_history TYPE branch_protection_required_lin,
-           allow_force_pushes TYPE branch_protection_allow_force_,
-           allow_deletions TYPE branch_protection_allow_deleti,
+           required_linear_history TYPE subbranch_protection_require01,
+           allow_force_pushes TYPE subbranch_protection_allow_for,
+           allow_deletions TYPE subbranch_protection_allow_del,
            enabled TYPE abap_bool,
            name TYPE string,
            protection_url TYPE string,
          END OF branch_protection.
 
 * Component schema: short-branch, object
-  TYPES: BEGIN OF short_branch_commit,
+  TYPES: BEGIN OF subshort_branch_commit,
            sha TYPE string,
            url TYPE string,
-         END OF short_branch_commit.
+         END OF subshort_branch_commit.
   TYPES: BEGIN OF short_branch,
            name TYPE string,
-           commit TYPE short_branch_commit,
+           commit TYPE subshort_branch_commit,
            protected TYPE abap_bool,
            protection TYPE branch_protection,
            protection_url TYPE string,
@@ -1715,47 +1715,47 @@ INTERFACE zif_githubae PUBLIC.
          END OF verification.
 
 * Component schema: commit, object
-  TYPES: BEGIN OF commit_stats,
+  TYPES: BEGIN OF subcommit_stats,
            additions TYPE i,
            deletions TYPE i,
            total TYPE i,
-         END OF commit_stats.
-  TYPES: BEGIN OF commit_commit_tree,
+         END OF subcommit_stats.
+  TYPES: BEGIN OF subsubcommit_commit_tree,
            sha TYPE string,
            url TYPE string,
-         END OF commit_commit_tree.
-  TYPES: BEGIN OF commit_commit,
+         END OF subsubcommit_commit_tree.
+  TYPES: BEGIN OF subcommit_commit,
            url TYPE string,
            author TYPE string,
            committer TYPE string,
            message TYPE string,
            comment_count TYPE i,
-           tree TYPE commit_commit_tree,
+           tree TYPE subsubcommit_commit_tree,
            verification TYPE verification,
-         END OF commit_commit.
+         END OF subcommit_commit.
   TYPES: BEGIN OF commit,
            url TYPE string,
            sha TYPE string,
            node_id TYPE string,
            html_url TYPE string,
            comments_url TYPE string,
-           commit TYPE commit_commit,
+           commit TYPE subcommit_commit,
            author TYPE string,
            committer TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           stats TYPE commit_stats,
+           stats TYPE subcommit_stats,
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF commit.
 
 * Component schema: branch-with-protection, object
-  TYPES: BEGIN OF branch_with_protection__links,
+  TYPES: BEGIN OF subbranch_with_protection__lin,
            html TYPE string,
            self TYPE string,
-         END OF branch_with_protection__links.
+         END OF subbranch_with_protection__lin.
   TYPES: BEGIN OF branch_with_protection,
            name TYPE string,
            commit TYPE commit,
-           _links TYPE branch_with_protection__links,
+           _links TYPE subbranch_with_protection__lin,
            protected TYPE abap_bool,
            protection TYPE branch_protection,
            protection_url TYPE string,
@@ -1772,89 +1772,89 @@ INTERFACE zif_githubae PUBLIC.
          END OF status_check_policy.
 
 * Component schema: protected-branch, object
-  TYPES: BEGIN OF protected_branch_allow_deletio,
+  TYPES: BEGIN OF subprotected_branch_allow_dele,
            enabled TYPE abap_bool,
-         END OF protected_branch_allow_deletio.
-  TYPES: BEGIN OF protected_branch_allow_force_p,
+         END OF subprotected_branch_allow_dele.
+  TYPES: BEGIN OF subprotected_branch_allow_forc,
            enabled TYPE abap_bool,
-         END OF protected_branch_allow_force_p.
-  TYPES: BEGIN OF protected_branch_required_line,
+         END OF subprotected_branch_allow_forc.
+  TYPES: BEGIN OF subprotected_branch_required_l,
            enabled TYPE abap_bool,
-         END OF protected_branch_required_line.
-  TYPES: BEGIN OF protected_branch_enforce_admin,
+         END OF subprotected_branch_required_l.
+  TYPES: BEGIN OF subprotected_branch_enforce_ad,
            url TYPE string,
            enabled TYPE abap_bool,
-         END OF protected_branch_enforce_admin.
-  TYPES: BEGIN OF protected_branch_required_sign,
+         END OF subprotected_branch_enforce_ad.
+  TYPES: BEGIN OF subprotected_branch_required_s,
            url TYPE string,
            enabled TYPE abap_bool,
-         END OF protected_branch_required_sign.
-  TYPES: BEGIN OF protected_branch_required_pu01,
+         END OF subprotected_branch_required_s.
+  TYPES: BEGIN OF subsubprotected_branch_require,
            url TYPE string,
            users_url TYPE string,
            teams_url TYPE string,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF protected_branch_required_pu01.
-  TYPES: BEGIN OF protected_branch_required_pull,
+         END OF subsubprotected_branch_require.
+  TYPES: BEGIN OF subprotected_branch_required_p,
            url TYPE string,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
-           dismissal_restrictions TYPE protected_branch_required_pu01,
-         END OF protected_branch_required_pull.
+           dismissal_restrictions TYPE subsubprotected_branch_require,
+         END OF subprotected_branch_required_p.
   TYPES: BEGIN OF protected_branch,
            url TYPE string,
            required_status_checks TYPE status_check_policy,
-           required_pull_request_reviews TYPE protected_branch_required_pull,
-           required_signatures TYPE protected_branch_required_sign,
-           enforce_admins TYPE protected_branch_enforce_admin,
-           required_linear_history TYPE protected_branch_required_line,
-           allow_force_pushes TYPE protected_branch_allow_force_p,
-           allow_deletions TYPE protected_branch_allow_deletio,
+           required_pull_request_reviews TYPE subprotected_branch_required_p,
+           required_signatures TYPE subprotected_branch_required_s,
+           enforce_admins TYPE subprotected_branch_enforce_ad,
+           required_linear_history TYPE subprotected_branch_required_l,
+           allow_force_pushes TYPE subprotected_branch_allow_forc,
+           allow_deletions TYPE subprotected_branch_allow_dele,
            restrictions TYPE branch_restriction_policy,
          END OF protected_branch.
 
 * Component schema: pull-request-minimal, object
-  TYPES: BEGIN OF pull_request_minimal_base_repo,
+  TYPES: BEGIN OF subsubpull_request_minimal_bas,
            id TYPE i,
            url TYPE string,
            name TYPE string,
-         END OF pull_request_minimal_base_repo.
-  TYPES: BEGIN OF pull_request_minimal_base,
+         END OF subsubpull_request_minimal_bas.
+  TYPES: BEGIN OF subpull_request_minimal_base,
            ref TYPE string,
            sha TYPE string,
-           repo TYPE pull_request_minimal_base_repo,
-         END OF pull_request_minimal_base.
-  TYPES: BEGIN OF pull_request_minimal_head_repo,
+           repo TYPE subsubpull_request_minimal_bas,
+         END OF subpull_request_minimal_base.
+  TYPES: BEGIN OF subsubpull_request_minimal_hea,
            id TYPE i,
            url TYPE string,
            name TYPE string,
-         END OF pull_request_minimal_head_repo.
-  TYPES: BEGIN OF pull_request_minimal_head,
+         END OF subsubpull_request_minimal_hea.
+  TYPES: BEGIN OF subpull_request_minimal_head,
            ref TYPE string,
            sha TYPE string,
-           repo TYPE pull_request_minimal_head_repo,
-         END OF pull_request_minimal_head.
+           repo TYPE subsubpull_request_minimal_hea,
+         END OF subpull_request_minimal_head.
   TYPES: BEGIN OF pull_request_minimal,
            id TYPE i,
            number TYPE i,
            url TYPE string,
-           head TYPE pull_request_minimal_head,
-           base TYPE pull_request_minimal_base,
+           head TYPE subpull_request_minimal_head,
+           base TYPE subpull_request_minimal_base,
          END OF pull_request_minimal.
 
 * Component schema: check-run, object
-  TYPES: BEGIN OF check_run_check_suite,
+  TYPES: BEGIN OF subcheck_run_check_suite,
            id TYPE i,
-         END OF check_run_check_suite.
-  TYPES: BEGIN OF check_run_output,
+         END OF subcheck_run_check_suite.
+  TYPES: BEGIN OF subcheck_run_output,
            title TYPE string,
            summary TYPE string,
            text TYPE string,
            annotations_count TYPE i,
            annotations_url TYPE string,
-         END OF check_run_output.
+         END OF subcheck_run_output.
   TYPES: BEGIN OF check_run,
            id TYPE i,
            head_sha TYPE string,
@@ -1867,9 +1867,9 @@ INTERFACE zif_githubae PUBLIC.
            conclusion TYPE string,
            started_at TYPE string,
            completed_at TYPE string,
-           output TYPE check_run_output,
+           output TYPE subcheck_run_output,
            name TYPE string,
-           check_suite TYPE check_run_check_suite,
+           check_suite TYPE subcheck_run_check_suite,
            app TYPE string,
            pull_requests TYPE string,
          END OF check_run.
@@ -1889,21 +1889,21 @@ INTERFACE zif_githubae PUBLIC.
          END OF check_annotation.
 
 * Component schema: simple-commit, object
-  TYPES: BEGIN OF simple_commit_committer,
+  TYPES: BEGIN OF subsimple_commit_committer,
            name TYPE string,
            email TYPE string,
-         END OF simple_commit_committer.
-  TYPES: BEGIN OF simple_commit_author,
+         END OF subsimple_commit_committer.
+  TYPES: BEGIN OF subsimple_commit_author,
            name TYPE string,
            email TYPE string,
-         END OF simple_commit_author.
+         END OF subsimple_commit_author.
   TYPES: BEGIN OF simple_commit,
            id TYPE string,
            tree_id TYPE string,
            message TYPE string,
            timestamp TYPE string,
-           author TYPE simple_commit_author,
-           committer TYPE simple_commit_committer,
+           author TYPE subsimple_commit_author,
+           committer TYPE subsimple_commit_committer,
          END OF simple_commit.
 
 * Component schema: check-suite, object
@@ -1928,20 +1928,20 @@ INTERFACE zif_githubae PUBLIC.
          END OF check_suite.
 
 * Component schema: check-suite-preference, object
-  TYPES: BEGIN OF check_suite_preference_prefere,
+  TYPES: BEGIN OF subcheck_suite_preference_pref,
            auto_trigger_checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF check_suite_preference_prefere.
+         END OF subcheck_suite_preference_pref.
   TYPES: BEGIN OF check_suite_preference,
-           preferences TYPE check_suite_preference_prefere,
+           preferences TYPE subcheck_suite_preference_pref,
            repository TYPE repository,
          END OF check_suite_preference.
 
 * Component schema: collaborator, object
-  TYPES: BEGIN OF collaborator_permissions,
+  TYPES: BEGIN OF subcollaborator_permissions,
            pull TYPE abap_bool,
            push TYPE abap_bool,
            admin TYPE abap_bool,
-         END OF collaborator_permissions.
+         END OF subcollaborator_permissions.
   TYPES: BEGIN OF collaborator,
            login TYPE string,
            id TYPE i,
@@ -1961,7 +1961,7 @@ INTERFACE zif_githubae PUBLIC.
            received_events_url TYPE string,
            type TYPE string,
            site_admin TYPE abap_bool,
-           permissions TYPE collaborator_permissions,
+           permissions TYPE subcollaborator_permissions,
          END OF collaborator.
 
 * Component schema: repository-invitation, object
@@ -2007,13 +2007,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF scim_error.
 
 * Component schema: branch-short, object
-  TYPES: BEGIN OF branch_short_commit,
+  TYPES: BEGIN OF subbranch_short_commit,
            sha TYPE string,
            url TYPE string,
-         END OF branch_short_commit.
+         END OF subbranch_short_commit.
   TYPES: BEGIN OF branch_short,
            name TYPE string,
-           commit TYPE branch_short_commit,
+           commit TYPE subbranch_short_commit,
            protected TYPE abap_bool,
          END OF branch_short.
 
@@ -2031,7 +2031,7 @@ INTERFACE zif_githubae PUBLIC.
          END OF auto_merge.
 
 * Component schema: pull-request-simple, object
-  TYPES: BEGIN OF pull_request_simple__links,
+  TYPES: BEGIN OF subpull_request_simple__links,
            comments TYPE link,
            commits TYPE link,
            statuses TYPE link,
@@ -2040,21 +2040,21 @@ INTERFACE zif_githubae PUBLIC.
            review_comments TYPE link,
            review_comment TYPE link,
            self TYPE link,
-         END OF pull_request_simple__links.
-  TYPES: BEGIN OF pull_request_simple_base,
+         END OF subpull_request_simple__links.
+  TYPES: BEGIN OF subpull_request_simple_base,
            label TYPE string,
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
            user TYPE string,
-         END OF pull_request_simple_base.
-  TYPES: BEGIN OF pull_request_simple_head,
+         END OF subpull_request_simple_base.
+  TYPES: BEGIN OF subpull_request_simple_head,
            label TYPE string,
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
            user TYPE string,
-         END OF pull_request_simple_head.
+         END OF subpull_request_simple_head.
   TYPES: BEGIN OF pull_request_simple,
            url TYPE string,
            id TYPE i,
@@ -2086,9 +2086,9 @@ INTERFACE zif_githubae PUBLIC.
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           head TYPE pull_request_simple_head,
-           base TYPE pull_request_simple_base,
-           _links TYPE pull_request_simple__links,
+           head TYPE subpull_request_simple_head,
+           base TYPE subpull_request_simple_base,
+           _links TYPE subpull_request_simple__links,
            author_association TYPE author_association,
            auto_merge TYPE auto_merge,
            draft TYPE abap_bool,
@@ -2168,11 +2168,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF commit_comparison.
 
 * Component schema: content-tree, object
-  TYPES: BEGIN OF content_tree__links,
+  TYPES: BEGIN OF subcontent_tree__links,
            git TYPE string,
            html TYPE string,
            self TYPE string,
-         END OF content_tree__links.
+         END OF subcontent_tree__links.
   TYPES: BEGIN OF content_tree,
            type TYPE string,
            size TYPE i,
@@ -2184,18 +2184,18 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            download_url TYPE string,
            entries TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           _links TYPE content_tree__links,
+           _links TYPE subcontent_tree__links,
          END OF content_tree.
 
 * Component schema: content-directory, array
   TYPES content_directory TYPE string. " array  todo
 
 * Component schema: content-file, object
-  TYPES: BEGIN OF content_file__links,
+  TYPES: BEGIN OF subcontent_file__links,
            git TYPE string,
            html TYPE string,
            self TYPE string,
-         END OF content_file__links.
+         END OF subcontent_file__links.
   TYPES: BEGIN OF content_file,
            type TYPE string,
            encoding TYPE string,
@@ -2208,17 +2208,17 @@ INTERFACE zif_githubae PUBLIC.
            git_url TYPE string,
            html_url TYPE string,
            download_url TYPE string,
-           _links TYPE content_file__links,
+           _links TYPE subcontent_file__links,
            target TYPE string,
            submodule_git_url TYPE string,
          END OF content_file.
 
 * Component schema: content-symlink, object
-  TYPES: BEGIN OF content_symlink__links,
+  TYPES: BEGIN OF subcontent_symlink__links,
            git TYPE string,
            html TYPE string,
            self TYPE string,
-         END OF content_symlink__links.
+         END OF subcontent_symlink__links.
   TYPES: BEGIN OF content_symlink,
            type TYPE string,
            target TYPE string,
@@ -2230,15 +2230,15 @@ INTERFACE zif_githubae PUBLIC.
            git_url TYPE string,
            html_url TYPE string,
            download_url TYPE string,
-           _links TYPE content_symlink__links,
+           _links TYPE subcontent_symlink__links,
          END OF content_symlink.
 
 * Component schema: content-submodule, object
-  TYPES: BEGIN OF content_submodule__links,
+  TYPES: BEGIN OF subcontent_submodule__links,
            git TYPE string,
            html TYPE string,
            self TYPE string,
-         END OF content_submodule__links.
+         END OF subcontent_submodule__links.
   TYPES: BEGIN OF content_submodule,
            type TYPE string,
            submodule_git_url TYPE string,
@@ -2250,48 +2250,48 @@ INTERFACE zif_githubae PUBLIC.
            git_url TYPE string,
            html_url TYPE string,
            download_url TYPE string,
-           _links TYPE content_submodule__links,
+           _links TYPE subcontent_submodule__links,
          END OF content_submodule.
 
 * Component schema: file-commit, object
-  TYPES: BEGIN OF file_commit_commit_verificatio,
+  TYPES: BEGIN OF subsubfile_commit_commit_verif,
            verified TYPE abap_bool,
            reason TYPE string,
            signature TYPE string,
            payload TYPE string,
-         END OF file_commit_commit_verificatio.
-  TYPES: BEGIN OF file_commit_commit_tree,
+         END OF subsubfile_commit_commit_verif.
+  TYPES: BEGIN OF subsubfile_commit_commit_tree,
            url TYPE string,
            sha TYPE string,
-         END OF file_commit_commit_tree.
-  TYPES: BEGIN OF file_commit_commit_committer,
+         END OF subsubfile_commit_commit_tree.
+  TYPES: BEGIN OF subsubfile_commit_commit_commi,
            date TYPE string,
            name TYPE string,
            email TYPE string,
-         END OF file_commit_commit_committer.
-  TYPES: BEGIN OF file_commit_commit_author,
+         END OF subsubfile_commit_commit_commi.
+  TYPES: BEGIN OF subsubfile_commit_commit_autho,
            date TYPE string,
            name TYPE string,
            email TYPE string,
-         END OF file_commit_commit_author.
-  TYPES: BEGIN OF file_commit_commit,
+         END OF subsubfile_commit_commit_autho.
+  TYPES: BEGIN OF subfile_commit_commit,
            sha TYPE string,
            node_id TYPE string,
            url TYPE string,
            html_url TYPE string,
-           author TYPE file_commit_commit_author,
-           committer TYPE file_commit_commit_committer,
+           author TYPE subsubfile_commit_commit_autho,
+           committer TYPE subsubfile_commit_commit_commi,
            message TYPE string,
-           tree TYPE file_commit_commit_tree,
+           tree TYPE subsubfile_commit_commit_tree,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           verification TYPE file_commit_commit_verificatio,
-         END OF file_commit_commit.
-  TYPES: BEGIN OF file_commit_content__links,
+           verification TYPE subsubfile_commit_commit_verif,
+         END OF subfile_commit_commit.
+  TYPES: BEGIN OF subsubfile_commit_content__lin,
            self TYPE string,
            git TYPE string,
            html TYPE string,
-         END OF file_commit_content__links.
-  TYPES: BEGIN OF file_commit_content,
+         END OF subsubfile_commit_content__lin.
+  TYPES: BEGIN OF subfile_commit_content,
            name TYPE string,
            path TYPE string,
            sha TYPE string,
@@ -2301,11 +2301,11 @@ INTERFACE zif_githubae PUBLIC.
            git_url TYPE string,
            download_url TYPE string,
            type TYPE string,
-           _links TYPE file_commit_content__links,
-         END OF file_commit_content.
+           _links TYPE subsubfile_commit_content__lin,
+         END OF subfile_commit_content.
   TYPES: BEGIN OF file_commit,
-           content TYPE file_commit_content,
-           commit TYPE file_commit_commit,
+           content TYPE subfile_commit_content,
+           commit TYPE subfile_commit_commit,
          END OF file_commit.
 
 * Component schema: contributor, object
@@ -2334,9 +2334,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF contributor.
 
 * Component schema: deployment, object
-  TYPES: BEGIN OF deployment_payload,
+  TYPES: BEGIN OF subdeployment_payload,
            dummy_workaround TYPE i,
-         END OF deployment_payload.
+         END OF subdeployment_payload.
   TYPES: BEGIN OF deployment,
            url TYPE string,
            id TYPE i,
@@ -2344,7 +2344,7 @@ INTERFACE zif_githubae PUBLIC.
            sha TYPE string,
            ref TYPE string,
            task TYPE string,
-           payload TYPE deployment_payload,
+           payload TYPE subdeployment_payload,
            original_environment TYPE string,
            environment TYPE string,
            description TYPE string,
@@ -2395,71 +2395,71 @@ INTERFACE zif_githubae PUBLIC.
          END OF blob.
 
 * Component schema: git-commit, object
-  TYPES: BEGIN OF git_commit_verification,
+  TYPES: BEGIN OF subgit_commit_verification,
            verified TYPE abap_bool,
            reason TYPE string,
            signature TYPE string,
            payload TYPE string,
-         END OF git_commit_verification.
-  TYPES: BEGIN OF git_commit_tree,
+         END OF subgit_commit_verification.
+  TYPES: BEGIN OF subgit_commit_tree,
            sha TYPE string,
            url TYPE string,
-         END OF git_commit_tree.
-  TYPES: BEGIN OF git_commit_committer,
+         END OF subgit_commit_tree.
+  TYPES: BEGIN OF subgit_commit_committer,
            date TYPE string,
            email TYPE string,
            name TYPE string,
-         END OF git_commit_committer.
-  TYPES: BEGIN OF git_commit_author,
+         END OF subgit_commit_committer.
+  TYPES: BEGIN OF subgit_commit_author,
            date TYPE string,
            email TYPE string,
            name TYPE string,
-         END OF git_commit_author.
+         END OF subgit_commit_author.
   TYPES: BEGIN OF git_commit,
            sha TYPE string,
            node_id TYPE string,
            url TYPE string,
-           author TYPE git_commit_author,
-           committer TYPE git_commit_committer,
+           author TYPE subgit_commit_author,
+           committer TYPE subgit_commit_committer,
            message TYPE string,
-           tree TYPE git_commit_tree,
+           tree TYPE subgit_commit_tree,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           verification TYPE git_commit_verification,
+           verification TYPE subgit_commit_verification,
            html_url TYPE string,
          END OF git_commit.
 
 * Component schema: git-ref, object
-  TYPES: BEGIN OF git_ref_object,
+  TYPES: BEGIN OF subgit_ref_object,
            type TYPE string,
            sha TYPE string,
            url TYPE string,
-         END OF git_ref_object.
+         END OF subgit_ref_object.
   TYPES: BEGIN OF git_ref,
            ref TYPE string,
            node_id TYPE string,
            url TYPE string,
-           object TYPE git_ref_object,
+           object TYPE subgit_ref_object,
          END OF git_ref.
 
 * Component schema: git-tag, object
-  TYPES: BEGIN OF git_tag_object,
+  TYPES: BEGIN OF subgit_tag_object,
            sha TYPE string,
            type TYPE string,
            url TYPE string,
-         END OF git_tag_object.
-  TYPES: BEGIN OF git_tag_tagger,
+         END OF subgit_tag_object.
+  TYPES: BEGIN OF subgit_tag_tagger,
            date TYPE string,
            email TYPE string,
            name TYPE string,
-         END OF git_tag_tagger.
+         END OF subgit_tag_tagger.
   TYPES: BEGIN OF git_tag,
            node_id TYPE string,
            tag TYPE string,
            sha TYPE string,
            url TYPE string,
            message TYPE string,
-           tagger TYPE git_tag_tagger,
-           object TYPE git_tag_object,
+           tagger TYPE subgit_tag_tagger,
+           object TYPE subgit_tag_object,
            verification TYPE verification,
          END OF git_tag.
 
@@ -2479,7 +2479,7 @@ INTERFACE zif_githubae PUBLIC.
          END OF hook_response.
 
 * Component schema: hook, object
-  TYPES: BEGIN OF hook_config,
+  TYPES: BEGIN OF subhook_config,
            email TYPE string,
            password TYPE string,
            room TYPE string,
@@ -2490,14 +2490,14 @@ INTERFACE zif_githubae PUBLIC.
            digest TYPE string,
            secret TYPE webhook_config_secret,
            token TYPE string,
-         END OF hook_config.
+         END OF subhook_config.
   TYPES: BEGIN OF hook,
            type TYPE string,
            id TYPE i,
            name TYPE string,
            active TYPE abap_bool,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           config TYPE hook_config,
+           config TYPE subhook_config,
            updated_at TYPE string,
            created_at TYPE string,
            url TYPE string,
@@ -2608,11 +2608,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF language.
 
 * Component schema: license-content, object
-  TYPES: BEGIN OF license_content__links,
+  TYPES: BEGIN OF sublicense_content__links,
            git TYPE string,
            html TYPE string,
            self TYPE string,
-         END OF license_content__links.
+         END OF sublicense_content__links.
   TYPES: BEGIN OF license_content,
            name TYPE string,
            path TYPE string,
@@ -2625,7 +2625,7 @@ INTERFACE zif_githubae PUBLIC.
            type TYPE string,
            content TYPE string,
            encoding TYPE string,
-           _links TYPE license_content__links,
+           _links TYPE sublicense_content__links,
            license TYPE string,
          END OF license_content.
 
@@ -2647,13 +2647,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF page.
 
 * Component schema: page-build, object
-  TYPES: BEGIN OF page_build_error,
+  TYPES: BEGIN OF subpage_build_error,
            message TYPE string,
-         END OF page_build_error.
+         END OF subpage_build_error.
   TYPES: BEGIN OF page_build,
            url TYPE string,
            status TYPE string,
-           error TYPE page_build_error,
+           error TYPE subpage_build_error,
            pusher TYPE string,
            commit TYPE string,
            duration TYPE i,
@@ -2668,7 +2668,7 @@ INTERFACE zif_githubae PUBLIC.
          END OF page_build_status.
 
 * Component schema: pull-request, object
-  TYPES: BEGIN OF pull_request__links,
+  TYPES: BEGIN OF subpull_request__links,
            comments TYPE link,
            commits TYPE link,
            statuses TYPE link,
@@ -2677,8 +2677,8 @@ INTERFACE zif_githubae PUBLIC.
            review_comments TYPE link,
            review_comment TYPE link,
            self TYPE link,
-         END OF pull_request__links.
-  TYPES: BEGIN OF pull_request_base_user,
+         END OF subpull_request__links.
+  TYPES: BEGIN OF subsubpull_request_base_user,
            avatar_url TYPE string,
            events_url TYPE string,
            followers_url TYPE string,
@@ -2697,13 +2697,13 @@ INTERFACE zif_githubae PUBLIC.
            subscriptions_url TYPE string,
            type TYPE string,
            url TYPE string,
-         END OF pull_request_base_user.
-  TYPES: BEGIN OF pull_request_base_repo_permiss,
+         END OF subsubpull_request_base_user.
+  TYPES: BEGIN OF subsubsubpull_request_base_r01,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            push TYPE abap_bool,
-         END OF pull_request_base_repo_permiss.
-  TYPES: BEGIN OF pull_request_base_repo_owner,
+         END OF subsubsubpull_request_base_r01.
+  TYPES: BEGIN OF subsubsubpull_request_base_rep,
            avatar_url TYPE string,
            events_url TYPE string,
            followers_url TYPE string,
@@ -2722,8 +2722,8 @@ INTERFACE zif_githubae PUBLIC.
            subscriptions_url TYPE string,
            type TYPE string,
            url TYPE string,
-         END OF pull_request_base_repo_owner.
-  TYPES: BEGIN OF pull_request_base_repo,
+         END OF subsubsubpull_request_base_rep.
+  TYPES: BEGIN OF subsubpull_request_base_repo,
            archive_url TYPE string,
            assignees_url TYPE string,
            blobs_url TYPE string,
@@ -2758,7 +2758,7 @@ INTERFACE zif_githubae PUBLIC.
            milestones_url TYPE string,
            name TYPE string,
            notifications_url TYPE string,
-           owner TYPE pull_request_base_repo_owner,
+           owner TYPE subsubsubpull_request_base_rep,
            private TYPE abap_bool,
            pulls_url TYPE string,
            releases_url TYPE string,
@@ -2788,7 +2788,7 @@ INTERFACE zif_githubae PUBLIC.
            mirror_url TYPE string,
            open_issues TYPE i,
            open_issues_count TYPE i,
-           permissions TYPE pull_request_base_repo_permiss,
+           permissions TYPE subsubsubpull_request_base_r01,
            temp_clone_token TYPE string,
            allow_merge_commit TYPE abap_bool,
            allow_squash_merge TYPE abap_bool,
@@ -2804,15 +2804,15 @@ INTERFACE zif_githubae PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
-         END OF pull_request_base_repo.
-  TYPES: BEGIN OF pull_request_base,
+         END OF subsubpull_request_base_repo.
+  TYPES: BEGIN OF subpull_request_base,
            label TYPE string,
            ref TYPE string,
-           repo TYPE pull_request_base_repo,
+           repo TYPE subsubpull_request_base_repo,
            sha TYPE string,
-           user TYPE pull_request_base_user,
-         END OF pull_request_base.
-  TYPES: BEGIN OF pull_request_head_user,
+           user TYPE subsubpull_request_base_user,
+         END OF subpull_request_base.
+  TYPES: BEGIN OF subsubpull_request_head_user,
            avatar_url TYPE string,
            events_url TYPE string,
            followers_url TYPE string,
@@ -2831,20 +2831,20 @@ INTERFACE zif_githubae PUBLIC.
            subscriptions_url TYPE string,
            type TYPE string,
            url TYPE string,
-         END OF pull_request_head_user.
-  TYPES: BEGIN OF pull_request_head_repo_license,
+         END OF subsubpull_request_head_user.
+  TYPES: BEGIN OF subsubsubpull_request_head_r02,
            key TYPE string,
            name TYPE string,
            url TYPE string,
            spdx_id TYPE string,
            node_id TYPE string,
-         END OF pull_request_head_repo_license.
-  TYPES: BEGIN OF pull_request_head_repo_permiss,
+         END OF subsubsubpull_request_head_r02.
+  TYPES: BEGIN OF subsubsubpull_request_head_r01,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            push TYPE abap_bool,
-         END OF pull_request_head_repo_permiss.
-  TYPES: BEGIN OF pull_request_head_repo_owner,
+         END OF subsubsubpull_request_head_r01.
+  TYPES: BEGIN OF subsubsubpull_request_head_rep,
            avatar_url TYPE string,
            events_url TYPE string,
            followers_url TYPE string,
@@ -2863,8 +2863,8 @@ INTERFACE zif_githubae PUBLIC.
            subscriptions_url TYPE string,
            type TYPE string,
            url TYPE string,
-         END OF pull_request_head_repo_owner.
-  TYPES: BEGIN OF pull_request_head_repo,
+         END OF subsubsubpull_request_head_rep.
+  TYPES: BEGIN OF subsubpull_request_head_repo,
            archive_url TYPE string,
            assignees_url TYPE string,
            blobs_url TYPE string,
@@ -2899,7 +2899,7 @@ INTERFACE zif_githubae PUBLIC.
            milestones_url TYPE string,
            name TYPE string,
            notifications_url TYPE string,
-           owner TYPE pull_request_head_repo_owner,
+           owner TYPE subsubsubpull_request_head_rep,
            private TYPE abap_bool,
            pulls_url TYPE string,
            releases_url TYPE string,
@@ -2929,12 +2929,12 @@ INTERFACE zif_githubae PUBLIC.
            mirror_url TYPE string,
            open_issues TYPE i,
            open_issues_count TYPE i,
-           permissions TYPE pull_request_head_repo_permiss,
+           permissions TYPE subsubsubpull_request_head_r01,
            temp_clone_token TYPE string,
            allow_merge_commit TYPE abap_bool,
            allow_squash_merge TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
-           license TYPE pull_request_head_repo_license,
+           license TYPE subsubsubpull_request_head_r02,
            pushed_at TYPE string,
            size TYPE i,
            ssh_url TYPE string,
@@ -2945,14 +2945,14 @@ INTERFACE zif_githubae PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
-         END OF pull_request_head_repo.
-  TYPES: BEGIN OF pull_request_head,
+         END OF subsubpull_request_head_repo.
+  TYPES: BEGIN OF subpull_request_head,
            label TYPE string,
            ref TYPE string,
-           repo TYPE pull_request_head_repo,
+           repo TYPE subsubpull_request_head_repo,
            sha TYPE string,
-           user TYPE pull_request_head_user,
-         END OF pull_request_head.
+           user TYPE subsubpull_request_head_user,
+         END OF subpull_request_head.
   TYPES: BEGIN OF pull_request,
            url TYPE string,
            id TYPE i,
@@ -2984,9 +2984,9 @@ INTERFACE zif_githubae PUBLIC.
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           head TYPE pull_request_head,
-           base TYPE pull_request_base,
-           _links TYPE pull_request__links,
+           head TYPE subpull_request_head,
+           base TYPE subpull_request_base,
+           _links TYPE subpull_request__links,
            author_association TYPE author_association,
            auto_merge TYPE auto_merge,
            draft TYPE abap_bool,
@@ -3005,20 +3005,20 @@ INTERFACE zif_githubae PUBLIC.
          END OF pull_request.
 
 * Component schema: pull-request-review-comment, object
-  TYPES: BEGIN OF pull_request_review_comment_03,
+  TYPES: BEGIN OF subsubpull_request_review_co02,
            href TYPE string,
-         END OF pull_request_review_comment_03.
-  TYPES: BEGIN OF pull_request_review_comment_02,
+         END OF subsubpull_request_review_co02.
+  TYPES: BEGIN OF subsubpull_request_review_co01,
            href TYPE string,
-         END OF pull_request_review_comment_02.
-  TYPES: BEGIN OF pull_request_review_comment_01,
+         END OF subsubpull_request_review_co01.
+  TYPES: BEGIN OF subsubpull_request_review_comm,
            href TYPE string,
-         END OF pull_request_review_comment_01.
-  TYPES: BEGIN OF pull_request_review_comment__l,
-           self TYPE pull_request_review_comment_01,
-           html TYPE pull_request_review_comment_02,
-           pull_request TYPE pull_request_review_comment_03,
-         END OF pull_request_review_comment__l.
+         END OF subsubpull_request_review_comm.
+  TYPES: BEGIN OF subpull_request_review_comment,
+           self TYPE subsubpull_request_review_comm,
+           html TYPE subsubpull_request_review_co01,
+           pull_request TYPE subsubpull_request_review_co02,
+         END OF subpull_request_review_comment.
   TYPES: BEGIN OF pull_request_review_comment,
            url TYPE string,
            pull_request_review_id TYPE i,
@@ -3038,7 +3038,7 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            pull_request_url TYPE string,
            author_association TYPE author_association,
-           _links TYPE pull_request_review_comment__l,
+           _links TYPE subpull_request_review_comment,
            start_line TYPE i,
            original_start_line TYPE i,
            start_side TYPE string,
@@ -3064,16 +3064,16 @@ INTERFACE zif_githubae PUBLIC.
          END OF pull_request_review_request.
 
 * Component schema: pull-request-review, object
-  TYPES: BEGIN OF pull_request_review__links_pul,
+  TYPES: BEGIN OF subsubpull_request_review__l01,
            href TYPE string,
-         END OF pull_request_review__links_pul.
-  TYPES: BEGIN OF pull_request_review__links_htm,
+         END OF subsubpull_request_review__l01.
+  TYPES: BEGIN OF subsubpull_request_review__lin,
            href TYPE string,
-         END OF pull_request_review__links_htm.
-  TYPES: BEGIN OF pull_request_review__links,
-           html TYPE pull_request_review__links_htm,
-           pull_request TYPE pull_request_review__links_pul,
-         END OF pull_request_review__links.
+         END OF subsubpull_request_review__lin.
+  TYPES: BEGIN OF subpull_request_review__links,
+           html TYPE subsubpull_request_review__lin,
+           pull_request TYPE subsubpull_request_review__l01,
+         END OF subpull_request_review__links.
   TYPES: BEGIN OF pull_request_review,
            id TYPE i,
            node_id TYPE string,
@@ -3082,7 +3082,7 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
            html_url TYPE string,
            pull_request_url TYPE string,
-           _links TYPE pull_request_review__links,
+           _links TYPE subpull_request_review__links,
            submitted_at TYPE string,
            commit_id TYPE string,
            body_html TYPE string,
@@ -3091,11 +3091,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF pull_request_review.
 
 * Component schema: review-comment, object
-  TYPES: BEGIN OF review_comment__links,
+  TYPES: BEGIN OF subreview_comment__links,
            self TYPE link,
            html TYPE link,
            pull_request TYPE link,
-         END OF review_comment__links.
+         END OF subreview_comment__links.
   TYPES: BEGIN OF review_comment,
            url TYPE string,
            pull_request_review_id TYPE i,
@@ -3115,7 +3115,7 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
            pull_request_url TYPE string,
            author_association TYPE author_association,
-           _links TYPE review_comment__links,
+           _links TYPE subreview_comment__links,
            body_text TYPE string,
            body_html TYPE string,
            side TYPE string,
@@ -3207,13 +3207,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF repository_subscription.
 
 * Component schema: tag, object
-  TYPES: BEGIN OF tag_commit,
+  TYPES: BEGIN OF subtag_commit,
            sha TYPE string,
            url TYPE string,
-         END OF tag_commit.
+         END OF subtag_commit.
   TYPES: BEGIN OF tag,
            name TYPE string,
-           commit TYPE tag_commit,
+           commit TYPE subtag_commit,
            zipball_url TYPE string,
            tarball_url TYPE string,
            node_id TYPE string,
@@ -3245,30 +3245,30 @@ INTERFACE zif_githubae PUBLIC.
          END OF code_search_result_item.
 
 * Component schema: commit-search-result-item, object
-  TYPES: BEGIN OF commit_search_result_item_co02,
+  TYPES: BEGIN OF subsubcommit_search_result_i01,
            sha TYPE string,
            url TYPE string,
-         END OF commit_search_result_item_co02.
-  TYPES: BEGIN OF commit_search_result_item_co01,
+         END OF subsubcommit_search_result_i01.
+  TYPES: BEGIN OF subsubcommit_search_result_ite,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF commit_search_result_item_co01.
-  TYPES: BEGIN OF commit_search_result_item_comm,
-           author TYPE commit_search_result_item_co01,
+         END OF subsubcommit_search_result_ite.
+  TYPES: BEGIN OF subcommit_search_result_item_c,
+           author TYPE subsubcommit_search_result_ite,
            committer TYPE string,
            comment_count TYPE i,
            message TYPE string,
-           tree TYPE commit_search_result_item_co02,
+           tree TYPE subsubcommit_search_result_i01,
            url TYPE string,
            verification TYPE verification,
-         END OF commit_search_result_item_comm.
+         END OF subcommit_search_result_item_c.
   TYPES: BEGIN OF commit_search_result_item,
            url TYPE string,
            sha TYPE string,
            html_url TYPE string,
            comments_url TYPE string,
-           commit TYPE commit_search_result_item_comm,
+           commit TYPE subcommit_search_result_item_c,
            author TYPE string,
            committer TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -3279,13 +3279,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF commit_search_result_item.
 
 * Component schema: issue-search-result-item, object
-  TYPES: BEGIN OF issue_search_result_item_pull_,
+  TYPES: BEGIN OF subissue_search_result_item_pu,
            merged_at TYPE string,
            diff_url TYPE string,
            html_url TYPE string,
            patch_url TYPE string,
            url TYPE string,
-         END OF issue_search_result_item_pull_.
+         END OF subissue_search_result_item_pu.
   TYPES: BEGIN OF issue_search_result_item,
            url TYPE string,
            repository_url TYPE string,
@@ -3310,7 +3310,7 @@ INTERFACE zif_githubae PUBLIC.
            updated_at TYPE string,
            closed_at TYPE string,
            text_matches TYPE search_result_text_matches,
-           pull_request TYPE issue_search_result_item_pull_,
+           pull_request TYPE subissue_search_result_item_pu,
            body TYPE string,
            score TYPE i,
            author_association TYPE author_association,
@@ -3336,11 +3336,11 @@ INTERFACE zif_githubae PUBLIC.
          END OF label_search_result_item.
 
 * Component schema: repo-search-result-item, object
-  TYPES: BEGIN OF repo_search_result_item_permis,
+  TYPES: BEGIN OF subrepo_search_result_item_per,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
            push TYPE abap_bool,
-         END OF repo_search_result_item_permis.
+         END OF subrepo_search_result_item_per.
   TYPES: BEGIN OF repo_search_result_item,
            id TYPE i,
            node_id TYPE string,
@@ -3418,7 +3418,7 @@ INTERFACE zif_githubae PUBLIC.
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
            license TYPE string,
-           permissions TYPE repo_search_result_item_permis,
+           permissions TYPE subrepo_search_result_item_per,
            text_matches TYPE search_result_text_matches,
            temp_clone_token TYPE string,
            allow_merge_commit TYPE abap_bool,
@@ -3486,12 +3486,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF user_search_result_item.
 
 * Component schema: private-user, object
-  TYPES: BEGIN OF private_user_plan,
+  TYPES: BEGIN OF subprivate_user_plan,
            collaborators TYPE i,
            name TYPE string,
            space TYPE i,
            private_repos TYPE i,
-         END OF private_user_plan.
+         END OF subprivate_user_plan.
   TYPES: BEGIN OF private_user,
            login TYPE string,
            id TYPE i,
@@ -3531,19 +3531,19 @@ INTERFACE zif_githubae PUBLIC.
            disk_usage TYPE i,
            collaborators TYPE i,
            two_factor_authentication TYPE abap_bool,
-           plan TYPE private_user_plan,
+           plan TYPE subprivate_user_plan,
            suspended_at TYPE string,
            business_plus TYPE abap_bool,
            ldap_dn TYPE string,
          END OF private_user.
 
 * Component schema: public-user, object
-  TYPES: BEGIN OF public_user_plan,
+  TYPES: BEGIN OF subpublic_user_plan,
            collaborators TYPE i,
            name TYPE string,
            space TYPE i,
            private_repos TYPE i,
-         END OF public_user_plan.
+         END OF subpublic_user_plan.
   TYPES: BEGIN OF public_user,
            login TYPE string,
            id TYPE i,
@@ -3577,7 +3577,7 @@ INTERFACE zif_githubae PUBLIC.
            following TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
-           plan TYPE public_user_plan,
+           plan TYPE subpublic_user_plan,
            suspended_at TYPE string,
            private_gists TYPE i,
            total_private_repos TYPE i,
@@ -3633,41 +3633,41 @@ INTERFACE zif_githubae PUBLIC.
          END OF key_simple.
 
 * Component schema: bodyenterprise_admin_create_gl, object
-  TYPES: BEGIN OF bodyenterprise_admin_create_01,
+  TYPES: BEGIN OF subbodyenterprise_admin_create,
            url TYPE string,
            content_type TYPE string,
            secret TYPE string,
            insecure_ssl TYPE string,
-         END OF bodyenterprise_admin_create_01.
+         END OF subbodyenterprise_admin_create.
   TYPES: BEGIN OF bodyenterprise_admin_create_gl,
            name TYPE string,
-           config TYPE bodyenterprise_admin_create_01,
+           config TYPE subbodyenterprise_admin_create,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
          END OF bodyenterprise_admin_create_gl.
 
 * Component schema: bodyenterprise_admin_update_gl, object
-  TYPES: BEGIN OF bodyenterprise_admin_update_01,
+  TYPES: BEGIN OF subbodyenterprise_admin_update,
            url TYPE string,
            content_type TYPE string,
            secret TYPE string,
            insecure_ssl TYPE string,
-         END OF bodyenterprise_admin_update_01.
+         END OF subbodyenterprise_admin_update.
   TYPES: BEGIN OF bodyenterprise_admin_update_gl,
-           config TYPE bodyenterprise_admin_update_01,
+           config TYPE subbodyenterprise_admin_update,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
          END OF bodyenterprise_admin_update_gl.
 
 * Component schema: bodyenterprise_admin_delete_gl, object
-  TYPES: BEGIN OF bodyenterprise_admin_delete_01,
+  TYPES: BEGIN OF subbodyenterprise_admin_delete,
            url TYPE string,
            content_type TYPE string,
            secret TYPE string,
            insecure_ssl TYPE string,
-         END OF bodyenterprise_admin_delete_01.
+         END OF subbodyenterprise_admin_delete.
   TYPES: BEGIN OF bodyenterprise_admin_delete_gl,
-           config TYPE bodyenterprise_admin_delete_01,
+           config TYPE subbodyenterprise_admin_delete,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
          END OF bodyenterprise_admin_delete_gl.
@@ -3764,31 +3764,31 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyenterprise_admin_disable_e.
 
 * Component schema: bodygists_create, object
-  TYPES: BEGIN OF bodygists_create_files,
+  TYPES: BEGIN OF subbodygists_create_files,
            dummy_workaround TYPE i,
-         END OF bodygists_create_files.
+         END OF subbodygists_create_files.
   TYPES: BEGIN OF bodygists_create,
            description TYPE string,
-           files TYPE bodygists_create_files,
+           files TYPE subbodygists_create_files,
            public TYPE string,
          END OF bodygists_create.
 
 * Component schema: bodygists_update, object
-  TYPES: BEGIN OF bodygists_update_files,
+  TYPES: BEGIN OF subbodygists_update_files,
            dummy_workaround TYPE i,
-         END OF bodygists_update_files.
+         END OF subbodygists_update_files.
   TYPES: BEGIN OF bodygists_update,
            description TYPE string,
-           files TYPE bodygists_update_files,
+           files TYPE subbodygists_update_files,
          END OF bodygists_update.
 
 * Component schema: bodygists_delete, object
-  TYPES: BEGIN OF bodygists_delete_files,
+  TYPES: BEGIN OF subbodygists_delete_files,
            dummy_workaround TYPE i,
-         END OF bodygists_delete_files.
+         END OF subbodygists_delete_files.
   TYPES: BEGIN OF bodygists_delete,
            description TYPE string,
-           files TYPE bodygists_delete_files,
+           files TYPE subbodygists_delete_files,
          END OF bodygists_delete.
 
 * Component schema: bodygists_create_comment, object
@@ -3853,44 +3853,44 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyorgs_update.
 
 * Component schema: bodyorgs_create_webhook, object
-  TYPES: BEGIN OF bodyorgs_create_webhook_config,
+  TYPES: BEGIN OF subbodyorgs_create_webhook_con,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
            username TYPE string,
            password TYPE string,
-         END OF bodyorgs_create_webhook_config.
+         END OF subbodyorgs_create_webhook_con.
   TYPES: BEGIN OF bodyorgs_create_webhook,
            name TYPE string,
-           config TYPE bodyorgs_create_webhook_config,
+           config TYPE subbodyorgs_create_webhook_con,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
          END OF bodyorgs_create_webhook.
 
 * Component schema: bodyorgs_update_webhook, object
-  TYPES: BEGIN OF bodyorgs_update_webhook_config,
+  TYPES: BEGIN OF subbodyorgs_update_webhook_con,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
-         END OF bodyorgs_update_webhook_config.
+         END OF subbodyorgs_update_webhook_con.
   TYPES: BEGIN OF bodyorgs_update_webhook,
-           config TYPE bodyorgs_update_webhook_config,
+           config TYPE subbodyorgs_update_webhook_con,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
            name TYPE string,
          END OF bodyorgs_update_webhook.
 
 * Component schema: bodyorgs_delete_webhook, object
-  TYPES: BEGIN OF bodyorgs_delete_webhook_config,
+  TYPES: BEGIN OF subbodyorgs_delete_webhook_con,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
-         END OF bodyorgs_delete_webhook_config.
+         END OF subbodyorgs_delete_webhook_con.
   TYPES: BEGIN OF bodyorgs_delete_webhook,
-           config TYPE bodyorgs_delete_webhook_config,
+           config TYPE subbodyorgs_delete_webhook_con,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
            name TYPE string,
@@ -4149,84 +4149,84 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_delete.
 
 * Component schema: bodyrepos_update_branch_protec, object
-  TYPES: BEGIN OF bodyrepos_update_branch_prot04,
+  TYPES: BEGIN OF subbodyrepos_update_branch_p02,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_update_branch_prot04.
-  TYPES: BEGIN OF bodyrepos_update_branch_prot03,
+         END OF subbodyrepos_update_branch_p02.
+  TYPES: BEGIN OF subsubbodyrepos_update_branch_,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_update_branch_prot03.
-  TYPES: BEGIN OF bodyrepos_update_branch_prot02,
-           dismissal_restrictions TYPE bodyrepos_update_branch_prot03,
+         END OF subsubbodyrepos_update_branch_.
+  TYPES: BEGIN OF subbodyrepos_update_branch_p01,
+           dismissal_restrictions TYPE subsubbodyrepos_update_branch_,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
-         END OF bodyrepos_update_branch_prot02.
-  TYPES: BEGIN OF bodyrepos_update_branch_prot01,
+         END OF subbodyrepos_update_branch_p01.
+  TYPES: BEGIN OF subbodyrepos_update_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_update_branch_prot01.
+         END OF subbodyrepos_update_branch_pro.
   TYPES: BEGIN OF bodyrepos_update_branch_protec,
-           required_status_checks TYPE bodyrepos_update_branch_prot01,
+           required_status_checks TYPE subbodyrepos_update_branch_pro,
            enforce_admins TYPE abap_bool,
-           required_pull_request_reviews TYPE bodyrepos_update_branch_prot02,
-           restrictions TYPE bodyrepos_update_branch_prot04,
+           required_pull_request_reviews TYPE subbodyrepos_update_branch_p01,
+           restrictions TYPE subbodyrepos_update_branch_p02,
            required_linear_history TYPE abap_bool,
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
          END OF bodyrepos_update_branch_protec.
 
 * Component schema: bodyrepos_delete_branch_protec, object
-  TYPES: BEGIN OF bodyrepos_delete_branch_prot04,
+  TYPES: BEGIN OF subbodyrepos_delete_branch_p02,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_delete_branch_prot04.
-  TYPES: BEGIN OF bodyrepos_delete_branch_prot03,
+         END OF subbodyrepos_delete_branch_p02.
+  TYPES: BEGIN OF subsubbodyrepos_delete_branch_,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_delete_branch_prot03.
-  TYPES: BEGIN OF bodyrepos_delete_branch_prot02,
-           dismissal_restrictions TYPE bodyrepos_delete_branch_prot03,
+         END OF subsubbodyrepos_delete_branch_.
+  TYPES: BEGIN OF subbodyrepos_delete_branch_p01,
+           dismissal_restrictions TYPE subsubbodyrepos_delete_branch_,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
-         END OF bodyrepos_delete_branch_prot02.
-  TYPES: BEGIN OF bodyrepos_delete_branch_prot01,
+         END OF subbodyrepos_delete_branch_p01.
+  TYPES: BEGIN OF subbodyrepos_delete_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_delete_branch_prot01.
+         END OF subbodyrepos_delete_branch_pro.
   TYPES: BEGIN OF bodyrepos_delete_branch_protec,
-           required_status_checks TYPE bodyrepos_delete_branch_prot01,
+           required_status_checks TYPE subbodyrepos_delete_branch_pro,
            enforce_admins TYPE abap_bool,
-           required_pull_request_reviews TYPE bodyrepos_delete_branch_prot02,
-           restrictions TYPE bodyrepos_delete_branch_prot04,
+           required_pull_request_reviews TYPE subbodyrepos_delete_branch_p01,
+           restrictions TYPE subbodyrepos_delete_branch_p02,
            required_linear_history TYPE abap_bool,
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object
-  TYPES: BEGIN OF bodyrepos_update_pull_reques01,
+  TYPES: BEGIN OF subbodyrepos_update_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_update_pull_reques01.
+         END OF subbodyrepos_update_pull_reque.
   TYPES: BEGIN OF bodyrepos_update_pull_request_,
-           dismissal_restrictions TYPE bodyrepos_update_pull_reques01,
+           dismissal_restrictions TYPE subbodyrepos_update_pull_reque,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
          END OF bodyrepos_update_pull_request_.
 
 * Component schema: bodyrepos_delete_pull_request_, object
-  TYPES: BEGIN OF bodyrepos_delete_pull_reques01,
+  TYPES: BEGIN OF subbodyrepos_delete_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_delete_pull_reques01.
+         END OF subbodyrepos_delete_pull_reque.
   TYPES: BEGIN OF bodyrepos_delete_pull_request_,
-           dismissal_restrictions TYPE bodyrepos_delete_pull_reques01,
+           dismissal_restrictions TYPE subbodyrepos_delete_pull_reque,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
@@ -4310,13 +4310,13 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_rename_branch.
 
 * Component schema: bodychecks_create, object
-  TYPES: BEGIN OF bodychecks_create_output,
+  TYPES: BEGIN OF subbodychecks_create_output,
            title TYPE string,
            summary TYPE string,
            text TYPE string,
            annotations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            images TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodychecks_create_output.
+         END OF subbodychecks_create_output.
   TYPES: BEGIN OF bodychecks_create,
            name TYPE string,
            head_sha TYPE string,
@@ -4326,18 +4326,18 @@ INTERFACE zif_githubae PUBLIC.
            started_at TYPE string,
            conclusion TYPE string,
            completed_at TYPE string,
-           output TYPE bodychecks_create_output,
+           output TYPE subbodychecks_create_output,
            actions TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodychecks_create.
 
 * Component schema: bodychecks_update, object
-  TYPES: BEGIN OF bodychecks_update_output,
+  TYPES: BEGIN OF subbodychecks_update_output,
            title TYPE string,
            summary TYPE string,
            text TYPE string,
            annotations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            images TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodychecks_update_output.
+         END OF subbodychecks_update_output.
   TYPES: BEGIN OF bodychecks_update,
            name TYPE string,
            details_url TYPE string,
@@ -4346,7 +4346,7 @@ INTERFACE zif_githubae PUBLIC.
            status TYPE string,
            conclusion TYPE string,
            completed_at TYPE string,
-           output TYPE bodychecks_update_output,
+           output TYPE subbodychecks_update_output,
            actions TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodychecks_update.
 
@@ -4396,40 +4396,40 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_create_commit_commen.
 
 * Component schema: bodyrepos_create_or_update_fil, object
-  TYPES: BEGIN OF bodyrepos_create_or_update_f02,
+  TYPES: BEGIN OF subbodyrepos_create_or_updat01,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF bodyrepos_create_or_update_f02.
-  TYPES: BEGIN OF bodyrepos_create_or_update_f01,
+         END OF subbodyrepos_create_or_updat01.
+  TYPES: BEGIN OF subbodyrepos_create_or_update_,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF bodyrepos_create_or_update_f01.
+         END OF subbodyrepos_create_or_update_.
   TYPES: BEGIN OF bodyrepos_create_or_update_fil,
            message TYPE string,
            content TYPE string,
            sha TYPE string,
            branch TYPE string,
-           committer TYPE bodyrepos_create_or_update_f01,
-           author TYPE bodyrepos_create_or_update_f02,
+           committer TYPE subbodyrepos_create_or_update_,
+           author TYPE subbodyrepos_create_or_updat01,
          END OF bodyrepos_create_or_update_fil.
 
 * Component schema: bodyrepos_delete_file, object
-  TYPES: BEGIN OF bodyrepos_delete_file_author,
+  TYPES: BEGIN OF subbodyrepos_delete_file_autho,
            name TYPE string,
            email TYPE string,
-         END OF bodyrepos_delete_file_author.
-  TYPES: BEGIN OF bodyrepos_delete_file_committe,
+         END OF subbodyrepos_delete_file_autho.
+  TYPES: BEGIN OF subbodyrepos_delete_file_commi,
            name TYPE string,
            email TYPE string,
-         END OF bodyrepos_delete_file_committe.
+         END OF subbodyrepos_delete_file_commi.
   TYPES: BEGIN OF bodyrepos_delete_file,
            message TYPE string,
            sha TYPE string,
            branch TYPE string,
-           committer TYPE bodyrepos_delete_file_committe,
-           author TYPE bodyrepos_delete_file_author,
+           committer TYPE subbodyrepos_delete_file_commi,
+           author TYPE subbodyrepos_delete_file_autho,
          END OF bodyrepos_delete_file.
 
 * Component schema: bodyrepos_create_deployment, object
@@ -4469,22 +4469,22 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodygit_create_blob.
 
 * Component schema: bodygit_create_commit, object
-  TYPES: BEGIN OF bodygit_create_commit_committe,
+  TYPES: BEGIN OF subbodygit_create_commit_commi,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF bodygit_create_commit_committe.
-  TYPES: BEGIN OF bodygit_create_commit_author,
+         END OF subbodygit_create_commit_commi.
+  TYPES: BEGIN OF subbodygit_create_commit_autho,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF bodygit_create_commit_author.
+         END OF subbodygit_create_commit_autho.
   TYPES: BEGIN OF bodygit_create_commit,
            message TYPE string,
            tree TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           author TYPE bodygit_create_commit_author,
-           committer TYPE bodygit_create_commit_committe,
+           author TYPE subbodygit_create_commit_autho,
+           committer TYPE subbodygit_create_commit_commi,
            signature TYPE string,
          END OF bodygit_create_commit.
 
@@ -4508,17 +4508,17 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodygit_delete_ref.
 
 * Component schema: bodygit_create_tag, object
-  TYPES: BEGIN OF bodygit_create_tag_tagger,
+  TYPES: BEGIN OF subbodygit_create_tag_tagger,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF bodygit_create_tag_tagger.
+         END OF subbodygit_create_tag_tagger.
   TYPES: BEGIN OF bodygit_create_tag,
            tag TYPE string,
            message TYPE string,
            object TYPE string,
            type TYPE string,
-           tagger TYPE bodygit_create_tag_tagger,
+           tagger TYPE subbodygit_create_tag_tagger,
          END OF bodygit_create_tag.
 
 * Component schema: bodygit_create_tree, object
@@ -4528,32 +4528,32 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodygit_create_tree.
 
 * Component schema: bodyrepos_create_webhook, object
-  TYPES: BEGIN OF bodyrepos_create_webhook_confi,
+  TYPES: BEGIN OF subbodyrepos_create_webhook_co,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
            token TYPE string,
            digest TYPE string,
-         END OF bodyrepos_create_webhook_confi.
+         END OF subbodyrepos_create_webhook_co.
   TYPES: BEGIN OF bodyrepos_create_webhook,
            name TYPE string,
-           config TYPE bodyrepos_create_webhook_confi,
+           config TYPE subbodyrepos_create_webhook_co,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
          END OF bodyrepos_create_webhook.
 
 * Component schema: bodyrepos_update_webhook, object
-  TYPES: BEGIN OF bodyrepos_update_webhook_confi,
+  TYPES: BEGIN OF subbodyrepos_update_webhook_co,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
            address TYPE string,
            room TYPE string,
-         END OF bodyrepos_update_webhook_confi.
+         END OF subbodyrepos_update_webhook_co.
   TYPES: BEGIN OF bodyrepos_update_webhook,
-           config TYPE bodyrepos_update_webhook_confi,
+           config TYPE subbodyrepos_update_webhook_co,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            add_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            remove_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -4561,16 +4561,16 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_update_webhook.
 
 * Component schema: bodyrepos_delete_webhook, object
-  TYPES: BEGIN OF bodyrepos_delete_webhook_confi,
+  TYPES: BEGIN OF subbodyrepos_delete_webhook_co,
            url TYPE webhook_config_url,
            content_type TYPE webhook_config_content_type,
            secret TYPE webhook_config_secret,
            insecure_ssl TYPE webhook_config_insecure_ssl,
            address TYPE string,
            room TYPE string,
-         END OF bodyrepos_delete_webhook_confi.
+         END OF subbodyrepos_delete_webhook_co.
   TYPES: BEGIN OF bodyrepos_delete_webhook,
-           config TYPE bodyrepos_delete_webhook_confi,
+           config TYPE subbodyrepos_delete_webhook_co,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            add_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            remove_events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -4741,12 +4741,12 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyactivity_mark_repo_notific.
 
 * Component schema: bodyrepos_create_pages_site, object
-  TYPES: BEGIN OF bodyrepos_create_pages_site_so,
+  TYPES: BEGIN OF subbodyrepos_create_pages_site,
            branch TYPE string,
            path TYPE string,
-         END OF bodyrepos_create_pages_site_so.
+         END OF subbodyrepos_create_pages_site.
   TYPES: BEGIN OF bodyrepos_create_pages_site,
-           source TYPE bodyrepos_create_pages_site_so,
+           source TYPE subbodyrepos_create_pages_site,
          END OF bodyrepos_create_pages_site.
 
 * Component schema: bodyrepos_update_information_a, object
