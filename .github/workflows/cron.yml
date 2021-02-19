@@ -28,10 +28,13 @@ jobs:
         node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.21/ghes-2.21.json ghes221
         node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-2.22/ghes-2.22.json ghes222
         node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-3.0/ghes-3.0.json ghes30
-        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/github.ae/github.ae.json githubae        
+        node index.js https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/github.ae/github.ae.json githubae
         ls
         cp ./test/generated/*.abap ../generated-github/
         cd ../generated-github/
+        wget -O zcl_oapi_json.clas.abap https://raw.githubusercontent.com/abap-openapi/abap-openapi-client/main/src/zcl_oapi_json.clas.abap
+        wget -O zcl_oapi_json.clas.locals_imp.abap https://raw.githubusercontent.com/abap-openapi/abap-openapi-client/main/src/zcl_oapi_json.clas.locals_imp.abap
+        wget -O zcl_oapi_json.clas.locals_def.abap https://raw.githubusercontent.com/abap-openapi/abap-openapi-client/main/src/zcl_oapi_json.clas.locals_def.abap
         ls
         git status
     - name: Push
