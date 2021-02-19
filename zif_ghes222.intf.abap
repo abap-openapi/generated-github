@@ -4203,49 +4203,49 @@ INTERFACE zif_ghes222 PUBLIC.
          END OF bodyenterprise_admin_delete_pr.
 
 * Component schema: bodyenterprise_admin_create_01, object
+  TYPES: BEGIN OF subbodyenterprise_admin_crea02,
+           dummy_workaround TYPE i,
+         END OF subbodyenterprise_admin_crea02.
   TYPES: BEGIN OF subbodyenterprise_admin_crea01,
            dummy_workaround TYPE i,
          END OF subbodyenterprise_admin_crea01.
-  TYPES: BEGIN OF subbodyenterprise_admin_create,
-           dummy_workaround TYPE i,
-         END OF subbodyenterprise_admin_create.
   TYPES: BEGIN OF bodyenterprise_admin_create_01,
            name TYPE string,
            script TYPE string,
-           script_repository TYPE subbodyenterprise_admin_create,
-           environment TYPE subbodyenterprise_admin_crea01,
+           script_repository TYPE subbodyenterprise_admin_crea01,
+           environment TYPE subbodyenterprise_admin_crea02,
            enforcement TYPE string,
            allow_downstream_configuration TYPE abap_bool,
          END OF bodyenterprise_admin_create_01.
 
 * Component schema: bodyenterprise_admin_update_02, object
+  TYPES: BEGIN OF subbodyenterprise_admin_upda02,
+           dummy_workaround TYPE i,
+         END OF subbodyenterprise_admin_upda02.
   TYPES: BEGIN OF subbodyenterprise_admin_upda01,
            dummy_workaround TYPE i,
          END OF subbodyenterprise_admin_upda01.
-  TYPES: BEGIN OF subbodyenterprise_admin_update,
-           dummy_workaround TYPE i,
-         END OF subbodyenterprise_admin_update.
   TYPES: BEGIN OF bodyenterprise_admin_update_02,
            name TYPE string,
            script TYPE string,
-           script_repository TYPE subbodyenterprise_admin_update,
-           environment TYPE subbodyenterprise_admin_upda01,
+           script_repository TYPE subbodyenterprise_admin_upda01,
+           environment TYPE subbodyenterprise_admin_upda02,
            enforcement TYPE string,
            allow_downstream_configuration TYPE abap_bool,
          END OF bodyenterprise_admin_update_02.
 
 * Component schema: bodyenterprise_admin_delete_01, object
+  TYPES: BEGIN OF subbodyenterprise_admin_dele02,
+           dummy_workaround TYPE i,
+         END OF subbodyenterprise_admin_dele02.
   TYPES: BEGIN OF subbodyenterprise_admin_dele01,
            dummy_workaround TYPE i,
          END OF subbodyenterprise_admin_dele01.
-  TYPES: BEGIN OF subbodyenterprise_admin_delete,
-           dummy_workaround TYPE i,
-         END OF subbodyenterprise_admin_delete.
   TYPES: BEGIN OF bodyenterprise_admin_delete_01,
            name TYPE string,
            script TYPE string,
-           script_repository TYPE subbodyenterprise_admin_delete,
-           environment TYPE subbodyenterprise_admin_dele01,
+           script_repository TYPE subbodyenterprise_admin_dele01,
+           environment TYPE subbodyenterprise_admin_dele02,
            enforcement TYPE string,
            allow_downstream_configuration TYPE abap_bool,
          END OF bodyenterprise_admin_delete_01.
