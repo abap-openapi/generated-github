@@ -3960,53 +3960,6 @@ INTERFACE zif_ghes220 PUBLIC.
            access_token TYPE string,
          END OF bodyapps_delete_token.
 
-* Component schema: bodyoauth_authorizations_creat, object
-  TYPES: BEGIN OF bodyoauth_authorizations_creat,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           note TYPE string,
-           note_url TYPE string,
-           client_id TYPE string,
-           client_secret TYPE string,
-           fingerprint TYPE string,
-         END OF bodyoauth_authorizations_creat.
-
-* Component schema: bodyoauth_authorizations_get_o, object
-  TYPES: BEGIN OF bodyoauth_authorizations_get_o,
-           client_secret TYPE string,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           note TYPE string,
-           note_url TYPE string,
-           fingerprint TYPE string,
-         END OF bodyoauth_authorizations_get_o.
-
-* Component schema: bodyoauth_authorizations_get01, object
-  TYPES: BEGIN OF bodyoauth_authorizations_get01,
-           client_secret TYPE string,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           note TYPE string,
-           note_url TYPE string,
-         END OF bodyoauth_authorizations_get01.
-
-* Component schema: bodyoauth_authorizations_updat, object
-  TYPES: BEGIN OF bodyoauth_authorizations_updat,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           add_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           remove_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           note TYPE string,
-           note_url TYPE string,
-           fingerprint TYPE string,
-         END OF bodyoauth_authorizations_updat.
-
-* Component schema: bodyoauth_authorizations_delet, object
-  TYPES: BEGIN OF bodyoauth_authorizations_delet,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           add_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           remove_scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           note TYPE string,
-           note_url TYPE string,
-           fingerprint TYPE string,
-         END OF bodyoauth_authorizations_delet.
-
 * Component schema: bodyapps_create_content_attach, object
   TYPES: BEGIN OF bodyapps_create_content_attach,
            title TYPE string,
@@ -5399,12 +5352,6 @@ INTERFACE zif_ghes220 PUBLIC.
 * Component schema: response_apps_list_installations, array
   TYPES response_apps_list_installatio TYPE STANDARD TABLE OF installation_ghes_2 WITH DEFAULT KEY.
 
-* Component schema: response_oauth_authorizations_list_gran, array
-  TYPES response_oauth_authorizations_ TYPE STANDARD TABLE OF application_grant WITH DEFAULT KEY.
-
-* Component schema: response_oauth_authorizations_list_auth, array
-  TYPES response_oauth_authorization01 TYPE STANDARD TABLE OF authorization WITH DEFAULT KEY.
-
 * Component schema: response_codes_of_conduct_get_all_codes, array
   TYPES response_codes_of_conduct_get_ TYPE STANDARD TABLE OF code_of_conduct WITH DEFAULT KEY.
 
@@ -5939,13 +5886,6 @@ INTERFACE zif_ghes220 PUBLIC.
 
 * Component schema: response_teams_list_members, array
   TYPES response_teams_list_members TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
-
-* Component schema: response_teams_add_member_legacy, object
-  TYPES: BEGIN OF response_teams_add_member_lega,
-           message TYPE string,
-           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           documentation_url TYPE string,
-         END OF response_teams_add_member_lega.
 
 * Component schema: response_teams_add_or_update_membership, object
   TYPES: BEGIN OF response_teams_add_or_update_m,
@@ -6589,51 +6529,6 @@ INTERFACE zif_ghes220 PUBLIC.
       VALUE(return_data) TYPE installation_token
     RAISING cx_static_check.
 
-* GET - "List your grants"
-* Operation id: oauth-authorizations/list-grants
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_oauth_authorizations_list_gran
-* Response: 304
-* Response: 401
-* Response: 403
-* Response: 404
-  METHODS oauth_authorizations_list_gran
-    IMPORTING
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_oauth_authorizations_
-    RAISING cx_static_check.
-
-* GET - "Get a single grant"
-* Operation id: oauth-authorizations/get-grant
-* Parameter: grant_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/application-grant
-* Response: 304
-* Response: 401
-* Response: 403
-  METHODS oauth_authorizations_get_grant
-    IMPORTING
-      grant_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE application_grant
-    RAISING cx_static_check.
-
-* DELETE - "Delete a grant"
-* Operation id: oauth-authorizations/delete-grant
-* Parameter: grant_id, required, path
-* Response: 204
-* Response: 304
-* Response: 401
-* Response: 403
-  METHODS oauth_authorizations_delete_gr
-    IMPORTING
-      grant_id TYPE i
-    RAISING cx_static_check.
-
 * DELETE - "Delete an app authorization"
 * Operation id: apps/delete-authorization
 * Parameter: client_id, required, path
@@ -6644,17 +6539,6 @@ INTERFACE zif_ghes220 PUBLIC.
     IMPORTING
       client_id TYPE string
       body TYPE bodyapps_delete_authorization
-    RAISING cx_static_check.
-
-* DELETE - "Revoke a grant for an application"
-* Operation id: apps/revoke-grant-for-application
-* Parameter: client_id, required, path
-* Parameter: access_token, required, path
-* Response: 204
-  METHODS apps_revoke_grant_for_applicat
-    IMPORTING
-      client_id TYPE string
-      access_token TYPE string
     RAISING cx_static_check.
 
 * POST - "Check a token"
@@ -6700,44 +6584,6 @@ INTERFACE zif_ghes220 PUBLIC.
       body TYPE bodyapps_delete_token
     RAISING cx_static_check.
 
-* GET - "Check an authorization"
-* Operation id: apps/check-authorization
-* Parameter: client_id, required, path
-* Parameter: access_token, required, path
-* Response: 200
-*     application/json, string
-* Response: 404
-  METHODS apps_check_authorization
-    IMPORTING
-      client_id TYPE string
-      access_token TYPE string
-    RAISING cx_static_check.
-
-* POST - "Reset an authorization"
-* Operation id: apps/reset-authorization
-* Parameter: client_id, required, path
-* Parameter: access_token, required, path
-* Response: 200
-*     application/json, #/components/schemas/authorization
-  METHODS apps_reset_authorization
-    IMPORTING
-      client_id TYPE string
-      access_token TYPE string
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* DELETE - "Revoke an authorization for an application"
-* Operation id: apps/revoke-authorization-for-application
-* Parameter: client_id, required, path
-* Parameter: access_token, required, path
-* Response: 204
-  METHODS apps_revoke_authorization_for_
-    IMPORTING
-      client_id TYPE string
-      access_token TYPE string
-    RAISING cx_static_check.
-
 * GET - "Get an app"
 * Operation id: apps/get-by-slug
 * Parameter: app_slug, required, path
@@ -6751,124 +6597,6 @@ INTERFACE zif_ghes220 PUBLIC.
       app_slug TYPE string
     RETURNING
       VALUE(return_data) TYPE integration
-    RAISING cx_static_check.
-
-* GET - "List your authorizations"
-* Operation id: oauth-authorizations/list-authorizations
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_oauth_authorizations_list_auth
-* Response: 304
-* Response: 401
-* Response: 403
-* Response: 404
-  METHODS oauth_authorizations_list_auth
-    IMPORTING
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_oauth_authorization01
-    RAISING cx_static_check.
-
-* POST - "Create a new authorization"
-* Operation id: oauth-authorizations/create-authorization
-* Response: 201
-*     application/json, #/components/schemas/authorization
-* Response: 304
-* Response: 401
-* Response: 403
-* Response: 410
-* Response: 422
-* Body ref: #/components/schemas/bodyoauth_authorizations_creat
-  METHODS oauth_authorizations_create_au
-    IMPORTING
-      body TYPE bodyoauth_authorizations_creat
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* PUT - "Get-or-create an authorization for a specific app"
-* Operation id: oauth-authorizations/get-or-create-authorization-for-app
-* Parameter: client_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/authorization
-* Response: 201
-*     application/json, #/components/schemas/authorization
-* Response: 304
-* Response: 401
-* Response: 403
-* Response: 422
-* Body ref: #/components/schemas/bodyoauth_authorizations_get_o
-  METHODS oauth_authorizations_get_or_cr
-    IMPORTING
-      client_id TYPE string
-      body TYPE bodyoauth_authorizations_get_o
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* PUT - "Get-or-create an authorization for a specific app and fingerprint"
-* Operation id: oauth-authorizations/get-or-create-authorization-for-app-and-fingerprint
-* Parameter: fingerprint, required, path
-* Parameter: client_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/authorization
-* Response: 201
-*     application/json, #/components/schemas/authorization
-* Response: 422
-* Body ref: #/components/schemas/bodyoauth_authorizations_get01
-  METHODS oauth_authorizations_get_or_01
-    IMPORTING
-      fingerprint TYPE string
-      client_id TYPE string
-      body TYPE bodyoauth_authorizations_get01
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* GET - "Get a single authorization"
-* Operation id: oauth-authorizations/get-authorization
-* Parameter: authorization_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/authorization
-* Response: 304
-* Response: 401
-* Response: 403
-  METHODS oauth_authorizations_get_autho
-    IMPORTING
-      authorization_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* PATCH - "Update an existing authorization"
-* Operation id: oauth-authorizations/update-authorization
-* Parameter: authorization_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/authorization
-* Response: 422
-* Body ref: #/components/schemas/bodyoauth_authorizations_updat
-  METHODS oauth_authorizations_update_au
-    IMPORTING
-      authorization_id TYPE i
-      body TYPE bodyoauth_authorizations_updat
-    RETURNING
-      VALUE(return_data) TYPE authorization
-    RAISING cx_static_check.
-
-* DELETE - "Delete an authorization"
-* Operation id: oauth-authorizations/delete-authorization
-* Parameter: authorization_id, required, path
-* Response: 204
-* Response: 304
-* Response: 401
-* Response: 403
-* Body ref: #/components/schemas/bodyoauth_authorizations_delet
-  METHODS oauth_authorizations_delete_au
-    IMPORTING
-      authorization_id TYPE i
-      body TYPE bodyoauth_authorizations_delet
     RAISING cx_static_check.
 
 * GET - "Get all codes of conduct"
@@ -13436,45 +13164,6 @@ INTERFACE zif_ghes220 PUBLIC.
       page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_teams_list_members
-    RAISING cx_static_check.
-
-* GET - "Get team member (Legacy)"
-* Operation id: teams/get-member-legacy
-* Parameter: team_id, required, path
-* Parameter: username, required, path
-* Response: 204
-* Response: 404
-  METHODS teams_get_member_legacy
-    IMPORTING
-      team_id TYPE i
-      username TYPE string
-    RAISING cx_static_check.
-
-* PUT - "Add team member (Legacy)"
-* Operation id: teams/add-member-legacy
-* Parameter: team_id, required, path
-* Parameter: username, required, path
-* Response: 204
-* Response: 403
-* Response: 404
-* Response: 422
-*     application/json, #/components/schemas/response_teams_add_member_legacy
-  METHODS teams_add_member_legacy
-    IMPORTING
-      team_id TYPE i
-      username TYPE string
-    RAISING cx_static_check.
-
-* DELETE - "Remove team member (Legacy)"
-* Operation id: teams/remove-member-legacy
-* Parameter: team_id, required, path
-* Parameter: username, required, path
-* Response: 204
-* Response: 404
-  METHODS teams_remove_member_legacy
-    IMPORTING
-      team_id TYPE i
-      username TYPE string
     RAISING cx_static_check.
 
 * GET - "Get team membership for a user"
