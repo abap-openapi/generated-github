@@ -1418,6 +1418,14 @@ INTERFACE zif_ghes219 PUBLIC.
            rate TYPE rate_limit,
          END OF rate_limit_overview.
 
+* Component schema: code-of-conduct-simple, object
+  TYPES: BEGIN OF code_of_conduct_simple,
+           url TYPE string,
+           key TYPE string,
+           name TYPE string,
+           html_url TYPE string,
+         END OF code_of_conduct_simple.
+
 * Component schema: full-repository, object
   TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
@@ -1515,6 +1523,7 @@ INTERFACE zif_ghes219 PUBLIC.
            open_issues TYPE i,
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
+           code_of_conduct TYPE code_of_conduct_simple,
          END OF full_repository.
 
 * Component schema: protected-branch-admin-enforced, object
@@ -9587,20 +9596,6 @@ INTERFACE zif_ghes219 PUBLIC.
       page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_repos_list_commit_sta
-    RAISING cx_static_check.
-
-* GET - "Get the code of conduct for a repository"
-* Operation id: codes-of-conduct/get-for-repo
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 200
-*     application/json, #/components/schemas/code-of-conduct
-  METHODS codes_of_conduct_get_for_repo
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RETURNING
-      VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
 * GET - "Compare two commits"

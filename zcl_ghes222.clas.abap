@@ -320,6 +320,10 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(rate_limit_overview) TYPE zif_ghes222=>rate_limit_overview
       RAISING cx_static_check.
+    METHODS parse_code_of_conduct_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_of_conduct_simple) TYPE zif_ghes222=>code_of_conduct_simple
+      RAISING cx_static_check.
     METHODS parse_full_repository
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(full_repository) TYPE zif_ghes222=>full_repository
@@ -412,13 +416,21 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_suite_preference) TYPE zif_ghes222=>check_suite_preference
       RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_t
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_ghes222=>code_scanning_analysis_tool_na
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_gu) TYPE zif_ghes222=>code_scanning_analysis_tool_gu
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_ref
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_ref) TYPE zif_ghes222=>code_scanning_ref
+      RAISING cx_static_check.
     METHODS parse_code_scanning_alert_stat
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_state) TYPE zif_ghes222=>code_scanning_alert_state
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_ref
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_ref) TYPE zif_ghes222=>code_scanning_alert_ref
       RAISING cx_static_check.
     METHODS parse_alert_number
       IMPORTING iv_prefix TYPE string
@@ -436,6 +448,10 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(alert_html_url) TYPE zif_ghes222=>alert_html_url
       RAISING cx_static_check.
+    METHODS parse_alert_instances_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_instances_url) TYPE zif_ghes222=>alert_instances_url
+      RAISING cx_static_check.
     METHODS parse_code_scanning_alert_dism
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_dismissed_) TYPE zif_ghes222=>code_scanning_alert_dismissed_
@@ -446,19 +462,15 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert_rule
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_ghes222=>code_scanning_alert_rule
+      RETURNING VALUE(code_scanning_alert_rule_summa) TYPE zif_ghes222=>code_scanning_alert_rule_summa
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_t
+    METHODS parse_code_scanning_analysis02
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_ghes222=>code_scanning_analysis_tool_na
+      RETURNING VALUE(code_scanning_analysis_tool_ve) TYPE zif_ghes222=>code_scanning_analysis_tool_ve
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis01
+    METHODS parse_code_scanning_analysis03
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_tool) TYPE zif_ghes222=>code_scanning_analysis_tool
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_code
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_code_scann) TYPE zif_ghes222=>code_scanning_alert_code_scann
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis_a
       IMPORTING iv_prefix TYPE string
@@ -468,41 +480,65 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_ghes222=>code_scanning_alert_environmen
       RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_loca
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_location) TYPE zif_ghes222=>code_scanning_alert_location
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_clas
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_classifica) TYPE zif_ghes222=>code_scanning_alert_classifica
+      RAISING cx_static_check.
     METHODS parse_code_scanning_alert_inst
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_instances) TYPE zif_ghes222=>code_scanning_alert_instances
+      RETURNING VALUE(code_scanning_alert_instance) TYPE zif_ghes222=>code_scanning_alert_instance
       RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_co01
+    METHODS parse_code_scanning_alert_item
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_code_sca01) TYPE zif_ghes222=>code_scanning_alert_code_sca01
+      RETURNING VALUE(code_scanning_alert_items) TYPE zif_ghes222=>code_scanning_alert_items
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_ru01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_ghes222=>code_scanning_alert_rule
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert) TYPE zif_ghes222=>code_scanning_alert
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert_set_
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_set_state) TYPE zif_ghes222=>code_scanning_alert_set_state
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_r
+    METHODS parse_code_scanning_analysis_s
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_ref) TYPE zif_ghes222=>code_scanning_analysis_ref
+      RETURNING VALUE(code_scanning_analysis_sarif_i) TYPE zif_ghes222=>code_scanning_analysis_sarif_i
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis_c
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_commit_) TYPE zif_ghes222=>code_scanning_analysis_commit_
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis02
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_created) TYPE zif_ghes222=>code_scanning_analysis_created
-      RAISING cx_static_check.
     METHODS parse_code_scanning_analysis_e
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_environ) TYPE zif_ghes222=>code_scanning_analysis_environ
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis03
+    METHODS parse_code_scanning_analysis04
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_code_sc) TYPE zif_ghes222=>code_scanning_analysis_code_sc
+      RETURNING VALUE(code_scanning_analysis_created) TYPE zif_ghes222=>code_scanning_analysis_created
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_s
+    METHODS parse_code_scanning_analysis_u
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_url) TYPE zif_ghes222=>code_scanning_analysis_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis) TYPE zif_ghes222=>code_scanning_analysis
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis05
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_sarif_f) TYPE zif_ghes222=>code_scanning_analysis_sarif_f
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_sarifs_rec
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_sarifs_receipt) TYPE zif_ghes222=>code_scanning_sarifs_receipt
       RAISING cx_static_check.
     METHODS parse_collaborator
       IMPORTING iv_prefix TYPE string
@@ -3962,6 +3998,13 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     rate_limit_overview-rate = parse_rate_limit( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_code_of_conduct_simple.
+    code_of_conduct_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    code_of_conduct_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+    code_of_conduct_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_of_conduct_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+  ENDMETHOD.
+
   METHOD parse_full_repository.
     full_repository-id = mo_json->value_string( iv_prefix && '/id' ).
     full_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -4054,6 +4097,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     full_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     full_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
     full_repository-anonymous_access_enabled = mo_json->value_boolean( iv_prefix && '/anonymous_access_enabled' ).
+    full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_artifact.
@@ -4353,11 +4397,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     check_suite_preference-repository = parse_repository( iv_prefix ).
   ENDMETHOD.
 
-  METHOD parse_code_scanning_alert_stat.
+  METHOD parse_code_scanning_analysis_t.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_alert_ref.
+  METHOD parse_code_scanning_analysis01.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_ref.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_stat.
 * todo, handle type string
   ENDMETHOD.
 
@@ -4377,6 +4429,10 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
+  METHOD parse_alert_instances_url.
+* todo, handle type string
+  ENDMETHOD.
+
   METHOD parse_code_scanning_alert_dism.
 * todo, handle type string
   ENDMETHOD.
@@ -4386,31 +4442,20 @@ CLASS zcl_ghes222 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert_rule.
-    code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
-    code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
-    code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
+    code_scanning_alert_rule_summa-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_alert_rule_summa-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_scanning_alert_rule_summa-severity = mo_json->value_string( iv_prefix && '/severity' ).
+    code_scanning_alert_rule_summa-description = mo_json->value_string( iv_prefix && '/description' ).
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis_t.
+  METHOD parse_code_scanning_analysis02.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis01.
+  METHOD parse_code_scanning_analysis03.
     code_scanning_analysis_tool-name = parse_code_scanning_analysis_t( iv_prefix ).
-    code_scanning_analysis_tool-version = mo_json->value_string( iv_prefix && '/version' ).
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_code.
-    code_scanning_alert_code_scann-number = parse_alert_number( iv_prefix ).
-    code_scanning_alert_code_scann-created_at = parse_alert_created_at( iv_prefix ).
-    code_scanning_alert_code_scann-url = parse_alert_url( iv_prefix ).
-    code_scanning_alert_code_scann-html_url = parse_alert_html_url( iv_prefix ).
-    code_scanning_alert_code_scann-state = parse_code_scanning_alert_stat( iv_prefix ).
-    code_scanning_alert_code_scann-dismissed_by = parse_simple_user( iv_prefix ).
-    code_scanning_alert_code_scann-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
-    code_scanning_alert_code_scann-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
-    code_scanning_alert_code_scann-rule = parse_code_scanning_alert_rule( iv_prefix ).
-    code_scanning_alert_code_scann-tool = parse_code_scanning_analysis01( iv_prefix ).
+    code_scanning_analysis_tool-version = parse_code_scanning_analysis02( iv_prefix ).
+    code_scanning_analysis_tool-guid = parse_code_scanning_analysis01( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_analysis_a.
@@ -4421,29 +4466,75 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_alert_inst.
-* todo, handle type array, no item_ref
+  METHOD parse_code_scanning_alert_loca.
+    code_scanning_alert_location-path = mo_json->value_string( iv_prefix && '/path' ).
+    code_scanning_alert_location-start_line = mo_json->value_string( iv_prefix && '/start_line' ).
+    code_scanning_alert_location-end_line = mo_json->value_string( iv_prefix && '/end_line' ).
+    code_scanning_alert_location-start_column = mo_json->value_string( iv_prefix && '/start_column' ).
+    code_scanning_alert_location-end_column = mo_json->value_string( iv_prefix && '/end_column' ).
   ENDMETHOD.
 
-  METHOD parse_code_scanning_alert_co01.
-    code_scanning_alert_code_sca01-number = parse_alert_number( iv_prefix ).
-    code_scanning_alert_code_sca01-created_at = parse_alert_created_at( iv_prefix ).
-    code_scanning_alert_code_sca01-url = parse_alert_url( iv_prefix ).
-    code_scanning_alert_code_sca01-html_url = parse_alert_html_url( iv_prefix ).
-    code_scanning_alert_code_sca01-instances = parse_code_scanning_alert_inst( iv_prefix ).
-    code_scanning_alert_code_sca01-state = parse_code_scanning_alert_stat( iv_prefix ).
-    code_scanning_alert_code_sca01-dismissed_by = parse_simple_user( iv_prefix ).
-    code_scanning_alert_code_sca01-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
-    code_scanning_alert_code_sca01-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
-    code_scanning_alert_code_sca01-rule = parse_code_scanning_alert_rule( iv_prefix ).
-    code_scanning_alert_code_sca01-tool = parse_code_scanning_analysis01( iv_prefix ).
+  METHOD parse_code_scanning_alert_clas.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_inst.
+    code_scanning_alert_instance-ref = parse_code_scanning_ref( iv_prefix ).
+    code_scanning_alert_instance-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
+    code_scanning_alert_instance-environment = parse_code_scanning_alert_envi( iv_prefix ).
+    code_scanning_alert_instance-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert_instance-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
+    code_scanning_alert_instance-message-text = mo_json->value_string( iv_prefix && '/message/text' ).
+    code_scanning_alert_instance-location = parse_code_scanning_alert_loca( iv_prefix ).
+    code_scanning_alert_instance-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+* todo, array, classifications
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_item.
+    code_scanning_alert_items-number = parse_alert_number( iv_prefix ).
+    code_scanning_alert_items-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert_items-url = parse_alert_url( iv_prefix ).
+    code_scanning_alert_items-html_url = parse_alert_html_url( iv_prefix ).
+    code_scanning_alert_items-instances_url = parse_alert_instances_url( iv_prefix ).
+    code_scanning_alert_items-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert_items-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
+    code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
+    code_scanning_alert_items-rule = parse_code_scanning_alert_rule( iv_prefix ).
+    code_scanning_alert_items-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_alert_items-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_ru01.
+    code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_alert_rule-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
+    code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
+    code_scanning_alert_rule-full_description = mo_json->value_string( iv_prefix && '/full_description' ).
+* todo, array, tags
+    code_scanning_alert_rule-help = mo_json->value_string( iv_prefix && '/help' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert.
+    code_scanning_alert-number = parse_alert_number( iv_prefix ).
+    code_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert-url = parse_alert_url( iv_prefix ).
+    code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
+    code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
+    code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
+    code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
+    code_scanning_alert-rule = parse_code_scanning_alert_ru01( iv_prefix ).
+    code_scanning_alert-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_alert-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert_set_.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis_r.
+  METHOD parse_code_scanning_analysis_s.
 * todo, handle type string
   ENDMETHOD.
 
@@ -4451,26 +4542,41 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis02.
-* todo, handle type string
-  ENDMETHOD.
-
   METHOD parse_code_scanning_analysis_e.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis03.
-    code_scanning_analysis_code_sc-commit_sha = parse_code_scanning_analysis_c( iv_prefix ).
-    code_scanning_analysis_code_sc-ref = parse_code_scanning_analysis_r( iv_prefix ).
-    code_scanning_analysis_code_sc-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
-    code_scanning_analysis_code_sc-created_at = parse_code_scanning_analysis02( iv_prefix ).
-    code_scanning_analysis_code_sc-tool_name = parse_code_scanning_analysis_t( iv_prefix ).
-    code_scanning_analysis_code_sc-error = mo_json->value_string( iv_prefix && '/error' ).
-    code_scanning_analysis_code_sc-environment = parse_code_scanning_analysis_e( iv_prefix ).
+  METHOD parse_code_scanning_analysis04.
+* todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis_s.
+  METHOD parse_code_scanning_analysis_u.
 * todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis.
+    code_scanning_analysis-ref = parse_code_scanning_ref( iv_prefix ).
+    code_scanning_analysis-commit_sha = parse_code_scanning_analysis_c( iv_prefix ).
+    code_scanning_analysis-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
+    code_scanning_analysis-environment = parse_code_scanning_analysis_e( iv_prefix ).
+    code_scanning_analysis-error = mo_json->value_string( iv_prefix && '/error' ).
+    code_scanning_analysis-created_at = parse_code_scanning_analysis04( iv_prefix ).
+    code_scanning_analysis-results_count = mo_json->value_string( iv_prefix && '/results_count' ).
+    code_scanning_analysis-rules_count = mo_json->value_string( iv_prefix && '/rules_count' ).
+    code_scanning_analysis-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_analysis-url = parse_code_scanning_analysis_u( iv_prefix ).
+    code_scanning_analysis-sarif_id = parse_code_scanning_analysis_s( iv_prefix ).
+    code_scanning_analysis-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_analysis-deletable = mo_json->value_boolean( iv_prefix && '/deletable' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis05.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_sarifs_rec.
+    code_scanning_sarifs_receipt-id = parse_code_scanning_analysis_s( iv_prefix ).
+    code_scanning_sarifs_receipt-url = mo_json->value_string( iv_prefix && '/url' ).
   ENDMETHOD.
 
   METHOD parse_collaborator.
@@ -7028,24 +7134,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
   METHOD parse_code_scanning_list_alert.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
-    DATA code_scanning_alert_code_scann TYPE zif_ghes222=>code_scanning_alert_code_scann.
+    DATA code_scanning_alert_items TYPE zif_ghes222=>code_scanning_alert_items.
     lt_members = mo_json->members( iv_prefix && '/' ).
     LOOP AT lt_members INTO lv_member.
-      CLEAR code_scanning_alert_code_scann.
-      code_scanning_alert_code_scann = parse_code_scanning_alert_code( iv_prefix && '/' && lv_member ).
-      APPEND code_scanning_alert_code_scann TO response_code_scanning_list_al.
+      CLEAR code_scanning_alert_items.
+      code_scanning_alert_items = parse_code_scanning_alert_item( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_alert_items TO response_code_scanning_list_al.
     ENDLOOP.
   ENDMETHOD.
 
   METHOD parse_code_scanning_list_recen.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
-    DATA code_scanning_analysis_code_sc TYPE zif_ghes222=>code_scanning_analysis_code_sc.
+    DATA code_scanning_analysis TYPE zif_ghes222=>code_scanning_analysis.
     lt_members = mo_json->members( iv_prefix && '/' ).
     LOOP AT lt_members INTO lv_member.
-      CLEAR code_scanning_analysis_code_sc.
-      code_scanning_analysis_code_sc = parse_code_scanning_analysis03( iv_prefix && '/' && lv_member ).
-      APPEND code_scanning_analysis_code_sc TO response_code_scanning_list_re.
+      CLEAR code_scanning_analysis.
+      code_scanning_analysis = parse_code_scanning_analysis( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_analysis TO response_code_scanning_list_re.
     ENDLOOP.
   ENDMETHOD.
 
@@ -8221,7 +8327,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8234,7 +8340,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8247,7 +8353,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8317,7 +8423,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8333,7 +8439,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8349,7 +8455,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8537,7 +8643,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"last_read_at": "{ data-last_read_at }",|.
     IF data-read = abap_true.
       json = json && |"read": true,|.
-    ELSE.
+    ELSEIF data-read = abap_false.
       json = json && |"read": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8548,7 +8654,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8559,7 +8665,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8577,33 +8683,33 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-has_organization_projects = abap_true.
       json = json && |"has_organization_projects": true,|.
-    ELSE.
+    ELSEIF data-has_organization_projects = abap_false.
       json = json && |"has_organization_projects": false,|.
     ENDIF.
     IF data-has_repository_projects = abap_true.
       json = json && |"has_repository_projects": true,|.
-    ELSE.
+    ELSEIF data-has_repository_projects = abap_false.
       json = json && |"has_repository_projects": false,|.
     ENDIF.
     json = json && |"default_repository_permission": "{ data-default_repository_permission }",|.
     IF data-members_can_create_repositorie = abap_true.
       json = json && |"members_can_create_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_repositorie = abap_false.
       json = json && |"members_can_create_repositories": false,|.
     ENDIF.
     IF data-members_can_create_internal_re = abap_true.
       json = json && |"members_can_create_internal_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_internal_re = abap_false.
       json = json && |"members_can_create_internal_repositories": false,|.
     ENDIF.
     IF data-members_can_create_private_rep = abap_true.
       json = json && |"members_can_create_private_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_private_rep = abap_false.
       json = json && |"members_can_create_private_repositories": false,|.
     ENDIF.
     IF data-members_can_create_public_repo = abap_true.
       json = json && |"members_can_create_public_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_public_repo = abap_false.
       json = json && |"members_can_create_public_repositories": false,|.
     ENDIF.
     json = json && |"members_allowed_repository_creation_type": "{ data-members_allowed_repository_cre }",|.
@@ -8686,7 +8792,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8699,7 +8805,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = json && |"name": "{ data-name }",|.
@@ -8713,7 +8819,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = json && |"name": "{ data-name }",|.
@@ -8740,7 +8846,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8752,7 +8858,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8774,56 +8880,58 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
-    json = json && |"team_id": { data-team_id },|.
+    IF data-team_id <> cl_abap_math=>max_int4.
+      json = json && |"team_id": { data-team_id },|.
+    ENDIF.
     IF data-auto_init = abap_true.
       json = json && |"auto_init": true,|.
-    ELSE.
+    ELSEIF data-auto_init = abap_false.
       json = json && |"auto_init": false,|.
     ENDIF.
     json = json && |"gitignore_template": "{ data-gitignore_template }",|.
     json = json && |"license_template": "{ data-license_template }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8838,7 +8946,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"repo_names":' not simple
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8849,7 +8959,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8860,7 +8972,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8871,7 +8985,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8976,7 +9090,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"note": "{ data-note }",|.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8988,7 +9102,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"note": "{ data-note }",|.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8998,7 +9112,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
   METHOD json_projects_move_card.
     json = json && '{'.
     json = json && |"position": "{ data-position }",|.
-    json = json && |"column_id": { data-column_id },|.
+    IF data-column_id <> cl_abap_math=>max_int4.
+      json = json && |"column_id": { data-column_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9032,7 +9148,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"organization_permission": "{ data-organization_permission }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9047,7 +9163,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"organization_permission": "{ data-organization_permission }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9082,54 +9198,54 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = json && |"default_branch": "{ data-default_branch }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9143,54 +9259,54 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = json && |"default_branch": "{ data-default_branch }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9226,24 +9342,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"required_status_checks":' not simple
     IF data-enforce_admins = abap_true.
       json = json && |"enforce_admins": true,|.
-    ELSE.
+    ELSEIF data-enforce_admins = abap_false.
       json = json && |"enforce_admins": false,|.
     ENDIF.
 *  json = json && '"required_pull_request_reviews":' not simple
 *  json = json && '"restrictions":' not simple
     IF data-required_linear_history = abap_true.
       json = json && |"required_linear_history": true,|.
-    ELSE.
+    ELSEIF data-required_linear_history = abap_false.
       json = json && |"required_linear_history": false,|.
     ENDIF.
     IF data-allow_force_pushes = abap_true.
       json = json && |"allow_force_pushes": true,|.
-    ELSE.
+    ELSEIF data-allow_force_pushes = abap_false.
       json = json && |"allow_force_pushes": false,|.
     ENDIF.
     IF data-allow_deletions = abap_true.
       json = json && |"allow_deletions": true,|.
-    ELSE.
+    ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9255,24 +9371,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"required_status_checks":' not simple
     IF data-enforce_admins = abap_true.
       json = json && |"enforce_admins": true,|.
-    ELSE.
+    ELSEIF data-enforce_admins = abap_false.
       json = json && |"enforce_admins": false,|.
     ENDIF.
 *  json = json && '"required_pull_request_reviews":' not simple
 *  json = json && '"restrictions":' not simple
     IF data-required_linear_history = abap_true.
       json = json && |"required_linear_history": true,|.
-    ELSE.
+    ELSEIF data-required_linear_history = abap_false.
       json = json && |"required_linear_history": false,|.
     ENDIF.
     IF data-allow_force_pushes = abap_true.
       json = json && |"allow_force_pushes": true,|.
-    ELSE.
+    ELSEIF data-allow_force_pushes = abap_false.
       json = json && |"allow_force_pushes": false,|.
     ENDIF.
     IF data-allow_deletions = abap_true.
       json = json && |"allow_deletions": true,|.
-    ELSE.
+    ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9284,15 +9400,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"dismissal_restrictions":' not simple
     IF data-dismiss_stale_reviews = abap_true.
       json = json && |"dismiss_stale_reviews": true,|.
-    ELSE.
+    ELSEIF data-dismiss_stale_reviews = abap_false.
       json = json && |"dismiss_stale_reviews": false,|.
     ENDIF.
     IF data-require_code_owner_reviews = abap_true.
       json = json && |"require_code_owner_reviews": true,|.
-    ELSE.
+    ELSEIF data-require_code_owner_reviews = abap_false.
       json = json && |"require_code_owner_reviews": false,|.
     ENDIF.
-    json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
+      json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9302,15 +9420,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"dismissal_restrictions":' not simple
     IF data-dismiss_stale_reviews = abap_true.
       json = json && |"dismiss_stale_reviews": true,|.
-    ELSE.
+    ELSEIF data-dismiss_stale_reviews = abap_false.
       json = json && |"dismiss_stale_reviews": false,|.
     ENDIF.
     IF data-require_code_owner_reviews = abap_true.
       json = json && |"require_code_owner_reviews": true,|.
-    ELSE.
+    ELSEIF data-require_code_owner_reviews = abap_false.
       json = json && |"require_code_owner_reviews": false,|.
     ENDIF.
-    json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
+      json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9319,7 +9439,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-strict = abap_true.
       json = json && |"strict": true,|.
-    ELSE.
+    ELSEIF data-strict = abap_false.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
@@ -9331,7 +9451,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-strict = abap_true.
       json = json && |"strict": true,|.
-    ELSE.
+    ELSEIF data-strict = abap_false.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
@@ -9483,7 +9603,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"sarif":' not simple
     json = json && |"checkout_uri": "{ data-checkout_uri }",|.
     json = json && |"started_at": "{ data-started_at }",|.
-*  json = json && '"tool_name":' not simple
+    json = json && |"tool_name": "{ data-tool_name }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9529,8 +9649,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     json = json && |"body": "{ data-body }",|.
     json = json && |"path": "{ data-path }",|.
-    json = json && |"position": { data-position },|.
-    json = json && |"line": { data-line },|.
+    IF data-position <> cl_abap_math=>max_int4.
+      json = json && |"position": { data-position },|.
+    ENDIF.
+    IF data-line <> cl_abap_math=>max_int4.
+      json = json && |"line": { data-line },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9564,7 +9688,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"task": "{ data-task }",|.
     IF data-auto_merge = abap_true.
       json = json && |"auto_merge": true,|.
-    ELSE.
+    ELSEIF data-auto_merge = abap_false.
       json = json && |"auto_merge": false,|.
     ENDIF.
 *  json = json && '"required_contexts":' not simple
@@ -9573,12 +9697,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-transient_environment = abap_true.
       json = json && |"transient_environment": true,|.
-    ELSE.
+    ELSEIF data-transient_environment = abap_false.
       json = json && |"transient_environment": false,|.
     ENDIF.
     IF data-production_environment = abap_true.
       json = json && |"production_environment": true,|.
-    ELSE.
+    ELSEIF data-production_environment = abap_false.
       json = json && |"production_environment": false,|.
     ENDIF.
     json = json && |"created_at": "{ data-created_at }",|.
@@ -9596,7 +9720,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"environment_url": "{ data-environment_url }",|.
     IF data-auto_inactive = abap_true.
       json = json && |"auto_inactive": true,|.
-    ELSE.
+    ELSEIF data-auto_inactive = abap_false.
       json = json && |"auto_inactive": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9652,7 +9776,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"sha": "{ data-sha }",|.
     IF data-force = abap_true.
       json = json && |"force": true,|.
-    ELSE.
+    ELSEIF data-force = abap_false.
       json = json && |"force": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9664,7 +9788,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"sha": "{ data-sha }",|.
     IF data-force = abap_true.
       json = json && |"force": true,|.
-    ELSE.
+    ELSEIF data-force = abap_false.
       json = json && |"force": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9697,7 +9821,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9712,7 +9836,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"remove_events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9727,7 +9851,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 *  json = json && '"remove_events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9863,7 +9987,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"key": "{ data-key }",|.
     IF data-read_only = abap_true.
       json = json && |"read_only": true,|.
-    ELSE.
+    ELSEIF data-read_only = abap_false.
       json = json && |"read_only": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9955,7 +10079,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"cname": "{ data-cname }",|.
     IF data-public = abap_true.
       json = json && |"public": true,|.
-    ELSE.
+    ELSEIF data-public = abap_false.
       json = json && |"public": false,|.
     ENDIF.
     json = json && |"source": "{ data-source }",|.
@@ -9968,7 +10092,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"cname": "{ data-cname }",|.
     IF data-public = abap_true.
       json = json && |"public": true,|.
-    ELSE.
+    ELSEIF data-public = abap_false.
       json = json && |"public": false,|.
     ENDIF.
     json = json && |"source": "{ data-source }",|.
@@ -10006,15 +10130,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-maintainer_can_modify = abap_true.
       json = json && |"maintainer_can_modify": true,|.
-    ELSE.
+    ELSEIF data-maintainer_can_modify = abap_false.
       json = json && |"maintainer_can_modify": false,|.
     ENDIF.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
-    json = json && |"issue": { data-issue },|.
+    IF data-issue <> cl_abap_math=>max_int4.
+      json = json && |"issue": { data-issue },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10048,7 +10174,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"base": "{ data-base }",|.
     IF data-maintainer_can_modify = abap_true.
       json = json && |"maintainer_can_modify": true,|.
-    ELSE.
+    ELSEIF data-maintainer_can_modify = abap_false.
       json = json && |"maintainer_can_modify": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10060,12 +10186,20 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     json = json && |"commit_id": "{ data-commit_id }",|.
     json = json && |"path": "{ data-path }",|.
-    json = json && |"position": { data-position },|.
+    IF data-position <> cl_abap_math=>max_int4.
+      json = json && |"position": { data-position },|.
+    ENDIF.
     json = json && |"side": "{ data-side }",|.
-    json = json && |"line": { data-line },|.
-    json = json && |"start_line": { data-start_line },|.
+    IF data-line <> cl_abap_math=>max_int4.
+      json = json && |"line": { data-line },|.
+    ENDIF.
+    IF data-start_line <> cl_abap_math=>max_int4.
+      json = json && |"start_line": { data-start_line },|.
+    ENDIF.
     json = json && |"start_side": "{ data-start_side }",|.
-    json = json && |"in_reply_to": { data-in_reply_to },|.
+    IF data-in_reply_to <> cl_abap_math=>max_int4.
+      json = json && |"in_reply_to": { data-in_reply_to },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10158,12 +10292,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10196,12 +10330,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10216,12 +10350,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10242,12 +10376,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-subscribed = abap_true.
       json = json && |"subscribed": true,|.
-    ELSE.
+    ELSEIF data-subscribed = abap_false.
       json = json && |"subscribed": false,|.
     ENDIF.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10258,12 +10392,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '{'.
     IF data-subscribed = abap_true.
       json = json && |"subscribed": true,|.
-    ELSE.
+    ELSEIF data-subscribed = abap_false.
       json = json && |"subscribed": false,|.
     ENDIF.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10292,12 +10426,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-include_all_branches = abap_true.
       json = json && |"include_all_branches": true,|.
-    ELSE.
+    ELSEIF data-include_all_branches = abap_false.
       json = json && |"include_all_branches": false,|.
     ENDIF.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -10358,7 +10492,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"location": "{ data-location }",|.
     IF data-hireable = abap_true.
       json = json && |"hireable": true,|.
-    ELSE.
+    ELSEIF data-hireable = abap_false.
       json = json && |"hireable": false,|.
     ENDIF.
     json = json && |"bio": "{ data-bio }",|.
@@ -10403,60 +10537,62 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
-    json = json && |"team_id": { data-team_id },|.
+    IF data-team_id <> cl_abap_math=>max_int4.
+      json = json && |"team_id": { data-team_id },|.
+    ENDIF.
     IF data-auto_init = abap_true.
       json = json && |"auto_init": true,|.
-    ELSE.
+    ELSEIF data-auto_init = abap_false.
       json = json && |"auto_init": false,|.
     ENDIF.
     json = json && |"gitignore_template": "{ data-gitignore_template }",|.
     json = json && |"license_template": "{ data-license_template }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-has_downloads = abap_true.
       json = json && |"has_downloads": true,|.
-    ELSE.
+    ELSEIF data-has_downloads = abap_false.
       json = json && |"has_downloads": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -11103,6 +11239,36 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_installation_token( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes222~apps_suspend_installation.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}/suspended'.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_ghes222~apps_unsuspend_installation.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}/suspended'.
+    lv_temp = installation_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_ghes222~apps_delete_authorization.
@@ -15857,6 +16023,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
+    IF tool_name IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_name' value = tool_name ).
+    ENDIF.
+    IF tool_guid IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_guid' value = tool_guid ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
@@ -15872,17 +16054,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
-    lv_temp = alert_number.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH lv_temp.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_code_scanning_alert_co01( '' ).
+    return_data = parse_code_scanning_alert( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_update_alert.
@@ -15898,7 +16078,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_code_scanning_alert_co01( '' ).
+    return_data = parse_code_scanning_alert( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~code_scanning_list_recent_anal.
@@ -15910,8 +16090,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
+    IF sarif_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sarif_id' value = sarif_id ).
+    ENDIF.
     IF tool_name IS SUPPLIED.
       mi_client->request->set_form_field( name = 'tool_name' value = tool_name ).
+    ENDIF.
+    IF tool_guid IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_guid' value = tool_guid ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16410,20 +16606,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_repos_list_commit_status( '' ).
-  ENDMETHOD.
-
-  METHOD zif_ghes222~codes_of_conduct_get_for_repo.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/community/code_of_conduct'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_code_of_conduct( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~repos_compare_commits.

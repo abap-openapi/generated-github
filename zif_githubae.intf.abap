@@ -1521,6 +1521,14 @@ INTERFACE zif_githubae PUBLIC.
            rate TYPE rate_limit,
          END OF rate_limit_overview.
 
+* Component schema: code-of-conduct-simple, object
+  TYPES: BEGIN OF code_of_conduct_simple,
+           url TYPE string,
+           key TYPE string,
+           name TYPE string,
+           html_url TYPE string,
+         END OF code_of_conduct_simple.
+
 * Component schema: full-repository, object
   TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
@@ -1621,6 +1629,7 @@ INTERFACE zif_githubae PUBLIC.
            open_issues TYPE i,
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
+           code_of_conduct TYPE code_of_conduct_simple,
          END OF full_repository.
 
 * Component schema: protected-branch-admin-enforced, object
@@ -4304,11 +4313,6 @@ INTERFACE zif_githubae PUBLIC.
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_remove_user_access_r.
 
-* Component schema: bodyrepos_rename_branch, object
-  TYPES: BEGIN OF bodyrepos_rename_branch,
-           new_name TYPE string,
-         END OF bodyrepos_rename_branch.
-
 * Component schema: bodychecks_create, object
   TYPES: BEGIN OF subbodychecks_create_output,
            title TYPE string,
@@ -6129,6 +6133,26 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyapps_create_installation_a
     RETURNING
       VALUE(return_data) TYPE installation_token
+    RAISING cx_static_check.
+
+* PUT - "Suspend an app installation"
+* Operation id: apps/suspend-installation
+* Parameter: installation_id, required, path
+* Response: 204
+* Response: 404
+  METHODS apps_suspend_installation
+    IMPORTING
+      installation_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Unsuspend an app installation"
+* Operation id: apps/unsuspend-installation
+* Parameter: installation_id, required, path
+* Response: 204
+* Response: 404
+  METHODS apps_unsuspend_installation
+    IMPORTING
+      installation_id TYPE i
     RAISING cx_static_check.
 
 * DELETE - "Delete an app authorization"
@@ -9148,27 +9172,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_repos_remove_user_acc
     RAISING cx_static_check.
 
-* POST - "Rename a branch"
-* Operation id: repos/rename-branch
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: branch, required, path
-* Response: 201
-*     application/json, #/components/schemas/branch-with-protection
-* Response: 403
-* Response: 404
-* Response: 422
-* Body ref: #/components/schemas/bodyrepos_rename_branch
-  METHODS repos_rename_branch
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      branch TYPE string
-      body TYPE bodyrepos_rename_branch
-    RETURNING
-      VALUE(return_data) TYPE branch_with_protection
-    RAISING cx_static_check.
-
 * POST - "Create a check run"
 * Operation id: checks/create
 * Parameter: owner, required, path
@@ -9761,20 +9764,6 @@ INTERFACE zif_githubae PUBLIC.
       page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_repos_list_commit_sta
-    RAISING cx_static_check.
-
-* GET - "Get the code of conduct for a repository"
-* Operation id: codes-of-conduct/get-for-repo
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 200
-*     application/json, #/components/schemas/code-of-conduct
-  METHODS codes_of_conduct_get_for_repo
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RETURNING
-      VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
 * GET - "Compare two commits"

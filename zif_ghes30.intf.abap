@@ -1696,6 +1696,14 @@ INTERFACE zif_ghes30 PUBLIC.
            rate TYPE rate_limit,
          END OF rate_limit_overview.
 
+* Component schema: code-of-conduct-simple, object
+  TYPES: BEGIN OF code_of_conduct_simple,
+           url TYPE string,
+           key TYPE string,
+           name TYPE string,
+           html_url TYPE string,
+         END OF code_of_conduct_simple.
+
 * Component schema: full-repository, object
   TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
@@ -1796,6 +1804,7 @@ INTERFACE zif_ghes30 PUBLIC.
            open_issues TYPE i,
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
+           code_of_conduct TYPE code_of_conduct_simple,
          END OF full_repository.
 
 * Component schema: artifact, object
@@ -2205,11 +2214,17 @@ INTERFACE zif_ghes30 PUBLIC.
            repository TYPE repository,
          END OF check_suite_preference.
 
+* Component schema: code-scanning-analysis-tool-name, string
+  TYPES code_scanning_analysis_tool_na TYPE string.
+
+* Component schema: code-scanning-analysis-tool-guid, string
+  TYPES code_scanning_analysis_tool_gu TYPE string.
+
+* Component schema: code-scanning-ref, string
+  TYPES code_scanning_ref TYPE string.
+
 * Component schema: code-scanning-alert-state, string
   TYPES code_scanning_alert_state TYPE string.
-
-* Component schema: code-scanning-alert-ref, string
-  TYPES code_scanning_alert_ref TYPE string.
 
 * Component schema: alert-number, integer
   TYPES alert_number TYPE i.
@@ -2223,41 +2238,32 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: alert-html-url, string
   TYPES alert_html_url TYPE string.
 
+* Component schema: alert-instances-url, string
+  TYPES alert_instances_url TYPE string.
+
 * Component schema: code-scanning-alert-dismissed-at, string
   TYPES code_scanning_alert_dismissed_ TYPE string.
 
 * Component schema: code-scanning-alert-dismissed-reason, string
   TYPES code_scanning_alert_dismisse01 TYPE string.
 
-* Component schema: code-scanning-alert-rule, object
-  TYPES: BEGIN OF code_scanning_alert_rule,
+* Component schema: code-scanning-alert-rule-summary, object
+  TYPES: BEGIN OF code_scanning_alert_rule_summa,
            id TYPE string,
+           name TYPE string,
            severity TYPE string,
            description TYPE string,
-         END OF code_scanning_alert_rule.
+         END OF code_scanning_alert_rule_summa.
 
-* Component schema: code-scanning-analysis-tool-name, string
-  TYPES code_scanning_analysis_tool_na TYPE string.
+* Component schema: code-scanning-analysis-tool-version, string
+  TYPES code_scanning_analysis_tool_ve TYPE string.
 
 * Component schema: code-scanning-analysis-tool, object
   TYPES: BEGIN OF code_scanning_analysis_tool,
            name TYPE code_scanning_analysis_tool_na,
-           version TYPE string,
+           version TYPE code_scanning_analysis_tool_ve,
+           guid TYPE code_scanning_analysis_tool_gu,
          END OF code_scanning_analysis_tool.
-
-* Component schema: code-scanning-alert-code-scanning-alert-items, object
-  TYPES: BEGIN OF code_scanning_alert_code_scann,
-           number TYPE alert_number,
-           created_at TYPE alert_created_at,
-           url TYPE alert_url,
-           html_url TYPE alert_html_url,
-           state TYPE code_scanning_alert_state,
-           dismissed_by TYPE simple_user,
-           dismissed_at TYPE code_scanning_alert_dismissed_,
-           dismissed_reason TYPE code_scanning_alert_dismisse01,
-           rule TYPE code_scanning_alert_rule,
-           tool TYPE code_scanning_analysis_tool,
-         END OF code_scanning_alert_code_scann.
 
 * Component schema: code-scanning-analysis-analysis-key, string
   TYPES code_scanning_analysis_analysi TYPE string.
@@ -2265,52 +2271,120 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: code-scanning-alert-environment, string
   TYPES code_scanning_alert_environmen TYPE string.
 
-* Component schema: code-scanning-alert-instances, array
-  TYPES code_scanning_alert_instances TYPE string. " array  todo
+* Component schema: code-scanning-alert-location, object
+  TYPES: BEGIN OF code_scanning_alert_location,
+           path TYPE string,
+           start_line TYPE i,
+           end_line TYPE i,
+           start_column TYPE i,
+           end_column TYPE i,
+         END OF code_scanning_alert_location.
 
-* Component schema: code-scanning-alert-code-scanning-alert, object
-  TYPES: BEGIN OF code_scanning_alert_code_sca01,
+* Component schema: code-scanning-alert-classification, string
+  TYPES code_scanning_alert_classifica TYPE string.
+
+* Component schema: code-scanning-alert-instance, object
+  TYPES: BEGIN OF subcode_scanning_alert_instanc,
+           text TYPE string,
+         END OF subcode_scanning_alert_instanc.
+  TYPES: BEGIN OF code_scanning_alert_instance,
+           ref TYPE code_scanning_ref,
+           analysis_key TYPE code_scanning_analysis_analysi,
+           environment TYPE code_scanning_alert_environmen,
+           state TYPE code_scanning_alert_state,
+           commit_sha TYPE string,
+           message TYPE subcode_scanning_alert_instanc,
+           location TYPE code_scanning_alert_location,
+           html_url TYPE string,
+           classifications TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF code_scanning_alert_instance.
+
+* Component schema: code-scanning-alert-items, object
+  TYPES: BEGIN OF code_scanning_alert_items,
            number TYPE alert_number,
            created_at TYPE alert_created_at,
            url TYPE alert_url,
            html_url TYPE alert_html_url,
-           instances TYPE code_scanning_alert_instances,
+           instances_url TYPE alert_instances_url,
+           state TYPE code_scanning_alert_state,
+           dismissed_by TYPE simple_user,
+           dismissed_at TYPE code_scanning_alert_dismissed_,
+           dismissed_reason TYPE code_scanning_alert_dismisse01,
+           rule TYPE code_scanning_alert_rule_summa,
+           tool TYPE code_scanning_analysis_tool,
+           most_recent_instance TYPE code_scanning_alert_instance,
+         END OF code_scanning_alert_items.
+
+* Component schema: code-scanning-alert-rule, object
+  TYPES: BEGIN OF code_scanning_alert_rule,
+           id TYPE string,
+           name TYPE string,
+           severity TYPE string,
+           description TYPE string,
+           full_description TYPE string,
+           tags TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           help TYPE string,
+         END OF code_scanning_alert_rule.
+
+* Component schema: code-scanning-alert, object
+  TYPES: BEGIN OF code_scanning_alert,
+           number TYPE alert_number,
+           created_at TYPE alert_created_at,
+           url TYPE alert_url,
+           html_url TYPE alert_html_url,
+           instances_url TYPE alert_instances_url,
            state TYPE code_scanning_alert_state,
            dismissed_by TYPE simple_user,
            dismissed_at TYPE code_scanning_alert_dismissed_,
            dismissed_reason TYPE code_scanning_alert_dismisse01,
            rule TYPE code_scanning_alert_rule,
            tool TYPE code_scanning_analysis_tool,
-         END OF code_scanning_alert_code_sca01.
+           most_recent_instance TYPE code_scanning_alert_instance,
+         END OF code_scanning_alert.
 
 * Component schema: code-scanning-alert-set-state, string
   TYPES code_scanning_alert_set_state TYPE string.
 
-* Component schema: code-scanning-analysis-ref, string
-  TYPES code_scanning_analysis_ref TYPE string.
+* Component schema: code-scanning-analysis-sarif-id, string
+  TYPES code_scanning_analysis_sarif_i TYPE string.
 
 * Component schema: code-scanning-analysis-commit-sha, string
   TYPES code_scanning_analysis_commit_ TYPE string.
 
-* Component schema: code-scanning-analysis-created-at, string
-  TYPES code_scanning_analysis_created TYPE string.
-
 * Component schema: code-scanning-analysis-environment, string
   TYPES code_scanning_analysis_environ TYPE string.
 
-* Component schema: code-scanning-analysis-code-scanning-analysis, object
-  TYPES: BEGIN OF code_scanning_analysis_code_sc,
+* Component schema: code-scanning-analysis-created-at, string
+  TYPES code_scanning_analysis_created TYPE string.
+
+* Component schema: code-scanning-analysis-url, string
+  TYPES code_scanning_analysis_url TYPE string.
+
+* Component schema: code-scanning-analysis, object
+  TYPES: BEGIN OF code_scanning_analysis,
+           ref TYPE code_scanning_ref,
            commit_sha TYPE code_scanning_analysis_commit_,
-           ref TYPE code_scanning_analysis_ref,
            analysis_key TYPE code_scanning_analysis_analysi,
-           created_at TYPE code_scanning_analysis_created,
-           tool_name TYPE code_scanning_analysis_tool_na,
-           error TYPE string,
            environment TYPE code_scanning_analysis_environ,
-         END OF code_scanning_analysis_code_sc.
+           error TYPE string,
+           created_at TYPE code_scanning_analysis_created,
+           results_count TYPE i,
+           rules_count TYPE i,
+           id TYPE i,
+           url TYPE code_scanning_analysis_url,
+           sarif_id TYPE code_scanning_analysis_sarif_i,
+           tool TYPE code_scanning_analysis_tool,
+           deletable TYPE abap_bool,
+         END OF code_scanning_analysis.
 
 * Component schema: code-scanning-analysis-sarif-file, string
   TYPES code_scanning_analysis_sarif_f TYPE string.
+
+* Component schema: code-scanning-sarifs-receipt, object
+  TYPES: BEGIN OF code_scanning_sarifs_receipt,
+           id TYPE code_scanning_analysis_sarif_i,
+           url TYPE string,
+         END OF code_scanning_sarifs_receipt.
 
 * Component schema: collaborator, object
   TYPES: BEGIN OF subcollaborator_permissions,
@@ -5135,11 +5209,11 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: bodycode_scanning_upload_sarif, object
   TYPES: BEGIN OF bodycode_scanning_upload_sarif,
            commit_sha TYPE code_scanning_analysis_commit_,
-           ref TYPE code_scanning_analysis_ref,
+           ref TYPE code_scanning_ref,
            sarif TYPE code_scanning_analysis_sarif_f,
            checkout_uri TYPE string,
            started_at TYPE string,
-           tool_name TYPE code_scanning_analysis_tool_na,
+           tool_name TYPE string,
          END OF bodycode_scanning_upload_sarif.
 
 * Component schema: bodyrepos_add_collaborator, object
@@ -6364,10 +6438,10 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF response_checks_list_for_suite.
 
 * Component schema: response_code_scanning_list_alerts_for_, array
-  TYPES response_code_scanning_list_al TYPE STANDARD TABLE OF code_scanning_alert_code_scann WITH DEFAULT KEY.
+  TYPES response_code_scanning_list_al TYPE STANDARD TABLE OF code_scanning_alert_items WITH DEFAULT KEY.
 
 * Component schema: response_code_scanning_list_recent_anal, array
-  TYPES response_code_scanning_list_re TYPE STANDARD TABLE OF code_scanning_analysis_code_sc WITH DEFAULT KEY.
+  TYPES response_code_scanning_list_re TYPE STANDARD TABLE OF code_scanning_analysis WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_collaborators, array
   TYPES response_repos_list_collaborat TYPE STANDARD TABLE OF collaborator WITH DEFAULT KEY.
@@ -7281,6 +7355,26 @@ INTERFACE zif_ghes30 PUBLIC.
       body TYPE bodyapps_create_installation_a
     RETURNING
       VALUE(return_data) TYPE installation_token
+    RAISING cx_static_check.
+
+* PUT - "Suspend an app installation"
+* Operation id: apps/suspend-installation
+* Parameter: installation_id, required, path
+* Response: 204
+* Response: 404
+  METHODS apps_suspend_installation
+    IMPORTING
+      installation_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Unsuspend an app installation"
+* Operation id: apps/unsuspend-installation
+* Parameter: installation_id, required, path
+* Response: 204
+* Response: 404
+  METHODS apps_unsuspend_installation
+    IMPORTING
+      installation_id TYPE i
     RAISING cx_static_check.
 
 * DELETE - "Delete an app authorization"
@@ -11899,39 +11993,49 @@ INTERFACE zif_ghes30 PUBLIC.
 * GET - "List code scanning alerts for a repository"
 * Operation id: code-scanning/list-alerts-for-repo
 * Parameter: state, optional, query
-* Parameter: ref, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: tool_name, optional, query
+* Parameter: tool_guid, optional, query
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Parameter: ref, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_code_scanning_list_alerts_for_
+* Response: 403
 * Response: 404
 * Response: 503
   METHODS code_scanning_list_alerts_for_
     IMPORTING
       state TYPE string OPTIONAL
-      ref TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
+      tool_name TYPE string OPTIONAL
+      tool_guid TYPE string OPTIONAL
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+      ref TYPE string OPTIONAL
     RETURNING
       VALUE(return_data) TYPE response_code_scanning_list_al
     RAISING cx_static_check.
 
 * GET - "Get a code scanning alert"
 * Operation id: code-scanning/get-alert
-* Parameter: alert_number, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: alert_number, required, path
 * Response: 200
-*     application/json, #/components/schemas/code-scanning-alert-code-scanning-alert
+*     application/json, #/components/schemas/code-scanning-alert
+* Response: 403
 * Response: 404
 * Response: 503
   METHODS code_scanning_get_alert
     IMPORTING
-      alert_number TYPE i
       owner TYPE string
       repo TYPE string
+      alert_number TYPE string
     RETURNING
-      VALUE(return_data) TYPE code_scanning_alert_code_sca01
+      VALUE(return_data) TYPE code_scanning_alert
     RAISING cx_static_check.
 
 * PATCH - "Update a code scanning alert"
@@ -11940,8 +12044,9 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: alert_number, required, path
 * Response: 200
-*     application/json, #/components/schemas/code-scanning-alert-code-scanning-alert
+*     application/json, #/components/schemas/code-scanning-alert
 * Response: 403
+* Response: 404
 * Response: 503
 * Body ref: #/components/schemas/bodycode_scanning_update_alert
   METHODS code_scanning_update_alert
@@ -11951,36 +12056,49 @@ INTERFACE zif_ghes30 PUBLIC.
       alert_number TYPE string
       body TYPE bodycode_scanning_update_alert
     RETURNING
-      VALUE(return_data) TYPE code_scanning_alert_code_sca01
+      VALUE(return_data) TYPE code_scanning_alert
     RAISING cx_static_check.
 
-* GET - "List recent code scanning analyses for a repository"
+* GET - "List code scanning analyses for a repository"
 * Operation id: code-scanning/list-recent-analyses
 * Parameter: ref, optional, query
-* Parameter: tool_name, optional, query
+* Parameter: sarif_id, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: tool_name, optional, query
+* Parameter: tool_guid, optional, query
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_code_scanning_list_recent_anal
+* Response: 403
+* Response: 404
+* Response: 503
   METHODS code_scanning_list_recent_anal
     IMPORTING
       ref TYPE string OPTIONAL
-      tool_name TYPE string OPTIONAL
+      sarif_id TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
+      tool_name TYPE string OPTIONAL
+      tool_guid TYPE string OPTIONAL
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE response_code_scanning_list_re
     RAISING cx_static_check.
 
-* POST - "Upload a SARIF file"
+* POST - "Upload an analysis as SARIF data"
 * Operation id: code-scanning/upload-sarif
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
+*     application/json, #/components/schemas/code-scanning-sarifs-receipt
 * Response: 400
 * Response: 403
 * Response: 404
 * Response: 413
+* Response: 503
 * Body ref: #/components/schemas/bodycode_scanning_upload_sarif
   METHODS code_scanning_upload_sarif
     IMPORTING
@@ -12424,20 +12542,6 @@ INTERFACE zif_ghes30 PUBLIC.
       page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_repos_list_commit_sta
-    RAISING cx_static_check.
-
-* GET - "Get the code of conduct for a repository"
-* Operation id: codes-of-conduct/get-for-repo
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 200
-*     application/json, #/components/schemas/code-of-conduct
-  METHODS codes_of_conduct_get_for_repo
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RETURNING
-      VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
 * GET - "Compare two commits"

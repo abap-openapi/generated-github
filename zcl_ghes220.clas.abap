@@ -268,6 +268,10 @@ CLASS zcl_ghes220 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(rate_limit_overview) TYPE zif_ghes220=>rate_limit_overview
       RAISING cx_static_check.
+    METHODS parse_code_of_conduct_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_of_conduct_simple) TYPE zif_ghes220=>code_of_conduct_simple
+      RAISING cx_static_check.
     METHODS parse_full_repository
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(full_repository) TYPE zif_ghes220=>full_repository
@@ -3423,6 +3427,13 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     rate_limit_overview-rate = parse_rate_limit( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_code_of_conduct_simple.
+    code_of_conduct_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    code_of_conduct_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+    code_of_conduct_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_of_conduct_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+  ENDMETHOD.
+
   METHOD parse_full_repository.
     full_repository-id = mo_json->value_string( iv_prefix && '/id' ).
     full_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -3513,6 +3524,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     full_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     full_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
     full_repository-anonymous_access_enabled = mo_json->value_boolean( iv_prefix && '/anonymous_access_enabled' ).
+    full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_protected_branch_admin_e.
@@ -7427,7 +7439,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7440,7 +7452,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7453,7 +7465,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7523,7 +7535,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7539,7 +7551,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7555,7 +7567,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7703,7 +7715,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"last_read_at": "{ data-last_read_at }",|.
     IF data-read = abap_true.
       json = json && |"read": true,|.
-    ELSE.
+    ELSEIF data-read = abap_false.
       json = json && |"read": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7714,7 +7726,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7725,7 +7737,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7743,33 +7755,33 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-has_organization_projects = abap_true.
       json = json && |"has_organization_projects": true,|.
-    ELSE.
+    ELSEIF data-has_organization_projects = abap_false.
       json = json && |"has_organization_projects": false,|.
     ENDIF.
     IF data-has_repository_projects = abap_true.
       json = json && |"has_repository_projects": true,|.
-    ELSE.
+    ELSEIF data-has_repository_projects = abap_false.
       json = json && |"has_repository_projects": false,|.
     ENDIF.
     json = json && |"default_repository_permission": "{ data-default_repository_permission }",|.
     IF data-members_can_create_repositorie = abap_true.
       json = json && |"members_can_create_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_repositorie = abap_false.
       json = json && |"members_can_create_repositories": false,|.
     ENDIF.
     IF data-members_can_create_internal_re = abap_true.
       json = json && |"members_can_create_internal_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_internal_re = abap_false.
       json = json && |"members_can_create_internal_repositories": false,|.
     ENDIF.
     IF data-members_can_create_private_rep = abap_true.
       json = json && |"members_can_create_private_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_private_rep = abap_false.
       json = json && |"members_can_create_private_repositories": false,|.
     ENDIF.
     IF data-members_can_create_public_repo = abap_true.
       json = json && |"members_can_create_public_repositories": true,|.
-    ELSE.
+    ELSEIF data-members_can_create_public_repo = abap_false.
       json = json && |"members_can_create_public_repositories": false,|.
     ENDIF.
     json = json && |"members_allowed_repository_creation_type": "{ data-members_allowed_repository_cre }",|.
@@ -7785,7 +7797,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7798,7 +7810,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = json && |"name": "{ data-name }",|.
@@ -7812,7 +7824,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = json && |"name": "{ data-name }",|.
@@ -7839,7 +7851,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7851,7 +7863,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"enforcement": "{ data-enforcement }",|.
     IF data-allow_downstream_configuration = abap_true.
       json = json && |"allow_downstream_configuration": true,|.
-    ELSE.
+    ELSEIF data-allow_downstream_configuration = abap_false.
       json = json && |"allow_downstream_configuration": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7873,56 +7885,58 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
-    json = json && |"team_id": { data-team_id },|.
+    IF data-team_id <> cl_abap_math=>max_int4.
+      json = json && |"team_id": { data-team_id },|.
+    ENDIF.
     IF data-auto_init = abap_true.
       json = json && |"auto_init": true,|.
-    ELSE.
+    ELSEIF data-auto_init = abap_false.
       json = json && |"auto_init": false,|.
     ENDIF.
     json = json && |"gitignore_template": "{ data-gitignore_template }",|.
     json = json && |"license_template": "{ data-license_template }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7937,7 +7951,9 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"repo_names":' not simple
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -7947,7 +7963,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"note": "{ data-note }",|.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7959,7 +7975,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"note": "{ data-note }",|.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -7969,7 +7985,9 @@ CLASS zcl_ghes220 IMPLEMENTATION.
   METHOD json_projects_move_card.
     json = json && '{'.
     json = json && |"position": "{ data-position }",|.
-    json = json && |"column_id": { data-column_id },|.
+    IF data-column_id <> cl_abap_math=>max_int4.
+      json = json && |"column_id": { data-column_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8003,7 +8021,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"organization_permission": "{ data-organization_permission }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8018,7 +8036,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"organization_permission": "{ data-organization_permission }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8053,54 +8071,54 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = json && |"default_branch": "{ data-default_branch }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8114,54 +8132,54 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = json && |"default_branch": "{ data-default_branch }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-archived = abap_true.
       json = json && |"archived": true,|.
-    ELSE.
+    ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8173,24 +8191,24 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"required_status_checks":' not simple
     IF data-enforce_admins = abap_true.
       json = json && |"enforce_admins": true,|.
-    ELSE.
+    ELSEIF data-enforce_admins = abap_false.
       json = json && |"enforce_admins": false,|.
     ENDIF.
 *  json = json && '"required_pull_request_reviews":' not simple
 *  json = json && '"restrictions":' not simple
     IF data-required_linear_history = abap_true.
       json = json && |"required_linear_history": true,|.
-    ELSE.
+    ELSEIF data-required_linear_history = abap_false.
       json = json && |"required_linear_history": false,|.
     ENDIF.
     IF data-allow_force_pushes = abap_true.
       json = json && |"allow_force_pushes": true,|.
-    ELSE.
+    ELSEIF data-allow_force_pushes = abap_false.
       json = json && |"allow_force_pushes": false,|.
     ENDIF.
     IF data-allow_deletions = abap_true.
       json = json && |"allow_deletions": true,|.
-    ELSE.
+    ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8202,24 +8220,24 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"required_status_checks":' not simple
     IF data-enforce_admins = abap_true.
       json = json && |"enforce_admins": true,|.
-    ELSE.
+    ELSEIF data-enforce_admins = abap_false.
       json = json && |"enforce_admins": false,|.
     ENDIF.
 *  json = json && '"required_pull_request_reviews":' not simple
 *  json = json && '"restrictions":' not simple
     IF data-required_linear_history = abap_true.
       json = json && |"required_linear_history": true,|.
-    ELSE.
+    ELSEIF data-required_linear_history = abap_false.
       json = json && |"required_linear_history": false,|.
     ENDIF.
     IF data-allow_force_pushes = abap_true.
       json = json && |"allow_force_pushes": true,|.
-    ELSE.
+    ELSEIF data-allow_force_pushes = abap_false.
       json = json && |"allow_force_pushes": false,|.
     ENDIF.
     IF data-allow_deletions = abap_true.
       json = json && |"allow_deletions": true,|.
-    ELSE.
+    ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8231,15 +8249,17 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"dismissal_restrictions":' not simple
     IF data-dismiss_stale_reviews = abap_true.
       json = json && |"dismiss_stale_reviews": true,|.
-    ELSE.
+    ELSEIF data-dismiss_stale_reviews = abap_false.
       json = json && |"dismiss_stale_reviews": false,|.
     ENDIF.
     IF data-require_code_owner_reviews = abap_true.
       json = json && |"require_code_owner_reviews": true,|.
-    ELSE.
+    ELSEIF data-require_code_owner_reviews = abap_false.
       json = json && |"require_code_owner_reviews": false,|.
     ENDIF.
-    json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
+      json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8249,15 +8269,17 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"dismissal_restrictions":' not simple
     IF data-dismiss_stale_reviews = abap_true.
       json = json && |"dismiss_stale_reviews": true,|.
-    ELSE.
+    ELSEIF data-dismiss_stale_reviews = abap_false.
       json = json && |"dismiss_stale_reviews": false,|.
     ENDIF.
     IF data-require_code_owner_reviews = abap_true.
       json = json && |"require_code_owner_reviews": true,|.
-    ELSE.
+    ELSEIF data-require_code_owner_reviews = abap_false.
       json = json && |"require_code_owner_reviews": false,|.
     ENDIF.
-    json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
+      json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8266,7 +8288,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-strict = abap_true.
       json = json && |"strict": true,|.
-    ELSE.
+    ELSEIF data-strict = abap_false.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
@@ -8278,7 +8300,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-strict = abap_true.
       json = json && |"strict": true,|.
-    ELSE.
+    ELSEIF data-strict = abap_false.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
@@ -8456,8 +8478,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     json = json && |"body": "{ data-body }",|.
     json = json && |"path": "{ data-path }",|.
-    json = json && |"position": { data-position },|.
-    json = json && |"line": { data-line },|.
+    IF data-position <> cl_abap_math=>max_int4.
+      json = json && |"position": { data-position },|.
+    ENDIF.
+    IF data-line <> cl_abap_math=>max_int4.
+      json = json && |"line": { data-line },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8491,7 +8517,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"task": "{ data-task }",|.
     IF data-auto_merge = abap_true.
       json = json && |"auto_merge": true,|.
-    ELSE.
+    ELSEIF data-auto_merge = abap_false.
       json = json && |"auto_merge": false,|.
     ENDIF.
 *  json = json && '"required_contexts":' not simple
@@ -8500,12 +8526,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-transient_environment = abap_true.
       json = json && |"transient_environment": true,|.
-    ELSE.
+    ELSEIF data-transient_environment = abap_false.
       json = json && |"transient_environment": false,|.
     ENDIF.
     IF data-production_environment = abap_true.
       json = json && |"production_environment": true,|.
-    ELSE.
+    ELSEIF data-production_environment = abap_false.
       json = json && |"production_environment": false,|.
     ENDIF.
     json = json && |"created_at": "{ data-created_at }",|.
@@ -8523,7 +8549,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"environment_url": "{ data-environment_url }",|.
     IF data-auto_inactive = abap_true.
       json = json && |"auto_inactive": true,|.
-    ELSE.
+    ELSEIF data-auto_inactive = abap_false.
       json = json && |"auto_inactive": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8571,7 +8597,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"sha": "{ data-sha }",|.
     IF data-force = abap_true.
       json = json && |"force": true,|.
-    ELSE.
+    ELSEIF data-force = abap_false.
       json = json && |"force": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8583,7 +8609,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"sha": "{ data-sha }",|.
     IF data-force = abap_true.
       json = json && |"force": true,|.
-    ELSE.
+    ELSEIF data-force = abap_false.
       json = json && |"force": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8616,7 +8642,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8631,7 +8657,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"remove_events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8646,7 +8672,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 *  json = json && '"remove_events":' not simple
     IF data-active = abap_true.
       json = json && |"active": true,|.
-    ELSE.
+    ELSEIF data-active = abap_false.
       json = json && |"active": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8782,7 +8808,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"key": "{ data-key }",|.
     IF data-read_only = abap_true.
       json = json && |"read_only": true,|.
-    ELSE.
+    ELSEIF data-read_only = abap_false.
       json = json && |"read_only": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8873,7 +8899,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-public = abap_true.
       json = json && |"public": true,|.
-    ELSE.
+    ELSEIF data-public = abap_false.
       json = json && |"public": false,|.
     ENDIF.
     json = json && |"source": "{ data-source }",|.
@@ -8885,7 +8911,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-public = abap_true.
       json = json && |"public": true,|.
-    ELSE.
+    ELSEIF data-public = abap_false.
       json = json && |"public": false,|.
     ENDIF.
     json = json && |"source": "{ data-source }",|.
@@ -8923,15 +8949,17 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-maintainer_can_modify = abap_true.
       json = json && |"maintainer_can_modify": true,|.
-    ELSE.
+    ELSEIF data-maintainer_can_modify = abap_false.
       json = json && |"maintainer_can_modify": false,|.
     ENDIF.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
-    json = json && |"issue": { data-issue },|.
+    IF data-issue <> cl_abap_math=>max_int4.
+      json = json && |"issue": { data-issue },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8965,7 +8993,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"base": "{ data-base }",|.
     IF data-maintainer_can_modify = abap_true.
       json = json && |"maintainer_can_modify": true,|.
-    ELSE.
+    ELSEIF data-maintainer_can_modify = abap_false.
       json = json && |"maintainer_can_modify": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -8977,12 +9005,20 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     json = json && |"commit_id": "{ data-commit_id }",|.
     json = json && |"path": "{ data-path }",|.
-    json = json && |"position": { data-position },|.
+    IF data-position <> cl_abap_math=>max_int4.
+      json = json && |"position": { data-position },|.
+    ENDIF.
     json = json && |"side": "{ data-side }",|.
-    json = json && |"line": { data-line },|.
-    json = json && |"start_line": { data-start_line },|.
+    IF data-line <> cl_abap_math=>max_int4.
+      json = json && |"line": { data-line },|.
+    ENDIF.
+    IF data-start_line <> cl_abap_math=>max_int4.
+      json = json && |"start_line": { data-start_line },|.
+    ENDIF.
     json = json && |"start_side": "{ data-start_side }",|.
-    json = json && |"in_reply_to": { data-in_reply_to },|.
+    IF data-in_reply_to <> cl_abap_math=>max_int4.
+      json = json && |"in_reply_to": { data-in_reply_to },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9075,12 +9111,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9113,12 +9149,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9133,12 +9169,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-draft = abap_true.
       json = json && |"draft": true,|.
-    ELSE.
+    ELSEIF data-draft = abap_false.
       json = json && |"draft": false,|.
     ENDIF.
     IF data-prerelease = abap_true.
       json = json && |"prerelease": true,|.
-    ELSE.
+    ELSEIF data-prerelease = abap_false.
       json = json && |"prerelease": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9159,12 +9195,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-subscribed = abap_true.
       json = json && |"subscribed": true,|.
-    ELSE.
+    ELSEIF data-subscribed = abap_false.
       json = json && |"subscribed": false,|.
     ENDIF.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9175,12 +9211,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '{'.
     IF data-subscribed = abap_true.
       json = json && |"subscribed": true,|.
-    ELSE.
+    ELSEIF data-subscribed = abap_false.
       json = json && |"subscribed": false,|.
     ENDIF.
     IF data-ignored = abap_true.
       json = json && |"ignored": true,|.
-    ELSE.
+    ELSEIF data-ignored = abap_false.
       json = json && |"ignored": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9209,12 +9245,12 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     IF data-include_all_branches = abap_true.
       json = json && |"include_all_branches": true,|.
-    ELSE.
+    ELSEIF data-include_all_branches = abap_false.
       json = json && |"include_all_branches": false,|.
     ENDIF.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9271,7 +9307,9 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9282,7 +9320,9 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"description": "{ data-description }",|.
     json = json && |"privacy": "{ data-privacy }",|.
     json = json && |"permission": "{ data-permission }",|.
-    json = json && |"parent_team_id": { data-parent_team_id },|.
+    IF data-parent_team_id <> cl_abap_math=>max_int4.
+      json = json && |"parent_team_id": { data-parent_team_id },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9293,7 +9333,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"body": "{ data-body }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -9403,7 +9443,7 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"location": "{ data-location }",|.
     IF data-hireable = abap_true.
       json = json && |"hireable": true,|.
-    ELSE.
+    ELSEIF data-hireable = abap_false.
       json = json && |"hireable": false,|.
     ENDIF.
     json = json && |"bio": "{ data-bio }",|.
@@ -9448,60 +9488,62 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && |"homepage": "{ data-homepage }",|.
     IF data-private = abap_true.
       json = json && |"private": true,|.
-    ELSE.
+    ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
-    ELSE.
+    ELSEIF data-has_issues = abap_false.
       json = json && |"has_issues": false,|.
     ENDIF.
     IF data-has_projects = abap_true.
       json = json && |"has_projects": true,|.
-    ELSE.
+    ELSEIF data-has_projects = abap_false.
       json = json && |"has_projects": false,|.
     ENDIF.
     IF data-has_wiki = abap_true.
       json = json && |"has_wiki": true,|.
-    ELSE.
+    ELSEIF data-has_wiki = abap_false.
       json = json && |"has_wiki": false,|.
     ENDIF.
-    json = json && |"team_id": { data-team_id },|.
+    IF data-team_id <> cl_abap_math=>max_int4.
+      json = json && |"team_id": { data-team_id },|.
+    ENDIF.
     IF data-auto_init = abap_true.
       json = json && |"auto_init": true,|.
-    ELSE.
+    ELSEIF data-auto_init = abap_false.
       json = json && |"auto_init": false,|.
     ENDIF.
     json = json && |"gitignore_template": "{ data-gitignore_template }",|.
     json = json && |"license_template": "{ data-license_template }",|.
     IF data-allow_squash_merge = abap_true.
       json = json && |"allow_squash_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_squash_merge = abap_false.
       json = json && |"allow_squash_merge": false,|.
     ENDIF.
     IF data-allow_merge_commit = abap_true.
       json = json && |"allow_merge_commit": true,|.
-    ELSE.
+    ELSEIF data-allow_merge_commit = abap_false.
       json = json && |"allow_merge_commit": false,|.
     ENDIF.
     IF data-allow_rebase_merge = abap_true.
       json = json && |"allow_rebase_merge": true,|.
-    ELSE.
+    ELSEIF data-allow_rebase_merge = abap_false.
       json = json && |"allow_rebase_merge": false,|.
     ENDIF.
     IF data-delete_branch_on_merge = abap_true.
       json = json && |"delete_branch_on_merge": true,|.
-    ELSE.
+    ELSEIF data-delete_branch_on_merge = abap_false.
       json = json && |"delete_branch_on_merge": false,|.
     ENDIF.
     IF data-has_downloads = abap_true.
       json = json && |"has_downloads": true,|.
-    ELSE.
+    ELSEIF data-has_downloads = abap_false.
       json = json && |"has_downloads": false,|.
     ENDIF.
     IF data-is_template = abap_true.
       json = json && |"is_template": true,|.
-    ELSE.
+    ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
@@ -13326,20 +13368,6 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_repos_list_commit_status( '' ).
-  ENDMETHOD.
-
-  METHOD zif_ghes220~codes_of_conduct_get_for_repo.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/community/code_of_conduct'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_code_of_conduct( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes220~repos_compare_commits.
