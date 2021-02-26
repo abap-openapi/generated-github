@@ -1735,6 +1735,24 @@ INTERFACE zif_ghes218 PUBLIC.
            base TYPE subpull_request_minimal_base,
          END OF pull_request_minimal.
 
+* Component schema: deployment-simple, object
+  TYPES: BEGIN OF deployment_simple,
+           url TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           task TYPE string,
+           original_environment TYPE string,
+           environment TYPE string,
+           description TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           statuses_url TYPE string,
+           repository_url TYPE string,
+           transient_environment TYPE abap_bool,
+           production_environment TYPE abap_bool,
+           performed_via_github_app TYPE string,
+         END OF deployment_simple.
+
 * Component schema: check-run, object
   TYPES: BEGIN OF subcheck_run_check_suite,
            id TYPE i,
@@ -1763,6 +1781,7 @@ INTERFACE zif_ghes218 PUBLIC.
            check_suite TYPE subcheck_run_check_suite,
            app TYPE string,
            pull_requests TYPE string,
+           deployment TYPE deployment_simple,
          END OF check_run.
 
 * Component schema: check-annotation, object

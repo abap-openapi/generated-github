@@ -400,6 +400,10 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(protected_branch) TYPE zif_ghes222=>protected_branch
       RAISING cx_static_check.
+    METHODS parse_deployment_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_simple) TYPE zif_ghes222=>deployment_simple
+      RAISING cx_static_check.
     METHODS parse_check_run
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_run) TYPE zif_ghes222=>check_run
@@ -4336,6 +4340,23 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     protected_branch-restrictions = parse_branch_restriction_polic( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_deployment_simple.
+    deployment_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    deployment_simple-id = mo_json->value_string( iv_prefix && '/id' ).
+    deployment_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    deployment_simple-task = mo_json->value_string( iv_prefix && '/task' ).
+    deployment_simple-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
+    deployment_simple-environment = mo_json->value_string( iv_prefix && '/environment' ).
+    deployment_simple-description = mo_json->value_string( iv_prefix && '/description' ).
+    deployment_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    deployment_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    deployment_simple-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
+    deployment_simple-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
+    deployment_simple-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
+    deployment_simple-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
+    deployment_simple-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+  ENDMETHOD.
+
   METHOD parse_check_run.
     check_run-id = mo_json->value_string( iv_prefix && '/id' ).
     check_run-head_sha = mo_json->value_string( iv_prefix && '/head_sha' ).
@@ -4357,6 +4378,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     check_run-check_suite-id = mo_json->value_string( iv_prefix && '/check_suite/id' ).
     check_run-app = mo_json->value_string( iv_prefix && '/app' ).
     check_run-pull_requests = mo_json->value_string( iv_prefix && '/pull_requests' ).
+    check_run-deployment = parse_deployment_simple( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_check_annotation.
