@@ -661,6 +661,51 @@ INTERFACE zif_githubae PUBLIC.
            comments TYPE subenterprise_overview_comment,
          END OF enterprise_overview.
 
+* Component schema: enabled-organizations, string
+  TYPES enabled_organizations TYPE string.
+
+* Component schema: allowed-actions, string
+  TYPES allowed_actions TYPE string.
+
+* Component schema: selected-actions-url, string
+  TYPES selected_actions_url TYPE string.
+
+* Component schema: actions-enterprise-permissions, object
+  TYPES: BEGIN OF actions_enterprise_permissions,
+           enabled_organizations TYPE enabled_organizations,
+           selected_organizations_url TYPE string,
+           allowed_actions TYPE allowed_actions,
+           selected_actions_url TYPE selected_actions_url,
+         END OF actions_enterprise_permissions.
+
+* Component schema: selected-actions, object
+  TYPES: BEGIN OF selected_actions,
+           github_owned_allowed TYPE abap_bool,
+           verified_allowed TYPE abap_bool,
+           patterns_allowed TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF selected_actions.
+
+* Component schema: runner-groups-enterprise, object
+  TYPES: BEGIN OF runner_groups_enterprise,
+           id TYPE f,
+           name TYPE string,
+           visibility TYPE string,
+           default TYPE abap_bool,
+           selected_organizations_url TYPE string,
+           runners_url TYPE string,
+           allows_public_repositories TYPE abap_bool,
+         END OF runner_groups_enterprise.
+
+* Component schema: runner, object
+  TYPES: BEGIN OF runner,
+           id TYPE i,
+           name TYPE string,
+           os TYPE string,
+           status TYPE string,
+           busy TYPE abap_bool,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF runner.
+
 * Component schema: actor, object
   TYPES: BEGIN OF actor,
            id TYPE i,
@@ -1180,6 +1225,49 @@ INTERFACE zif_githubae PUBLIC.
            updated_at TYPE string,
          END OF organization_full.
 
+* Component schema: enabled-repositories, string
+  TYPES enabled_repositories TYPE string.
+
+* Component schema: actions-organization-permissions, object
+  TYPES: BEGIN OF actions_organization_permissio,
+           enabled_repositories TYPE enabled_repositories,
+           selected_repositories_url TYPE string,
+           allowed_actions TYPE allowed_actions,
+           selected_actions_url TYPE selected_actions_url,
+         END OF actions_organization_permissio.
+
+* Component schema: runner-groups-org, object
+  TYPES: BEGIN OF runner_groups_org,
+           id TYPE f,
+           name TYPE string,
+           visibility TYPE string,
+           default TYPE abap_bool,
+           selected_repositories_url TYPE string,
+           runners_url TYPE string,
+           inherited TYPE abap_bool,
+           inherited_allows_public_reposi TYPE abap_bool,
+           allows_public_repositories TYPE abap_bool,
+         END OF runner_groups_org.
+
+* Component schema: organization-actions-secret, object
+  TYPES: BEGIN OF organization_actions_secret,
+           name TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           visibility TYPE string,
+           selected_repositories_url TYPE string,
+         END OF organization_actions_secret.
+
+* Component schema: actions-public-key, object
+  TYPES: BEGIN OF actions_public_key,
+           key_id TYPE string,
+           key TYPE string,
+           id TYPE i,
+           url TYPE string,
+           title TYPE string,
+           created_at TYPE string,
+         END OF actions_public_key.
+
 * Component schema: org-hook, object
   TYPES: BEGIN OF suborg_hook_config,
            url TYPE string,
@@ -1632,6 +1720,241 @@ INTERFACE zif_githubae PUBLIC.
            code_of_conduct TYPE code_of_conduct_simple,
          END OF full_repository.
 
+* Component schema: artifact, object
+  TYPES: BEGIN OF artifact,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           size_in_bytes TYPE i,
+           url TYPE string,
+           archive_download_url TYPE string,
+           expired TYPE abap_bool,
+           created_at TYPE string,
+           expires_at TYPE string,
+           updated_at TYPE string,
+         END OF artifact.
+
+* Component schema: job, object
+  TYPES: BEGIN OF job,
+           id TYPE i,
+           run_id TYPE i,
+           run_url TYPE string,
+           node_id TYPE string,
+           head_sha TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           status TYPE string,
+           conclusion TYPE string,
+           started_at TYPE string,
+           completed_at TYPE string,
+           name TYPE string,
+           steps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           check_run_url TYPE string,
+         END OF job.
+
+* Component schema: actions-enabled, boolean
+  TYPES actions_enabled TYPE abap_bool.
+
+* Component schema: actions-repository-permissions, object
+  TYPES: BEGIN OF actions_repository_permissions,
+           enabled TYPE actions_enabled,
+           allowed_actions TYPE allowed_actions,
+           selected_actions_url TYPE selected_actions_url,
+         END OF actions_repository_permissions.
+
+* Component schema: pull-request-minimal, object
+  TYPES: BEGIN OF subsubpull_request_minimal_bas,
+           id TYPE i,
+           url TYPE string,
+           name TYPE string,
+         END OF subsubpull_request_minimal_bas.
+  TYPES: BEGIN OF subpull_request_minimal_base,
+           ref TYPE string,
+           sha TYPE string,
+           repo TYPE subsubpull_request_minimal_bas,
+         END OF subpull_request_minimal_base.
+  TYPES: BEGIN OF subsubpull_request_minimal_hea,
+           id TYPE i,
+           url TYPE string,
+           name TYPE string,
+         END OF subsubpull_request_minimal_hea.
+  TYPES: BEGIN OF subpull_request_minimal_head,
+           ref TYPE string,
+           sha TYPE string,
+           repo TYPE subsubpull_request_minimal_hea,
+         END OF subpull_request_minimal_head.
+  TYPES: BEGIN OF pull_request_minimal,
+           id TYPE i,
+           number TYPE i,
+           url TYPE string,
+           head TYPE subpull_request_minimal_head,
+           base TYPE subpull_request_minimal_base,
+         END OF pull_request_minimal.
+
+* Component schema: simple-commit, object
+  TYPES: BEGIN OF subsimple_commit_committer,
+           name TYPE string,
+           email TYPE string,
+         END OF subsimple_commit_committer.
+  TYPES: BEGIN OF subsimple_commit_author,
+           name TYPE string,
+           email TYPE string,
+         END OF subsimple_commit_author.
+  TYPES: BEGIN OF simple_commit,
+           id TYPE string,
+           tree_id TYPE string,
+           message TYPE string,
+           timestamp TYPE string,
+           author TYPE subsimple_commit_author,
+           committer TYPE subsimple_commit_committer,
+         END OF simple_commit.
+
+* Component schema: workflow-run, object
+  TYPES: BEGIN OF workflow_run,
+           id TYPE i,
+           name TYPE string,
+           node_id TYPE string,
+           head_branch TYPE string,
+           head_sha TYPE string,
+           run_number TYPE i,
+           event TYPE string,
+           status TYPE string,
+           conclusion TYPE string,
+           workflow_id TYPE i,
+           url TYPE string,
+           html_url TYPE string,
+           pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           created_at TYPE string,
+           updated_at TYPE string,
+           jobs_url TYPE string,
+           logs_url TYPE string,
+           check_suite_url TYPE string,
+           artifacts_url TYPE string,
+           cancel_url TYPE string,
+           rerun_url TYPE string,
+           workflow_url TYPE string,
+           head_commit TYPE simple_commit,
+           repository TYPE minimal_repository,
+           head_repository TYPE minimal_repository,
+           head_repository_id TYPE i,
+         END OF workflow_run.
+
+* Component schema: environment-approvals, object
+  TYPES: BEGIN OF environment_approvals,
+           environments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           state TYPE string,
+           user TYPE simple_user,
+           comment TYPE string,
+         END OF environment_approvals.
+
+* Component schema: deployment-reviewer-type, string
+  TYPES deployment_reviewer_type TYPE string.
+
+* Component schema: pending-deployment, object
+  TYPES: BEGIN OF subpending_deployment_environm,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+         END OF subpending_deployment_environm.
+  TYPES: BEGIN OF pending_deployment,
+           environment TYPE subpending_deployment_environm,
+           wait_timer TYPE i,
+           wait_timer_started_at TYPE string,
+           current_user_can_approve TYPE abap_bool,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF pending_deployment.
+
+* Component schema: deployment, object
+  TYPES: BEGIN OF subdeployment_payload,
+           dummy_workaround TYPE i,
+         END OF subdeployment_payload.
+  TYPES: BEGIN OF deployment,
+           url TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           sha TYPE string,
+           ref TYPE string,
+           task TYPE string,
+           payload TYPE subdeployment_payload,
+           original_environment TYPE string,
+           environment TYPE string,
+           description TYPE string,
+           creator TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           statuses_url TYPE string,
+           repository_url TYPE string,
+           transient_environment TYPE abap_bool,
+           production_environment TYPE abap_bool,
+           performed_via_github_app TYPE string,
+         END OF deployment.
+
+* Component schema: workflow-run-usage, object
+  TYPES: BEGIN OF subsubworkflow_run_usage_bil02,
+           total_ms TYPE i,
+           jobs TYPE i,
+         END OF subsubworkflow_run_usage_bil02.
+  TYPES: BEGIN OF subsubworkflow_run_usage_bil01,
+           total_ms TYPE i,
+           jobs TYPE i,
+         END OF subsubworkflow_run_usage_bil01.
+  TYPES: BEGIN OF subsubworkflow_run_usage_billa,
+           total_ms TYPE i,
+           jobs TYPE i,
+         END OF subsubworkflow_run_usage_billa.
+  TYPES: BEGIN OF subworkflow_run_usage_billable,
+           ubuntu TYPE subsubworkflow_run_usage_billa,
+           macos TYPE subsubworkflow_run_usage_bil01,
+           windows TYPE subsubworkflow_run_usage_bil02,
+         END OF subworkflow_run_usage_billable.
+  TYPES: BEGIN OF workflow_run_usage,
+           billable TYPE subworkflow_run_usage_billable,
+           run_duration_ms TYPE i,
+         END OF workflow_run_usage.
+
+* Component schema: actions-secret, object
+  TYPES: BEGIN OF actions_secret,
+           name TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+         END OF actions_secret.
+
+* Component schema: workflow, object
+  TYPES: BEGIN OF workflow,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           path TYPE string,
+           state TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           badge_url TYPE string,
+           deleted_at TYPE string,
+         END OF workflow.
+
+* Component schema: workflow-usage, object
+  TYPES: BEGIN OF subsubworkflow_usage_billabl02,
+           total_ms TYPE i,
+         END OF subsubworkflow_usage_billabl02.
+  TYPES: BEGIN OF subsubworkflow_usage_billabl01,
+           total_ms TYPE i,
+         END OF subsubworkflow_usage_billabl01.
+  TYPES: BEGIN OF subsubworkflow_usage_billable_,
+           total_ms TYPE i,
+         END OF subsubworkflow_usage_billable_.
+  TYPES: BEGIN OF subworkflow_usage_billable,
+           ubuntu TYPE subsubworkflow_usage_billable_,
+           macos TYPE subsubworkflow_usage_billabl01,
+           windows TYPE subsubworkflow_usage_billabl02,
+         END OF subworkflow_usage_billable.
+  TYPES: BEGIN OF workflow_usage,
+           billable TYPE subworkflow_usage_billable,
+         END OF workflow_usage.
+
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
            url TYPE string,
@@ -1824,35 +2147,6 @@ INTERFACE zif_githubae PUBLIC.
            restrictions TYPE branch_restriction_policy,
          END OF protected_branch.
 
-* Component schema: pull-request-minimal, object
-  TYPES: BEGIN OF subsubpull_request_minimal_bas,
-           id TYPE i,
-           url TYPE string,
-           name TYPE string,
-         END OF subsubpull_request_minimal_bas.
-  TYPES: BEGIN OF subpull_request_minimal_base,
-           ref TYPE string,
-           sha TYPE string,
-           repo TYPE subsubpull_request_minimal_bas,
-         END OF subpull_request_minimal_base.
-  TYPES: BEGIN OF subsubpull_request_minimal_hea,
-           id TYPE i,
-           url TYPE string,
-           name TYPE string,
-         END OF subsubpull_request_minimal_hea.
-  TYPES: BEGIN OF subpull_request_minimal_head,
-           ref TYPE string,
-           sha TYPE string,
-           repo TYPE subsubpull_request_minimal_hea,
-         END OF subpull_request_minimal_head.
-  TYPES: BEGIN OF pull_request_minimal,
-           id TYPE i,
-           number TYPE i,
-           url TYPE string,
-           head TYPE subpull_request_minimal_head,
-           base TYPE subpull_request_minimal_base,
-         END OF pull_request_minimal.
-
 * Component schema: deployment-simple, object
   TYPES: BEGIN OF deployment_simple,
            url TYPE string,
@@ -1916,24 +2210,6 @@ INTERFACE zif_githubae PUBLIC.
            blob_href TYPE string,
          END OF check_annotation.
 
-* Component schema: simple-commit, object
-  TYPES: BEGIN OF subsimple_commit_committer,
-           name TYPE string,
-           email TYPE string,
-         END OF subsimple_commit_committer.
-  TYPES: BEGIN OF subsimple_commit_author,
-           name TYPE string,
-           email TYPE string,
-         END OF subsimple_commit_author.
-  TYPES: BEGIN OF simple_commit,
-           id TYPE string,
-           tree_id TYPE string,
-           message TYPE string,
-           timestamp TYPE string,
-           author TYPE subsimple_commit_author,
-           committer TYPE subsimple_commit_committer,
-         END OF simple_commit.
-
 * Component schema: check-suite, object
   TYPES: BEGIN OF check_suite,
            id TYPE i,
@@ -1963,6 +2239,184 @@ INTERFACE zif_githubae PUBLIC.
            preferences TYPE subcheck_suite_preference_pref,
            repository TYPE repository,
          END OF check_suite_preference.
+
+* Component schema: code-scanning-analysis-tool-name, string
+  TYPES code_scanning_analysis_tool_na TYPE string.
+
+* Component schema: code-scanning-analysis-tool-guid, string
+  TYPES code_scanning_analysis_tool_gu TYPE string.
+
+* Component schema: code-scanning-ref, string
+  TYPES code_scanning_ref TYPE string.
+
+* Component schema: code-scanning-alert-state, string
+  TYPES code_scanning_alert_state TYPE string.
+
+* Component schema: alert-number, integer
+  TYPES alert_number TYPE i.
+
+* Component schema: alert-created-at, string
+  TYPES alert_created_at TYPE string.
+
+* Component schema: alert-url, string
+  TYPES alert_url TYPE string.
+
+* Component schema: alert-html-url, string
+  TYPES alert_html_url TYPE string.
+
+* Component schema: alert-instances-url, string
+  TYPES alert_instances_url TYPE string.
+
+* Component schema: code-scanning-alert-dismissed-at, string
+  TYPES code_scanning_alert_dismissed_ TYPE string.
+
+* Component schema: code-scanning-alert-dismissed-reason, string
+  TYPES code_scanning_alert_dismisse01 TYPE string.
+
+* Component schema: code-scanning-alert-rule-summary, object
+  TYPES: BEGIN OF code_scanning_alert_rule_summa,
+           id TYPE string,
+           name TYPE string,
+           severity TYPE string,
+           description TYPE string,
+         END OF code_scanning_alert_rule_summa.
+
+* Component schema: code-scanning-analysis-tool-version, string
+  TYPES code_scanning_analysis_tool_ve TYPE string.
+
+* Component schema: code-scanning-analysis-tool, object
+  TYPES: BEGIN OF code_scanning_analysis_tool,
+           name TYPE code_scanning_analysis_tool_na,
+           version TYPE code_scanning_analysis_tool_ve,
+           guid TYPE code_scanning_analysis_tool_gu,
+         END OF code_scanning_analysis_tool.
+
+* Component schema: code-scanning-analysis-analysis-key, string
+  TYPES code_scanning_analysis_analysi TYPE string.
+
+* Component schema: code-scanning-alert-environment, string
+  TYPES code_scanning_alert_environmen TYPE string.
+
+* Component schema: code-scanning-alert-location, object
+  TYPES: BEGIN OF code_scanning_alert_location,
+           path TYPE string,
+           start_line TYPE i,
+           end_line TYPE i,
+           start_column TYPE i,
+           end_column TYPE i,
+         END OF code_scanning_alert_location.
+
+* Component schema: code-scanning-alert-classification, string
+  TYPES code_scanning_alert_classifica TYPE string.
+
+* Component schema: code-scanning-alert-instance, object
+  TYPES: BEGIN OF subcode_scanning_alert_instanc,
+           text TYPE string,
+         END OF subcode_scanning_alert_instanc.
+  TYPES: BEGIN OF code_scanning_alert_instance,
+           ref TYPE code_scanning_ref,
+           analysis_key TYPE code_scanning_analysis_analysi,
+           environment TYPE code_scanning_alert_environmen,
+           state TYPE code_scanning_alert_state,
+           commit_sha TYPE string,
+           message TYPE subcode_scanning_alert_instanc,
+           location TYPE code_scanning_alert_location,
+           html_url TYPE string,
+           classifications TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF code_scanning_alert_instance.
+
+* Component schema: code-scanning-alert-items, object
+  TYPES: BEGIN OF code_scanning_alert_items,
+           number TYPE alert_number,
+           created_at TYPE alert_created_at,
+           url TYPE alert_url,
+           html_url TYPE alert_html_url,
+           instances_url TYPE alert_instances_url,
+           state TYPE code_scanning_alert_state,
+           dismissed_by TYPE simple_user,
+           dismissed_at TYPE code_scanning_alert_dismissed_,
+           dismissed_reason TYPE code_scanning_alert_dismisse01,
+           rule TYPE code_scanning_alert_rule_summa,
+           tool TYPE code_scanning_analysis_tool,
+           most_recent_instance TYPE code_scanning_alert_instance,
+         END OF code_scanning_alert_items.
+
+* Component schema: code-scanning-alert-rule, object
+  TYPES: BEGIN OF code_scanning_alert_rule,
+           id TYPE string,
+           name TYPE string,
+           severity TYPE string,
+           description TYPE string,
+           full_description TYPE string,
+           tags TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           help TYPE string,
+         END OF code_scanning_alert_rule.
+
+* Component schema: code-scanning-alert, object
+  TYPES: BEGIN OF code_scanning_alert,
+           number TYPE alert_number,
+           created_at TYPE alert_created_at,
+           url TYPE alert_url,
+           html_url TYPE alert_html_url,
+           instances_url TYPE alert_instances_url,
+           state TYPE code_scanning_alert_state,
+           dismissed_by TYPE simple_user,
+           dismissed_at TYPE code_scanning_alert_dismissed_,
+           dismissed_reason TYPE code_scanning_alert_dismisse01,
+           rule TYPE code_scanning_alert_rule,
+           tool TYPE code_scanning_analysis_tool,
+           most_recent_instance TYPE code_scanning_alert_instance,
+         END OF code_scanning_alert.
+
+* Component schema: code-scanning-alert-set-state, string
+  TYPES code_scanning_alert_set_state TYPE string.
+
+* Component schema: code-scanning-analysis-sarif-id, string
+  TYPES code_scanning_analysis_sarif_i TYPE string.
+
+* Component schema: code-scanning-analysis-commit-sha, string
+  TYPES code_scanning_analysis_commit_ TYPE string.
+
+* Component schema: code-scanning-analysis-environment, string
+  TYPES code_scanning_analysis_environ TYPE string.
+
+* Component schema: code-scanning-analysis-created-at, string
+  TYPES code_scanning_analysis_created TYPE string.
+
+* Component schema: code-scanning-analysis-url, string
+  TYPES code_scanning_analysis_url TYPE string.
+
+* Component schema: code-scanning-analysis, object
+  TYPES: BEGIN OF code_scanning_analysis,
+           ref TYPE code_scanning_ref,
+           commit_sha TYPE code_scanning_analysis_commit_,
+           analysis_key TYPE code_scanning_analysis_analysi,
+           environment TYPE code_scanning_analysis_environ,
+           error TYPE string,
+           created_at TYPE code_scanning_analysis_created,
+           results_count TYPE i,
+           rules_count TYPE i,
+           id TYPE i,
+           url TYPE code_scanning_analysis_url,
+           sarif_id TYPE code_scanning_analysis_sarif_i,
+           tool TYPE code_scanning_analysis_tool,
+           deletable TYPE abap_bool,
+         END OF code_scanning_analysis.
+
+* Component schema: code-scanning-analysis-sarif-file, string
+  TYPES code_scanning_analysis_sarif_f TYPE string.
+
+* Component schema: code-scanning-sarifs-receipt, object
+  TYPES: BEGIN OF code_scanning_sarifs_receipt,
+           id TYPE code_scanning_analysis_sarif_i,
+           url TYPE string,
+         END OF code_scanning_sarifs_receipt.
+
+* Component schema: code-scanning-sarifs-status, object
+  TYPES: BEGIN OF code_scanning_sarifs_status,
+           processing_status TYPE string,
+           analyses_url TYPE string,
+         END OF code_scanning_sarifs_status.
 
 * Component schema: collaborator, object
   TYPES: BEGIN OF subcollaborator_permissions,
@@ -2361,31 +2815,6 @@ INTERFACE zif_githubae PUBLIC.
            name TYPE string,
          END OF contributor.
 
-* Component schema: deployment, object
-  TYPES: BEGIN OF subdeployment_payload,
-           dummy_workaround TYPE i,
-         END OF subdeployment_payload.
-  TYPES: BEGIN OF deployment,
-           url TYPE string,
-           id TYPE i,
-           node_id TYPE string,
-           sha TYPE string,
-           ref TYPE string,
-           task TYPE string,
-           payload TYPE subdeployment_payload,
-           original_environment TYPE string,
-           environment TYPE string,
-           description TYPE string,
-           creator TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           statuses_url TYPE string,
-           repository_url TYPE string,
-           transient_environment TYPE abap_bool,
-           production_environment TYPE abap_bool,
-           performed_via_github_app TYPE string,
-         END OF deployment.
-
 * Component schema: deployment-status, object
   TYPES: BEGIN OF deployment_status,
            url TYPE string,
@@ -2404,6 +2833,28 @@ INTERFACE zif_githubae PUBLIC.
            log_url TYPE string,
            performed_via_github_app TYPE string,
          END OF deployment_status.
+
+* Component schema: wait-timer, integer
+  TYPES wait_timer TYPE i.
+
+* Component schema: deployment_branch_policy, object
+  TYPES: BEGIN OF deployment_branch_policy,
+           protected_branches TYPE abap_bool,
+           custom_branch_policies TYPE abap_bool,
+         END OF deployment_branch_policy.
+
+* Component schema: environment, object
+  TYPES: BEGIN OF environment,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           protection_rules TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF environment.
 
 * Component schema: short-blob, object
   TYPES: BEGIN OF short_blob,
@@ -3791,6 +4242,42 @@ INTERFACE zif_githubae PUBLIC.
            key TYPE string,
          END OF bodyenterprise_admin_disable_e.
 
+* Component schema: bodyenterprise_admin_set_githu, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_githu,
+           enabled_organizations TYPE enabled_organizations,
+           allowed_actions TYPE allowed_actions,
+         END OF bodyenterprise_admin_set_githu.
+
+* Component schema: bodyenterprise_admin_set_selec, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_selec,
+           selected_organization_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_set_selec.
+
+* Component schema: bodyenterprise_admin_create_se, object
+  TYPES: BEGIN OF bodyenterprise_admin_create_se,
+           name TYPE string,
+           visibility TYPE string,
+           selected_organization_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_create_se.
+
+* Component schema: bodyenterprise_admin_update_se, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_se,
+           name TYPE string,
+           visibility TYPE string,
+         END OF bodyenterprise_admin_update_se.
+
+* Component schema: bodyenterprise_admin_delete_se, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_se,
+           name TYPE string,
+           visibility TYPE string,
+         END OF bodyenterprise_admin_delete_se.
+
+* Component schema: bodyenterprise_admin_set_self_, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_self_,
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_set_self_.
+
 * Component schema: bodygists_create, object
   TYPES: BEGIN OF subbodygists_create_files,
            dummy_workaround TYPE i,
@@ -3879,6 +4366,58 @@ INTERFACE zif_githubae PUBLIC.
            members_can_create_private_pag TYPE abap_bool,
            blog TYPE string,
          END OF bodyorgs_update.
+
+* Component schema: bodyactions_set_github_actions, object
+  TYPES: BEGIN OF bodyactions_set_github_actions,
+           enabled_repositories TYPE enabled_repositories,
+           allowed_actions TYPE allowed_actions,
+         END OF bodyactions_set_github_actions.
+
+* Component schema: bodyactions_set_selected_repos, object
+  TYPES: BEGIN OF bodyactions_set_selected_repos,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_set_selected_repos.
+
+* Component schema: bodyactions_create_self_hosted, object
+  TYPES: BEGIN OF bodyactions_create_self_hosted,
+           name TYPE string,
+           visibility TYPE string,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_create_self_hosted.
+
+* Component schema: bodyactions_update_self_hosted, object
+  TYPES: BEGIN OF bodyactions_update_self_hosted,
+           name TYPE string,
+           visibility TYPE string,
+         END OF bodyactions_update_self_hosted.
+
+* Component schema: bodyactions_delete_self_hosted, object
+  TYPES: BEGIN OF bodyactions_delete_self_hosted,
+           name TYPE string,
+           visibility TYPE string,
+         END OF bodyactions_delete_self_hosted.
+
+* Component schema: bodyactions_create_or_update_o, object
+  TYPES: BEGIN OF bodyactions_create_or_update_o,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+           visibility TYPE string,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_create_or_update_o.
+
+* Component schema: bodyactions_delete_org_secret, object
+  TYPES: BEGIN OF bodyactions_delete_org_secret,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+           visibility TYPE string,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_delete_org_secret.
+
+* Component schema: bodyactions_set_selected_rep01, object
+  TYPES: BEGIN OF bodyactions_set_selected_rep01,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_set_selected_rep01.
 
 * Component schema: bodyorgs_create_webhook, object
   TYPES: BEGIN OF subbodyorgs_create_webhook_con,
@@ -4176,6 +4715,40 @@ INTERFACE zif_githubae PUBLIC.
            archived TYPE abap_bool,
          END OF bodyrepos_delete.
 
+* Component schema: bodyactions_set_github_actio01, object
+  TYPES: BEGIN OF bodyactions_set_github_actio01,
+           enabled TYPE actions_enabled,
+           allowed_actions TYPE allowed_actions,
+         END OF bodyactions_set_github_actio01.
+
+* Component schema: bodyactions_review_pending_dep, object
+  TYPES: BEGIN OF bodyactions_review_pending_dep,
+           environment_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           state TYPE string,
+           comment TYPE string,
+         END OF bodyactions_review_pending_dep.
+
+* Component schema: bodyactions_create_or_update_r, object
+  TYPES: BEGIN OF bodyactions_create_or_update_r,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodyactions_create_or_update_r.
+
+* Component schema: bodyactions_delete_repo_secret, object
+  TYPES: BEGIN OF bodyactions_delete_repo_secret,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodyactions_delete_repo_secret.
+
+* Component schema: bodyactions_create_workflow_di, object
+  TYPES: BEGIN OF subbodyactions_create_workflow,
+           dummy_workaround TYPE i,
+         END OF subbodyactions_create_workflow.
+  TYPES: BEGIN OF bodyactions_create_workflow_di,
+           ref TYPE string,
+           inputs TYPE subbodyactions_create_workflow,
+         END OF bodyactions_create_workflow_di.
+
 * Component schema: bodyrepos_update_branch_protec, object
   TYPES: BEGIN OF subbodyrepos_update_branch_p02,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -4383,6 +4956,22 @@ INTERFACE zif_githubae PUBLIC.
            auto_trigger_checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodychecks_set_suites_preferen.
 
+* Component schema: bodycode_scanning_update_alert, object
+  TYPES: BEGIN OF bodycode_scanning_update_alert,
+           state TYPE code_scanning_alert_set_state,
+           dismissed_reason TYPE code_scanning_alert_dismisse01,
+         END OF bodycode_scanning_update_alert.
+
+* Component schema: bodycode_scanning_upload_sarif, object
+  TYPES: BEGIN OF bodycode_scanning_upload_sarif,
+           commit_sha TYPE code_scanning_analysis_commit_,
+           ref TYPE code_scanning_ref,
+           sarif TYPE code_scanning_analysis_sarif_f,
+           checkout_uri TYPE string,
+           started_at TYPE string,
+           tool_name TYPE string,
+         END OF bodycode_scanning_upload_sarif.
+
 * Component schema: bodyrepos_add_collaborator, object
   TYPES: BEGIN OF bodyrepos_add_collaborator,
            permission TYPE string,
@@ -4479,6 +5068,20 @@ INTERFACE zif_githubae PUBLIC.
            environment_url TYPE string,
            auto_inactive TYPE abap_bool,
          END OF bodyrepos_create_deployment_st.
+
+* Component schema: bodyrepos_create_or_update_env, object
+  TYPES: BEGIN OF bodyrepos_create_or_update_env,
+           wait_timer TYPE wait_timer,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF bodyrepos_create_or_update_env.
+
+* Component schema: bodyrepos_delete_an_environmen, object
+  TYPES: BEGIN OF bodyrepos_delete_an_environmen,
+           wait_timer TYPE wait_timer,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF bodyrepos_delete_an_environmen.
 
 * Component schema: bodyrepos_create_fork, object
   TYPES: BEGIN OF bodyrepos_create_fork,
@@ -4984,6 +5587,18 @@ INTERFACE zif_githubae PUBLIC.
            private TYPE abap_bool,
          END OF bodyrepos_create_using_templat.
 
+* Component schema: bodyactions_create_or_update_e, object
+  TYPES: BEGIN OF bodyactions_create_or_update_e,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodyactions_create_or_update_e.
+
+* Component schema: bodyactions_delete_environment, object
+  TYPES: BEGIN OF bodyactions_delete_environment,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodyactions_delete_environment.
+
 * Component schema: bodyusers_update_authenticated, object
   TYPES: BEGIN OF bodyusers_update_authenticated,
            name TYPE string,
@@ -5133,6 +5748,30 @@ INTERFACE zif_githubae PUBLIC.
            dummy_workaround TYPE i,
          END OF response_emojis_get.
 
+* Component schema: response_enterprise_admin_list_selected, object
+  TYPES: BEGIN OF response_enterprise_admin_li04,
+           total_count TYPE f,
+           organizations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_li04.
+
+* Component schema: response_enterprise_admin_list_self_hos, object
+  TYPES: BEGIN OF response_enterprise_admin_li05,
+           total_count TYPE f,
+           runner_groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_li05.
+
+* Component schema: response_enterprise_admin_list_self_h01, object
+  TYPES: BEGIN OF response_enterprise_admin_li06,
+           total_count TYPE f,
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_li06.
+
+* Component schema: response_enterprise_admin_list_self_h02, object
+  TYPES: BEGIN OF response_enterprise_admin_li07,
+           total_count TYPE f,
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_enterprise_admin_li07.
+
 * Component schema: response_activity_list_public_events, array
   TYPES response_activity_list_public_ TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
 
@@ -5188,6 +5827,24 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_orgs_list, array
   TYPES response_orgs_list TYPE STANDARD TABLE OF organization_simple WITH DEFAULT KEY.
+
+* Component schema: response_actions_list_selected_reposito, object
+  TYPES: BEGIN OF response_actions_list_selected,
+           total_count TYPE f,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_selected.
+
+* Component schema: response_actions_list_org_secrets, object
+  TYPES: BEGIN OF response_actions_list_org_secr,
+           total_count TYPE i,
+           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_org_secr.
+
+* Component schema: response_actions_list_selected_repos_fo, object
+  TYPES: BEGIN OF response_actions_list_select01,
+           total_count TYPE i,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_select01.
 
 * Component schema: response_activity_list_public_org_event, array
   TYPES response_activity_list_publi02 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
@@ -5339,6 +5996,63 @@ INTERFACE zif_githubae PUBLIC.
            documentation_url TYPE string,
          END OF response_repos_delete.
 
+* Component schema: response_actions_list_artifacts_for_rep, object
+  TYPES: BEGIN OF response_actions_list_artifact,
+           total_count TYPE i,
+           artifacts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_artifact.
+
+* Component schema: response_actions_list_self_hosted_runne, object
+  TYPES: BEGIN OF response_actions_list_self_hos,
+           total_count TYPE i,
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_self_hos.
+
+* Component schema: response_actions_list_workflow_runs_for, object
+  TYPES: BEGIN OF response_actions_list_workflow,
+           total_count TYPE i,
+           workflow_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_workflow.
+
+* Component schema: response_actions_get_reviews_for_run, array
+  TYPES response_actions_get_reviews_f TYPE STANDARD TABLE OF environment_approvals WITH DEFAULT KEY.
+
+* Component schema: response_actions_list_workflow_run_arti, object
+  TYPES: BEGIN OF response_actions_list_workfl01,
+           total_count TYPE i,
+           artifacts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_workfl01.
+
+* Component schema: response_actions_list_jobs_for_workflow, object
+  TYPES: BEGIN OF response_actions_list_jobs_for,
+           total_count TYPE i,
+           jobs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_jobs_for.
+
+* Component schema: response_actions_get_pending_deployment, array
+  TYPES response_actions_get_pending_d TYPE STANDARD TABLE OF pending_deployment WITH DEFAULT KEY.
+
+* Component schema: response_actions_review_pending_deploym, array
+  TYPES response_actions_review_pendin TYPE STANDARD TABLE OF deployment WITH DEFAULT KEY.
+
+* Component schema: response_actions_list_repo_secrets, object
+  TYPES: BEGIN OF response_actions_list_repo_sec,
+           total_count TYPE i,
+           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_repo_sec.
+
+* Component schema: response_actions_list_repo_workflows, object
+  TYPES: BEGIN OF response_actions_list_repo_wor,
+           total_count TYPE i,
+           workflows TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_repo_wor.
+
+* Component schema: response_actions_list_workflow_runs, object
+  TYPES: BEGIN OF response_actions_list_workfl02,
+           total_count TYPE i,
+           workflow_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_workfl02.
+
 * Component schema: response_issues_list_assignees, array
   TYPES response_issues_list_assignees TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
@@ -5402,6 +6116,15 @@ INTERFACE zif_githubae PUBLIC.
            check_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_checks_list_for_suite.
 
+* Component schema: response_code_scanning_list_alerts_for_, array
+  TYPES response_code_scanning_list_al TYPE STANDARD TABLE OF code_scanning_alert_items WITH DEFAULT KEY.
+
+* Component schema: response_code_scanning_list_alerts_inst, array
+  TYPES response_code_scanning_list_01 TYPE STANDARD TABLE OF code_scanning_alert_instance WITH DEFAULT KEY.
+
+* Component schema: response_code_scanning_list_recent_anal, array
+  TYPES response_code_scanning_list_re TYPE STANDARD TABLE OF code_scanning_analysis WITH DEFAULT KEY.
+
 * Component schema: response_repos_list_collaborators, array
   TYPES response_repos_list_collaborat TYPE STANDARD TABLE OF collaborator WITH DEFAULT KEY.
 
@@ -5457,6 +6180,12 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_deployment_statuses, array
   TYPES response_repos_list_deployme01 TYPE STANDARD TABLE OF deployment_status WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_all_environments, object
+  TYPES: BEGIN OF response_repos_get_all_environ,
+           total_count TYPE i,
+           environments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_repos_get_all_environ.
 
 * Component schema: response_activity_list_repo_events, array
   TYPES response_activity_list_repo_ev TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
@@ -5616,6 +6345,12 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_public, array
   TYPES response_repos_list_public TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
+
+* Component schema: response_actions_list_environment_secre, object
+  TYPES: BEGIN OF response_actions_list_environm,
+           total_count TYPE i,
+           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_environm.
 
 * Component schema: response_search_code, object
   TYPES: BEGIN OF response_search_code,
@@ -6390,6 +7125,272 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE enterprise_overview
     RAISING cx_static_check.
 
+* GET - "Get GitHub Actions permissions for an enterprise"
+* Operation id: enterprise-admin/get-github-actions-permissions-enterprise
+* Parameter: enterprise, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-enterprise-permissions
+  METHODS enterprise_admin_get_github_ac
+    IMPORTING
+      enterprise TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_enterprise_permissions
+    RAISING cx_static_check.
+
+* PUT - "Set GitHub Actions permissions for an enterprise"
+* Operation id: enterprise-admin/set-github-actions-permissions-enterprise
+* Parameter: enterprise, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyenterprise_admin_set_githu
+  METHODS enterprise_admin_set_github_ac
+    IMPORTING
+      enterprise TYPE string
+      body TYPE bodyenterprise_admin_set_githu
+    RAISING cx_static_check.
+
+* GET - "List selected organizations enabled for GitHub Actions in an enterprise"
+* Operation id: enterprise-admin/list-selected-organizations-enabled-github-actions-enterprise
+* Parameter: enterprise, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_enterprise_admin_list_selected
+  METHODS enterprise_admin_list_selected
+    IMPORTING
+      enterprise TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li04
+    RAISING cx_static_check.
+
+* PUT - "Set selected organizations enabled for GitHub Actions in an enterprise"
+* Operation id: enterprise-admin/set-selected-organizations-enabled-github-actions-enterprise
+* Parameter: enterprise, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyenterprise_admin_set_selec
+  METHODS enterprise_admin_set_selected_
+    IMPORTING
+      enterprise TYPE string
+      body TYPE bodyenterprise_admin_set_selec
+    RAISING cx_static_check.
+
+* PUT - "Enable a selected organization for GitHub Actions in an enterprise"
+* Operation id: enterprise-admin/enable-selected-organization-github-actions-enterprise
+* Parameter: enterprise, required, path
+* Parameter: org_id, required, path
+* Response: 204
+  METHODS enterprise_admin_enable_select
+    IMPORTING
+      enterprise TYPE string
+      org_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Disable a selected organization for GitHub Actions in an enterprise"
+* Operation id: enterprise-admin/disable-selected-organization-github-actions-enterprise
+* Parameter: enterprise, required, path
+* Parameter: org_id, required, path
+* Response: 204
+  METHODS enterprise_admin_disable_selec
+    IMPORTING
+      enterprise TYPE string
+      org_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get allowed actions for an enterprise"
+* Operation id: enterprise-admin/get-allowed-actions-enterprise
+* Parameter: enterprise, required, path
+* Response: 200
+*     application/json, #/components/schemas/selected-actions
+  METHODS enterprise_admin_get_allowed_a
+    IMPORTING
+      enterprise TYPE string
+    RETURNING
+      VALUE(return_data) TYPE selected_actions
+    RAISING cx_static_check.
+
+* PUT - "Set allowed actions for an enterprise"
+* Operation id: enterprise-admin/set-allowed-actions-enterprise
+* Parameter: enterprise, required, path
+* Response: 204
+* Body ref: #/components/schemas/selected-actions
+  METHODS enterprise_admin_set_allowed_a
+    IMPORTING
+      enterprise TYPE string
+      body TYPE selected_actions
+    RAISING cx_static_check.
+
+* GET - "List self-hosted runner groups for an enterprise"
+* Operation id: enterprise-admin/list-self-hosted-runner-groups-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_enterprise_admin_list_self_hos
+  METHODS enterprise_admin_list_self_hos
+    IMPORTING
+      enterprise TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li05
+    RAISING cx_static_check.
+
+* POST - "Create a self-hosted runner group for an enterprise"
+* Operation id: enterprise-admin/create-self-hosted-runner-group-for-enterprise
+* Parameter: enterprise, required, path
+* Response: 201
+*     application/json, #/components/schemas/runner-groups-enterprise
+* Body ref: #/components/schemas/bodyenterprise_admin_create_se
+  METHODS enterprise_admin_create_self_h
+    IMPORTING
+      enterprise TYPE string
+      body TYPE bodyenterprise_admin_create_se
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_enterprise
+    RAISING cx_static_check.
+
+* GET - "Get a self-hosted runner group for an enterprise"
+* Operation id: enterprise-admin/get-self-hosted-runner-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner-groups-enterprise
+  METHODS enterprise_admin_get_self_host
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_enterprise
+    RAISING cx_static_check.
+
+* PATCH - "Update a self-hosted runner group for an enterprise"
+* Operation id: enterprise-admin/update-self-hosted-runner-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner-groups-enterprise
+* Body ref: #/components/schemas/bodyenterprise_admin_update_se
+  METHODS enterprise_admin_update_self_h
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      body TYPE bodyenterprise_admin_update_se
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_enterprise
+    RAISING cx_static_check.
+
+* DELETE - "Delete a self-hosted runner group from an enterprise"
+* Operation id: enterprise-admin/delete-self-hosted-runner-group-from-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_se
+  METHODS enterprise_admin_delete_self_h
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      body TYPE bodyenterprise_admin_delete_se
+    RAISING cx_static_check.
+
+* GET - "List self-hosted runners in a group for an enterprise"
+* Operation id: enterprise-admin/list-self-hosted-runners-in-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_enterprise_admin_list_self_h01
+  METHODS enterprise_admin_list_self_h01
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li06
+    RAISING cx_static_check.
+
+* PUT - "Set self-hosted runners in a group for an enterprise"
+* Operation id: enterprise-admin/set-self-hosted-runners-in-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyenterprise_admin_set_self_
+  METHODS enterprise_admin_set_self_host
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      body TYPE bodyenterprise_admin_set_self_
+    RAISING cx_static_check.
+
+* PUT - "Add a self-hosted runner to a group for an enterprise"
+* Operation id: enterprise-admin/add-self-hosted-runner-to-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS enterprise_admin_add_self_host
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Remove a self-hosted runner from a group for an enterprise"
+* Operation id: enterprise-admin/remove-self-hosted-runner-from-group-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_group_id, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS enterprise_admin_remove_self_h
+    IMPORTING
+      enterprise TYPE string
+      runner_group_id TYPE i
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List self-hosted runners for an enterprise"
+* Operation id: enterprise-admin/list-self-hosted-runners-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_enterprise_admin_list_self_h02
+  METHODS enterprise_admin_list_self_h02
+    IMPORTING
+      enterprise TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li07
+    RAISING cx_static_check.
+
+* GET - "Get a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/get-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner
+  METHODS enterprise_admin_get_self_ho01
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE runner
+    RAISING cx_static_check.
+
+* DELETE - "Delete a self-hosted runner from an enterprise"
+* Operation id: enterprise-admin/delete-self-hosted-runner-from-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS enterprise_admin_delete_self01
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
 * GET - "List public events"
 * Operation id: activity/list-public-events
 * Parameter: per_page, optional, query
@@ -7057,6 +8058,279 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyorgs_update
     RETURNING
       VALUE(return_data) TYPE organization_full
+    RAISING cx_static_check.
+
+* GET - "Get GitHub Actions permissions for an organization"
+* Operation id: actions/get-github-actions-permissions-organization
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-organization-permissions
+  METHODS actions_get_github_actions_per
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_organization_permissio
+    RAISING cx_static_check.
+
+* PUT - "Set GitHub Actions permissions for an organization"
+* Operation id: actions/set-github-actions-permissions-organization
+* Parameter: org, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_set_github_actions
+  METHODS actions_set_github_actions_per
+    IMPORTING
+      org TYPE string
+      body TYPE bodyactions_set_github_actions
+    RAISING cx_static_check.
+
+* GET - "List selected repositories enabled for GitHub Actions in an organization"
+* Operation id: actions/list-selected-repositories-enabled-github-actions-organization
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_selected_reposito
+  METHODS actions_list_selected_reposito
+    IMPORTING
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_selected
+    RAISING cx_static_check.
+
+* PUT - "Set selected repositories enabled for GitHub Actions in an organization"
+* Operation id: actions/set-selected-repositories-enabled-github-actions-organization
+* Parameter: org, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_set_selected_repos
+  METHODS actions_set_selected_repositor
+    IMPORTING
+      org TYPE string
+      body TYPE bodyactions_set_selected_repos
+    RAISING cx_static_check.
+
+* PUT - "Enable a selected repository for GitHub Actions in an organization"
+* Operation id: actions/enable-selected-repository-github-actions-organization
+* Parameter: org, required, path
+* Parameter: repository_id, required, path
+* Response: 204
+  METHODS actions_enable_selected_reposi
+    IMPORTING
+      org TYPE string
+      repository_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Disable a selected repository for GitHub Actions in an organization"
+* Operation id: actions/disable-selected-repository-github-actions-organization
+* Parameter: org, required, path
+* Parameter: repository_id, required, path
+* Response: 204
+  METHODS actions_disable_selected_repos
+    IMPORTING
+      org TYPE string
+      repository_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get allowed actions for an organization"
+* Operation id: actions/get-allowed-actions-organization
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/selected-actions
+  METHODS actions_get_allowed_actions_or
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE selected_actions
+    RAISING cx_static_check.
+
+* PUT - "Set allowed actions for an organization"
+* Operation id: actions/set-allowed-actions-organization
+* Parameter: org, required, path
+* Response: 204
+* Body ref: #/components/schemas/selected-actions
+  METHODS actions_set_allowed_actions_or
+    IMPORTING
+      org TYPE string
+      body TYPE selected_actions
+    RAISING cx_static_check.
+
+* POST - "Create a self-hosted runner group for an organization"
+* Operation id: actions/create-self-hosted-runner-group-for-org
+* Parameter: org, required, path
+* Response: 201
+*     application/json, #/components/schemas/runner-groups-org
+* Body ref: #/components/schemas/bodyactions_create_self_hosted
+  METHODS actions_create_self_hosted_run
+    IMPORTING
+      org TYPE string
+      body TYPE bodyactions_create_self_hosted
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_org
+    RAISING cx_static_check.
+
+* PATCH - "Update a self-hosted runner group for an organization"
+* Operation id: actions/update-self-hosted-runner-group-for-org
+* Parameter: org, required, path
+* Parameter: runner_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner-groups-org
+* Body ref: #/components/schemas/bodyactions_update_self_hosted
+  METHODS actions_update_self_hosted_run
+    IMPORTING
+      org TYPE string
+      runner_group_id TYPE i
+      body TYPE bodyactions_update_self_hosted
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_org
+    RAISING cx_static_check.
+
+* DELETE - "Delete a self-hosted runner group from an organization"
+* Operation id: actions/delete-self-hosted-runner-group-from-org
+* Parameter: org, required, path
+* Parameter: runner_group_id, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_delete_self_hosted
+  METHODS actions_delete_self_hosted_run
+    IMPORTING
+      org TYPE string
+      runner_group_id TYPE i
+      body TYPE bodyactions_delete_self_hosted
+    RAISING cx_static_check.
+
+* DELETE - "Delete a self-hosted runner from an organization"
+* Operation id: actions/delete-self-hosted-runner-from-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS actions_delete_self_hosted_r01
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List organization secrets"
+* Operation id: actions/list-org-secrets
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_org_secrets
+  METHODS actions_list_org_secrets
+    IMPORTING
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_org_secr
+    RAISING cx_static_check.
+
+* GET - "Get an organization public key"
+* Operation id: actions/get-org-public-key
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-public-key
+  METHODS actions_get_org_public_key
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_public_key
+    RAISING cx_static_check.
+
+* GET - "Get an organization secret"
+* Operation id: actions/get-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/organization-actions-secret
+  METHODS actions_get_org_secret
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE organization_actions_secret
+    RAISING cx_static_check.
+
+* PUT - "Create or update an organization secret"
+* Operation id: actions/create-or-update-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 201
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_create_or_update_o
+  METHODS actions_create_or_update_org_s
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_create_or_update_o
+    RAISING cx_static_check.
+
+* DELETE - "Delete an organization secret"
+* Operation id: actions/delete-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_delete_org_secret
+  METHODS actions_delete_org_secret
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_delete_org_secret
+    RAISING cx_static_check.
+
+* GET - "List selected repositories for an organization secret"
+* Operation id: actions/list-selected-repos-for-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_selected_repos_fo
+  METHODS actions_list_selected_repos_fo
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_select01
+    RAISING cx_static_check.
+
+* PUT - "Set selected repositories for an organization secret"
+* Operation id: actions/set-selected-repos-for-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_set_selected_rep01
+  METHODS actions_set_selected_repos_for
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_set_selected_rep01
+    RAISING cx_static_check.
+
+* PUT - "Add selected repository to an organization secret"
+* Operation id: actions/add-selected-repo-to-org-secret
+* Parameter: repository_id, required, path
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Response: 409
+  METHODS actions_add_selected_repo_to_o
+    IMPORTING
+      repository_id TYPE i
+      org TYPE string
+      secret_name TYPE string
+    RAISING cx_static_check.
+
+* DELETE - "Remove selected repository from an organization secret"
+* Operation id: actions/remove-selected-repo-from-org-secret
+* Parameter: repository_id, required, path
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Response: 409
+  METHODS actions_remove_selected_repo_f
+    IMPORTING
+      repository_id TYPE i
+      org TYPE string
+      secret_name TYPE string
     RAISING cx_static_check.
 
 * GET - "List public organization events"
@@ -8538,6 +9812,593 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyrepos_delete
     RAISING cx_static_check.
 
+* GET - "List artifacts for a repository"
+* Operation id: actions/list-artifacts-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_artifacts_for_rep
+  METHODS actions_list_artifacts_for_rep
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_artifact
+    RAISING cx_static_check.
+
+* GET - "Get an artifact"
+* Operation id: actions/get-artifact
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: artifact_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/artifact
+  METHODS actions_get_artifact
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      artifact_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE artifact
+    RAISING cx_static_check.
+
+* DELETE - "Delete an artifact"
+* Operation id: actions/delete-artifact
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: artifact_id, required, path
+* Response: 204
+  METHODS actions_delete_artifact
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      artifact_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Download an artifact"
+* Operation id: actions/download-artifact
+* Parameter: archive_format, required, path
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: artifact_id, required, path
+* Response: 302
+  METHODS actions_download_artifact
+    IMPORTING
+      archive_format TYPE string
+      owner TYPE string
+      repo TYPE string
+      artifact_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get a job for a workflow run"
+* Operation id: actions/get-job-for-workflow-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: job_id, required, path
+* Response: 202
+*     application/json, #/components/schemas/job
+  METHODS actions_get_job_for_workflow_r
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      job_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Download job logs for a workflow run"
+* Operation id: actions/download-job-logs-for-workflow-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: job_id, required, path
+* Response: 302
+  METHODS actions_download_job_logs_for_
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      job_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get GitHub Actions permissions for a repository"
+* Operation id: actions/get-github-actions-permissions-repository
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-repository-permissions
+  METHODS actions_get_github_actions_p01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_repository_permissions
+    RAISING cx_static_check.
+
+* PUT - "Set GitHub Actions permissions for a repository"
+* Operation id: actions/set-github-actions-permissions-repository
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_set_github_actio01
+  METHODS actions_set_github_actions_p01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      body TYPE bodyactions_set_github_actio01
+    RAISING cx_static_check.
+
+* GET - "Get allowed actions for a repository"
+* Operation id: actions/get-allowed-actions-repository
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/selected-actions
+  METHODS actions_get_allowed_actions_re
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE selected_actions
+    RAISING cx_static_check.
+
+* PUT - "Set allowed actions for a repository"
+* Operation id: actions/set-allowed-actions-repository
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 204
+* Body ref: #/components/schemas/selected-actions
+  METHODS actions_set_allowed_actions_re
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      body TYPE selected_actions
+    RAISING cx_static_check.
+
+* GET - "List self-hosted runners for a repository"
+* Operation id: actions/list-self-hosted-runners-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_self_hosted_runne
+  METHODS actions_list_self_hosted_runne
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_self_hos
+    RAISING cx_static_check.
+
+* DELETE - "Delete a self-hosted runner from a repository"
+* Operation id: actions/delete-self-hosted-runner-from-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS actions_delete_self_hosted_r02
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List workflow runs for a repository"
+* Operation id: actions/list-workflow-runs-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: actor, optional, query
+* Parameter: branch, optional, query
+* Parameter: event, optional, query
+* Parameter: status, optional, query
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_workflow_runs_for
+  METHODS actions_list_workflow_runs_for
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      actor TYPE string OPTIONAL
+      branch TYPE string OPTIONAL
+      event TYPE string OPTIONAL
+      status TYPE string OPTIONAL
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_workflow
+    RAISING cx_static_check.
+
+* GET - "Get a workflow run"
+* Operation id: actions/get-workflow-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/workflow-run
+  METHODS actions_get_workflow_run
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE workflow_run
+    RAISING cx_static_check.
+
+* DELETE - "Delete a workflow run"
+* Operation id: actions/delete-workflow-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 204
+  METHODS actions_delete_workflow_run
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get the review history for a workflow run"
+* Operation id: actions/get-reviews-for-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_get_reviews_for_run
+  METHODS actions_get_reviews_for_run
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_actions_get_reviews_f
+    RAISING cx_static_check.
+
+* GET - "List workflow run artifacts"
+* Operation id: actions/list-workflow-run-artifacts
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_workflow_run_arti
+  METHODS actions_list_workflow_run_arti
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_workfl01
+    RAISING cx_static_check.
+
+* POST - "Cancel a workflow run"
+* Operation id: actions/cancel-workflow-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 202
+  METHODS actions_cancel_workflow_run
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List jobs for a workflow run"
+* Operation id: actions/list-jobs-for-workflow-run
+* Parameter: filter, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_jobs_for_workflow
+  METHODS actions_list_jobs_for_workflow
+    IMPORTING
+      filter TYPE string DEFAULT 'latest'
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_jobs_for
+    RAISING cx_static_check.
+
+* GET - "Download workflow run logs"
+* Operation id: actions/download-workflow-run-logs
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 302
+  METHODS actions_download_workflow_run_
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RAISING cx_static_check.
+
+* DELETE - "Delete workflow run logs"
+* Operation id: actions/delete-workflow-run-logs
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 204
+  METHODS actions_delete_workflow_run_lo
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get pending deployments for a workflow run"
+* Operation id: actions/get-pending-deployments-for-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_get_pending_deployment
+  METHODS actions_get_pending_deployment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_actions_get_pending_d
+    RAISING cx_static_check.
+
+* POST - "Review pending deployments for a workflow run"
+* Operation id: actions/review-pending-deployments-for-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_review_pending_deploym
+* Body ref: #/components/schemas/bodyactions_review_pending_dep
+  METHODS actions_review_pending_deploym
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+      body TYPE bodyactions_review_pending_dep
+    RETURNING
+      VALUE(return_data) TYPE response_actions_review_pendin
+    RAISING cx_static_check.
+
+* POST - "Re-run a workflow"
+* Operation id: actions/re-run-workflow
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 201
+  METHODS actions_re_run_workflow
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "Get workflow run usage"
+* Operation id: actions/get-workflow-run-usage
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/workflow-run-usage
+  METHODS actions_get_workflow_run_usage
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE workflow_run_usage
+    RAISING cx_static_check.
+
+* GET - "List repository secrets"
+* Operation id: actions/list-repo-secrets
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_repo_secrets
+  METHODS actions_list_repo_secrets
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_repo_sec
+    RAISING cx_static_check.
+
+* GET - "Get a repository public key"
+* Operation id: actions/get-repo-public-key
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-public-key
+  METHODS actions_get_repo_public_key
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_public_key
+    RAISING cx_static_check.
+
+* GET - "Get a repository secret"
+* Operation id: actions/get-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-secret
+  METHODS actions_get_repo_secret
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_secret
+    RAISING cx_static_check.
+
+* PUT - "Create or update a repository secret"
+* Operation id: actions/create-or-update-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 201
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_create_or_update_r
+  METHODS actions_create_or_update_repo_
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_create_or_update_r
+    RAISING cx_static_check.
+
+* DELETE - "Delete a repository secret"
+* Operation id: actions/delete-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_delete_repo_secret
+  METHODS actions_delete_repo_secret
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_delete_repo_secret
+    RAISING cx_static_check.
+
+* GET - "List repository workflows"
+* Operation id: actions/list-repo-workflows
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_repo_workflows
+  METHODS actions_list_repo_workflows
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_repo_wor
+    RAISING cx_static_check.
+
+* GET - "Get a workflow"
+* Operation id: actions/get-workflow
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/workflow
+  METHODS actions_get_workflow
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+    RETURNING
+      VALUE(return_data) TYPE workflow
+    RAISING cx_static_check.
+
+* PUT - "Disable a workflow"
+* Operation id: actions/disable-workflow
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Response: 204
+  METHODS actions_disable_workflow
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+    RAISING cx_static_check.
+
+* POST - "Create a workflow dispatch event"
+* Operation id: actions/create-workflow-dispatch
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_create_workflow_di
+  METHODS actions_create_workflow_dispat
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+      body TYPE bodyactions_create_workflow_di
+    RAISING cx_static_check.
+
+* PUT - "Enable a workflow"
+* Operation id: actions/enable-workflow
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Response: 204
+  METHODS actions_enable_workflow
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+    RAISING cx_static_check.
+
+* GET - "List workflow runs"
+* Operation id: actions/list-workflow-runs
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Parameter: actor, optional, query
+* Parameter: branch, optional, query
+* Parameter: event, optional, query
+* Parameter: status, optional, query
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_workflow_runs
+  METHODS actions_list_workflow_runs
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+      actor TYPE string OPTIONAL
+      branch TYPE string OPTIONAL
+      event TYPE string OPTIONAL
+      status TYPE string OPTIONAL
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_workfl02
+    RAISING cx_static_check.
+
+* GET - "Get workflow usage"
+* Operation id: actions/get-workflow-usage
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: workflow_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/workflow-usage
+  METHODS actions_get_workflow_usage
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      workflow_id TYPE string
+    RETURNING
+      VALUE(return_data) TYPE workflow_usage
+    RAISING cx_static_check.
+
 * GET - "List assignees"
 * Operation id: issues/list-assignees
 * Parameter: owner, required, path
@@ -9348,6 +11209,186 @@ INTERFACE zif_githubae PUBLIC.
       check_suite_id TYPE i
     RAISING cx_static_check.
 
+* GET - "List code scanning alerts for a repository"
+* Operation id: code-scanning/list-alerts-for-repo
+* Parameter: state, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: tool_name, optional, query
+* Parameter: tool_guid, optional, query
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Parameter: ref, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_code_scanning_list_alerts_for_
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_list_alerts_for_
+    IMPORTING
+      state TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+      tool_name TYPE string OPTIONAL
+      tool_guid TYPE string OPTIONAL
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+      ref TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_code_scanning_list_al
+    RAISING cx_static_check.
+
+* GET - "Get a code scanning alert"
+* Operation id: code-scanning/get-alert
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/code-scanning-alert
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_get_alert
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE string
+    RETURNING
+      VALUE(return_data) TYPE code_scanning_alert
+    RAISING cx_static_check.
+
+* PATCH - "Update a code scanning alert"
+* Operation id: code-scanning/update-alert
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/code-scanning-alert
+* Response: 403
+* Response: 404
+* Response: 503
+* Body ref: #/components/schemas/bodycode_scanning_update_alert
+  METHODS code_scanning_update_alert
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE string
+      body TYPE bodycode_scanning_update_alert
+    RETURNING
+      VALUE(return_data) TYPE code_scanning_alert
+    RAISING cx_static_check.
+
+* GET - "List instances of a code scanning alert"
+* Operation id: code-scanning/list-alerts-instances
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Parameter: ref, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_code_scanning_list_alerts_inst
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_list_alerts_inst
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+      ref TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_code_scanning_list_01
+    RAISING cx_static_check.
+
+* GET - "List code scanning analyses for a repository"
+* Operation id: code-scanning/list-recent-analyses
+* Parameter: ref, optional, query
+* Parameter: sarif_id, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: tool_name, optional, query
+* Parameter: tool_guid, optional, query
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_code_scanning_list_recent_anal
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_list_recent_anal
+    IMPORTING
+      ref TYPE string OPTIONAL
+      sarif_id TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+      tool_name TYPE string OPTIONAL
+      tool_guid TYPE string OPTIONAL
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_code_scanning_list_re
+    RAISING cx_static_check.
+
+* GET - "Get a code scanning analysis for a repository"
+* Operation id: code-scanning/get-analysis
+* Parameter: analysis_id, required, path
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/code-scanning-analysis
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_get_analysis
+    IMPORTING
+      analysis_id TYPE i
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE code_scanning_analysis
+    RAISING cx_static_check.
+
+* POST - "Upload an analysis as SARIF data"
+* Operation id: code-scanning/upload-sarif
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 202
+*     application/json, #/components/schemas/code-scanning-sarifs-receipt
+* Response: 400
+* Response: 403
+* Response: 404
+* Response: 413
+* Response: 503
+* Body ref: #/components/schemas/bodycode_scanning_upload_sarif
+  METHODS code_scanning_upload_sarif
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      body TYPE bodycode_scanning_upload_sarif
+    RAISING cx_static_check.
+
+* GET - "Get information about a SARIF upload"
+* Operation id: code-scanning/get-sarif
+* Parameter: sarif_id, required, path
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/code-scanning-sarifs-status
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_get_sarif
+    IMPORTING
+      sarif_id TYPE string
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE code_scanning_sarifs_status
+    RAISING cx_static_check.
+
 * GET - "List repository collaborators"
 * Operation id: repos/list-collaborators
 * Parameter: affiliation, optional, query
@@ -10030,6 +12071,71 @@ INTERFACE zif_githubae PUBLIC.
       deployment_id TYPE i
     RETURNING
       VALUE(return_data) TYPE deployment_status
+    RAISING cx_static_check.
+
+* GET - "Get all environments"
+* Operation id: repos/get-all-environments
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_repos_get_all_environments
+  METHODS repos_get_all_environments
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_all_environ
+    RAISING cx_static_check.
+
+* GET - "Get an environment"
+* Operation id: repos/get-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/environment
+  METHODS repos_get_environment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE environment
+    RAISING cx_static_check.
+
+* PUT - "Create or update an environment"
+* Operation id: repos/create-or-update-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/environment
+* Response: 422
+*     application/json, #/components/schemas/basic-error
+* Body ref: #/components/schemas/bodyrepos_create_or_update_env
+  METHODS repos_create_or_update_environ
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+      body TYPE bodyrepos_create_or_update_env
+    RETURNING
+      VALUE(return_data) TYPE environment
+    RAISING cx_static_check.
+
+* DELETE - "Delete an environment"
+* Operation id: repos/delete-an-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyrepos_delete_an_environmen
+  METHODS repos_delete_an_environment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+      body TYPE bodyrepos_delete_an_environmen
     RAISING cx_static_check.
 
 * GET - "List repository events"
@@ -12848,6 +14954,85 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE i OPTIONAL
     RETURNING
       VALUE(return_data) TYPE response_repos_list_public
+    RAISING cx_static_check.
+
+* GET - "List environment secrets"
+* Operation id: actions/list-environment-secrets
+* Parameter: repository_id, required, path
+* Parameter: environment_name, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_environment_secre
+  METHODS actions_list_environment_secre
+    IMPORTING
+      repository_id TYPE i
+      environment_name TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_environm
+    RAISING cx_static_check.
+
+* GET - "Get an environment public key"
+* Operation id: actions/get-environment-public-key
+* Parameter: repository_id, required, path
+* Parameter: environment_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-public-key
+  METHODS actions_get_environment_public
+    IMPORTING
+      repository_id TYPE i
+      environment_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_public_key
+    RAISING cx_static_check.
+
+* GET - "Get an environment secret"
+* Operation id: actions/get-environment-secret
+* Parameter: repository_id, required, path
+* Parameter: environment_name, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-secret
+  METHODS actions_get_environment_secret
+    IMPORTING
+      repository_id TYPE i
+      environment_name TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_secret
+    RAISING cx_static_check.
+
+* PUT - "Create or update an environment secret"
+* Operation id: actions/create-or-update-environment-secret
+* Parameter: repository_id, required, path
+* Parameter: environment_name, required, path
+* Parameter: secret_name, required, path
+* Response: 201
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_create_or_update_e
+  METHODS actions_create_or_update_envir
+    IMPORTING
+      repository_id TYPE i
+      environment_name TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_create_or_update_e
+    RAISING cx_static_check.
+
+* DELETE - "Delete an environment secret"
+* Operation id: actions/delete-environment-secret
+* Parameter: repository_id, required, path
+* Parameter: environment_name, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyactions_delete_environment
+  METHODS actions_delete_environment_sec
+    IMPORTING
+      repository_id TYPE i
+      environment_name TYPE string
+      secret_name TYPE string
+      body TYPE bodyactions_delete_environment
     RAISING cx_static_check.
 
 * GET - "Search code"

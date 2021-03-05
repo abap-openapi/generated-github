@@ -144,6 +144,34 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(enterprise_overview) TYPE zif_githubae=>enterprise_overview
       RAISING cx_static_check.
+    METHODS parse_enabled_organizations
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enabled_organizations) TYPE zif_githubae=>enabled_organizations
+      RAISING cx_static_check.
+    METHODS parse_allowed_actions
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(allowed_actions) TYPE zif_githubae=>allowed_actions
+      RAISING cx_static_check.
+    METHODS parse_selected_actions_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(selected_actions_url) TYPE zif_githubae=>selected_actions_url
+      RAISING cx_static_check.
+    METHODS parse_actions_enterprise_permi
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_enterprise_permissions) TYPE zif_githubae=>actions_enterprise_permissions
+      RAISING cx_static_check.
+    METHODS parse_selected_actions
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(selected_actions) TYPE zif_githubae=>selected_actions
+      RAISING cx_static_check.
+    METHODS parse_runner_groups_enterprise
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_groups_enterprise) TYPE zif_githubae=>runner_groups_enterprise
+      RAISING cx_static_check.
+    METHODS parse_runner
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner) TYPE zif_githubae=>runner
+      RAISING cx_static_check.
     METHODS parse_actor
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actor) TYPE zif_githubae=>actor
@@ -232,6 +260,26 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(organization_full) TYPE zif_githubae=>organization_full
       RAISING cx_static_check.
+    METHODS parse_enabled_repositories
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enabled_repositories) TYPE zif_githubae=>enabled_repositories
+      RAISING cx_static_check.
+    METHODS parse_actions_organization_per
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_organization_permissio) TYPE zif_githubae=>actions_organization_permissio
+      RAISING cx_static_check.
+    METHODS parse_runner_groups_org
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_groups_org) TYPE zif_githubae=>runner_groups_org
+      RAISING cx_static_check.
+    METHODS parse_organization_actions_sec
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_actions_secret) TYPE zif_githubae=>organization_actions_secret
+      RAISING cx_static_check.
+    METHODS parse_actions_public_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_public_key) TYPE zif_githubae=>actions_public_key
+      RAISING cx_static_check.
     METHODS parse_org_hook
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(org_hook) TYPE zif_githubae=>org_hook
@@ -308,6 +356,66 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(full_repository) TYPE zif_githubae=>full_repository
       RAISING cx_static_check.
+    METHODS parse_artifact
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(artifact) TYPE zif_githubae=>artifact
+      RAISING cx_static_check.
+    METHODS parse_job
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(job) TYPE zif_githubae=>job
+      RAISING cx_static_check.
+    METHODS parse_actions_enabled
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_enabled) TYPE zif_githubae=>actions_enabled
+      RAISING cx_static_check.
+    METHODS parse_actions_repository_permi
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_repository_permissions) TYPE zif_githubae=>actions_repository_permissions
+      RAISING cx_static_check.
+    METHODS parse_pull_request_minimal
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_minimal) TYPE zif_githubae=>pull_request_minimal
+      RAISING cx_static_check.
+    METHODS parse_simple_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(simple_commit) TYPE zif_githubae=>simple_commit
+      RAISING cx_static_check.
+    METHODS parse_workflow_run
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow_run) TYPE zif_githubae=>workflow_run
+      RAISING cx_static_check.
+    METHODS parse_environment_approvals
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(environment_approvals) TYPE zif_githubae=>environment_approvals
+      RAISING cx_static_check.
+    METHODS parse_deployment_reviewer_type
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_reviewer_type) TYPE zif_githubae=>deployment_reviewer_type
+      RAISING cx_static_check.
+    METHODS parse_pending_deployment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pending_deployment) TYPE zif_githubae=>pending_deployment
+      RAISING cx_static_check.
+    METHODS parse_deployment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment) TYPE zif_githubae=>deployment
+      RAISING cx_static_check.
+    METHODS parse_workflow_run_usage
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow_run_usage) TYPE zif_githubae=>workflow_run_usage
+      RAISING cx_static_check.
+    METHODS parse_actions_secret
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_secret) TYPE zif_githubae=>actions_secret
+      RAISING cx_static_check.
+    METHODS parse_workflow
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow) TYPE zif_githubae=>workflow
+      RAISING cx_static_check.
+    METHODS parse_workflow_usage
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(workflow_usage) TYPE zif_githubae=>workflow_usage
+      RAISING cx_static_check.
     METHODS parse_protected_branch_admin_e
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(protected_branch_admin_enforce) TYPE zif_githubae=>protected_branch_admin_enforce
@@ -352,10 +460,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(protected_branch) TYPE zif_githubae=>protected_branch
       RAISING cx_static_check.
-    METHODS parse_pull_request_minimal
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(pull_request_minimal) TYPE zif_githubae=>pull_request_minimal
-      RAISING cx_static_check.
     METHODS parse_deployment_simple
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(deployment_simple) TYPE zif_githubae=>deployment_simple
@@ -368,10 +472,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_annotation) TYPE zif_githubae=>check_annotation
       RAISING cx_static_check.
-    METHODS parse_simple_commit
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(simple_commit) TYPE zif_githubae=>simple_commit
-      RAISING cx_static_check.
     METHODS parse_check_suite
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_suite) TYPE zif_githubae=>check_suite
@@ -379,6 +479,134 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_check_suite_preference
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_suite_preference) TYPE zif_githubae=>check_suite_preference
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_t
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_githubae=>code_scanning_analysis_tool_na
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_gu) TYPE zif_githubae=>code_scanning_analysis_tool_gu
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_ref
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_ref) TYPE zif_githubae=>code_scanning_ref
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_stat
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_state) TYPE zif_githubae=>code_scanning_alert_state
+      RAISING cx_static_check.
+    METHODS parse_alert_number
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_number) TYPE zif_githubae=>alert_number
+      RAISING cx_static_check.
+    METHODS parse_alert_created_at
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_created_at) TYPE zif_githubae=>alert_created_at
+      RAISING cx_static_check.
+    METHODS parse_alert_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_url) TYPE zif_githubae=>alert_url
+      RAISING cx_static_check.
+    METHODS parse_alert_html_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_html_url) TYPE zif_githubae=>alert_html_url
+      RAISING cx_static_check.
+    METHODS parse_alert_instances_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_instances_url) TYPE zif_githubae=>alert_instances_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_dism
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismissed_) TYPE zif_githubae=>code_scanning_alert_dismissed_
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_di01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismisse01) TYPE zif_githubae=>code_scanning_alert_dismisse01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_rule
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_rule_summa) TYPE zif_githubae=>code_scanning_alert_rule_summa
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_ve) TYPE zif_githubae=>code_scanning_analysis_tool_ve
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis03
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool) TYPE zif_githubae=>code_scanning_analysis_tool
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_a
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_analysi) TYPE zif_githubae=>code_scanning_analysis_analysi
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_envi
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_githubae=>code_scanning_alert_environmen
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_loca
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_location) TYPE zif_githubae=>code_scanning_alert_location
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_clas
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_classifica) TYPE zif_githubae=>code_scanning_alert_classifica
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_inst
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_instance) TYPE zif_githubae=>code_scanning_alert_instance
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_items) TYPE zif_githubae=>code_scanning_alert_items
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_ru01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_githubae=>code_scanning_alert_rule
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert) TYPE zif_githubae=>code_scanning_alert
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_set_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_set_state) TYPE zif_githubae=>code_scanning_alert_set_state
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_s
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_sarif_i) TYPE zif_githubae=>code_scanning_analysis_sarif_i
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_c
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_commit_) TYPE zif_githubae=>code_scanning_analysis_commit_
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_environ) TYPE zif_githubae=>code_scanning_analysis_environ
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis04
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_created) TYPE zif_githubae=>code_scanning_analysis_created
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_u
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_url) TYPE zif_githubae=>code_scanning_analysis_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis) TYPE zif_githubae=>code_scanning_analysis
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis05
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_sarif_f) TYPE zif_githubae=>code_scanning_analysis_sarif_f
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_sarifs_rec
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_sarifs_receipt) TYPE zif_githubae=>code_scanning_sarifs_receipt
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_sarifs_sta
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_sarifs_status) TYPE zif_githubae=>code_scanning_sarifs_status
       RAISING cx_static_check.
     METHODS parse_collaborator
       IMPORTING iv_prefix TYPE string
@@ -460,13 +688,21 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(contributor) TYPE zif_githubae=>contributor
       RAISING cx_static_check.
-    METHODS parse_deployment
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(deployment) TYPE zif_githubae=>deployment
-      RAISING cx_static_check.
     METHODS parse_deployment_status
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(deployment_status) TYPE zif_githubae=>deployment_status
+      RAISING cx_static_check.
+    METHODS parse_wait_timer
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(wait_timer) TYPE zif_githubae=>wait_timer
+      RAISING cx_static_check.
+    METHODS parse_deployment_branch_policy
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_branch_policy) TYPE zif_githubae=>deployment_branch_policy
+      RAISING cx_static_check.
+    METHODS parse_environment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(environment) TYPE zif_githubae=>environment
       RAISING cx_static_check.
     METHODS parse_short_blob
       IMPORTING iv_prefix TYPE string
@@ -756,6 +992,30 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_disable_e
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_gith
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_set_githu
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_sele
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_set_selec
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_create_s
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_create_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_s
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_update_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete_s
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_delete_se
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_self
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_set_self_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_gists_create
       IMPORTING data TYPE zif_githubae=>bodygists_create
       RETURNING VALUE(json) TYPE string
@@ -798,6 +1058,38 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_orgs_update
       IMPORTING data TYPE zif_githubae=>bodyorgs_update
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_github_action
+      IMPORTING data TYPE zif_githubae=>bodyactions_set_github_actions
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_selected_repo
+      IMPORTING data TYPE zif_githubae=>bodyactions_set_selected_repos
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_self_hoste
+      IMPORTING data TYPE zif_githubae=>bodyactions_create_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_update_self_hoste
+      IMPORTING data TYPE zif_githubae=>bodyactions_update_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_self_hoste
+      IMPORTING data TYPE zif_githubae=>bodyactions_delete_self_hosted
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_or_update_
+      IMPORTING data TYPE zif_githubae=>bodyactions_create_or_update_o
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_org_secret
+      IMPORTING data TYPE zif_githubae=>bodyactions_delete_org_secret
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_selected_re01
+      IMPORTING data TYPE zif_githubae=>bodyactions_set_selected_rep01
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_orgs_create_webhook
@@ -952,6 +1244,26 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyrepos_delete
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_actions_set_github_acti01
+      IMPORTING data TYPE zif_githubae=>bodyactions_set_github_actio01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_review_pending_de
+      IMPORTING data TYPE zif_githubae=>bodyactions_review_pending_dep
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_or_updat01
+      IMPORTING data TYPE zif_githubae=>bodyactions_create_or_update_r
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_repo_secre
+      IMPORTING data TYPE zif_githubae=>bodyactions_delete_repo_secret
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_create_workflow_d
+      IMPORTING data TYPE zif_githubae=>bodyactions_create_workflow_di
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_update_branch_prote
       IMPORTING data TYPE zif_githubae=>bodyrepos_update_branch_protec
       RETURNING VALUE(json) TYPE string
@@ -1040,6 +1352,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodychecks_set_suites_preferen
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_code_scanning_update_aler
+      IMPORTING data TYPE zif_githubae=>bodycode_scanning_update_alert
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_code_scanning_upload_sari
+      IMPORTING data TYPE zif_githubae=>bodycode_scanning_upload_sarif
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_add_collaborator
       IMPORTING data TYPE zif_githubae=>bodyrepos_add_collaborator
       RETURNING VALUE(json) TYPE string
@@ -1078,6 +1398,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_deployment_s
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_deployment_st
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_or_update_en
+      IMPORTING data TYPE zif_githubae=>bodyrepos_create_or_update_env
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_an_environme
+      IMPORTING data TYPE zif_githubae=>bodyrepos_delete_an_environmen
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_fork
@@ -1352,6 +1680,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_using_templat
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_actions_create_or_updat02
+      IMPORTING data TYPE zif_githubae=>bodyactions_create_or_update_e
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_delete_environmen
+      IMPORTING data TYPE zif_githubae=>bodyactions_delete_environment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_users_update_authenticate
       IMPORTING data TYPE zif_githubae=>bodyusers_update_authenticated
       RETURNING VALUE(json) TYPE string
@@ -1432,6 +1768,22 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_emojis_get) TYPE zif_githubae=>response_emojis_get
       RAISING cx_static_check.
+    METHODS parse_enterprise_admin_list_se
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_enterprise_admin_li04) TYPE zif_githubae=>response_enterprise_admin_li04
+      RAISING cx_static_check.
+    METHODS parse_enterprise_admin_list_01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_enterprise_admin_li05) TYPE zif_githubae=>response_enterprise_admin_li05
+      RAISING cx_static_check.
+    METHODS parse_enterprise_admin_list_02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_enterprise_admin_li06) TYPE zif_githubae=>response_enterprise_admin_li06
+      RAISING cx_static_check.
+    METHODS parse_enterprise_admin_list_03
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_enterprise_admin_li07) TYPE zif_githubae=>response_enterprise_admin_li07
+      RAISING cx_static_check.
     METHODS parse_activity_list_public_eve
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_activity_list_public_) TYPE zif_githubae=>response_activity_list_public_
@@ -1495,6 +1847,18 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_orgs_list
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list) TYPE zif_githubae=>response_orgs_list
+      RAISING cx_static_check.
+    METHODS parse_actions_list_selected_re
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_selected) TYPE zif_githubae=>response_actions_list_selected
+      RAISING cx_static_check.
+    METHODS parse_actions_list_org_secrets
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_org_secr) TYPE zif_githubae=>response_actions_list_org_secr
+      RAISING cx_static_check.
+    METHODS parse_actions_list_selected_01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_select01) TYPE zif_githubae=>response_actions_list_select01
       RAISING cx_static_check.
     METHODS parse_activity_list_public_org
       IMPORTING iv_prefix TYPE string
@@ -1632,6 +1996,50 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_delete) TYPE zif_githubae=>response_repos_delete
       RAISING cx_static_check.
+    METHODS parse_actions_list_artifacts_f
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_artifact) TYPE zif_githubae=>response_actions_list_artifact
+      RAISING cx_static_check.
+    METHODS parse_actions_list_self_hosted
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_self_hos) TYPE zif_githubae=>response_actions_list_self_hos
+      RAISING cx_static_check.
+    METHODS parse_actions_list_workflow_ru
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_workflow) TYPE zif_githubae=>response_actions_list_workflow
+      RAISING cx_static_check.
+    METHODS parse_actions_get_reviews_for_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_get_reviews_f) TYPE zif_githubae=>response_actions_get_reviews_f
+      RAISING cx_static_check.
+    METHODS parse_actions_list_workflow_01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_workfl01) TYPE zif_githubae=>response_actions_list_workfl01
+      RAISING cx_static_check.
+    METHODS parse_actions_list_jobs_for_wo
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_jobs_for) TYPE zif_githubae=>response_actions_list_jobs_for
+      RAISING cx_static_check.
+    METHODS parse_actions_get_pending_depl
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_get_pending_d) TYPE zif_githubae=>response_actions_get_pending_d
+      RAISING cx_static_check.
+    METHODS parse_actions_review_pending_d
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_review_pendin) TYPE zif_githubae=>response_actions_review_pendin
+      RAISING cx_static_check.
+    METHODS parse_actions_list_repo_secret
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_repo_sec) TYPE zif_githubae=>response_actions_list_repo_sec
+      RAISING cx_static_check.
+    METHODS parse_actions_list_repo_workfl
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_repo_wor) TYPE zif_githubae=>response_actions_list_repo_wor
+      RAISING cx_static_check.
+    METHODS parse_actions_list_workflow_02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_workfl02) TYPE zif_githubae=>response_actions_list_workfl02
+      RAISING cx_static_check.
     METHODS parse_issues_list_assignees
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_issues_list_assignees) TYPE zif_githubae=>response_issues_list_assignees
@@ -1712,6 +2120,18 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_checks_list_for_suite) TYPE zif_githubae=>response_checks_list_for_suite
       RAISING cx_static_check.
+    METHODS parse_code_scanning_list_alert
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_code_scanning_list_al) TYPE zif_githubae=>response_code_scanning_list_al
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_list_ale01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_code_scanning_list_01) TYPE zif_githubae=>response_code_scanning_list_01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_list_recen
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_code_scanning_list_re) TYPE zif_githubae=>response_code_scanning_list_re
+      RAISING cx_static_check.
     METHODS parse_repos_list_collaborators
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_collaborat) TYPE zif_githubae=>response_repos_list_collaborat
@@ -1771,6 +2191,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_deployment_st
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_deployme01) TYPE zif_githubae=>response_repos_list_deployme01
+      RAISING cx_static_check.
+    METHODS parse_repos_get_all_environmen
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_repos_get_all_environ) TYPE zif_githubae=>response_repos_get_all_environ
       RAISING cx_static_check.
     METHODS parse_activity_list_repo_event
       IMPORTING iv_prefix TYPE string
@@ -1963,6 +2387,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_public
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_public) TYPE zif_githubae=>response_repos_list_public
+      RAISING cx_static_check.
+    METHODS parse_actions_list_environment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_environm) TYPE zif_githubae=>response_actions_list_environm
       RAISING cx_static_check.
     METHODS parse_search_code
       IMPORTING iv_prefix TYPE string
@@ -2699,6 +3127,50 @@ CLASS zcl_githubae IMPLEMENTATION.
     enterprise_overview-comments-total_pull_request_comments = mo_json->value_string( iv_prefix && '/comments/total_pull_request_comments' ).
   ENDMETHOD.
 
+  METHOD parse_enabled_organizations.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_allowed_actions.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_selected_actions_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_actions_enterprise_permi.
+    actions_enterprise_permissions-enabled_organizations = parse_enabled_organizations( iv_prefix ).
+    actions_enterprise_permissions-selected_organizations_url = mo_json->value_string( iv_prefix && '/selected_organizations_url' ).
+    actions_enterprise_permissions-allowed_actions = parse_allowed_actions( iv_prefix ).
+    actions_enterprise_permissions-selected_actions_url = parse_selected_actions_url( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_selected_actions.
+    selected_actions-github_owned_allowed = mo_json->value_boolean( iv_prefix && '/github_owned_allowed' ).
+    selected_actions-verified_allowed = mo_json->value_boolean( iv_prefix && '/verified_allowed' ).
+* todo, array, patterns_allowed
+  ENDMETHOD.
+
+  METHOD parse_runner_groups_enterprise.
+* todo, number, id
+    runner_groups_enterprise-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner_groups_enterprise-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    runner_groups_enterprise-default = mo_json->value_boolean( iv_prefix && '/default' ).
+    runner_groups_enterprise-selected_organizations_url = mo_json->value_string( iv_prefix && '/selected_organizations_url' ).
+    runner_groups_enterprise-runners_url = mo_json->value_string( iv_prefix && '/runners_url' ).
+    runner_groups_enterprise-allows_public_repositories = mo_json->value_boolean( iv_prefix && '/allows_public_repositories' ).
+  ENDMETHOD.
+
+  METHOD parse_runner.
+    runner-id = mo_json->value_string( iv_prefix && '/id' ).
+    runner-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner-os = mo_json->value_string( iv_prefix && '/os' ).
+    runner-status = mo_json->value_string( iv_prefix && '/status' ).
+    runner-busy = mo_json->value_boolean( iv_prefix && '/busy' ).
+* todo, array, labels
+  ENDMETHOD.
+
   METHOD parse_actor.
     actor-id = mo_json->value_string( iv_prefix && '/id' ).
     actor-login = mo_json->value_string( iv_prefix && '/login' ).
@@ -3149,6 +3621,46 @@ CLASS zcl_githubae IMPLEMENTATION.
     organization_full-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
   ENDMETHOD.
 
+  METHOD parse_enabled_repositories.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_actions_organization_per.
+    actions_organization_permissio-enabled_repositories = parse_enabled_repositories( iv_prefix ).
+    actions_organization_permissio-selected_repositories_url = mo_json->value_string( iv_prefix && '/selected_repositories_url' ).
+    actions_organization_permissio-allowed_actions = parse_allowed_actions( iv_prefix ).
+    actions_organization_permissio-selected_actions_url = parse_selected_actions_url( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_runner_groups_org.
+* todo, number, id
+    runner_groups_org-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner_groups_org-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    runner_groups_org-default = mo_json->value_boolean( iv_prefix && '/default' ).
+    runner_groups_org-selected_repositories_url = mo_json->value_string( iv_prefix && '/selected_repositories_url' ).
+    runner_groups_org-runners_url = mo_json->value_string( iv_prefix && '/runners_url' ).
+    runner_groups_org-inherited = mo_json->value_boolean( iv_prefix && '/inherited' ).
+    runner_groups_org-inherited_allows_public_reposi = mo_json->value_boolean( iv_prefix && '/inherited_allows_public_repositories' ).
+    runner_groups_org-allows_public_repositories = mo_json->value_boolean( iv_prefix && '/allows_public_repositories' ).
+  ENDMETHOD.
+
+  METHOD parse_organization_actions_sec.
+    organization_actions_secret-name = mo_json->value_string( iv_prefix && '/name' ).
+    organization_actions_secret-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    organization_actions_secret-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    organization_actions_secret-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    organization_actions_secret-selected_repositories_url = mo_json->value_string( iv_prefix && '/selected_repositories_url' ).
+  ENDMETHOD.
+
+  METHOD parse_actions_public_key.
+    actions_public_key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
+    actions_public_key-key = mo_json->value_string( iv_prefix && '/key' ).
+    actions_public_key-id = mo_json->value_string( iv_prefix && '/id' ).
+    actions_public_key-url = mo_json->value_string( iv_prefix && '/url' ).
+    actions_public_key-title = mo_json->value_string( iv_prefix && '/title' ).
+    actions_public_key-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+  ENDMETHOD.
+
   METHOD parse_org_hook.
     org_hook-id = mo_json->value_string( iv_prefix && '/id' ).
     org_hook-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -3556,6 +4068,181 @@ CLASS zcl_githubae IMPLEMENTATION.
     full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_artifact.
+    artifact-id = mo_json->value_string( iv_prefix && '/id' ).
+    artifact-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    artifact-name = mo_json->value_string( iv_prefix && '/name' ).
+    artifact-size_in_bytes = mo_json->value_string( iv_prefix && '/size_in_bytes' ).
+    artifact-url = mo_json->value_string( iv_prefix && '/url' ).
+    artifact-archive_download_url = mo_json->value_string( iv_prefix && '/archive_download_url' ).
+    artifact-expired = mo_json->value_boolean( iv_prefix && '/expired' ).
+    artifact-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    artifact-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
+    artifact-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+  ENDMETHOD.
+
+  METHOD parse_job.
+    job-id = mo_json->value_string( iv_prefix && '/id' ).
+    job-run_id = mo_json->value_string( iv_prefix && '/run_id' ).
+    job-run_url = mo_json->value_string( iv_prefix && '/run_url' ).
+    job-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    job-head_sha = mo_json->value_string( iv_prefix && '/head_sha' ).
+    job-url = mo_json->value_string( iv_prefix && '/url' ).
+    job-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    job-status = mo_json->value_string( iv_prefix && '/status' ).
+    job-conclusion = mo_json->value_string( iv_prefix && '/conclusion' ).
+    job-started_at = mo_json->value_string( iv_prefix && '/started_at' ).
+    job-completed_at = mo_json->value_string( iv_prefix && '/completed_at' ).
+    job-name = mo_json->value_string( iv_prefix && '/name' ).
+* todo, array, steps
+    job-check_run_url = mo_json->value_string( iv_prefix && '/check_run_url' ).
+  ENDMETHOD.
+
+  METHOD parse_actions_enabled.
+* todo, handle type boolean
+  ENDMETHOD.
+
+  METHOD parse_actions_repository_permi.
+    actions_repository_permissions-enabled = parse_actions_enabled( iv_prefix ).
+    actions_repository_permissions-allowed_actions = parse_allowed_actions( iv_prefix ).
+    actions_repository_permissions-selected_actions_url = parse_selected_actions_url( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_pull_request_minimal.
+    pull_request_minimal-id = mo_json->value_string( iv_prefix && '/id' ).
+    pull_request_minimal-number = mo_json->value_string( iv_prefix && '/number' ).
+    pull_request_minimal-url = mo_json->value_string( iv_prefix && '/url' ).
+    pull_request_minimal-head-ref = mo_json->value_string( iv_prefix && '/head/ref' ).
+    pull_request_minimal-head-sha = mo_json->value_string( iv_prefix && '/head/sha' ).
+    pull_request_minimal-head-repo-id = mo_json->value_string( iv_prefix && '/head/repo/id' ).
+    pull_request_minimal-head-repo-url = mo_json->value_string( iv_prefix && '/head/repo/url' ).
+    pull_request_minimal-head-repo-name = mo_json->value_string( iv_prefix && '/head/repo/name' ).
+    pull_request_minimal-base-ref = mo_json->value_string( iv_prefix && '/base/ref' ).
+    pull_request_minimal-base-sha = mo_json->value_string( iv_prefix && '/base/sha' ).
+    pull_request_minimal-base-repo-id = mo_json->value_string( iv_prefix && '/base/repo/id' ).
+    pull_request_minimal-base-repo-url = mo_json->value_string( iv_prefix && '/base/repo/url' ).
+    pull_request_minimal-base-repo-name = mo_json->value_string( iv_prefix && '/base/repo/name' ).
+  ENDMETHOD.
+
+  METHOD parse_simple_commit.
+    simple_commit-id = mo_json->value_string( iv_prefix && '/id' ).
+    simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
+    simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
+    simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
+    simple_commit-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
+    simple_commit-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
+    simple_commit-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
+    simple_commit-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
+  ENDMETHOD.
+
+  METHOD parse_workflow_run.
+    workflow_run-id = mo_json->value_string( iv_prefix && '/id' ).
+    workflow_run-name = mo_json->value_string( iv_prefix && '/name' ).
+    workflow_run-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    workflow_run-head_branch = mo_json->value_string( iv_prefix && '/head_branch' ).
+    workflow_run-head_sha = mo_json->value_string( iv_prefix && '/head_sha' ).
+    workflow_run-run_number = mo_json->value_string( iv_prefix && '/run_number' ).
+    workflow_run-event = mo_json->value_string( iv_prefix && '/event' ).
+    workflow_run-status = mo_json->value_string( iv_prefix && '/status' ).
+    workflow_run-conclusion = mo_json->value_string( iv_prefix && '/conclusion' ).
+    workflow_run-workflow_id = mo_json->value_string( iv_prefix && '/workflow_id' ).
+    workflow_run-url = mo_json->value_string( iv_prefix && '/url' ).
+    workflow_run-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+* todo, array, pull_requests
+    workflow_run-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    workflow_run-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    workflow_run-jobs_url = mo_json->value_string( iv_prefix && '/jobs_url' ).
+    workflow_run-logs_url = mo_json->value_string( iv_prefix && '/logs_url' ).
+    workflow_run-check_suite_url = mo_json->value_string( iv_prefix && '/check_suite_url' ).
+    workflow_run-artifacts_url = mo_json->value_string( iv_prefix && '/artifacts_url' ).
+    workflow_run-cancel_url = mo_json->value_string( iv_prefix && '/cancel_url' ).
+    workflow_run-rerun_url = mo_json->value_string( iv_prefix && '/rerun_url' ).
+    workflow_run-workflow_url = mo_json->value_string( iv_prefix && '/workflow_url' ).
+    workflow_run-head_commit = parse_simple_commit( iv_prefix ).
+    workflow_run-repository = parse_minimal_repository( iv_prefix ).
+    workflow_run-head_repository = parse_minimal_repository( iv_prefix ).
+    workflow_run-head_repository_id = mo_json->value_string( iv_prefix && '/head_repository_id' ).
+  ENDMETHOD.
+
+  METHOD parse_environment_approvals.
+* todo, array, environments
+    environment_approvals-state = mo_json->value_string( iv_prefix && '/state' ).
+    environment_approvals-user = parse_simple_user( iv_prefix ).
+    environment_approvals-comment = mo_json->value_string( iv_prefix && '/comment' ).
+  ENDMETHOD.
+
+  METHOD parse_deployment_reviewer_type.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_pending_deployment.
+    pending_deployment-environment-id = mo_json->value_string( iv_prefix && '/environment/id' ).
+    pending_deployment-environment-node_id = mo_json->value_string( iv_prefix && '/environment/node_id' ).
+    pending_deployment-environment-name = mo_json->value_string( iv_prefix && '/environment/name' ).
+    pending_deployment-environment-url = mo_json->value_string( iv_prefix && '/environment/url' ).
+    pending_deployment-environment-html_url = mo_json->value_string( iv_prefix && '/environment/html_url' ).
+    pending_deployment-wait_timer = mo_json->value_string( iv_prefix && '/wait_timer' ).
+    pending_deployment-wait_timer_started_at = mo_json->value_string( iv_prefix && '/wait_timer_started_at' ).
+    pending_deployment-current_user_can_approve = mo_json->value_boolean( iv_prefix && '/current_user_can_approve' ).
+* todo, array, reviewers
+  ENDMETHOD.
+
+  METHOD parse_deployment.
+    deployment-url = mo_json->value_string( iv_prefix && '/url' ).
+    deployment-id = mo_json->value_string( iv_prefix && '/id' ).
+    deployment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    deployment-sha = mo_json->value_string( iv_prefix && '/sha' ).
+    deployment-ref = mo_json->value_string( iv_prefix && '/ref' ).
+    deployment-task = mo_json->value_string( iv_prefix && '/task' ).
+    deployment-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
+    deployment-environment = mo_json->value_string( iv_prefix && '/environment' ).
+    deployment-description = mo_json->value_string( iv_prefix && '/description' ).
+    deployment-creator = mo_json->value_string( iv_prefix && '/creator' ).
+    deployment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    deployment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    deployment-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
+    deployment-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
+    deployment-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
+    deployment-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
+    deployment-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+  ENDMETHOD.
+
+  METHOD parse_workflow_run_usage.
+    workflow_run_usage-billable-ubuntu-total_ms = mo_json->value_string( iv_prefix && '/billable/UBUNTU/total_ms' ).
+    workflow_run_usage-billable-ubuntu-jobs = mo_json->value_string( iv_prefix && '/billable/UBUNTU/jobs' ).
+    workflow_run_usage-billable-macos-total_ms = mo_json->value_string( iv_prefix && '/billable/MACOS/total_ms' ).
+    workflow_run_usage-billable-macos-jobs = mo_json->value_string( iv_prefix && '/billable/MACOS/jobs' ).
+    workflow_run_usage-billable-windows-total_ms = mo_json->value_string( iv_prefix && '/billable/WINDOWS/total_ms' ).
+    workflow_run_usage-billable-windows-jobs = mo_json->value_string( iv_prefix && '/billable/WINDOWS/jobs' ).
+    workflow_run_usage-run_duration_ms = mo_json->value_string( iv_prefix && '/run_duration_ms' ).
+  ENDMETHOD.
+
+  METHOD parse_actions_secret.
+    actions_secret-name = mo_json->value_string( iv_prefix && '/name' ).
+    actions_secret-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    actions_secret-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+  ENDMETHOD.
+
+  METHOD parse_workflow.
+    workflow-id = mo_json->value_string( iv_prefix && '/id' ).
+    workflow-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    workflow-name = mo_json->value_string( iv_prefix && '/name' ).
+    workflow-path = mo_json->value_string( iv_prefix && '/path' ).
+    workflow-state = mo_json->value_string( iv_prefix && '/state' ).
+    workflow-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    workflow-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    workflow-url = mo_json->value_string( iv_prefix && '/url' ).
+    workflow-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    workflow-badge_url = mo_json->value_string( iv_prefix && '/badge_url' ).
+    workflow-deleted_at = mo_json->value_string( iv_prefix && '/deleted_at' ).
+  ENDMETHOD.
+
+  METHOD parse_workflow_usage.
+    workflow_usage-billable-ubuntu-total_ms = mo_json->value_string( iv_prefix && '/billable/UBUNTU/total_ms' ).
+    workflow_usage-billable-macos-total_ms = mo_json->value_string( iv_prefix && '/billable/MACOS/total_ms' ).
+    workflow_usage-billable-windows-total_ms = mo_json->value_string( iv_prefix && '/billable/WINDOWS/total_ms' ).
+  ENDMETHOD.
+
   METHOD parse_protected_branch_admin_e.
     protected_branch_admin_enforce-url = mo_json->value_string( iv_prefix && '/url' ).
     protected_branch_admin_enforce-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
@@ -3686,22 +4373,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     protected_branch-restrictions = parse_branch_restriction_polic( iv_prefix ).
   ENDMETHOD.
 
-  METHOD parse_pull_request_minimal.
-    pull_request_minimal-id = mo_json->value_string( iv_prefix && '/id' ).
-    pull_request_minimal-number = mo_json->value_string( iv_prefix && '/number' ).
-    pull_request_minimal-url = mo_json->value_string( iv_prefix && '/url' ).
-    pull_request_minimal-head-ref = mo_json->value_string( iv_prefix && '/head/ref' ).
-    pull_request_minimal-head-sha = mo_json->value_string( iv_prefix && '/head/sha' ).
-    pull_request_minimal-head-repo-id = mo_json->value_string( iv_prefix && '/head/repo/id' ).
-    pull_request_minimal-head-repo-url = mo_json->value_string( iv_prefix && '/head/repo/url' ).
-    pull_request_minimal-head-repo-name = mo_json->value_string( iv_prefix && '/head/repo/name' ).
-    pull_request_minimal-base-ref = mo_json->value_string( iv_prefix && '/base/ref' ).
-    pull_request_minimal-base-sha = mo_json->value_string( iv_prefix && '/base/sha' ).
-    pull_request_minimal-base-repo-id = mo_json->value_string( iv_prefix && '/base/repo/id' ).
-    pull_request_minimal-base-repo-url = mo_json->value_string( iv_prefix && '/base/repo/url' ).
-    pull_request_minimal-base-repo-name = mo_json->value_string( iv_prefix && '/base/repo/name' ).
-  ENDMETHOD.
-
   METHOD parse_deployment_simple.
     deployment_simple-url = mo_json->value_string( iv_prefix && '/url' ).
     deployment_simple-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -3756,17 +4427,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     check_annotation-blob_href = mo_json->value_string( iv_prefix && '/blob_href' ).
   ENDMETHOD.
 
-  METHOD parse_simple_commit.
-    simple_commit-id = mo_json->value_string( iv_prefix && '/id' ).
-    simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
-    simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
-    simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
-    simple_commit-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
-    simple_commit-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
-    simple_commit-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
-    simple_commit-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
-  ENDMETHOD.
-
   METHOD parse_check_suite.
     check_suite-id = mo_json->value_string( iv_prefix && '/id' ).
     check_suite-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -3790,6 +4450,193 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_check_suite_preference.
 * todo, array, auto_trigger_checks
     check_suite_preference-repository = parse_repository( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_t.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis01.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_ref.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_stat.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_number.
+* todo, handle type integer
+  ENDMETHOD.
+
+  METHOD parse_alert_created_at.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_html_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_instances_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_dism.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_di01.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_rule.
+    code_scanning_alert_rule_summa-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_alert_rule_summa-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_scanning_alert_rule_summa-severity = mo_json->value_string( iv_prefix && '/severity' ).
+    code_scanning_alert_rule_summa-description = mo_json->value_string( iv_prefix && '/description' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis02.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis03.
+    code_scanning_analysis_tool-name = parse_code_scanning_analysis_t( iv_prefix ).
+    code_scanning_analysis_tool-version = parse_code_scanning_analysis02( iv_prefix ).
+    code_scanning_analysis_tool-guid = parse_code_scanning_analysis01( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_a.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_envi.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_loca.
+    code_scanning_alert_location-path = mo_json->value_string( iv_prefix && '/path' ).
+    code_scanning_alert_location-start_line = mo_json->value_string( iv_prefix && '/start_line' ).
+    code_scanning_alert_location-end_line = mo_json->value_string( iv_prefix && '/end_line' ).
+    code_scanning_alert_location-start_column = mo_json->value_string( iv_prefix && '/start_column' ).
+    code_scanning_alert_location-end_column = mo_json->value_string( iv_prefix && '/end_column' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_clas.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_inst.
+    code_scanning_alert_instance-ref = parse_code_scanning_ref( iv_prefix ).
+    code_scanning_alert_instance-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
+    code_scanning_alert_instance-environment = parse_code_scanning_alert_envi( iv_prefix ).
+    code_scanning_alert_instance-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert_instance-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
+    code_scanning_alert_instance-message-text = mo_json->value_string( iv_prefix && '/message/text' ).
+    code_scanning_alert_instance-location = parse_code_scanning_alert_loca( iv_prefix ).
+    code_scanning_alert_instance-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+* todo, array, classifications
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_item.
+    code_scanning_alert_items-number = parse_alert_number( iv_prefix ).
+    code_scanning_alert_items-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert_items-url = parse_alert_url( iv_prefix ).
+    code_scanning_alert_items-html_url = parse_alert_html_url( iv_prefix ).
+    code_scanning_alert_items-instances_url = parse_alert_instances_url( iv_prefix ).
+    code_scanning_alert_items-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert_items-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
+    code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
+    code_scanning_alert_items-rule = parse_code_scanning_alert_rule( iv_prefix ).
+    code_scanning_alert_items-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_alert_items-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_ru01.
+    code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_alert_rule-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
+    code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
+    code_scanning_alert_rule-full_description = mo_json->value_string( iv_prefix && '/full_description' ).
+* todo, array, tags
+    code_scanning_alert_rule-help = mo_json->value_string( iv_prefix && '/help' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert.
+    code_scanning_alert-number = parse_alert_number( iv_prefix ).
+    code_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert-url = parse_alert_url( iv_prefix ).
+    code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
+    code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
+    code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
+    code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
+    code_scanning_alert-rule = parse_code_scanning_alert_ru01( iv_prefix ).
+    code_scanning_alert-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_alert-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_set_.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_s.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_c.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_e.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis04.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_u.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis.
+    code_scanning_analysis-ref = parse_code_scanning_ref( iv_prefix ).
+    code_scanning_analysis-commit_sha = parse_code_scanning_analysis_c( iv_prefix ).
+    code_scanning_analysis-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
+    code_scanning_analysis-environment = parse_code_scanning_analysis_e( iv_prefix ).
+    code_scanning_analysis-error = mo_json->value_string( iv_prefix && '/error' ).
+    code_scanning_analysis-created_at = parse_code_scanning_analysis04( iv_prefix ).
+    code_scanning_analysis-results_count = mo_json->value_string( iv_prefix && '/results_count' ).
+    code_scanning_analysis-rules_count = mo_json->value_string( iv_prefix && '/rules_count' ).
+    code_scanning_analysis-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_analysis-url = parse_code_scanning_analysis_u( iv_prefix ).
+    code_scanning_analysis-sarif_id = parse_code_scanning_analysis_s( iv_prefix ).
+    code_scanning_analysis-tool = parse_code_scanning_analysis03( iv_prefix ).
+    code_scanning_analysis-deletable = mo_json->value_boolean( iv_prefix && '/deletable' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis05.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_sarifs_rec.
+    code_scanning_sarifs_receipt-id = parse_code_scanning_analysis_s( iv_prefix ).
+    code_scanning_sarifs_receipt-url = mo_json->value_string( iv_prefix && '/url' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_sarifs_sta.
+    code_scanning_sarifs_status-processing_status = mo_json->value_string( iv_prefix && '/processing_status' ).
+    code_scanning_sarifs_status-analyses_url = mo_json->value_string( iv_prefix && '/analyses_url' ).
   ENDMETHOD.
 
   METHOD parse_collaborator.
@@ -4123,26 +4970,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     contributor-name = mo_json->value_string( iv_prefix && '/name' ).
   ENDMETHOD.
 
-  METHOD parse_deployment.
-    deployment-url = mo_json->value_string( iv_prefix && '/url' ).
-    deployment-id = mo_json->value_string( iv_prefix && '/id' ).
-    deployment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    deployment-sha = mo_json->value_string( iv_prefix && '/sha' ).
-    deployment-ref = mo_json->value_string( iv_prefix && '/ref' ).
-    deployment-task = mo_json->value_string( iv_prefix && '/task' ).
-    deployment-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
-    deployment-environment = mo_json->value_string( iv_prefix && '/environment' ).
-    deployment-description = mo_json->value_string( iv_prefix && '/description' ).
-    deployment-creator = mo_json->value_string( iv_prefix && '/creator' ).
-    deployment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    deployment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    deployment-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
-    deployment-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
-    deployment-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
-    deployment-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
-    deployment-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
-  ENDMETHOD.
-
   METHOD parse_deployment_status.
     deployment_status-url = mo_json->value_string( iv_prefix && '/url' ).
     deployment_status-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -4159,6 +4986,27 @@ CLASS zcl_githubae IMPLEMENTATION.
     deployment_status-environment_url = mo_json->value_string( iv_prefix && '/environment_url' ).
     deployment_status-log_url = mo_json->value_string( iv_prefix && '/log_url' ).
     deployment_status-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+  ENDMETHOD.
+
+  METHOD parse_wait_timer.
+* todo, handle type integer
+  ENDMETHOD.
+
+  METHOD parse_deployment_branch_policy.
+    deployment_branch_policy-protected_branches = mo_json->value_boolean( iv_prefix && '/protected_branches' ).
+    deployment_branch_policy-custom_branch_policies = mo_json->value_boolean( iv_prefix && '/custom_branch_policies' ).
+  ENDMETHOD.
+
+  METHOD parse_environment.
+    environment-id = mo_json->value_string( iv_prefix && '/id' ).
+    environment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    environment-name = mo_json->value_string( iv_prefix && '/name' ).
+    environment-url = mo_json->value_string( iv_prefix && '/url' ).
+    environment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    environment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    environment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+* todo, array, protection_rules
+    environment-deployment_branch_policy = parse_deployment_branch_policy( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_short_blob.
@@ -5383,6 +6231,26 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_emojis_get.
   ENDMETHOD.
 
+  METHOD parse_enterprise_admin_list_se.
+* todo, number, total_count
+* todo, array, organizations
+  ENDMETHOD.
+
+  METHOD parse_enterprise_admin_list_01.
+* todo, number, total_count
+* todo, array, runner_groups
+  ENDMETHOD.
+
+  METHOD parse_enterprise_admin_list_02.
+* todo, number, total_count
+* todo, array, runners
+  ENDMETHOD.
+
+  METHOD parse_enterprise_admin_list_03.
+* todo, number, total_count
+* todo, array, runners
+  ENDMETHOD.
+
   METHOD parse_activity_list_public_eve.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -5542,6 +6410,21 @@ CLASS zcl_githubae IMPLEMENTATION.
       organization_simple = parse_organization_simple( iv_prefix && '/' && lv_member ).
       APPEND organization_simple TO response_orgs_list.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_actions_list_selected_re.
+* todo, number, total_count
+* todo, array, repositories
+  ENDMETHOD.
+
+  METHOD parse_actions_list_org_secrets.
+    response_actions_list_org_secr-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, secrets
+  ENDMETHOD.
+
+  METHOD parse_actions_list_selected_01.
+    response_actions_list_select01-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, repositories
   ENDMETHOD.
 
   METHOD parse_activity_list_public_org.
@@ -5858,6 +6741,82 @@ CLASS zcl_githubae IMPLEMENTATION.
     response_repos_delete-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
   ENDMETHOD.
 
+  METHOD parse_actions_list_artifacts_f.
+    response_actions_list_artifact-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, artifacts
+  ENDMETHOD.
+
+  METHOD parse_actions_list_self_hosted.
+    response_actions_list_self_hos-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, runners
+  ENDMETHOD.
+
+  METHOD parse_actions_list_workflow_ru.
+    response_actions_list_workflow-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, workflow_runs
+  ENDMETHOD.
+
+  METHOD parse_actions_get_reviews_for_.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA environment_approvals TYPE zif_githubae=>environment_approvals.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR environment_approvals.
+      environment_approvals = parse_environment_approvals( iv_prefix && '/' && lv_member ).
+      APPEND environment_approvals TO response_actions_get_reviews_f.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_actions_list_workflow_01.
+    response_actions_list_workfl01-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, artifacts
+  ENDMETHOD.
+
+  METHOD parse_actions_list_jobs_for_wo.
+    response_actions_list_jobs_for-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, jobs
+  ENDMETHOD.
+
+  METHOD parse_actions_get_pending_depl.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA pending_deployment TYPE zif_githubae=>pending_deployment.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR pending_deployment.
+      pending_deployment = parse_pending_deployment( iv_prefix && '/' && lv_member ).
+      APPEND pending_deployment TO response_actions_get_pending_d.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_actions_review_pending_d.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA deployment TYPE zif_githubae=>deployment.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR deployment.
+      deployment = parse_deployment( iv_prefix && '/' && lv_member ).
+      APPEND deployment TO response_actions_review_pendin.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_actions_list_repo_secret.
+    response_actions_list_repo_sec-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, secrets
+  ENDMETHOD.
+
+  METHOD parse_actions_list_repo_workfl.
+    response_actions_list_repo_wor-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, workflows
+  ENDMETHOD.
+
+  METHOD parse_actions_list_workflow_02.
+    response_actions_list_workfl02-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, workflow_runs
+  ENDMETHOD.
+
   METHOD parse_issues_list_assignees.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -6059,6 +7018,42 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, check_runs
   ENDMETHOD.
 
+  METHOD parse_code_scanning_list_alert.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA code_scanning_alert_items TYPE zif_githubae=>code_scanning_alert_items.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR code_scanning_alert_items.
+      code_scanning_alert_items = parse_code_scanning_alert_item( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_alert_items TO response_code_scanning_list_al.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_list_ale01.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA code_scanning_alert_instance TYPE zif_githubae=>code_scanning_alert_instance.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR code_scanning_alert_instance.
+      code_scanning_alert_instance = parse_code_scanning_alert_inst( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_alert_instance TO response_code_scanning_list_01.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_list_recen.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA code_scanning_analysis TYPE zif_githubae=>code_scanning_analysis.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR code_scanning_analysis.
+      code_scanning_analysis = parse_code_scanning_analysis( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_analysis TO response_code_scanning_list_re.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_repos_list_collaborators.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -6208,6 +7203,11 @@ CLASS zcl_githubae IMPLEMENTATION.
       deployment_status = parse_deployment_status( iv_prefix && '/' && lv_member ).
       APPEND deployment_status TO response_repos_list_deployme01.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_repos_get_all_environmen.
+    response_repos_get_all_environ-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, environments
   ENDMETHOD.
 
   METHOD parse_activity_list_repo_event.
@@ -6749,6 +7749,11 @@ CLASS zcl_githubae IMPLEMENTATION.
       minimal_repository = parse_minimal_repository( iv_prefix && '/' && lv_member ).
       APPEND minimal_repository TO response_repos_list_public.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_actions_list_environment.
+    response_actions_list_environm-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, secrets
   ENDMETHOD.
 
   METHOD parse_search_code.
@@ -7303,6 +8308,54 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_enterprise_admin_set_gith.
+    json = json && '{'.
+*  json = json && '"enabled_organizations":' not simple
+*  json = json && '"allowed_actions":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_sele.
+    json = json && '{'.
+*  json = json && '"selected_organization_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_create_s.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_organization_ids":' not simple
+*  json = json && '"runners":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_s.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete_s.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_self.
+    json = json && '{'.
+*  json = json && '"runners":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_gists_create.
     json = json && '{'.
     json = json && |"description": "{ data-description }",|.
@@ -7449,6 +8502,74 @@ CLASS zcl_githubae IMPLEMENTATION.
       json = json && |"members_can_create_private_pages": false,|.
     ENDIF.
     json = json && |"blog": "{ data-blog }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_set_github_action.
+    json = json && '{'.
+*  json = json && '"enabled_repositories":' not simple
+*  json = json && '"allowed_actions":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_set_selected_repo.
+    json = json && '{'.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_create_self_hoste.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_repository_ids":' not simple
+*  json = json && '"runners":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_update_self_hoste.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_delete_self_hoste.
+    json = json && '{'.
+    json = json && |"name": "{ data-name }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_create_or_update_.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_delete_org_secret.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_set_selected_re01.
+    json = json && '{'.
+*  json = json && '"selected_repository_ids":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -7967,6 +9088,47 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_actions_set_github_acti01.
+    json = json && '{'.
+*  json = json && '"enabled":' not simple
+*  json = json && '"allowed_actions":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_review_pending_de.
+    json = json && '{'.
+*  json = json && '"environment_ids":' not simple
+    json = json && |"state": "{ data-state }",|.
+    json = json && |"comment": "{ data-comment }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_create_or_updat01.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_delete_repo_secre.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_create_workflow_d.
+    json = json && '{'.
+    json = json && |"ref": "{ data-ref }",|.
+*  json = json && '"inputs":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_repos_update_branch_prote.
     json = json && '{'.
 *  json = json && '"required_status_checks":' not simple
@@ -8218,6 +9380,26 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_code_scanning_update_aler.
+    json = json && '{'.
+*  json = json && '"state":' not simple
+*  json = json && '"dismissed_reason":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_code_scanning_upload_sari.
+    json = json && '{'.
+*  json = json && '"commit_sha":' not simple
+*  json = json && '"ref":' not simple
+*  json = json && '"sarif":' not simple
+    json = json && |"checkout_uri": "{ data-checkout_uri }",|.
+    json = json && |"started_at": "{ data-started_at }",|.
+    json = json && |"tool_name": "{ data-tool_name }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_repos_add_collaborator.
     json = json && '{'.
     json = json && |"permission": "{ data-permission }",|.
@@ -8333,6 +9515,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-auto_inactive = abap_false.
       json = json && |"auto_inactive": false,|.
     ENDIF.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_create_or_update_en.
+    json = json && '{'.
+*  json = json && '"wait_timer":' not simple
+*  json = json && '"reviewers":' not simple
+*  json = json && '"deployment_branch_policy":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_delete_an_environme.
+    json = json && '{'.
+*  json = json && '"wait_timer":' not simple
+*  json = json && '"reviewers":' not simple
+*  json = json && '"deployment_branch_policy":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9032,6 +10232,22 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_create_or_updat02.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_delete_environmen.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9917,6 +11133,352 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_enterprise_overview( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubae~enterprise_admin_get_github_ac.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_enterprise_permi( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_set_github_ac.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_gith( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_list_selected.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/organizations'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_admin_list_se( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_set_selected_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/organizations'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_sele( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_enable_select.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = org_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_disable_selec.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = org_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_get_allowed_a.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_selected_actions( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_set_allowed_a.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+* todo, set body, #/components/schemas/selected-actions
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_list_self_hos.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_admin_list_01( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_create_self_h.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_create_s( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_get_self_host.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_update_self_h.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_s( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_enterprise( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_delete_self_h.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete_s( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_list_self_h01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_admin_list_02( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_set_self_host.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_self( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_add_self_host.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_remove_self_h.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_list_self_h02.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_admin_list_03( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_get_self_ho01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_delete_self01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprises/{enterprise}/actions/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
   METHOD zif_githubae~activity_list_public_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -10684,6 +12246,336 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_organization_full( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_github_actions_per.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_organization_per( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_github_actions_per.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_github_action( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_selected_reposito.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/repositories'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_selected_re( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_selected_repositor.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/repositories'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_selected_repo( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_enable_selected_reposi.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/repositories/{repository_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_disable_selected_repos.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/repositories/{repository_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_allowed_actions_or.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_selected_actions( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_allowed_actions_or.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+* todo, set body, #/components/schemas/selected-actions
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_self_hosted_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_self_hoste( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_org( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_update_self_hosted_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_update_self_hoste( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_runner_groups_org( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_self_hosted_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = runner_group_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_self_hoste( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_self_hosted_r01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_org_secrets.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_org_secrets( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_org_public_key.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/public-key'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_public_key( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_org_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_organization_actions_sec( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_or_update_org_s.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_or_update_( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_org_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_org_secret( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_selected_repos_fo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_selected_01( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_selected_repos_for.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_selected_re01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_add_selected_repo_to_o.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_remove_selected_repo_f.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~activity_list_public_org_event.
@@ -12299,6 +14191,701 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
+  METHOD zif_githubae~actions_list_artifacts_for_rep.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_artifacts_f( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_artifact.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = artifact_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_artifact( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_artifact.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = artifact_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_download_artifact.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}'.
+    REPLACE ALL OCCURRENCES OF '{archive_format}' IN lv_uri WITH archive_format.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = artifact_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_job_for_workflow_r.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/jobs/{job_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = job_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_download_job_logs_for_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/jobs/{job_id}/logs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = job_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_github_actions_p01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_repository_permi( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_github_actions_p01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/permissions'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_github_acti01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_allowed_actions_re.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_selected_actions( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_set_allowed_actions_re.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/permissions/selected-actions'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+* todo, set body, #/components/schemas/selected-actions
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_self_hosted_runne.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_self_hosted( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_self_hosted_r02.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runners/{runner_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = runner_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_workflow_runs_for.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF actor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'actor' value = actor ).
+    ENDIF.
+    IF branch IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'branch' value = branch ).
+    ENDIF.
+    IF event IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'event' value = event ).
+    ENDIF.
+    IF status IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'status' value = status ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_workflow_ru( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_workflow_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow_run( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_workflow_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_reviews_for_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/approvals'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_get_reviews_for_( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_workflow_run_arti.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_workflow_01( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_cancel_workflow_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/cancel'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_jobs_for_workflow.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/jobs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    IF filter IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'filter' value = filter ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_jobs_for_wo( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_download_workflow_run_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_workflow_run_lo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_pending_deployment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_get_pending_depl( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_review_pending_deploym.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_review_pending_de( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_review_pending_d( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_re_run_workflow.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/rerun'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_workflow_run_usage.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/runs/{run_id}/timing'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow_run_usage( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_repo_secrets.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_repo_secret( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_repo_public_key.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/public-key'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_public_key( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_repo_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_secret( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_or_update_repo_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_or_updat01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_repo_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_repo_secre( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_repo_workflows.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_repo_workfl( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_workflow.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_disable_workflow.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_workflow_dispat.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_workflow_d( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_enable_workflow.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_workflow_runs.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    IF actor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'actor' value = actor ).
+    ENDIF.
+    IF branch IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'branch' value = branch ).
+    ENDIF.
+    IF event IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'event' value = event ).
+    ENDIF.
+    IF status IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'status' value = status ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_workflow_02( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_workflow_usage.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow_usage( '' ).
+  ENDMETHOD.
+
   METHOD zif_githubae~issues_list_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -13072,6 +15659,184 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
+  METHOD zif_githubae~code_scanning_list_alerts_for_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF state IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'state' value = state ).
+    ENDIF.
+    IF tool_name IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_name' value = tool_name ).
+    ENDIF.
+    IF tool_guid IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_guid' value = tool_guid ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_list_alert( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_get_alert.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_alert( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_update_alert.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_code_scanning_update_aler( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_alert( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_list_alerts_inst.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_list_ale01( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_list_recent_anal.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/analyses'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    IF sarif_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sarif_id' value = sarif_id ).
+    ENDIF.
+    IF tool_name IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_name' value = tool_name ).
+    ENDIF.
+    IF tool_guid IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'tool_guid' value = tool_guid ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_list_recen( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_get_analysis.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
+    lv_temp = analysis_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{analysis_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_analysis( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_upload_sarif.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/sarifs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_code_scanning_upload_sari( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_get_sarif.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}'.
+    REPLACE ALL OCCURRENCES OF '{sarif_id}' IN lv_uri WITH sarif_id.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_code_scanning_sarifs_sta( '' ).
+  ENDMETHOD.
+
   METHOD zif_githubae~repos_list_collaborators.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -13789,6 +16554,67 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_deployment_status( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_get_all_environments.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/environments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repos_get_all_environmen( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_get_environment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/environments/{environment_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_environment( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_create_or_update_environ.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/environments/{environment_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_or_update_en( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_environment( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_delete_an_environment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/environments/{environment_name}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_an_environme( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~activity_list_repo_events.
@@ -16760,6 +19586,101 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_repos_list_public( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_environment_secre.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories/{repository_id}/environments/{environment_name}/secrets'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_list_environment( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_environment_public.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories/{repository_id}/environments/{environment_name}/secrets/public-key'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_public_key( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_environment_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_secret( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_or_update_envir.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_create_or_updat02( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_delete_environment_sec.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    lv_temp = repository_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH environment_name.
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_delete_environmen( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~search_code.
