@@ -3703,6 +3703,31 @@ INTERFACE zif_githubae PUBLIC.
            names TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF topic.
 
+* Component schema: scim-group-list-enterprise, object
+  TYPES: BEGIN OF scim_group_list_enterprise,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           totalresults TYPE f,
+           itemsperpage TYPE f,
+           startindex TYPE f,
+           resources TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF scim_group_list_enterprise.
+
+* Component schema: scim-enterprise-group, object
+  TYPES: BEGIN OF subscim_enterprise_group_meta,
+           resourcetype TYPE string,
+           created TYPE string,
+           lastmodified TYPE string,
+           location TYPE string,
+         END OF subscim_enterprise_group_meta.
+  TYPES: BEGIN OF scim_enterprise_group,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           id TYPE string,
+           externalid TYPE string,
+           displayname TYPE string,
+           members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           meta TYPE subscim_enterprise_group_meta,
+         END OF scim_enterprise_group.
+
 * Component schema: search-result-text-matches, array
   TYPES search_result_text_matches TYPE string. " array  todo
 
@@ -5599,6 +5624,32 @@ INTERFACE zif_githubae PUBLIC.
            key_id TYPE string,
          END OF bodyactions_delete_environment.
 
+* Component schema: bodyenterprise_admin_provision, object
+  TYPES: BEGIN OF bodyenterprise_admin_provision,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           displayname TYPE string,
+           members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_provision.
+
+* Component schema: bodyenterprise_admin_set_infor, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_infor,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           displayname TYPE string,
+           members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_set_infor.
+
+* Component schema: bodyenterprise_admin_update_at, object
+  TYPES: BEGIN OF bodyenterprise_admin_update_at,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           operations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_update_at.
+
+* Component schema: bodyenterprise_admin_delete_sc, object
+  TYPES: BEGIN OF bodyenterprise_admin_delete_sc,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           operations TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_delete_sc.
+
 * Component schema: bodyusers_update_authenticated, object
   TYPES: BEGIN OF bodyusers_update_authenticated,
            name TYPE string,
@@ -6593,14 +6644,20 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "List public keys"
 * Operation id: enterprise-admin/list-public-keys
+* Parameter: sort, optional, query
+* Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_public_k
   METHODS enterprise_admin_list_public_k
     IMPORTING
+      sort TYPE string DEFAULT 'created'
+      since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li01
     RAISING cx_static_check.
@@ -6640,14 +6697,18 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "List pre-receive environments"
 * Operation id: enterprise-admin/list-pre-receive-environments
+* Parameter: sort, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_pre_rece
   METHODS enterprise_admin_list_pre_rece
     IMPORTING
+      sort TYPE string DEFAULT 'created'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li02
     RAISING cx_static_check.
@@ -7815,6 +7876,7 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: licenses/get-all-commonly-used
 * Parameter: featured, optional, query
 * Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_licenses_get_all_commonly_used
 * Response: 304
@@ -7822,6 +7884,7 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       featured TYPE abap_bool OPTIONAL
       per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_licenses_get_all_comm
     RAISING cx_static_check.
@@ -8282,12 +8345,16 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: actions/list-selected-repos-for-org-secret
 * Parameter: org, required, path
 * Parameter: secret_name, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_actions_list_selected_repos_fo
   METHODS actions_list_selected_repos_fo
     IMPORTING
       org TYPE string
       secret_name TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE response_actions_list_select01
     RAISING cx_static_check.
@@ -8876,6 +8943,7 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "List discussions"
 * Operation id: teams/list-discussions-in-org
+* Parameter: pinned, optional, query
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: direction, optional, query
@@ -8885,6 +8953,7 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_teams_list_discussions_in_org
   METHODS teams_list_discussions_in_org
     IMPORTING
+      pinned TYPE string OPTIONAL
       org TYPE string
       team_slug TYPE string
       direction TYPE string DEFAULT 'desc'
@@ -11614,6 +11683,8 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: path, optional, query
 * Parameter: author, optional, query
 * Parameter: until, optional, query
+* Parameter: top, optional, query
+* Parameter: last_sha, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: since, optional, query
@@ -11631,6 +11702,8 @@ INTERFACE zif_githubae PUBLIC.
       path TYPE string OPTIONAL
       author TYPE string OPTIONAL
       until TYPE string OPTIONAL
+      top TYPE string OPTIONAL
+      last_sha TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       since TYPE string OPTIONAL
@@ -11724,6 +11797,8 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/commit
 * Response: 404
@@ -11734,6 +11809,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit
     RAISING cx_static_check.
@@ -11742,6 +11819,7 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: checks/list-for-ref
 * Parameter: ref, required, path
 * Parameter: filter, optional, query
+* Parameter: app_id, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_name, optional, query
@@ -11754,6 +11832,7 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       ref TYPE string
       filter TYPE string DEFAULT 'latest'
+      app_id TYPE i OPTIONAL
       owner TYPE string
       repo TYPE string
       check_name TYPE string OPTIONAL
@@ -11793,6 +11872,8 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/combined-commit-status
 * Response: 404
@@ -11801,6 +11882,8 @@ INTERFACE zif_githubae PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE combined_commit_status
     RAISING cx_static_check.
@@ -12159,6 +12242,8 @@ INTERFACE zif_githubae PUBLIC.
 * GET - "List forks"
 * Operation id: repos/list-forks
 * Parameter: sort, optional, query
+* Parameter: org, optional, query
+* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
@@ -12169,6 +12254,8 @@ INTERFACE zif_githubae PUBLIC.
   METHODS repos_list_forks
     IMPORTING
       sort TYPE string DEFAULT 'newest'
+      org TYPE string OPTIONAL
+      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
@@ -12179,6 +12266,8 @@ INTERFACE zif_githubae PUBLIC.
 
 * POST - "Create a fork"
 * Operation id: repos/create-fork
+* Parameter: org, optional, query
+* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
@@ -12190,6 +12279,8 @@ INTERFACE zif_githubae PUBLIC.
 * Body ref: #/components/schemas/bodyrepos_create_fork
   METHODS repos_create_fork
     IMPORTING
+      org TYPE string OPTIONAL
+      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_fork
@@ -13828,10 +13919,10 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "List review comments in a repository"
 * Operation id: pulls/list-review-comments-for-repo
+* Parameter: sort, optional, query
 * Parameter: direction, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
-* Parameter: sort, optional, query
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
@@ -13839,10 +13930,10 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_pulls_list_review_comments_for
   METHODS pulls_list_review_comments_for
     IMPORTING
+      sort TYPE string OPTIONAL
       direction TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
-      sort TYPE string DEFAULT 'created'
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
@@ -14412,6 +14503,26 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
 
+* GET - "Get a repository README"
+* Operation id: repos/get-readme-from-alt-path
+* Parameter: dir, required, path
+* Parameter: ref, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-file
+* Response: 404
+* Response: 422
+  METHODS repos_get_readme_from_alt_path
+    IMPORTING
+      dir TYPE string
+      ref TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE content_file
+    RAISING cx_static_check.
+
 * GET - "List releases"
 * Operation id: repos/list-releases
 * Parameter: owner, required, path
@@ -14846,6 +14957,8 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: repos/get-all-topics
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/topic
 * Response: 404
@@ -14854,6 +14967,8 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE topic
     RAISING cx_static_check.
@@ -15033,6 +15148,101 @@ INTERFACE zif_githubae PUBLIC.
       environment_name TYPE string
       secret_name TYPE string
       body TYPE bodyactions_delete_environment
+    RAISING cx_static_check.
+
+* GET - "List provisioned SCIM groups for an enterprise"
+* Operation id: enterprise-admin/list-provisioned-groups-enterprise
+* Parameter: filter, optional, query
+* Parameter: excludedAttributes, optional, query
+* Parameter: enterprise, required, path
+* Parameter: startIndex, optional, query
+* Parameter: count, optional, query
+* Response: 200
+*     application/json, #/components/schemas/scim-group-list-enterprise
+  METHODS enterprise_admin_list_provisio
+    IMPORTING
+      filter TYPE string OPTIONAL
+      excludedattributes TYPE string OPTIONAL
+      enterprise TYPE string
+      startindex TYPE i OPTIONAL
+      count TYPE i OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE scim_group_list_enterprise
+    RAISING cx_static_check.
+
+* POST - "Provision a SCIM enterprise group and invite users"
+* Operation id: enterprise-admin/provision-and-invite-enterprise-group
+* Parameter: enterprise, required, path
+* Response: 201
+*     application/json, #/components/schemas/scim-enterprise-group
+* Body ref: #/components/schemas/bodyenterprise_admin_provision
+  METHODS enterprise_admin_provision_and
+    IMPORTING
+      enterprise TYPE string
+      body TYPE bodyenterprise_admin_provision
+    RETURNING
+      VALUE(return_data) TYPE scim_enterprise_group
+    RAISING cx_static_check.
+
+* GET - "Get SCIM provisioning information for an enterprise group"
+* Operation id: enterprise-admin/get-provisioning-information-for-enterprise-group
+* Parameter: excludedAttributes, optional, query
+* Parameter: enterprise, required, path
+* Parameter: scim_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/scim-enterprise-group
+  METHODS enterprise_admin_get_provision
+    IMPORTING
+      excludedattributes TYPE string OPTIONAL
+      enterprise TYPE string
+      scim_group_id TYPE string
+    RETURNING
+      VALUE(return_data) TYPE scim_enterprise_group
+    RAISING cx_static_check.
+
+* PUT - "Set SCIM information for a provisioned enterprise group"
+* Operation id: enterprise-admin/set-information-for-provisioned-enterprise-group
+* Parameter: enterprise, required, path
+* Parameter: scim_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/scim-enterprise-group
+* Body ref: #/components/schemas/bodyenterprise_admin_set_infor
+  METHODS enterprise_admin_set_informati
+    IMPORTING
+      enterprise TYPE string
+      scim_group_id TYPE string
+      body TYPE bodyenterprise_admin_set_infor
+    RETURNING
+      VALUE(return_data) TYPE scim_enterprise_group
+    RAISING cx_static_check.
+
+* PATCH - "Update an attribute for a SCIM enterprise group"
+* Operation id: enterprise-admin/update-attribute-for-enterprise-group
+* Parameter: enterprise, required, path
+* Parameter: scim_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/scim-enterprise-group
+* Body ref: #/components/schemas/bodyenterprise_admin_update_at
+  METHODS enterprise_admin_update_attrib
+    IMPORTING
+      enterprise TYPE string
+      scim_group_id TYPE string
+      body TYPE bodyenterprise_admin_update_at
+    RETURNING
+      VALUE(return_data) TYPE scim_enterprise_group
+    RAISING cx_static_check.
+
+* DELETE - "Delete a SCIM group from an enterprise"
+* Operation id: enterprise-admin/delete-scim-group-from-enterprise
+* Parameter: enterprise, required, path
+* Parameter: scim_group_id, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyenterprise_admin_delete_sc
+  METHODS enterprise_admin_delete_scim_g
+    IMPORTING
+      enterprise TYPE string
+      scim_group_id TYPE string
+      body TYPE bodyenterprise_admin_delete_sc
     RAISING cx_static_check.
 
 * GET - "Search code"

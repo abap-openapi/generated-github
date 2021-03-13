@@ -856,6 +856,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(topic) TYPE zif_githubae=>topic
       RAISING cx_static_check.
+    METHODS parse_scim_group_list_enterpri
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(scim_group_list_enterprise) TYPE zif_githubae=>scim_group_list_enterprise
+      RAISING cx_static_check.
+    METHODS parse_scim_enterprise_group
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(scim_enterprise_group) TYPE zif_githubae=>scim_enterprise_group
+      RAISING cx_static_check.
     METHODS parse_search_result_text_match
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(search_result_text_matches) TYPE zif_githubae=>search_result_text_matches
@@ -1686,6 +1694,22 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_actions_delete_environmen
       IMPORTING data TYPE zif_githubae=>bodyactions_delete_environment
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_provisio
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_provision
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_info
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_set_infor
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_update_a
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_update_at
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_delete01
+      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_delete_sc
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_users_update_authenticate
@@ -5724,6 +5748,26 @@ CLASS zcl_githubae IMPLEMENTATION.
 
   METHOD parse_topic.
 * todo, array, names
+  ENDMETHOD.
+
+  METHOD parse_scim_group_list_enterpri.
+* todo, array, schemas
+* todo, number, totalresults
+* todo, number, itemsperpage
+* todo, number, startindex
+* todo, array, resources
+  ENDMETHOD.
+
+  METHOD parse_scim_enterprise_group.
+* todo, array, schemas
+    scim_enterprise_group-id = mo_json->value_string( iv_prefix && '/id' ).
+    scim_enterprise_group-externalid = mo_json->value_string( iv_prefix && '/externalId' ).
+    scim_enterprise_group-displayname = mo_json->value_string( iv_prefix && '/displayName' ).
+* todo, array, members
+    scim_enterprise_group-meta-resourcetype = mo_json->value_string( iv_prefix && '/meta/resourceType' ).
+    scim_enterprise_group-meta-created = mo_json->value_string( iv_prefix && '/meta/created' ).
+    scim_enterprise_group-meta-lastmodified = mo_json->value_string( iv_prefix && '/meta/lastModified' ).
+    scim_enterprise_group-meta-location = mo_json->value_string( iv_prefix && '/meta/location' ).
   ENDMETHOD.
 
   METHOD parse_search_result_text_match.
@@ -10252,6 +10296,40 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_enterprise_admin_provisio.
+    json = json && '{'.
+*  json = json && '"schemas":' not simple
+    json = json && |"displayName": "{ data-displayname }",|.
+*  json = json && '"members":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_info.
+    json = json && '{'.
+*  json = json && '"schemas":' not simple
+    json = json && |"displayName": "{ data-displayname }",|.
+*  json = json && '"members":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_update_a.
+    json = json && '{'.
+*  json = json && '"schemas":' not simple
+*  json = json && '"Operations":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_delete01.
+    json = json && '{'.
+*  json = json && '"schemas":' not simple
+*  json = json && '"Operations":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_users_update_authenticate.
     json = json && '{'.
     json = json && |"name": "{ data-name }",|.
@@ -10496,6 +10574,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys'.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
+    IF since IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'since' value = since ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10505,6 +10589,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10558,6 +10645,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10567,6 +10657,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11974,6 +12067,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -12521,6 +12619,16 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13207,6 +13315,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    IF pinned IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'pinned' value = pinned ).
+    ENDIF.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
@@ -16089,6 +16200,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF until IS SUPPLIED.
       mi_client->request->set_form_field( name = 'until' value = until ).
     ENDIF.
+    IF top IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'top' value = top ).
+    ENDIF.
+    IF last_sha IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'last_sha' value = last_sha ).
+    ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -16198,6 +16315,16 @@ CLASS zcl_githubae IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16215,6 +16342,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
+    ENDIF.
+    lv_temp = app_id.
+    CONDENSE lv_temp.
+    IF app_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'app_id' value = lv_temp ).
     ENDIF.
     IF check_name IS SUPPLIED.
       mi_client->request->set_form_field( name = 'check_name' value = check_name ).
@@ -16280,6 +16412,16 @@ CLASS zcl_githubae IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16650,6 +16792,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
+    IF org IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'org' value = org ).
+    ENDIF.
+    IF organization IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'organization' value = organization ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -16674,6 +16822,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF org IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'org' value = org ).
+    ENDIF.
+    IF organization IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'organization' value = organization ).
+    ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_fork( body ) ).
@@ -18380,11 +18534,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    IF direction IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'direction' value = direction ).
-    ENDIF.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -19004,6 +19158,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_content_file( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubae~repos_get_readme_from_alt_path.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme/{dir}'.
+    REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH dir.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_file( '' ).
+  ENDMETHOD.
+
   METHOD zif_githubae~repos_list_releases.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19475,6 +19647,16 @@ CLASS zcl_githubae IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -19677,6 +19859,111 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_delete_environmen( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_list_provisio.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    IF filter IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'filter' value = filter ).
+    ENDIF.
+    IF excludedattributes IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'excludedAttributes' value = excludedattributes ).
+    ENDIF.
+    lv_temp = startindex.
+    CONDENSE lv_temp.
+    IF startindex IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'startIndex' value = lv_temp ).
+    ENDIF.
+    lv_temp = count.
+    CONDENSE lv_temp.
+    IF count IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'count' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_scim_group_list_enterpri( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_provision_and.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_provisio( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_scim_enterprise_group( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_get_provision.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    REPLACE ALL OCCURRENCES OF '{scim_group_id}' IN lv_uri WITH scim_group_id.
+    IF excludedattributes IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'excludedAttributes' value = excludedattributes ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_scim_enterprise_group( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_set_informati.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    REPLACE ALL OCCURRENCES OF '{scim_group_id}' IN lv_uri WITH scim_group_id.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_info( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_scim_enterprise_group( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_update_attrib.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    REPLACE ALL OCCURRENCES OF '{scim_group_id}' IN lv_uri WITH scim_group_id.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_update_a( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_scim_enterprise_group( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_delete_scim_g.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    REPLACE ALL OCCURRENCES OF '{scim_group_id}' IN lv_uri WITH scim_group_id.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_delete01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).

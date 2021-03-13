@@ -10748,6 +10748,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys'.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
+    IF since IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'since' value = since ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10757,6 +10763,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10868,6 +10877,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10877,6 +10889,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10980,6 +10995,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10989,6 +11007,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12278,6 +12299,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     IF per_page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
     ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -12647,6 +12673,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     lv_temp = runner_group_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -12971,6 +13007,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13391,6 +13437,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13400,6 +13449,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13697,6 +13749,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    IF pinned IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'pinned' value = pinned ).
+    ENDIF.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
@@ -16406,6 +16461,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     IF until IS SUPPLIED.
       mi_client->request->set_form_field( name = 'until' value = until ).
     ENDIF.
+    IF top IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'top' value = top ).
+    ENDIF.
+    IF last_sha IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'last_sha' value = last_sha ).
+    ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -16515,6 +16576,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16532,6 +16603,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
+    ENDIF.
+    lv_temp = app_id.
+    CONDENSE lv_temp.
+    IF app_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'app_id' value = lv_temp ).
     ENDIF.
     IF check_name IS SUPPLIED.
       mi_client->request->set_form_field( name = 'check_name' value = check_name ).
@@ -16597,6 +16673,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16921,6 +17007,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
+    IF org IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'org' value = org ).
+    ENDIF.
+    IF organization IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'organization' value = organization ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -16945,6 +17037,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF org IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'org' value = org ).
+    ENDIF.
+    IF organization IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'organization' value = organization ).
+    ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_fork( body ) ).
@@ -18520,6 +18618,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18529,6 +18630,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18693,11 +18797,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    IF direction IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'direction' value = direction ).
-    ENDIF.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -19317,6 +19421,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     return_data = parse_content_file( '' ).
   ENDMETHOD.
 
+  METHOD zif_ghes222~repos_get_readme_from_alt_path.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme/{dir}'.
+    REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH dir.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_file( '' ).
+  ENDMETHOD.
+
   METHOD zif_ghes222~repos_list_releases.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19788,6 +19910,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).

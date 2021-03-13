@@ -6138,14 +6138,20 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List public keys"
 * Operation id: enterprise-admin/list-public-keys
+* Parameter: sort, optional, query
+* Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_public_k
   METHODS enterprise_admin_list_public_k
     IMPORTING
+      sort TYPE string DEFAULT 'created'
+      since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li01
     RAISING cx_static_check.
@@ -6237,14 +6243,18 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List pre-receive environments"
 * Operation id: enterprise-admin/list-pre-receive-environments
+* Parameter: sort, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_pre_rece
   METHODS enterprise_admin_list_pre_rece
     IMPORTING
+      sort TYPE string DEFAULT 'created'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li02
     RAISING cx_static_check.
@@ -6328,14 +6338,18 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List pre-receive hooks"
 * Operation id: enterprise-admin/list-pre-receive-hooks
+* Parameter: sort, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_pre_re01
   METHODS enterprise_admin_list_pre_re01
     IMPORTING
+      sort TYPE string DEFAULT 'created'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li03
     RAISING cx_static_check.
@@ -7120,6 +7134,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: licenses/get-all-commonly-used
 * Parameter: featured, optional, query
 * Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_licenses_get_all_commonly_used
 * Response: 304
@@ -7127,6 +7142,7 @@ INTERFACE zif_ghes218 PUBLIC.
     IMPORTING
       featured TYPE abap_bool OPTIONAL
       per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_licenses_get_all_comm
     RAISING cx_static_check.
@@ -7660,16 +7676,20 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List pre-receive hooks for an organization"
 * Operation id: enterprise-admin/list-pre-receive-hooks-for-org
+* Parameter: sort, optional, query
 * Parameter: org, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_pre_re02
   METHODS enterprise_admin_list_pre_re02
     IMPORTING
+      sort TYPE string DEFAULT 'created'
       org TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li05
     RAISING cx_static_check.
@@ -9265,6 +9285,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * Parameter: path, optional, query
 * Parameter: author, optional, query
 * Parameter: until, optional, query
+* Parameter: top, optional, query
+* Parameter: last_sha, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: since, optional, query
@@ -9282,6 +9304,8 @@ INTERFACE zif_ghes218 PUBLIC.
       path TYPE string OPTIONAL
       author TYPE string OPTIONAL
       until TYPE string OPTIONAL
+      top TYPE string OPTIONAL
+      last_sha TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       since TYPE string OPTIONAL
@@ -9375,6 +9399,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/commit
 * Response: 404
@@ -9385,6 +9411,8 @@ INTERFACE zif_ghes218 PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit
     RAISING cx_static_check.
@@ -9393,6 +9421,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: checks/list-for-ref
 * Parameter: ref, required, path
 * Parameter: filter, optional, query
+* Parameter: app_id, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: check_name, optional, query
@@ -9405,6 +9434,7 @@ INTERFACE zif_ghes218 PUBLIC.
     IMPORTING
       ref TYPE string
       filter TYPE string DEFAULT 'latest'
+      app_id TYPE i OPTIONAL
       owner TYPE string
       repo TYPE string
       check_name TYPE string OPTIONAL
@@ -9444,6 +9474,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * Parameter: ref, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/combined-commit-status
 * Response: 404
@@ -9452,6 +9484,8 @@ INTERFACE zif_ghes218 PUBLIC.
       ref TYPE string
       owner TYPE string
       repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE combined_commit_status
     RAISING cx_static_check.
@@ -9730,6 +9764,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * GET - "List forks"
 * Operation id: repos/list-forks
 * Parameter: sort, optional, query
+* Parameter: org, optional, query
+* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
@@ -9740,6 +9776,8 @@ INTERFACE zif_ghes218 PUBLIC.
   METHODS repos_list_forks
     IMPORTING
       sort TYPE string DEFAULT 'newest'
+      org TYPE string OPTIONAL
+      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
@@ -9750,6 +9788,8 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * POST - "Create a fork"
 * Operation id: repos/create-fork
+* Parameter: org, optional, query
+* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
@@ -9761,6 +9801,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * Body ref: #/components/schemas/bodyrepos_create_fork
   METHODS repos_create_fork
     IMPORTING
+      org TYPE string OPTIONAL
+      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_fork
@@ -11204,18 +11246,22 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List pre-receive hooks for a repository"
 * Operation id: enterprise-admin/list-pre-receive-hooks-for-repo
+* Parameter: sort, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_list_pre_re03
   METHODS enterprise_admin_list_pre_re03
     IMPORTING
+      sort TYPE string DEFAULT 'created'
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_li06
     RAISING cx_static_check.
@@ -11368,10 +11414,10 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * GET - "List review comments in a repository"
 * Operation id: pulls/list-review-comments-for-repo
+* Parameter: sort, optional, query
 * Parameter: direction, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
-* Parameter: sort, optional, query
 * Parameter: since, optional, query
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
@@ -11379,10 +11425,10 @@ INTERFACE zif_ghes218 PUBLIC.
 *     application/json, #/components/schemas/response_pulls_list_review_comments_for
   METHODS pulls_list_review_comments_for
     IMPORTING
+      sort TYPE string OPTIONAL
       direction TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
-      sort TYPE string DEFAULT 'created'
       since TYPE string OPTIONAL
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
@@ -11935,6 +11981,26 @@ INTERFACE zif_ghes218 PUBLIC.
       VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
 
+* GET - "Get a repository README"
+* Operation id: repos/get-readme-from-alt-path
+* Parameter: dir, required, path
+* Parameter: ref, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-file
+* Response: 404
+* Response: 422
+  METHODS repos_get_readme_from_alt_path
+    IMPORTING
+      dir TYPE string
+      ref TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE content_file
+    RAISING cx_static_check.
+
 * GET - "List releases"
 * Operation id: repos/list-releases
 * Parameter: owner, required, path
@@ -12369,6 +12435,8 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: repos/get-all-topics
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/topic
 * Response: 404
@@ -12377,6 +12445,8 @@ INTERFACE zif_ghes218 PUBLIC.
     IMPORTING
       owner TYPE string
       repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE topic
     RAISING cx_static_check.
