@@ -1839,58 +1839,6 @@ INTERFACE zif_githubae PUBLIC.
            head_repository_id TYPE i,
          END OF workflow_run.
 
-* Component schema: environment-approvals, object
-  TYPES: BEGIN OF environment_approvals,
-           environments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           state TYPE string,
-           user TYPE simple_user,
-           comment TYPE string,
-         END OF environment_approvals.
-
-* Component schema: deployment-reviewer-type, string
-  TYPES deployment_reviewer_type TYPE string.
-
-* Component schema: pending-deployment, object
-  TYPES: BEGIN OF subpending_deployment_environm,
-           id TYPE i,
-           node_id TYPE string,
-           name TYPE string,
-           url TYPE string,
-           html_url TYPE string,
-         END OF subpending_deployment_environm.
-  TYPES: BEGIN OF pending_deployment,
-           environment TYPE subpending_deployment_environm,
-           wait_timer TYPE i,
-           wait_timer_started_at TYPE string,
-           current_user_can_approve TYPE abap_bool,
-           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF pending_deployment.
-
-* Component schema: deployment, object
-  TYPES: BEGIN OF subdeployment_payload,
-           dummy_workaround TYPE i,
-         END OF subdeployment_payload.
-  TYPES: BEGIN OF deployment,
-           url TYPE string,
-           id TYPE i,
-           node_id TYPE string,
-           sha TYPE string,
-           ref TYPE string,
-           task TYPE string,
-           payload TYPE subdeployment_payload,
-           original_environment TYPE string,
-           environment TYPE string,
-           description TYPE string,
-           creator TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           statuses_url TYPE string,
-           repository_url TYPE string,
-           transient_environment TYPE abap_bool,
-           production_environment TYPE abap_bool,
-           performed_via_github_app TYPE string,
-         END OF deployment.
-
 * Component schema: workflow-run-usage, object
   TYPES: BEGIN OF subsubworkflow_run_usage_bil02,
            total_ms TYPE i,
@@ -2815,6 +2763,31 @@ INTERFACE zif_githubae PUBLIC.
            name TYPE string,
          END OF contributor.
 
+* Component schema: deployment, object
+  TYPES: BEGIN OF subdeployment_payload,
+           dummy_workaround TYPE i,
+         END OF subdeployment_payload.
+  TYPES: BEGIN OF deployment,
+           url TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           sha TYPE string,
+           ref TYPE string,
+           task TYPE string,
+           payload TYPE subdeployment_payload,
+           original_environment TYPE string,
+           environment TYPE string,
+           description TYPE string,
+           creator TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           statuses_url TYPE string,
+           repository_url TYPE string,
+           transient_environment TYPE abap_bool,
+           production_environment TYPE abap_bool,
+           performed_via_github_app TYPE string,
+         END OF deployment.
+
 * Component schema: deployment-status, object
   TYPES: BEGIN OF deployment_status,
            url TYPE string,
@@ -2833,28 +2806,6 @@ INTERFACE zif_githubae PUBLIC.
            log_url TYPE string,
            performed_via_github_app TYPE string,
          END OF deployment_status.
-
-* Component schema: wait-timer, integer
-  TYPES wait_timer TYPE i.
-
-* Component schema: deployment_branch_policy, object
-  TYPES: BEGIN OF deployment_branch_policy,
-           protected_branches TYPE abap_bool,
-           custom_branch_policies TYPE abap_bool,
-         END OF deployment_branch_policy.
-
-* Component schema: environment, object
-  TYPES: BEGIN OF environment,
-           id TYPE i,
-           node_id TYPE string,
-           name TYPE string,
-           url TYPE string,
-           html_url TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           protection_rules TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           deployment_branch_policy TYPE deployment_branch_policy,
-         END OF environment.
 
 * Component schema: short-blob, object
   TYPES: BEGIN OF short_blob,
@@ -3644,6 +3595,7 @@ INTERFACE zif_githubae PUBLIC.
            assets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            body_html TYPE string,
            body_text TYPE string,
+           discussion_url TYPE string,
          END OF release.
 
 * Component schema: stargazer, object
@@ -4216,6 +4168,11 @@ INTERFACE zif_githubae PUBLIC.
            scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyenterprise_admin_delete_im.
 
+* Component schema: bodyapps_create_from_manifest, object
+  TYPES: BEGIN OF bodyapps_create_from_manifest,
+           dummy_workaround TYPE i,
+         END OF bodyapps_create_from_manifest.
+
 * Component schema: bodyapps_update_webhook_config, object
   TYPES: BEGIN OF bodyapps_update_webhook_config,
            url TYPE webhook_config_url,
@@ -4746,13 +4703,6 @@ INTERFACE zif_githubae PUBLIC.
            allowed_actions TYPE allowed_actions,
          END OF bodyactions_set_github_actio01.
 
-* Component schema: bodyactions_review_pending_dep, object
-  TYPES: BEGIN OF bodyactions_review_pending_dep,
-           environment_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           state TYPE string,
-           comment TYPE string,
-         END OF bodyactions_review_pending_dep.
-
 * Component schema: bodyactions_create_or_update_r, object
   TYPES: BEGIN OF bodyactions_create_or_update_r,
            encrypted_value TYPE string,
@@ -4869,66 +4819,6 @@ INTERFACE zif_githubae PUBLIC.
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_remove_status_check_.
-
-* Component schema: bodyrepos_add_status_check_con, object
-  TYPES: BEGIN OF bodyrepos_add_status_check_con,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_status_check_con.
-
-* Component schema: bodyrepos_set_status_check_con, object
-  TYPES: BEGIN OF bodyrepos_set_status_check_con,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_status_check_con.
-
-* Component schema: bodyrepos_remove_status_chec01, object
-  TYPES: BEGIN OF bodyrepos_remove_status_chec01,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_status_chec01.
-
-* Component schema: bodyrepos_add_app_access_restr, object
-  TYPES: BEGIN OF bodyrepos_add_app_access_restr,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_app_access_restr.
-
-* Component schema: bodyrepos_set_app_access_restr, object
-  TYPES: BEGIN OF bodyrepos_set_app_access_restr,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_app_access_restr.
-
-* Component schema: bodyrepos_remove_app_access_re, object
-  TYPES: BEGIN OF bodyrepos_remove_app_access_re,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_app_access_re.
-
-* Component schema: bodyrepos_add_team_access_rest, object
-  TYPES: BEGIN OF bodyrepos_add_team_access_rest,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_team_access_rest.
-
-* Component schema: bodyrepos_set_team_access_rest, object
-  TYPES: BEGIN OF bodyrepos_set_team_access_rest,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_team_access_rest.
-
-* Component schema: bodyrepos_remove_team_access_r, object
-  TYPES: BEGIN OF bodyrepos_remove_team_access_r,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_team_access_r.
-
-* Component schema: bodyrepos_add_user_access_rest, object
-  TYPES: BEGIN OF bodyrepos_add_user_access_rest,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_user_access_rest.
-
-* Component schema: bodyrepos_set_user_access_rest, object
-  TYPES: BEGIN OF bodyrepos_set_user_access_rest,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_user_access_rest.
-
-* Component schema: bodyrepos_remove_user_access_r, object
-  TYPES: BEGIN OF bodyrepos_remove_user_access_r,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_user_access_r.
 
 * Component schema: bodychecks_create, object
   TYPES: BEGIN OF subbodychecks_create_output,
@@ -5093,20 +4983,6 @@ INTERFACE zif_githubae PUBLIC.
            environment_url TYPE string,
            auto_inactive TYPE abap_bool,
          END OF bodyrepos_create_deployment_st.
-
-* Component schema: bodyrepos_create_or_update_env, object
-  TYPES: BEGIN OF bodyrepos_create_or_update_env,
-           wait_timer TYPE wait_timer,
-           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           deployment_branch_policy TYPE deployment_branch_policy,
-         END OF bodyrepos_create_or_update_env.
-
-* Component schema: bodyrepos_delete_an_environmen, object
-  TYPES: BEGIN OF bodyrepos_delete_an_environmen,
-           wait_timer TYPE wait_timer,
-           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           deployment_branch_policy TYPE deployment_branch_policy,
-         END OF bodyrepos_delete_an_environmen.
 
 * Component schema: bodyrepos_create_fork, object
   TYPES: BEGIN OF bodyrepos_create_fork,
@@ -5296,21 +5172,6 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF bodyissues_create_comment,
            body TYPE string,
          END OF bodyissues_create_comment.
-
-* Component schema: bodyissues_add_labels, object
-  TYPES: BEGIN OF bodyissues_add_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_add_labels.
-
-* Component schema: bodyissues_set_labels, object
-  TYPES: BEGIN OF bodyissues_set_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_set_labels.
-
-* Component schema: bodyissues_remove_all_labels, object
-  TYPES: BEGIN OF bodyissues_remove_all_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_remove_all_labels.
 
 * Component schema: bodyissues_lock, object
   TYPES: BEGIN OF bodyissues_lock,
@@ -5612,18 +5473,6 @@ INTERFACE zif_githubae PUBLIC.
            private TYPE abap_bool,
          END OF bodyrepos_create_using_templat.
 
-* Component schema: bodyactions_create_or_update_e, object
-  TYPES: BEGIN OF bodyactions_create_or_update_e,
-           encrypted_value TYPE string,
-           key_id TYPE string,
-         END OF bodyactions_create_or_update_e.
-
-* Component schema: bodyactions_delete_environment, object
-  TYPES: BEGIN OF bodyactions_delete_environment,
-           encrypted_value TYPE string,
-           key_id TYPE string,
-         END OF bodyactions_delete_environment.
-
 * Component schema: bodyenterprise_admin_provision, object
   TYPES: BEGIN OF bodyenterprise_admin_provision,
            schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -5918,12 +5767,6 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_orgs_list_outside_collaborator, array
   TYPES response_orgs_list_outside_col TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
-* Component schema: response_orgs_convert_member_to_outside, object
-  TYPES: BEGIN OF response_orgs_convert_member_t,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_orgs_convert_member_t.
-
 * Component schema: response_orgs_remove_outside_collaborat, object
   TYPES: BEGIN OF response_orgs_remove_outside_c,
            message TYPE string,
@@ -5956,12 +5799,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_teams_list_members_in_org, array
   TYPES response_teams_list_members_in TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
-
-* Component schema: response_teams_add_or_update_membership, object
-  TYPES: BEGIN OF response_teams_add_or_update_m,
-           message TYPE string,
-           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF response_teams_add_or_update_m.
 
 * Component schema: response_teams_list_projects_in_org, array
   TYPES response_teams_list_projects_i TYPE STANDARD TABLE OF team_project WITH DEFAULT KEY.
@@ -6065,9 +5902,6 @@ INTERFACE zif_githubae PUBLIC.
            workflow_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_workflow.
 
-* Component schema: response_actions_get_reviews_for_run, array
-  TYPES response_actions_get_reviews_f TYPE STANDARD TABLE OF environment_approvals WITH DEFAULT KEY.
-
 * Component schema: response_actions_list_workflow_run_arti, object
   TYPES: BEGIN OF response_actions_list_workfl01,
            total_count TYPE i,
@@ -6079,12 +5913,6 @@ INTERFACE zif_githubae PUBLIC.
            total_count TYPE i,
            jobs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_jobs_for.
-
-* Component schema: response_actions_get_pending_deployment, array
-  TYPES response_actions_get_pending_d TYPE STANDARD TABLE OF pending_deployment WITH DEFAULT KEY.
-
-* Component schema: response_actions_review_pending_deploym, array
-  TYPES response_actions_review_pendin TYPE STANDARD TABLE OF deployment WITH DEFAULT KEY.
 
 * Component schema: response_actions_list_repo_secrets, object
   TYPES: BEGIN OF response_actions_list_repo_sec,
@@ -6223,20 +6051,8 @@ INTERFACE zif_githubae PUBLIC.
            message TYPE string,
          END OF response_repos_create_deployme.
 
-* Component schema: response_repos_create_deployment, object
-  TYPES: BEGIN OF response_repos_create_deploy01,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_create_deploy01.
-
 * Component schema: response_repos_list_deployment_statuses, array
   TYPES response_repos_list_deployme01 TYPE STANDARD TABLE OF deployment_status WITH DEFAULT KEY.
-
-* Component schema: response_repos_get_all_environments, object
-  TYPES: BEGIN OF response_repos_get_all_environ,
-           total_count TYPE i,
-           environments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF response_repos_get_all_environ.
 
 * Component schema: response_activity_list_repo_events, array
   TYPES response_activity_list_repo_ev TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
@@ -6294,18 +6110,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_issues_list_labels_for_repo, array
   TYPES response_issues_list_labels_fo TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
-
-* Component schema: response_repos_merge, object
-  TYPES: BEGIN OF response_repos_merge,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_merge.
-
-* Component schema: response_repos_merge, object
-  TYPES: BEGIN OF response_repos_merge01,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_merge01.
 
 * Component schema: response_issues_list_milestones, array
   TYPES response_issues_list_milestone TYPE STANDARD TABLE OF milestone WITH DEFAULT KEY.
@@ -6396,12 +6200,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_public, array
   TYPES response_repos_list_public TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
-
-* Component schema: response_actions_list_environment_secre, object
-  TYPES: BEGIN OF response_actions_list_environm,
-           total_count TYPE i,
-           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF response_actions_list_environm.
 
 * Component schema: response_search_code, object
   TYPES: BEGIN OF response_search_code,
@@ -6863,9 +6661,11 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, string
 * Response: 404
 * Response: 422
+* Body ref: #/components/schemas/bodyapps_create_from_manifest
   METHODS apps_create_from_manifest
     IMPORTING
       code TYPE string
+      body TYPE bodyapps_create_from_manifest
     RAISING cx_static_check.
 
 * GET - "Get a webhook configuration for an app"
@@ -8716,7 +8516,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 202
 * Response: 204
 * Response: 403
-*     application/json, #/components/schemas/response_orgs_convert_member_to_outside
 * Response: 404
   METHODS orgs_convert_member_to_outside
     IMPORTING
@@ -9285,7 +9084,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/team-membership
 * Response: 403
 * Response: 422
-*     application/json, #/components/schemas/response_teams_add_or_update_membership
 * Body ref: #/components/schemas/bodyteams_add_or_update_member
   METHODS teams_add_or_update_membership
     IMPORTING
@@ -10110,22 +9908,6 @@ INTERFACE zif_githubae PUBLIC.
       run_id TYPE i
     RAISING cx_static_check.
 
-* GET - "Get the review history for a workflow run"
-* Operation id: actions/get-reviews-for-run
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: run_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/response_actions_get_reviews_for_run
-  METHODS actions_get_reviews_for_run
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      run_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE response_actions_get_reviews_f
-    RAISING cx_static_check.
-
 * GET - "List workflow run artifacts"
 * Operation id: actions/list-workflow-run-artifacts
 * Parameter: owner, required, path
@@ -10205,40 +9987,6 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       run_id TYPE i
-    RAISING cx_static_check.
-
-* GET - "Get pending deployments for a workflow run"
-* Operation id: actions/get-pending-deployments-for-run
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: run_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/response_actions_get_pending_deployment
-  METHODS actions_get_pending_deployment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      run_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE response_actions_get_pending_d
-    RAISING cx_static_check.
-
-* POST - "Review pending deployments for a workflow run"
-* Operation id: actions/review-pending-deployments-for-run
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: run_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/response_actions_review_pending_deploym
-* Body ref: #/components/schemas/bodyactions_review_pending_dep
-  METHODS actions_review_pending_deploym
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      run_id TYPE i
-      body TYPE bodyactions_review_pending_dep
-    RETURNING
-      VALUE(return_data) TYPE response_actions_review_pendin
     RAISING cx_static_check.
 
 * POST - "Re-run a workflow"
@@ -10818,13 +10566,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_status_check_con
+* Body schema: string
   METHODS repos_add_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_status_check_con
     RETURNING
       VALUE(return_data) TYPE response_repos_add_status_chec
     RAISING cx_static_check.
@@ -10838,13 +10585,12 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_repos_set_status_check_context
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_status_check_con
+* Body schema: string
   METHODS repos_set_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_status_check_con
     RETURNING
       VALUE(return_data) TYPE response_repos_set_status_chec
     RAISING cx_static_check.
@@ -10858,13 +10604,12 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_repos_remove_status_check_cont
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_status_chec01
+* Body schema: string
   METHODS repos_remove_status_check_cont
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_status_chec01
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_status_c
     RAISING cx_static_check.
@@ -10924,13 +10669,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_app_access_restricti
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_app_access_restr
+* Body schema: string
   METHODS repos_add_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_app_access_restr
     RETURNING
       VALUE(return_data) TYPE response_repos_add_app_access_
     RAISING cx_static_check.
@@ -10943,13 +10687,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_app_access_restricti
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_app_access_restr
+* Body schema: string
   METHODS repos_set_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_app_access_restr
     RETURNING
       VALUE(return_data) TYPE response_repos_set_app_access_
     RAISING cx_static_check.
@@ -10962,13 +10705,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_app_access_restri
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_app_access_re
+* Body schema: string
   METHODS repos_remove_app_access_restri
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_app_access_re
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_app_acce
     RAISING cx_static_check.
@@ -10998,13 +10740,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_team_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_team_access_rest
+* Body schema: string
   METHODS repos_add_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_team_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_add_team_access
     RAISING cx_static_check.
@@ -11017,13 +10758,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_team_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_team_access_rest
+* Body schema: string
   METHODS repos_set_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_team_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_set_team_access
     RAISING cx_static_check.
@@ -11036,13 +10776,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_team_access_restr
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_team_access_r
+* Body schema: string
   METHODS repos_remove_team_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_team_access_r
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_team_acc
     RAISING cx_static_check.
@@ -11072,13 +10811,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_user_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_user_access_rest
+* Body schema: string
   METHODS repos_add_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_user_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_add_user_access
     RAISING cx_static_check.
@@ -11091,13 +10829,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_user_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_user_access_rest
+* Body schema: string
   METHODS repos_set_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_user_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_set_user_access
     RAISING cx_static_check.
@@ -11110,13 +10847,12 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_user_access_restr
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_user_access_r
+* Body schema: string
   METHODS repos_remove_user_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_user_access_r
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_user_acc
     RAISING cx_static_check.
@@ -11683,8 +11419,6 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: path, optional, query
 * Parameter: author, optional, query
 * Parameter: until, optional, query
-* Parameter: top, optional, query
-* Parameter: last_sha, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: since, optional, query
@@ -11702,8 +11436,6 @@ INTERFACE zif_githubae PUBLIC.
       path TYPE string OPTIONAL
       author TYPE string OPTIONAL
       until TYPE string OPTIONAL
-      top TYPE string OPTIONAL
-      last_sha TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       since TYPE string OPTIONAL
@@ -11911,20 +11643,22 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "Compare two commits"
 * Operation id: repos/compare-commits
-* Parameter: base, required, path
-* Parameter: head, required, path
+* Parameter: basehead, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/commit-comparison
 * Response: 404
 * Response: 500
   METHODS repos_compare_commits
     IMPORTING
-      base TYPE string
-      head TYPE string
+      basehead TYPE string
       owner TYPE string
       repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit_comparison
     RAISING cx_static_check.
@@ -12052,7 +11786,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 202
 *     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 409
-*     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_create_deployment
   METHODS repos_create_deployment
@@ -12156,71 +11889,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE deployment_status
     RAISING cx_static_check.
 
-* GET - "Get all environments"
-* Operation id: repos/get-all-environments
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 200
-*     application/json, #/components/schemas/response_repos_get_all_environments
-  METHODS repos_get_all_environments
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RETURNING
-      VALUE(return_data) TYPE response_repos_get_all_environ
-    RAISING cx_static_check.
-
-* GET - "Get an environment"
-* Operation id: repos/get-environment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: environment_name, required, path
-* Response: 200
-*     application/json, #/components/schemas/environment
-  METHODS repos_get_environment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      environment_name TYPE string
-    RETURNING
-      VALUE(return_data) TYPE environment
-    RAISING cx_static_check.
-
-* PUT - "Create or update an environment"
-* Operation id: repos/create-or-update-environment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: environment_name, required, path
-* Response: 200
-*     application/json, #/components/schemas/environment
-* Response: 422
-*     application/json, #/components/schemas/basic-error
-* Body ref: #/components/schemas/bodyrepos_create_or_update_env
-  METHODS repos_create_or_update_environ
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      environment_name TYPE string
-      body TYPE bodyrepos_create_or_update_env
-    RETURNING
-      VALUE(return_data) TYPE environment
-    RAISING cx_static_check.
-
-* DELETE - "Delete an environment"
-* Operation id: repos/delete-an-environment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: environment_name, required, path
-* Response: 204
-* Body ref: #/components/schemas/bodyrepos_delete_an_environmen
-  METHODS repos_delete_an_environment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      environment_name TYPE string
-      body TYPE bodyrepos_delete_an_environmen
-    RAISING cx_static_check.
-
 * GET - "List repository events"
 * Operation id: activity/list-repo-events
 * Parameter: owner, required, path
@@ -12242,8 +11910,6 @@ INTERFACE zif_githubae PUBLIC.
 * GET - "List forks"
 * Operation id: repos/list-forks
 * Parameter: sort, optional, query
-* Parameter: org, optional, query
-* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
@@ -12254,8 +11920,6 @@ INTERFACE zif_githubae PUBLIC.
   METHODS repos_list_forks
     IMPORTING
       sort TYPE string DEFAULT 'newest'
-      org TYPE string OPTIONAL
-      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
@@ -12266,8 +11930,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * POST - "Create a fork"
 * Operation id: repos/create-fork
-* Parameter: org, optional, query
-* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
@@ -12279,8 +11941,6 @@ INTERFACE zif_githubae PUBLIC.
 * Body ref: #/components/schemas/bodyrepos_create_fork
   METHODS repos_create_fork
     IMPORTING
-      org TYPE string OPTIONAL
-      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_fork
@@ -13155,13 +12815,12 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_issues_add_labels
 * Response: 410
 * Response: 422
-* Body ref: #/components/schemas/bodyissues_add_labels
+* Body schema: string
   METHODS issues_add_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_add_labels
     RETURNING
       VALUE(return_data) TYPE response_issues_add_labels
     RAISING cx_static_check.
@@ -13175,13 +12834,12 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_issues_set_labels
 * Response: 410
 * Response: 422
-* Body ref: #/components/schemas/bodyissues_set_labels
+* Body schema: string
   METHODS issues_set_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_set_labels
     RETURNING
       VALUE(return_data) TYPE response_issues_set_labels
     RAISING cx_static_check.
@@ -13193,13 +12851,12 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: issue_number, required, path
 * Response: 204
 * Response: 410
-* Body ref: #/components/schemas/bodyissues_remove_all_labels
+* Body schema: string
   METHODS issues_remove_all_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_remove_all_labels
     RAISING cx_static_check.
 
 * DELETE - "Remove a label from an issue"
@@ -13529,9 +13186,7 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/commit
 * Response: 403
 * Response: 404
-*     application/json, #/components/schemas/response_repos_merge
 * Response: 409
-*     application/json, #/components/schemas/response_repos_merge
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_merge
   METHODS repos_merge
@@ -14503,8 +14158,8 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
 
-* GET - "Get a repository README"
-* Operation id: repos/get-readme-from-alt-path
+* GET - "Get a repository README for a directory"
+* Operation id: repos/get-readme-in-directory
 * Parameter: dir, required, path
 * Parameter: ref, optional, query
 * Parameter: owner, required, path
@@ -14513,7 +14168,7 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/content-file
 * Response: 404
 * Response: 422
-  METHODS repos_get_readme_from_alt_path
+  METHODS repos_get_readme_in_directory
     IMPORTING
       dir TYPE string
       ref TYPE string OPTIONAL
@@ -15069,85 +14724,6 @@ INTERFACE zif_githubae PUBLIC.
       since TYPE i OPTIONAL
     RETURNING
       VALUE(return_data) TYPE response_repos_list_public
-    RAISING cx_static_check.
-
-* GET - "List environment secrets"
-* Operation id: actions/list-environment-secrets
-* Parameter: repository_id, required, path
-* Parameter: environment_name, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_actions_list_environment_secre
-  METHODS actions_list_environment_secre
-    IMPORTING
-      repository_id TYPE i
-      environment_name TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_actions_list_environm
-    RAISING cx_static_check.
-
-* GET - "Get an environment public key"
-* Operation id: actions/get-environment-public-key
-* Parameter: repository_id, required, path
-* Parameter: environment_name, required, path
-* Response: 200
-*     application/json, #/components/schemas/actions-public-key
-  METHODS actions_get_environment_public
-    IMPORTING
-      repository_id TYPE i
-      environment_name TYPE string
-    RETURNING
-      VALUE(return_data) TYPE actions_public_key
-    RAISING cx_static_check.
-
-* GET - "Get an environment secret"
-* Operation id: actions/get-environment-secret
-* Parameter: repository_id, required, path
-* Parameter: environment_name, required, path
-* Parameter: secret_name, required, path
-* Response: 200
-*     application/json, #/components/schemas/actions-secret
-  METHODS actions_get_environment_secret
-    IMPORTING
-      repository_id TYPE i
-      environment_name TYPE string
-      secret_name TYPE string
-    RETURNING
-      VALUE(return_data) TYPE actions_secret
-    RAISING cx_static_check.
-
-* PUT - "Create or update an environment secret"
-* Operation id: actions/create-or-update-environment-secret
-* Parameter: repository_id, required, path
-* Parameter: environment_name, required, path
-* Parameter: secret_name, required, path
-* Response: 201
-* Response: 204
-* Body ref: #/components/schemas/bodyactions_create_or_update_e
-  METHODS actions_create_or_update_envir
-    IMPORTING
-      repository_id TYPE i
-      environment_name TYPE string
-      secret_name TYPE string
-      body TYPE bodyactions_create_or_update_e
-    RAISING cx_static_check.
-
-* DELETE - "Delete an environment secret"
-* Operation id: actions/delete-environment-secret
-* Parameter: repository_id, required, path
-* Parameter: environment_name, required, path
-* Parameter: secret_name, required, path
-* Response: 204
-* Body ref: #/components/schemas/bodyactions_delete_environment
-  METHODS actions_delete_environment_sec
-    IMPORTING
-      repository_id TYPE i
-      environment_name TYPE string
-      secret_name TYPE string
-      body TYPE bodyactions_delete_environment
     RAISING cx_static_check.
 
 * GET - "List provisioned SCIM groups for an enterprise"

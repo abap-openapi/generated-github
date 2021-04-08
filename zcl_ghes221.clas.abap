@@ -764,6 +764,10 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       IMPORTING data TYPE zif_ghes221=>bodyenterprise_admin_delete_im
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_apps_create_from_manifest
+      IMPORTING data TYPE zif_ghes221=>bodyapps_create_from_manifest
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_apps_create_installation_
       IMPORTING data TYPE zif_ghes221=>bodyapps_create_installation_a
       RETURNING VALUE(json) TYPE string
@@ -1012,54 +1016,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       IMPORTING data TYPE zif_ghes221=>bodyrepos_remove_status_check_
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
-    METHODS json_repos_add_status_check_co
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_add_status_check_con
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_set_status_check_co
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_set_status_check_con
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_remove_status_che01
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_remove_status_chec01
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_add_app_access_rest
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_add_app_access_restr
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_set_app_access_rest
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_set_app_access_restr
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_remove_app_access_r
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_remove_app_access_re
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_add_team_access_res
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_add_team_access_rest
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_set_team_access_res
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_set_team_access_rest
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_remove_team_access_
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_remove_team_access_r
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_add_user_access_res
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_add_user_access_rest
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_set_user_access_res
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_set_user_access_rest
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_repos_remove_user_access_
-      IMPORTING data TYPE zif_ghes221=>bodyrepos_remove_user_access_r
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
     METHODS json_checks_create
       IMPORTING data TYPE zif_ghes221=>bodychecks_create
       RETURNING VALUE(json) TYPE string
@@ -1202,18 +1158,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_issues_create_comment
       IMPORTING data TYPE zif_ghes221=>bodyissues_create_comment
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_issues_add_labels
-      IMPORTING data TYPE zif_ghes221=>bodyissues_add_labels
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_issues_set_labels
-      IMPORTING data TYPE zif_ghes221=>bodyissues_set_labels
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_issues_remove_all_labels
-      IMPORTING data TYPE zif_ghes221=>bodyissues_remove_all_labels
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_issues_lock
@@ -1604,10 +1548,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_outside_col) TYPE zif_ghes221=>response_orgs_list_outside_col
       RAISING cx_static_check.
-    METHODS parse_orgs_convert_member_to_o
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_orgs_convert_member_t) TYPE zif_ghes221=>response_orgs_convert_member_t
-      RAISING cx_static_check.
     METHODS parse_orgs_remove_outside_coll
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_remove_outside_c) TYPE zif_ghes221=>response_orgs_remove_outside_c
@@ -1651,10 +1591,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
     METHODS parse_teams_list_members_in_or
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_teams_list_members_in) TYPE zif_ghes221=>response_teams_list_members_in
-      RAISING cx_static_check.
-    METHODS parse_teams_add_or_update_memb
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_teams_add_or_update_m) TYPE zif_ghes221=>response_teams_add_or_update_m
       RAISING cx_static_check.
     METHODS parse_teams_list_projects_in_o
       IMPORTING iv_prefix TYPE string
@@ -1852,10 +1788,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_create_deployme) TYPE zif_ghes221=>response_repos_create_deployme
       RAISING cx_static_check.
-    METHODS parse_repos_create_deploymen01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_repos_create_deploy01) TYPE zif_ghes221=>response_repos_create_deploy01
-      RAISING cx_static_check.
     METHODS parse_repos_list_deployment_st
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_deployme01) TYPE zif_ghes221=>response_repos_list_deployme01
@@ -1935,14 +1867,6 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
     METHODS parse_issues_list_labels_for_r
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_issues_list_labels_fo) TYPE zif_ghes221=>response_issues_list_labels_fo
-      RAISING cx_static_check.
-    METHODS parse_repos_merge
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_repos_merge) TYPE zif_ghes221=>response_repos_merge
-      RAISING cx_static_check.
-    METHODS parse_repos_merge01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_repos_merge01) TYPE zif_ghes221=>response_repos_merge01
       RAISING cx_static_check.
     METHODS parse_issues_list_milestones
       IMPORTING iv_prefix TYPE string
@@ -5904,11 +5828,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD parse_orgs_convert_member_to_o.
-    response_orgs_convert_member_t-message = mo_json->value_string( iv_prefix && '/message' ).
-    response_orgs_convert_member_t-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-  ENDMETHOD.
-
   METHOD parse_orgs_remove_outside_coll.
     response_orgs_remove_outside_c-message = mo_json->value_string( iv_prefix && '/message' ).
     response_orgs_remove_outside_c-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
@@ -6032,11 +5951,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
       simple_user = parse_simple_user( iv_prefix && '/' && lv_member ).
       APPEND simple_user TO response_teams_list_members_in.
     ENDLOOP.
-  ENDMETHOD.
-
-  METHOD parse_teams_add_or_update_memb.
-    response_teams_add_or_update_m-message = mo_json->value_string( iv_prefix && '/message' ).
-* todo, array, errors
   ENDMETHOD.
 
   METHOD parse_teams_list_projects_in_o.
@@ -6500,11 +6414,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     response_repos_create_deployme-message = mo_json->value_string( iv_prefix && '/message' ).
   ENDMETHOD.
 
-  METHOD parse_repos_create_deploymen01.
-    response_repos_create_deploy01-message = mo_json->value_string( iv_prefix && '/message' ).
-    response_repos_create_deploy01-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-  ENDMETHOD.
-
   METHOD parse_repos_list_deployment_st.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -6743,16 +6652,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
       label = parse_label( iv_prefix && '/' && lv_member ).
       APPEND label TO response_issues_list_labels_fo.
     ENDLOOP.
-  ENDMETHOD.
-
-  METHOD parse_repos_merge.
-    response_repos_merge-message = mo_json->value_string( iv_prefix && '/message' ).
-    response_repos_merge-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-  ENDMETHOD.
-
-  METHOD parse_repos_merge01.
-    response_repos_merge01-message = mo_json->value_string( iv_prefix && '/message' ).
-    response_repos_merge01-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
   ENDMETHOD.
 
   METHOD parse_issues_list_milestones.
@@ -7709,6 +7608,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_apps_create_from_manifest.
+    json = json && '{'.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_apps_create_installation_.
     json = json && '{'.
 *  json = json && '"repositories":' not simple
@@ -8539,90 +8444,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
-  METHOD json_repos_add_status_check_co.
-    json = json && '{'.
-*  json = json && '"contexts":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_set_status_check_co.
-    json = json && '{'.
-*  json = json && '"contexts":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_remove_status_che01.
-    json = json && '{'.
-*  json = json && '"contexts":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_add_app_access_rest.
-    json = json && '{'.
-*  json = json && '"apps":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_set_app_access_rest.
-    json = json && '{'.
-*  json = json && '"apps":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_remove_app_access_r.
-    json = json && '{'.
-*  json = json && '"apps":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_add_team_access_res.
-    json = json && '{'.
-*  json = json && '"teams":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_set_team_access_res.
-    json = json && '{'.
-*  json = json && '"teams":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_remove_team_access_.
-    json = json && '{'.
-*  json = json && '"teams":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_add_user_access_res.
-    json = json && '{'.
-*  json = json && '"users":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_set_user_access_res.
-    json = json && '{'.
-*  json = json && '"users":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_repos_remove_user_access_.
-    json = json && '{'.
-*  json = json && '"users":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
   METHOD json_checks_create.
     json = json && '{'.
     json = json && |"name": "{ data-name }",|.
@@ -8995,27 +8816,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD json_issues_create_comment.
     json = json && '{'.
     json = json && |"body": "{ data-body }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_issues_add_labels.
-    json = json && '{'.
-*  json = json && '"labels":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_issues_set_labels.
-    json = json && '{'.
-*  json = json && '"labels":' not simple
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_issues_remove_all_labels.
-    json = json && '{'.
-*  json = json && '"labels":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9674,7 +9474,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~meta_root.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -9686,7 +9486,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_global_w.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -9708,7 +9508,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_global.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_g( body ) ).
@@ -9721,7 +9521,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_global_we.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
@@ -9736,7 +9536,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_global.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
@@ -9752,7 +9552,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_global.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
@@ -9768,7 +9568,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_ping_global_w.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/hooks/{hook_id}/pings'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}/pings'.
     lv_temp = hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
@@ -9783,7 +9583,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_public_k.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/keys'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -9814,7 +9614,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/keys/{key_ids}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/keys/{key_ids}'.
     REPLACE ALL OCCURRENCES OF '{key_ids}' IN lv_uri WITH key_ids.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9827,7 +9627,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_ldap_m.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/mapping'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/teams/{team_id}/mapping'.
     lv_temp = team_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
@@ -9843,7 +9643,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_sync_ldap_map.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/teams/{team_id}/sync'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/teams/{team_id}/sync'.
     lv_temp = team_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
@@ -9858,7 +9658,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_ldap01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/mapping'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/users/{username}/mapping'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9872,7 +9672,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_sync_ldap_m01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/ldap/users/{username}/sync'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/users/{username}/sync'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9885,7 +9685,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/organizations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_o( body ) ).
@@ -9898,7 +9698,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_org_na.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/organizations/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/organizations/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -9912,7 +9712,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_pre_rece.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -9940,7 +9740,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_pre_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_p( body ) ).
@@ -9953,7 +9753,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_pre_recei.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
@@ -9968,7 +9768,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_pre_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
@@ -9984,7 +9784,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_pre_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
@@ -10000,7 +9800,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_start_pre_rec.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}/downloads'.
     lv_temp = pre_receive_environment_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
@@ -10015,7 +9815,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_download_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest'.
     lv_temp = pre_receive_environment_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
@@ -10030,7 +9830,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_pre_re01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -10058,7 +9858,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_pre_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create01( body ) ).
@@ -10071,7 +9871,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_pre_rec01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
@@ -10086,7 +9886,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_pre_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
@@ -10102,7 +9902,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_pre_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
@@ -10118,7 +9918,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_personal.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/tokens'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10140,7 +9940,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_person.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/tokens/{token_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/tokens/{token_id}'.
     lv_temp = token_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{token_id}' IN lv_uri WITH lv_temp.
@@ -10155,7 +9955,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_u( body ) ).
@@ -10168,7 +9968,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_userna.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10182,7 +9982,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10196,7 +9996,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_impers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10210,7 +10010,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_delete_impers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/admin/users/{username}/authorizations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}/authorizations'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10224,7 +10024,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10236,10 +10036,11 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_create_from_manifest.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app-manifests/{code}/conversions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app-manifests/{code}/conversions'.
     REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH code.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_from_manifest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -10249,7 +10050,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_list_installations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10271,7 +10072,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -10286,7 +10087,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_delete_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -10301,7 +10102,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_create_installation_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/app/installations/{installation_id}/access_tokens'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}/access_tokens'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -10317,7 +10118,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_delete_authorization.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/grant'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/grant'.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10331,7 +10132,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_check_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10345,7 +10146,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_reset_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10359,7 +10160,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_delete_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10373,7 +10174,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_by_slug.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/apps/{app_slug}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/apps/{app_slug}'.
     REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH app_slug.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10386,7 +10187,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~codes_of_conduct_get_all_codes.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/codes_of_conduct'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10398,7 +10199,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~codes_of_conduct_get_conduct_c.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/codes_of_conduct/{key}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/codes_of_conduct/{key}'.
     REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH key.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10411,7 +10212,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_create_content_attachment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/content_references/{content_reference_id}/attachments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/content_references/{content_reference_id}/attachments'.
     lv_temp = content_reference_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
@@ -10427,7 +10228,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~emojis_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/emojis'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/emojis'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10439,7 +10240,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_license_i.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/settings/license'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/settings/license'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10451,7 +10252,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_type_stat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/enterprise/stats/{type}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/{type}'.
     REPLACE ALL OCCURRENCES OF '{type}' IN lv_uri WITH type.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10464,7 +10265,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_public_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/events'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10486,7 +10287,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_get_feeds.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/feeds'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/feeds'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10498,7 +10299,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -10523,7 +10324,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_gists_create( body ) ).
@@ -10536,7 +10337,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/public'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/public'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -10561,7 +10362,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/starred'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/starred'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -10586,7 +10387,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10599,7 +10400,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10613,7 +10414,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10627,7 +10428,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -10650,7 +10451,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_create_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10664,7 +10465,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_get_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = comment_id.
     CONDENSE lv_temp.
@@ -10680,7 +10481,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_update_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = comment_id.
     CONDENSE lv_temp.
@@ -10697,7 +10498,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_delete_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = comment_id.
     CONDENSE lv_temp.
@@ -10714,7 +10515,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/commits'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/commits'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -10737,7 +10538,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_forks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -10760,7 +10561,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_fork.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/forks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/forks'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10773,7 +10574,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_check_is_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10786,7 +10587,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_star.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10799,7 +10600,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_unstar.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10812,7 +10613,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_get_revision.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gists/{gist_id}/{sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
     mi_client->request->set_method( 'GET' ).
@@ -10826,7 +10627,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gitignore_get_all_templates.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gitignore/templates'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10838,7 +10639,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gitignore_get_template.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/gitignore/templates/{name}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gitignore/templates/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10851,7 +10652,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_list_repos_accessible_to_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/installation/repositories'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/installation/repositories'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -10873,7 +10674,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_revoke_installation_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/installation/token'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/installation/token'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -10885,7 +10686,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -10945,7 +10746,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~licenses_get_all_commonly_used.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/licenses'.
     lv_temp = featured.
     CONDENSE lv_temp.
     IF featured IS SUPPLIED.
@@ -10972,7 +10773,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~licenses_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/licenses/{license}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/licenses/{license}'.
     REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH license.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -10985,7 +10786,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~markdown_render.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/markdown'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_markdown_render( body ) ).
@@ -10998,7 +10799,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~markdown_render_raw.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/markdown/raw'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/markdown/raw'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -11010,7 +10811,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~meta_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/meta'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/meta'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -11022,7 +10823,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_public_events_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/networks/{owner}/{repo}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/networks/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -11046,7 +10847,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_notifications_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications'.
     lv_temp = all.
     CONDENSE lv_temp.
     IF all IS SUPPLIED.
@@ -11084,7 +10885,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_mark_notifications_as.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_activity_mark_notificatio( body ) ).
@@ -11097,7 +10898,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_get_thread.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -11112,7 +10913,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_mark_thread_as_read.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -11127,7 +10928,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_get_thread_subscripti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -11142,7 +10943,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_set_thread_subscripti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -11158,7 +10959,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_delete_thread_subscri.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -11174,7 +10975,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~meta_get_octocat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/octocat'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/octocat'.
     IF s IS SUPPLIED.
       mi_client->request->set_form_field( name = 's' value = s ).
     ENDIF.
@@ -11189,7 +10990,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/organizations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/organizations'.
     lv_temp = since.
     CONDENSE lv_temp.
     IF since IS SUPPLIED.
@@ -11211,7 +11012,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11224,7 +11025,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11238,7 +11039,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_public_org_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/events'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -11261,7 +11062,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_webhooks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -11284,7 +11085,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_create_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11298,7 +11099,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_get_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = hook_id.
     CONDENSE lv_temp.
@@ -11314,7 +11115,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_update_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = hook_id.
     CONDENSE lv_temp.
@@ -11331,7 +11132,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_delete_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = hook_id.
     CONDENSE lv_temp.
@@ -11348,7 +11149,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_ping_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/hooks/{hook_id}/pings'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = hook_id.
     CONDENSE lv_temp.
@@ -11364,7 +11165,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_org_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/installation'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/installation'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11377,7 +11178,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_app_installations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/installations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/installations'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -11400,7 +11201,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/issues'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -11441,7 +11242,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_members.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -11470,7 +11271,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_check_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -11484,7 +11285,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_remove_member.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/members/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -11498,7 +11299,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_get_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -11512,7 +11313,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_set_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -11527,7 +11328,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_remove_membership_for_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -11542,7 +11343,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_outside_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -11568,7 +11369,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_convert_member_to_outside.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -11582,7 +11383,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_remove_outside_collaborat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/outside_collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -11596,7 +11397,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_pre_re02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -11625,7 +11426,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_pre_rec02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
@@ -11641,7 +11442,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_pre_02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
@@ -11658,7 +11459,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_remove_pre_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = pre_receive_hook_id.
     CONDENSE lv_temp.
@@ -11675,7 +11476,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
@@ -11701,7 +11502,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_create_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11715,7 +11516,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_public_members.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -11738,7 +11539,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_check_public_membership_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -11752,7 +11553,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_set_public_membership_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
@@ -11766,7 +11567,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_remove_public_membership_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
@@ -11780,7 +11581,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     IF type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'type' value = type ).
@@ -11812,7 +11613,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11826,7 +11627,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -11849,7 +11650,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11863,7 +11664,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_get_by_name.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'GET' ).
@@ -11877,7 +11678,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_update_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'PATCH' ).
@@ -11892,7 +11693,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_delete_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'DELETE' ).
@@ -11907,7 +11708,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_discussions_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     IF pinned IS SUPPLIED.
@@ -11937,7 +11738,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_create_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     mi_client->request->set_method( 'POST' ).
@@ -11952,7 +11753,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_get_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -11969,7 +11770,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_update_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -11987,7 +11788,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_delete_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12005,7 +11806,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_discussion_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12035,7 +11836,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_create_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12053,7 +11854,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_get_discussion_comment_i.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12073,7 +11874,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_update_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12094,7 +11895,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_delete_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12115,7 +11916,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_team_discus.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12148,7 +11949,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_team_disc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12169,7 +11970,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_team_disc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12192,7 +11993,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_team_disc01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12222,7 +12023,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_team_di01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12240,7 +12041,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_team_di01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = discussion_number.
@@ -12260,7 +12061,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_members_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/members'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/members'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     IF role IS SUPPLIED.
@@ -12287,7 +12088,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_get_membership_for_user_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -12302,7 +12103,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_add_or_update_membership.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -12318,7 +12119,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_remove_membership_for_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -12334,7 +12135,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_projects_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = per_page.
@@ -12358,7 +12159,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_check_permissions_for_pr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = project_id.
@@ -12375,7 +12176,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_add_or_update_project_pe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = project_id.
@@ -12393,7 +12194,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_remove_project_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = project_id.
@@ -12411,7 +12212,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_repos_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = per_page.
@@ -12435,7 +12236,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_check_permissions_for_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -12451,7 +12252,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_add_or_update_repo_permi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -12468,7 +12269,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_remove_repo_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
@@ -12485,7 +12286,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_child_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/orgs/{org}/teams/{team_slug}/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/teams'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
     lv_temp = per_page.
@@ -12509,7 +12310,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_get_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -12524,7 +12325,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_update_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -12540,7 +12341,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_delete_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -12556,7 +12357,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_move_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/cards/{card_id}/moves'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}/moves'.
     lv_temp = card_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -12572,7 +12373,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_get_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12587,7 +12388,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_update_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12603,7 +12404,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_delete_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12619,7 +12420,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_cards.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12647,7 +12448,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_create_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/cards'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12662,7 +12463,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_move_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/columns/{column_id}/moves'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/moves'.
     lv_temp = column_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -12678,7 +12479,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12693,7 +12494,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12709,7 +12510,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12725,7 +12526,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_collaborators.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12753,7 +12554,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_add_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12770,7 +12571,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_remove_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12787,7 +12588,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_get_permission_for_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/collaborators/{username}/permission'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}/permission'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12803,7 +12604,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_columns.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/columns'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12828,7 +12629,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_create_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/projects/{project_id}/columns'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/columns'.
     lv_temp = project_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -12844,7 +12645,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~rate_limit_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/rate_limit'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/rate_limit'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -12856,7 +12657,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -12870,7 +12671,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
@@ -12885,7 +12686,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -12900,7 +12701,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -12924,7 +12725,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_check_user_can_be_assig.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/assignees/{assignee}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/assignees/{assignee}'.
     REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH assignee.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -12939,7 +12740,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_branches.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = protected.
@@ -12968,7 +12769,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_branch.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -12983,7 +12784,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -12998,7 +12799,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13014,7 +12815,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13030,7 +12831,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_admin_branch_protect.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13045,7 +12846,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_set_admin_branch_protect.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13060,7 +12861,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_admin_branch_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13075,7 +12876,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_pull_request_review_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13090,7 +12891,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_pull_request_revi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13106,7 +12907,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_pull_request_revi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13122,7 +12923,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_commit_signature_pro.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13137,7 +12938,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_commit_signature_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13152,7 +12953,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_commit_signature_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13167,7 +12968,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_status_checks_protec.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13182,7 +12983,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_status_check_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13198,7 +12999,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_status_check_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13214,7 +13015,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_all_status_check_con.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13229,13 +13030,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_add_status_check_context.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_add_status_check_co( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13245,13 +13045,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_set_status_check_context.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_set_status_check_co( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13261,13 +13060,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_status_check_cont.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_remove_status_che01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13277,7 +13075,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_access_restrictions.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13292,7 +13090,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_access_restrictio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13307,7 +13105,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_apps_with_access_to_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13322,13 +13120,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_add_app_access_restricti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_add_app_access_rest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13338,13 +13135,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_set_app_access_restricti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_set_app_access_rest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13354,13 +13150,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_app_access_restri.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_remove_app_access_r( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13370,7 +13165,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_teams_with_access_to.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13385,13 +13180,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_add_team_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_add_team_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13401,13 +13195,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_set_team_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_set_team_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13417,13 +13210,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_team_access_restr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_remove_team_access_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13433,7 +13225,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_users_with_access_to.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
@@ -13448,13 +13240,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_add_user_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_add_user_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13464,13 +13255,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_set_user_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_set_user_access_res( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13480,13 +13270,12 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_user_access_restr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_repos_remove_user_access_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -13496,7 +13285,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -13511,7 +13300,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_run_id.
@@ -13528,7 +13317,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_run_id.
@@ -13546,7 +13335,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_list_annotations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_run_id.
@@ -13573,7 +13362,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_create_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -13588,7 +13377,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_set_suites_preferences.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/preferences'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/preferences'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PATCH' ).
@@ -13603,7 +13392,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_get_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_suite_id.
@@ -13620,7 +13409,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_list_for_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_suite_id.
@@ -13656,7 +13445,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_rerequest_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = check_suite_id.
@@ -13673,7 +13462,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_collaborators.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF affiliation IS SUPPLIED.
@@ -13700,7 +13489,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_check_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -13715,7 +13504,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_add_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -13731,7 +13520,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_remove_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -13747,7 +13536,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_collaborator_permiss.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/collaborators/{username}/permission'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}/permission'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
@@ -13762,7 +13551,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_commit_comments_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -13786,7 +13575,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13803,7 +13592,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13821,7 +13610,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13839,7 +13628,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_commit_comm.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13869,7 +13658,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_commit_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13887,7 +13676,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_commit_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -13907,7 +13696,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sha IS SUPPLIED.
@@ -13921,12 +13710,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     ENDIF.
     IF until IS SUPPLIED.
       mi_client->request->set_form_field( name = 'until' value = until ).
-    ENDIF.
-    IF top IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'top' value = top ).
-    ENDIF.
-    IF last_sha IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'last_sha' value = last_sha ).
     ENDIF.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -13952,7 +13735,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_branches_for_head_c.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
@@ -13967,7 +13750,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_comments_for_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
@@ -13992,7 +13775,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
@@ -14008,7 +13791,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_pull_requests_assoc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
@@ -14033,7 +13816,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14058,7 +13841,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_list_for_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-runs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/check-runs'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14097,7 +13880,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~checks_list_suites_for_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/check-suites'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/check-suites'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14130,7 +13913,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_combined_status_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/status'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/status'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14155,7 +13938,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_commit_statuses_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/commits/{ref}/statuses'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/statuses'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14180,9 +13963,8 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_compare_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/compare/{base}...{head}'.
-    REPLACE ALL OCCURRENCES OF '{base}' IN lv_uri WITH base.
-    REPLACE ALL OCCURRENCES OF '{head}' IN lv_uri WITH head.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/compare/{basehead}'.
+    REPLACE ALL OCCURRENCES OF '{basehead}' IN lv_uri WITH basehead.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -14196,7 +13978,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_content.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14214,7 +13996,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_or_update_file_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14230,7 +14012,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_file.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14246,7 +14028,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_contributors.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/contributors'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF anon IS SUPPLIED.
@@ -14273,7 +14055,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_deployments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sha IS SUPPLIED.
@@ -14309,7 +14091,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14324,7 +14106,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = deployment_id.
@@ -14341,7 +14123,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = deployment_id.
@@ -14358,7 +14140,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_deployment_statuses.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = deployment_id.
@@ -14385,7 +14167,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_deployment_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = deployment_id.
@@ -14403,7 +14185,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_deployment_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
     lv_temp = status_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH lv_temp.
@@ -14423,7 +14205,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_dispatch_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/dispatches'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/dispatches'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14438,7 +14220,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_repo_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -14462,17 +14244,11 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_forks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
-    ENDIF.
-    IF org IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'org' value = org ).
-    ENDIF.
-    IF organization IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'organization' value = organization ).
     ENDIF.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -14495,15 +14271,9 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_fork.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/forks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/forks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    IF org IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'org' value = org ).
-    ENDIF.
-    IF organization IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'organization' value = organization ).
-    ENDIF.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_fork( body ) ).
@@ -14516,7 +14286,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_create_blob.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/blobs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14531,7 +14301,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_get_blob.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/blobs/{file_sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/blobs/{file_sha}'.
     REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH file_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14546,7 +14316,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_create_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14561,7 +14331,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_get_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/commits/{commit_sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/commits/{commit_sha}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
@@ -14576,7 +14346,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_list_matching_refs.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/matching-refs/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/matching-refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14601,7 +14371,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_get_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/ref/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/ref/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14616,7 +14386,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_create_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14631,7 +14401,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_update_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14647,7 +14417,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_delete_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/refs/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14663,7 +14433,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_create_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14678,7 +14448,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_get_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/tags/{tag_sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/tags/{tag_sha}'.
     REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH tag_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14693,7 +14463,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_create_tree.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/trees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14708,7 +14478,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~git_get_tree.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/git/trees/{tree_sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/trees/{tree_sha}'.
     REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH tree_sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -14726,7 +14496,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_webhooks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -14750,7 +14520,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14765,7 +14535,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = hook_id.
@@ -14782,7 +14552,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = hook_id.
@@ -14800,7 +14570,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = hook_id.
@@ -14818,7 +14588,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_ping_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = hook_id.
@@ -14835,7 +14605,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_test_push_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = hook_id.
@@ -14852,7 +14622,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_repo_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/installation'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/installation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -14866,7 +14636,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_invitations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -14890,7 +14660,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = invitation_id.
@@ -14908,7 +14678,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations/{invitation_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = invitation_id.
@@ -14926,7 +14696,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF milestone IS SUPPLIED.
@@ -14977,7 +14747,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -14992,7 +14762,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_comments_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF direction IS SUPPLIED.
@@ -15025,7 +14795,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_get_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15042,7 +14812,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_update_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15060,7 +14830,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_delete_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15078,7 +14848,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_issue_comme.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15108,7 +14878,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_issue_com.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15126,7 +14896,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_issue_com.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -15146,7 +14916,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_events_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -15170,7 +14940,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_get_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/events/{event_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/events/{event_id}'.
     lv_temp = event_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH lv_temp.
@@ -15187,7 +14957,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15204,7 +14974,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15222,7 +14992,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_add_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15240,7 +15010,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_remove_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15258,7 +15028,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15288,7 +15058,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_create_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15306,7 +15076,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15333,7 +15103,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_labels_on_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15360,7 +15130,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_add_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15368,7 +15138,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_issues_add_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -15378,7 +15147,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_set_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15386,7 +15155,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_issues_set_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -15396,7 +15164,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_remove_all_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15404,7 +15172,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_issues_remove_all_labels( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -15414,7 +15181,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_remove_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -15432,7 +15199,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_lock.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15450,7 +15217,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_unlock.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/lock'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15468,7 +15235,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15498,7 +15265,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15516,7 +15283,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15536,7 +15303,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_events_for_timelin.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = issue_number.
@@ -15563,7 +15330,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_deploy_keys.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -15587,7 +15354,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -15602,7 +15369,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = key_id.
@@ -15619,7 +15386,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys/{key_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = key_id.
@@ -15636,7 +15403,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_labels_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -15660,7 +15427,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_create_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -15675,7 +15442,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_get_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -15690,7 +15457,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_update_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -15706,7 +15473,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_delete_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -15722,7 +15489,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_languages.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/languages'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/languages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -15736,7 +15503,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~licenses_get_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/license'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/license'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -15750,7 +15517,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_merge.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/merges'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/merges'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -15765,7 +15532,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_milestones.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF state IS SUPPLIED.
@@ -15798,7 +15565,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_create_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -15813,7 +15580,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_get_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = milestone_number.
@@ -15830,7 +15597,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_update_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = milestone_number.
@@ -15848,7 +15615,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_delete_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = milestone_number.
@@ -15866,7 +15633,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_labels_for_milesto.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = milestone_number.
@@ -15893,7 +15660,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_repo_notificatio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = all.
@@ -15933,7 +15700,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_mark_repo_notificatio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/notifications'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/notifications'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -15948,7 +15715,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_pages.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -15962,7 +15729,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_pages_site.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -15977,7 +15744,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_information_about.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -15992,7 +15759,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_pages_site.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -16007,7 +15774,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_pages_builds.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -16031,7 +15798,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_request_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -16045,7 +15812,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_latest_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/latest'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -16059,7 +15826,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pages/builds/{build_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds/{build_id}'.
     lv_temp = build_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH lv_temp.
@@ -16076,7 +15843,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_list_pre_re03.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sort IS SUPPLIED.
@@ -16106,7 +15873,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_pre_rec03.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pre_receive_hook_id.
@@ -16123,7 +15890,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_update_pre_03.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pre_receive_hook_id.
@@ -16141,7 +15908,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_remove_pre_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pre_receive_hook_id.
@@ -16159,7 +15926,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF state IS SUPPLIED.
@@ -16186,7 +15953,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_create_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/projects'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -16201,7 +15968,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF state IS SUPPLIED.
@@ -16240,7 +16007,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -16255,7 +16022,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_review_comments_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF sort IS SUPPLIED.
@@ -16288,7 +16055,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_get_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16305,7 +16072,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_update_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16323,7 +16090,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_delete_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16341,7 +16108,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_list_for_pull_reques.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16371,7 +16138,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_create_for_pull_requ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16389,7 +16156,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~reactions_delete_for_pull_requ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = comment_id.
@@ -16409,7 +16176,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16426,7 +16193,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16444,7 +16211,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_review_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16480,7 +16247,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_create_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16498,7 +16265,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_create_reply_for_review_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16519,7 +16286,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16546,7 +16313,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_files.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/files'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/files'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16573,7 +16340,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_check_if_merged.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16590,7 +16357,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_merge.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16608,7 +16375,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_requested_reviewers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16635,7 +16402,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_request_reviewers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16653,7 +16420,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_remove_requested_reviewe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16671,7 +16438,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_reviews.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16698,7 +16465,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_create_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16716,7 +16483,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_get_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16736,7 +16503,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_update_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16757,7 +16524,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_delete_pending_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16778,7 +16545,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_list_comments_for_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16808,7 +16575,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_dismiss_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16829,7 +16596,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_submit_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16850,7 +16617,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~pulls_update_branch.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = pull_number.
@@ -16868,7 +16635,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_readme.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/readme'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     IF ref IS SUPPLIED.
@@ -16882,10 +16649,10 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     return_data = parse_content_file( '' ).
   ENDMETHOD.
 
-  METHOD zif_ghes221~repos_get_readme_from_alt_path.
+  METHOD zif_ghes221~repos_get_readme_in_directory.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/readme/{dir}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/readme/{dir}'.
     REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH dir.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -16903,7 +16670,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_releases.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -16927,7 +16694,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -16942,7 +16709,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = asset_id.
@@ -16959,7 +16726,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = asset_id.
@@ -16977,7 +16744,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = asset_id.
@@ -16995,7 +16762,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_latest_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/latest'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/latest'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17009,7 +16776,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_release_by_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/tags/{tag}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/tags/{tag}'.
     REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH tag.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -17024,7 +16791,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = release_id.
@@ -17041,7 +16808,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_update_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = release_id.
@@ -17059,7 +16826,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_delete_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = release_id.
@@ -17077,7 +16844,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_release_assets.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = release_id.
@@ -17104,7 +16871,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_upload_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/releases/{release_id}/assets'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}/assets'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = release_id.
@@ -17127,7 +16894,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_stargazers_for_r.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stargazers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stargazers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -17151,7 +16918,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_code_frequency_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/code_frequency'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/code_frequency'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17165,7 +16932,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_commit_activity_stat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/commit_activity'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/commit_activity'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17179,7 +16946,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_contributors_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/contributors'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/contributors'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17193,7 +16960,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_participation_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/participation'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/participation'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17207,7 +16974,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_punch_card_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/stats/punch_card'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/punch_card'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17221,7 +16988,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_commit_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/statuses/{sha}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/statuses/{sha}'.
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -17237,7 +17004,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_watchers_for_rep.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscribers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscribers'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -17261,7 +17028,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_get_repo_subscription.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -17275,7 +17042,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_set_repo_subscription.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -17290,7 +17057,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_delete_repo_subscript.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -17305,7 +17072,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_tags.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tags'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/tags'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -17329,7 +17096,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_download_tarball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/tarball/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/tarball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -17344,7 +17111,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_teams.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/teams'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = per_page.
@@ -17368,7 +17135,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_get_all_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     lv_temp = page.
@@ -17392,7 +17159,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_replace_all_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/topics'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/topics'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -17407,7 +17174,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_transfer.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/transfer'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/transfer'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'POST' ).
@@ -17422,7 +17189,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_enable_vulnerability_ale.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -17436,7 +17203,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_disable_vulnerability_al.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/vulnerability-alerts'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -17450,7 +17217,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_download_zipball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{owner}/{repo}/zipball/{ref}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/zipball/{ref}'.
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
@@ -17465,7 +17232,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_using_template.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repos/{template_owner}/{template_repo}/generate'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{template_owner}/{template_repo}/generate'.
     REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH template_owner.
     REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH template_repo.
     mi_client->request->set_method( 'POST' ).
@@ -17480,7 +17247,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/repositories'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repositories'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
     ENDIF.
@@ -17500,7 +17267,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_code.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/code'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/code'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -17529,7 +17296,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/commits'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/commits'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -17558,7 +17325,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_issues_and_pull_request.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/issues'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -17587,7 +17354,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/labels'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/labels'.
     lv_temp = repository_id.
     CONDENSE lv_temp.
     mi_client->request->set_form_field( name = 'repository_id' value = lv_temp ).
@@ -17609,7 +17376,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_repos.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/repositories'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/repositories'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -17638,7 +17405,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/topics'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/topics'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17651,7 +17418,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~search_users.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/search/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/users'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -17680,7 +17447,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_configura.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configcheck'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/configcheck'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17692,7 +17459,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_start_configu.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/configure'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/configure'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17704,7 +17471,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_maintenan.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/maintenance'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17716,7 +17483,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_enable_or_dis.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/maintenance'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/maintenance'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_enable_o( body ) ).
@@ -17729,7 +17496,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_settings.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17741,7 +17508,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_set_settings.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_set_sett( body ) ).
@@ -17754,7 +17521,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_get_all_autho.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17766,7 +17533,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_add_authorize.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_add_auth( body ) ).
@@ -17779,7 +17546,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_remove_author.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/settings/authorized-keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_remove_a( body ) ).
@@ -17792,7 +17559,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_create_enterp.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/start'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/start'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_e( body ) ).
@@ -17805,7 +17572,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_upgrade_licen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/setup/api/upgrade'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/upgrade'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_upgrade_( body ) ).
@@ -17818,7 +17585,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_get_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17830,7 +17597,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_update_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_update_authenticate( body ) ).
@@ -17843,7 +17610,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_emails_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/emails'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17865,7 +17632,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_add_email_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/emails'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17877,7 +17644,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_delete_email_for_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/emails'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/emails'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17889,7 +17656,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_followers_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/followers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/followers'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17911,7 +17678,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_followed_by_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17933,7 +17700,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_check_person_is_followed.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17946,7 +17713,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_follow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17959,7 +17726,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_unfollow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17972,7 +17739,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_gpg_keys_for_authen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17994,7 +17761,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_create_gpg_key_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_create_gpg_key_for_( body ) ).
@@ -18007,7 +17774,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_get_gpg_key_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
@@ -18022,7 +17789,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_delete_gpg_key_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/gpg_keys/{gpg_key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
@@ -18037,7 +17804,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_list_installations_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18059,7 +17826,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_list_installation_repos_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -18084,7 +17851,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_add_repo_to_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -18102,7 +17869,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_remove_repo_from_installa.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/installations/{installation_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -18120,7 +17887,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~issues_list_for_authenticated_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/issues'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -18160,7 +17927,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_public_ssh_keys_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18182,7 +17949,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_create_public_ssh_key_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_create_public_ssh_k( body ) ).
@@ -18195,7 +17962,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_get_public_ssh_key_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys/{key_id}'.
     lv_temp = key_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
@@ -18210,7 +17977,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_delete_public_ssh_key_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys/{key_id}'.
     lv_temp = key_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
@@ -18225,7 +17992,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_memberships_for_auth.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/memberships/orgs'.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -18250,7 +18017,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_get_membership_for_authen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18263,7 +18030,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_update_membership_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/memberships/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/memberships/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18277,7 +18044,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_for_authenticated_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/orgs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/orgs'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18299,7 +18066,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_create_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/projects'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_create_for_authe( body ) ).
@@ -18312,7 +18079,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_public_emails_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/public_emails'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/public_emails'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18334,7 +18101,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_for_authenticated_u.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repos'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
     ENDIF.
@@ -18377,7 +18144,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_create_for_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repos'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_for_authenti( body ) ).
@@ -18390,7 +18157,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_invitations_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repository_invitations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18412,7 +18179,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_accept_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
@@ -18427,7 +18194,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_decline_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/repository_invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
@@ -18442,7 +18209,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_repos_starred_by.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -18470,7 +18237,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_check_repo_is_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'GET' ).
@@ -18484,7 +18251,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_star_repo_for_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'PUT' ).
@@ -18498,7 +18265,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_unstar_repo_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
     mi_client->request->set_method( 'DELETE' ).
@@ -18512,7 +18279,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_watched_repos_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/subscriptions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/subscriptions'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18534,7 +18301,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~teams_list_for_authenticated_u.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/user/teams'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/teams'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -18556,7 +18323,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users'.
     lv_temp = since.
     CONDENSE lv_temp.
     IF since IS SUPPLIED.
@@ -18578,7 +18345,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_get_by_username.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18591,7 +18358,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_events_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18614,7 +18381,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_org_events_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events/orgs/{org}'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
     lv_temp = per_page.
@@ -18638,7 +18405,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_public_events_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/events/public'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18661,7 +18428,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_followers_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/followers'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/followers'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18684,7 +18451,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_following_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/following'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18707,7 +18474,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_check_following_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/following/{target_user}'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/following/{target_user}'.
     REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH target_user.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
@@ -18721,7 +18488,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~gists_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gists'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/gists'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -18747,7 +18514,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_gpg_keys_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/gpg_keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/gpg_keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18770,7 +18537,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_get_context_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/hovercard'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/hovercard'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF subject_type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'subject_type' value = subject_type ).
@@ -18789,7 +18556,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~apps_get_user_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/installation'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/installation'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18802,7 +18569,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~users_list_public_keys_for_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/keys'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/keys'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18825,7 +18592,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~orgs_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/orgs'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/orgs'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18848,7 +18615,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~projects_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/projects'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/projects'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
@@ -18874,7 +18641,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_received_events_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/received_events'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18897,7 +18664,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_received_public_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/received_events/public'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/received_events/public'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18920,7 +18687,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~repos_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/repos'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/repos'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'type' value = type ).
@@ -18952,7 +18719,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_promote_user_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18965,7 +18732,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_demote_site_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/site_admin'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/site_admin'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18978,7 +18745,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_repos_starred_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/starred'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/starred'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -19007,7 +18774,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~activity_list_repos_watched_by.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/subscriptions'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/subscriptions'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -19030,7 +18797,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_suspend_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19044,7 +18811,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~enterprise_admin_unsuspend_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/users/{username}/suspended'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/suspended'.
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19058,7 +18825,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
   METHOD zif_ghes221~meta_get_zen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/zen'.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/zen'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).

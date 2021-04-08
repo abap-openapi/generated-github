@@ -4369,6 +4369,11 @@ INTERFACE zif_ghes222 PUBLIC.
            scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyenterprise_admin_delete_im.
 
+* Component schema: bodyapps_create_from_manifest, object
+  TYPES: BEGIN OF bodyapps_create_from_manifest,
+           dummy_workaround TYPE i,
+         END OF bodyapps_create_from_manifest.
+
 * Component schema: bodyapps_create_installation_a, object
   TYPES: BEGIN OF bodyapps_create_installation_a,
            repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -4986,66 +4991,6 @@ INTERFACE zif_ghes222 PUBLIC.
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_remove_status_check_.
 
-* Component schema: bodyrepos_add_status_check_con, object
-  TYPES: BEGIN OF bodyrepos_add_status_check_con,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_status_check_con.
-
-* Component schema: bodyrepos_set_status_check_con, object
-  TYPES: BEGIN OF bodyrepos_set_status_check_con,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_status_check_con.
-
-* Component schema: bodyrepos_remove_status_chec01, object
-  TYPES: BEGIN OF bodyrepos_remove_status_chec01,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_status_chec01.
-
-* Component schema: bodyrepos_add_app_access_restr, object
-  TYPES: BEGIN OF bodyrepos_add_app_access_restr,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_app_access_restr.
-
-* Component schema: bodyrepos_set_app_access_restr, object
-  TYPES: BEGIN OF bodyrepos_set_app_access_restr,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_app_access_restr.
-
-* Component schema: bodyrepos_remove_app_access_re, object
-  TYPES: BEGIN OF bodyrepos_remove_app_access_re,
-           apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_app_access_re.
-
-* Component schema: bodyrepos_add_team_access_rest, object
-  TYPES: BEGIN OF bodyrepos_add_team_access_rest,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_team_access_rest.
-
-* Component schema: bodyrepos_set_team_access_rest, object
-  TYPES: BEGIN OF bodyrepos_set_team_access_rest,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_team_access_rest.
-
-* Component schema: bodyrepos_remove_team_access_r, object
-  TYPES: BEGIN OF bodyrepos_remove_team_access_r,
-           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_team_access_r.
-
-* Component schema: bodyrepos_add_user_access_rest, object
-  TYPES: BEGIN OF bodyrepos_add_user_access_rest,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_add_user_access_rest.
-
-* Component schema: bodyrepos_set_user_access_rest, object
-  TYPES: BEGIN OF bodyrepos_set_user_access_rest,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_set_user_access_rest.
-
-* Component schema: bodyrepos_remove_user_access_r, object
-  TYPES: BEGIN OF bodyrepos_remove_user_access_r,
-           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyrepos_remove_user_access_r.
-
 * Component schema: bodychecks_create, object
   TYPES: BEGIN OF subbodychecks_create_output,
            title TYPE string,
@@ -5399,21 +5344,6 @@ INTERFACE zif_ghes222 PUBLIC.
   TYPES: BEGIN OF bodyissues_create_comment,
            body TYPE string,
          END OF bodyissues_create_comment.
-
-* Component schema: bodyissues_add_labels, object
-  TYPES: BEGIN OF bodyissues_add_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_add_labels.
-
-* Component schema: bodyissues_set_labels, object
-  TYPES: BEGIN OF bodyissues_set_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_set_labels.
-
-* Component schema: bodyissues_remove_all_labels, object
-  TYPES: BEGIN OF bodyissues_remove_all_labels,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF bodyissues_remove_all_labels.
 
 * Component schema: bodyissues_lock, object
   TYPES: BEGIN OF bodyissues_lock,
@@ -6068,12 +5998,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Component schema: response_orgs_list_outside_collaborator, array
   TYPES response_orgs_list_outside_col TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
-* Component schema: response_orgs_convert_member_to_outside, object
-  TYPES: BEGIN OF response_orgs_convert_member_t,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_orgs_convert_member_t.
-
 * Component schema: response_orgs_remove_outside_collaborat, object
   TYPES: BEGIN OF response_orgs_remove_outside_c,
            message TYPE string,
@@ -6109,12 +6033,6 @@ INTERFACE zif_ghes222 PUBLIC.
 
 * Component schema: response_teams_list_members_in_org, array
   TYPES response_teams_list_members_in TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
-
-* Component schema: response_teams_add_or_update_membership, object
-  TYPES: BEGIN OF response_teams_add_or_update_m,
-           message TYPE string,
-           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF response_teams_add_or_update_m.
 
 * Component schema: response_teams_list_projects_in_org, array
   TYPES response_teams_list_projects_i TYPE STANDARD TABLE OF team_project WITH DEFAULT KEY.
@@ -6367,12 +6285,6 @@ INTERFACE zif_ghes222 PUBLIC.
            message TYPE string,
          END OF response_repos_create_deployme.
 
-* Component schema: response_repos_create_deployment, object
-  TYPES: BEGIN OF response_repos_create_deploy01,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_create_deploy01.
-
 * Component schema: response_repos_list_deployment_statuses, array
   TYPES response_repos_list_deployme01 TYPE STANDARD TABLE OF deployment_status WITH DEFAULT KEY.
 
@@ -6432,18 +6344,6 @@ INTERFACE zif_ghes222 PUBLIC.
 
 * Component schema: response_issues_list_labels_for_repo, array
   TYPES response_issues_list_labels_fo TYPE STANDARD TABLE OF label WITH DEFAULT KEY.
-
-* Component schema: response_repos_merge, object
-  TYPES: BEGIN OF response_repos_merge,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_merge.
-
-* Component schema: response_repos_merge, object
-  TYPES: BEGIN OF response_repos_merge01,
-           message TYPE string,
-           documentation_url TYPE string,
-         END OF response_repos_merge01.
 
 * Component schema: response_issues_list_milestones, array
   TYPES response_issues_list_milestone TYPE STANDARD TABLE OF milestone WITH DEFAULT KEY.
@@ -7161,9 +7061,11 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, string
 * Response: 404
 * Response: 422
+* Body ref: #/components/schemas/bodyapps_create_from_manifest
   METHODS apps_create_from_manifest
     IMPORTING
       code TYPE string
+      body TYPE bodyapps_create_from_manifest
     RAISING cx_static_check.
 
 * GET - "List installations for the authenticated app"
@@ -9007,7 +8909,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 202
 * Response: 204
 * Response: 403
-*     application/json, #/components/schemas/response_orgs_convert_member_to_outside
 * Response: 404
   METHODS orgs_convert_member_to_outside
     IMPORTING
@@ -9642,7 +9543,6 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/team-membership
 * Response: 403
 * Response: 422
-*     application/json, #/components/schemas/response_teams_add_or_update_membership
 * Body ref: #/components/schemas/bodyteams_add_or_update_member
   METHODS teams_add_or_update_membership
     IMPORTING
@@ -11071,13 +10971,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 403
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_status_check_con
+* Body schema: string
   METHODS repos_add_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_status_check_con
     RETURNING
       VALUE(return_data) TYPE response_repos_add_status_chec
     RAISING cx_static_check.
@@ -11091,13 +10990,12 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/response_repos_set_status_check_context
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_status_check_con
+* Body schema: string
   METHODS repos_set_status_check_context
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_status_check_con
     RETURNING
       VALUE(return_data) TYPE response_repos_set_status_chec
     RAISING cx_static_check.
@@ -11111,13 +11009,12 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/response_repos_remove_status_check_cont
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_status_chec01
+* Body schema: string
   METHODS repos_remove_status_check_cont
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_status_chec01
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_status_c
     RAISING cx_static_check.
@@ -11177,13 +11074,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_app_access_restricti
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_app_access_restr
+* Body schema: string
   METHODS repos_add_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_app_access_restr
     RETURNING
       VALUE(return_data) TYPE response_repos_add_app_access_
     RAISING cx_static_check.
@@ -11196,13 +11092,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_app_access_restricti
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_app_access_restr
+* Body schema: string
   METHODS repos_set_app_access_restricti
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_app_access_restr
     RETURNING
       VALUE(return_data) TYPE response_repos_set_app_access_
     RAISING cx_static_check.
@@ -11215,13 +11110,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_app_access_restri
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_app_access_re
+* Body schema: string
   METHODS repos_remove_app_access_restri
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_app_access_re
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_app_acce
     RAISING cx_static_check.
@@ -11251,13 +11145,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_team_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_team_access_rest
+* Body schema: string
   METHODS repos_add_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_team_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_add_team_access
     RAISING cx_static_check.
@@ -11270,13 +11163,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_team_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_team_access_rest
+* Body schema: string
   METHODS repos_set_team_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_team_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_set_team_access
     RAISING cx_static_check.
@@ -11289,13 +11181,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_team_access_restr
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_team_access_r
+* Body schema: string
   METHODS repos_remove_team_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_team_access_r
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_team_acc
     RAISING cx_static_check.
@@ -11325,13 +11216,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_add_user_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_add_user_access_rest
+* Body schema: string
   METHODS repos_add_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_add_user_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_add_user_access
     RAISING cx_static_check.
@@ -11344,13 +11234,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_set_user_access_restrict
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_set_user_access_rest
+* Body schema: string
   METHODS repos_set_user_access_restrict
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_set_user_access_rest
     RETURNING
       VALUE(return_data) TYPE response_repos_set_user_access
     RAISING cx_static_check.
@@ -11363,13 +11252,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_repos_remove_user_access_restr
 * Response: 422
-* Body ref: #/components/schemas/bodyrepos_remove_user_access_r
+* Body schema: string
   METHODS repos_remove_user_access_restr
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
-      body TYPE bodyrepos_remove_user_access_r
     RETURNING
       VALUE(return_data) TYPE response_repos_remove_user_acc
     RAISING cx_static_check.
@@ -11873,8 +11761,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Parameter: path, optional, query
 * Parameter: author, optional, query
 * Parameter: until, optional, query
-* Parameter: top, optional, query
-* Parameter: last_sha, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: since, optional, query
@@ -11892,8 +11778,6 @@ INTERFACE zif_ghes222 PUBLIC.
       path TYPE string OPTIONAL
       author TYPE string OPTIONAL
       until TYPE string OPTIONAL
-      top TYPE string OPTIONAL
-      last_sha TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       since TYPE string OPTIONAL
@@ -12101,8 +11985,7 @@ INTERFACE zif_ghes222 PUBLIC.
 
 * GET - "Compare two commits"
 * Operation id: repos/compare-commits
-* Parameter: base, required, path
-* Parameter: head, required, path
+* Parameter: basehead, required, path
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
@@ -12111,8 +11994,7 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 500
   METHODS repos_compare_commits
     IMPORTING
-      base TYPE string
-      head TYPE string
+      basehead TYPE string
       owner TYPE string
       repo TYPE string
     RETURNING
@@ -12242,7 +12124,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 202
 *     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 409
-*     application/json, #/components/schemas/response_repos_create_deployment
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_create_deployment
   METHODS repos_create_deployment
@@ -12381,8 +12262,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * GET - "List forks"
 * Operation id: repos/list-forks
 * Parameter: sort, optional, query
-* Parameter: org, optional, query
-* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: per_page, optional, query
@@ -12393,8 +12272,6 @@ INTERFACE zif_ghes222 PUBLIC.
   METHODS repos_list_forks
     IMPORTING
       sort TYPE string DEFAULT 'newest'
-      org TYPE string OPTIONAL
-      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
@@ -12405,8 +12282,6 @@ INTERFACE zif_ghes222 PUBLIC.
 
 * POST - "Create a fork"
 * Operation id: repos/create-fork
-* Parameter: org, optional, query
-* Parameter: organization, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
@@ -12418,8 +12293,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Body ref: #/components/schemas/bodyrepos_create_fork
   METHODS repos_create_fork
     IMPORTING
-      org TYPE string OPTIONAL
-      organization TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_fork
@@ -13260,13 +13133,12 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/response_issues_add_labels
 * Response: 410
 * Response: 422
-* Body ref: #/components/schemas/bodyissues_add_labels
+* Body schema: string
   METHODS issues_add_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_add_labels
     RETURNING
       VALUE(return_data) TYPE response_issues_add_labels
     RAISING cx_static_check.
@@ -13280,13 +13152,12 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/response_issues_set_labels
 * Response: 410
 * Response: 422
-* Body ref: #/components/schemas/bodyissues_set_labels
+* Body schema: string
   METHODS issues_set_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_set_labels
     RETURNING
       VALUE(return_data) TYPE response_issues_set_labels
     RAISING cx_static_check.
@@ -13298,13 +13169,12 @@ INTERFACE zif_ghes222 PUBLIC.
 * Parameter: issue_number, required, path
 * Response: 204
 * Response: 410
-* Body ref: #/components/schemas/bodyissues_remove_all_labels
+* Body schema: string
   METHODS issues_remove_all_labels
     IMPORTING
       owner TYPE string
       repo TYPE string
       issue_number TYPE i
-      body TYPE bodyissues_remove_all_labels
     RAISING cx_static_check.
 
 * DELETE - "Remove a label from an issue"
@@ -13634,9 +13504,7 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/commit
 * Response: 403
 * Response: 404
-*     application/json, #/components/schemas/response_repos_merge
 * Response: 409
-*     application/json, #/components/schemas/response_repos_merge
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_merge
   METHODS repos_merge
@@ -14682,8 +14550,8 @@ INTERFACE zif_ghes222 PUBLIC.
       VALUE(return_data) TYPE content_file
     RAISING cx_static_check.
 
-* GET - "Get a repository README"
-* Operation id: repos/get-readme-from-alt-path
+* GET - "Get a repository README for a directory"
+* Operation id: repos/get-readme-in-directory
 * Parameter: dir, required, path
 * Parameter: ref, optional, query
 * Parameter: owner, required, path
@@ -14692,7 +14560,7 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/content-file
 * Response: 404
 * Response: 422
-  METHODS repos_get_readme_from_alt_path
+  METHODS repos_get_readme_in_directory
     IMPORTING
       dir TYPE string
       ref TYPE string OPTIONAL
