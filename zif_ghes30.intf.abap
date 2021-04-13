@@ -43,7 +43,7 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: enterprise-public-key, object
   TYPES: BEGIN OF enterprise_public_key,
-           id TYPE string,
+           id TYPE i,
            key_id TYPE string,
            key TYPE string,
            user_id TYPE i,
@@ -69,6 +69,12 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF ldap_mapping_team.
 
 * Component schema: ldap-mapping-user, object
+  TYPES: BEGIN OF subldap_mapping_user_plan,
+           collaborators TYPE i,
+           name TYPE string,
+           space TYPE i,
+           private_repos TYPE i,
+         END OF subldap_mapping_user_plan.
   TYPES: BEGIN OF ldap_mapping_user,
            ldap_dn TYPE string,
            login TYPE string,
@@ -89,6 +95,29 @@ INTERFACE zif_ghes30 PUBLIC.
            received_events_url TYPE string,
            type TYPE string,
            site_admin TYPE abap_bool,
+           name TYPE string,
+           company TYPE string,
+           blog TYPE string,
+           location TYPE string,
+           email TYPE string,
+           hireable TYPE abap_bool,
+           bio TYPE string,
+           twitter_username TYPE string,
+           public_repos TYPE i,
+           public_gists TYPE i,
+           followers TYPE i,
+           following TYPE i,
+           created_at TYPE string,
+           updated_at TYPE string,
+           private_gists TYPE i,
+           total_private_repos TYPE i,
+           owned_private_repos TYPE i,
+           disk_usage TYPE i,
+           collaborators TYPE i,
+           two_factor_authentication TYPE abap_bool,
+           plan TYPE subldap_mapping_user_plan,
+           suspended_at TYPE string,
+           business_plus TYPE abap_bool,
          END OF ldap_mapping_user.
 
 * Component schema: organization-simple, object
@@ -291,6 +320,8 @@ INTERFACE zif_ghes30 PUBLIC.
   TYPES: BEGIN OF basic_error,
            message TYPE string,
            documentation_url TYPE string,
+           url TYPE string,
+           status TYPE string,
          END OF basic_error.
 
 * Component schema: validation-error-simple, object
@@ -499,6 +530,7 @@ INTERFACE zif_ghes30 PUBLIC.
            name TYPE string,
            full_name TYPE string,
            license TYPE string,
+           organization TYPE string,
            forks TYPE i,
            permissions TYPE subrepository_permissions,
            owner TYPE string,
@@ -995,7 +1027,35 @@ INTERFACE zif_ghes30 PUBLIC.
   TYPES: BEGIN OF subgist_simple_files,
            dummy_workaround TYPE i,
          END OF subgist_simple_files.
+  TYPES: BEGIN OF subsubgist_simple_fork_of_file,
+           dummy_workaround TYPE i,
+         END OF subsubgist_simple_fork_of_file.
+  TYPES: BEGIN OF subgist_simple_fork_of,
+           url TYPE string,
+           forks_url TYPE string,
+           commits_url TYPE string,
+           id TYPE string,
+           node_id TYPE string,
+           git_pull_url TYPE string,
+           git_push_url TYPE string,
+           html_url TYPE string,
+           files TYPE subsubgist_simple_fork_of_file,
+           public TYPE abap_bool,
+           created_at TYPE string,
+           updated_at TYPE string,
+           description TYPE string,
+           comments TYPE i,
+           user TYPE string,
+           comments_url TYPE string,
+           owner TYPE string,
+           truncated TYPE abap_bool,
+           forks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subgist_simple_fork_of.
   TYPES: BEGIN OF gist_simple,
+           forks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           fork_of TYPE subgist_simple_fork_of,
            url TYPE string,
            forks_url TYPE string,
            commits_url TYPE string,
@@ -1111,6 +1171,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: api-overview, object
   TYPES: BEGIN OF api_overview,
            verifiable_password_authentica TYPE abap_bool,
+           packages TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           dependabot TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            installed_version TYPE string,
          END OF api_overview.
 
@@ -1300,6 +1362,8 @@ INTERFACE zif_ghes30 PUBLIC.
            members_can_create_private_rep TYPE abap_bool,
            members_can_create_internal_re TYPE abap_bool,
            members_can_create_pages TYPE abap_bool,
+           members_can_create_public_page TYPE abap_bool,
+           members_can_create_private_pag TYPE abap_bool,
            updated_at TYPE string,
          END OF organization_full.
 
@@ -1901,6 +1965,8 @@ INTERFACE zif_ghes30 PUBLIC.
            id TYPE i,
            name TYPE string,
            node_id TYPE string,
+           check_suite_id TYPE i,
+           check_suite_node_id TYPE string,
            head_branch TYPE string,
            head_sha TYPE string,
            run_number TYPE i,
@@ -1920,7 +1986,7 @@ INTERFACE zif_ghes30 PUBLIC.
            cancel_url TYPE string,
            rerun_url TYPE string,
            workflow_url TYPE string,
-           head_commit TYPE simple_commit,
+           head_commit TYPE string,
            repository TYPE minimal_repository,
            head_repository TYPE minimal_repository,
            head_repository_id TYPE i,
@@ -1982,6 +2048,13 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF branch_restriction_policy.
 
 * Component schema: branch-protection, object
+  TYPES: BEGIN OF subbranch_protection_require03,
+           url TYPE string,
+           enabled TYPE abap_bool,
+         END OF subbranch_protection_require03.
+  TYPES: BEGIN OF subbranch_protection_require02,
+           enabled TYPE abap_bool,
+         END OF subbranch_protection_require02.
   TYPES: BEGIN OF subbranch_protection_allow_del,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_del.
@@ -2006,9 +2079,10 @@ INTERFACE zif_ghes30 PUBLIC.
            required_linear_history TYPE subbranch_protection_require01,
            allow_force_pushes TYPE subbranch_protection_allow_for,
            allow_deletions TYPE subbranch_protection_allow_del,
-           enabled TYPE abap_bool,
+           required_conversation_resoluti TYPE subbranch_protection_require02,
            name TYPE string,
            protection_url TYPE string,
+           required_signatures TYPE subbranch_protection_require03,
          END OF branch_protection.
 
 * Component schema: short-branch, object
@@ -2097,6 +2171,9 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF status_check_policy.
 
 * Component schema: protected-branch, object
+  TYPES: BEGIN OF subprotected_branch_required_c,
+           enabled TYPE abap_bool,
+         END OF subprotected_branch_required_c.
   TYPES: BEGIN OF subprotected_branch_allow_dele,
            enabled TYPE abap_bool,
          END OF subprotected_branch_allow_dele.
@@ -2138,6 +2215,7 @@ INTERFACE zif_ghes30 PUBLIC.
            allow_force_pushes TYPE subprotected_branch_allow_forc,
            allow_deletions TYPE subprotected_branch_allow_dele,
            restrictions TYPE branch_restriction_policy,
+           required_conversation_resoluti TYPE subprotected_branch_required_c,
          END OF protected_branch.
 
 * Component schema: deployment-simple, object
@@ -2230,7 +2308,7 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF subcheck_suite_preference_pref.
   TYPES: BEGIN OF check_suite_preference,
            preferences TYPE subcheck_suite_preference_pref,
-           repository TYPE repository,
+           repository TYPE minimal_repository,
          END OF check_suite_preference.
 
 * Component schema: code-scanning-analysis-tool-name, string
@@ -2351,6 +2429,7 @@ INTERFACE zif_ghes30 PUBLIC.
            created_at TYPE alert_created_at,
            url TYPE alert_url,
            html_url TYPE alert_html_url,
+           instances TYPE string,
            instances_url TYPE alert_instances_url,
            state TYPE code_scanning_alert_state,
            dismissed_by TYPE simple_user,
@@ -2794,9 +2873,6 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF contributor.
 
 * Component schema: deployment, object
-  TYPES: BEGIN OF subdeployment_payload,
-           dummy_workaround TYPE i,
-         END OF subdeployment_payload.
   TYPES: BEGIN OF deployment,
            url TYPE string,
            id TYPE i,
@@ -2804,7 +2880,7 @@ INTERFACE zif_ghes30 PUBLIC.
            sha TYPE string,
            ref TYPE string,
            task TYPE string,
-           payload TYPE subdeployment_payload,
+           payload TYPE string,
            original_environment TYPE string,
            environment TYPE string,
            description TYPE string,
@@ -3024,6 +3100,7 @@ INTERFACE zif_ghes30 PUBLIC.
            rename TYPE issue_event_rename,
            author_association TYPE author_association,
            lock_reason TYPE string,
+           performed_via_github_app TYPE string,
          END OF issue_event.
 
 * Component schema: issue-event-for-issue, object
@@ -3703,7 +3780,7 @@ INTERFACE zif_ghes30 PUBLIC.
            git_url TYPE string,
            html_url TYPE string,
            repository TYPE minimal_repository,
-           score TYPE i,
+           score TYPE f,
            file_size TYPE i,
            language TYPE string,
            last_modified_at TYPE string,
@@ -3740,7 +3817,7 @@ INTERFACE zif_ghes30 PUBLIC.
            committer TYPE string,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            repository TYPE minimal_repository,
-           score TYPE i,
+           score TYPE f,
            node_id TYPE string,
            text_matches TYPE search_result_text_matches,
          END OF commit_search_result_item.
@@ -3779,7 +3856,7 @@ INTERFACE zif_ghes30 PUBLIC.
            text_matches TYPE search_result_text_matches,
            pull_request TYPE subissue_search_result_item_pu,
            body TYPE string,
-           score TYPE i,
+           score TYPE f,
            author_association TYPE author_association,
            draft TYPE abap_bool,
            repository TYPE repository,
@@ -3798,7 +3875,7 @@ INTERFACE zif_ghes30 PUBLIC.
            color TYPE string,
            default TYPE abap_bool,
            description TYPE string,
-           score TYPE i,
+           score TYPE f,
            text_matches TYPE search_result_text_matches,
          END OF label_search_result_item.
 
@@ -3831,7 +3908,7 @@ INTERFACE zif_ghes30 PUBLIC.
            open_issues_count TYPE i,
            master_branch TYPE string,
            default_branch TYPE string,
-           score TYPE i,
+           score TYPE f,
            forks_url TYPE string,
            keys_url TYPE string,
            collaborators_url TYPE string,
@@ -3906,7 +3983,7 @@ INTERFACE zif_ghes30 PUBLIC.
            updated_at TYPE string,
            featured TYPE abap_bool,
            curated TYPE abap_bool,
-           score TYPE i,
+           score TYPE f,
            repository_count TYPE i,
            logo_url TYPE string,
            text_matches TYPE search_result_text_matches,
@@ -3929,7 +4006,7 @@ INTERFACE zif_ghes30 PUBLIC.
            repos_url TYPE string,
            received_events_url TYPE string,
            type TYPE string,
-           score TYPE i,
+           score TYPE f,
            following_url TYPE string,
            gists_url TYPE string,
            starred_url TYPE string,
@@ -4255,7 +4332,6 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: key, object
   TYPES: BEGIN OF key,
-           key_id TYPE string,
            key TYPE string,
            id TYPE i,
            url TYPE string,
@@ -6113,6 +6189,11 @@ INTERFACE zif_ghes30 PUBLIC.
            secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_org_secr.
 
+* Component schema: response_actions_create_or_update_org_s, object
+  TYPES: BEGIN OF response_actions_create_or_upd,
+           dummy_workaround TYPE i,
+         END OF response_actions_create_or_upd.
+
 * Component schema: response_actions_list_selected_repos_fo, object
   TYPES: BEGIN OF response_actions_list_select01,
            total_count TYPE i,
@@ -6139,6 +6220,11 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: response_orgs_list_outside_collaborator, array
   TYPES response_orgs_list_outside_col TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_orgs_convert_member_to_outside, object
+  TYPES: BEGIN OF response_orgs_convert_member_t,
+           dummy_workaround TYPE i,
+         END OF response_orgs_convert_member_t.
 
 * Component schema: response_orgs_remove_outside_collaborat, object
   TYPES: BEGIN OF response_orgs_remove_outside_c,
@@ -6287,17 +6373,32 @@ INTERFACE zif_ghes30 PUBLIC.
            artifacts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_workfl01.
 
+* Component schema: response_actions_cancel_workflow_run, object
+  TYPES: BEGIN OF response_actions_cancel_workfl,
+           dummy_workaround TYPE i,
+         END OF response_actions_cancel_workfl.
+
 * Component schema: response_actions_list_jobs_for_workflow, object
   TYPES: BEGIN OF response_actions_list_jobs_for,
            total_count TYPE i,
            jobs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_jobs_for.
 
+* Component schema: response_actions_re_run_workflow, object
+  TYPES: BEGIN OF response_actions_re_run_workfl,
+           dummy_workaround TYPE i,
+         END OF response_actions_re_run_workfl.
+
 * Component schema: response_actions_list_repo_secrets, object
   TYPES: BEGIN OF response_actions_list_repo_sec,
            total_count TYPE i,
            secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_repo_sec.
+
+* Component schema: response_actions_create_or_update_repo_, object
+  TYPES: BEGIN OF response_actions_create_or_u01,
+           dummy_workaround TYPE i,
+         END OF response_actions_create_or_u01.
 
 * Component schema: response_actions_list_repo_workflows, object
   TYPES: BEGIN OF response_actions_list_repo_wor,
@@ -6373,6 +6474,11 @@ INTERFACE zif_ghes30 PUBLIC.
            total_count TYPE i,
            check_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_checks_list_for_suite.
+
+* Component schema: response_checks_rerequest_suite, object
+  TYPES: BEGIN OF response_checks_rerequest_suit,
+           dummy_workaround TYPE i,
+         END OF response_checks_rerequest_suit.
 
 * Component schema: response_code_scanning_list_alerts_for_, array
   TYPES response_code_scanning_list_al TYPE STANDARD TABLE OF code_scanning_alert_items WITH DEFAULT KEY.
@@ -6496,6 +6602,12 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: response_activity_list_repo_notificatio, array
   TYPES response_activity_list_repo_no TYPE STANDARD TABLE OF thread WITH DEFAULT KEY.
 
+* Component schema: response_activity_mark_repo_notificatio, object
+  TYPES: BEGIN OF response_activity_mark_repo_no,
+           message TYPE string,
+           url TYPE string,
+         END OF response_activity_mark_repo_no.
+
 * Component schema: response_repos_list_pages_builds, array
   TYPES response_repos_list_pages_buil TYPE STANDARD TABLE OF page_build WITH DEFAULT KEY.
 
@@ -6552,9 +6664,6 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: response_repos_list_release_assets, array
   TYPES response_repos_list_release_as TYPE STANDARD TABLE OF release_asset WITH DEFAULT KEY.
-
-* Component schema: response_activity_list_stargazers_for_r, array
-  TYPES response_activity_list_stargaz TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
 * Component schema: response_repos_get_code_frequency_stats, array
   TYPES response_repos_get_code_freque TYPE STANDARD TABLE OF code_frequency_stat WITH DEFAULT KEY.
@@ -6737,9 +6846,6 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: response_repos_list_for_user, array
   TYPES response_repos_list_for_user TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
-
-* Component schema: response_activity_list_repos_starred_01, array
-  TYPES response_activity_list_repos01 TYPE STANDARD TABLE OF repository WITH DEFAULT KEY.
 
 * Component schema: response_activity_list_repos_watched_by, array
   TYPES response_activity_list_repos_w TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
@@ -7496,12 +7602,10 @@ INTERFACE zif_ghes30 PUBLIC.
 * Operation id: enterprise-admin/get-type-stats
 * Parameter: type, required, path
 * Response: 200
-*     application/json, #/components/schemas/enterprise-overview
+*     application/json, string
   METHODS enterprise_admin_get_type_stat
     IMPORTING
       type TYPE string
-    RETURNING
-      VALUE(return_data) TYPE enterprise_overview
     RAISING cx_static_check.
 
 * GET - "Get GitHub Actions permissions for an enterprise"
@@ -8535,11 +8639,11 @@ INTERFACE zif_ghes30 PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get GitHub Actions permissions for an organization"
-* Operation id: actions/get-github-actions-permissions-organization
+* Operation id: actions/actions-policies/get-github-actions-permissions-organization
 * Parameter: org, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-organization-permissions
-  METHODS actions_get_github_actions_per
+  METHODS actions_actions_policies_get_g
     IMPORTING
       org TYPE string
     RETURNING
@@ -8940,6 +9044,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: org, required, path
 * Parameter: secret_name, required, path
 * Response: 201
+*     application/json, #/components/schemas/response_actions_create_or_update_org_s
 * Response: 204
 * Body ref: #/components/schemas/bodyactions_create_or_update_o
   METHODS actions_create_or_update_org_s
@@ -8947,6 +9052,8 @@ INTERFACE zif_ghes30 PUBLIC.
       org TYPE string
       secret_name TYPE string
       body TYPE bodyactions_create_or_update_o
+    RETURNING
+      VALUE(return_data) TYPE response_actions_create_or_upd
     RAISING cx_static_check.
 
 * DELETE - "Delete an organization secret"
@@ -9335,6 +9442,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: org, required, path
 * Parameter: username, required, path
 * Response: 202
+*     application/json, #/components/schemas/response_orgs_convert_member_to_outside
 * Response: 204
 * Response: 403
 * Response: 404
@@ -9839,6 +9947,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: team_slug, required, path
 * Parameter: discussion_number, required, path
 * Parameter: comment_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
 * Body ref: #/components/schemas/bodyreactions_create_for_team_
@@ -9897,6 +10007,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: org, required, path
 * Parameter: team_slug, required, path
 * Parameter: discussion_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
 * Body ref: #/components/schemas/bodyreactions_create_for_tea01
@@ -10090,7 +10202,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 200
-*     application/vnd.github.v3.repository+json, #/components/schemas/team-repository
+*     application/json, #/components/schemas/team-repository
 * Response: 204
 * Response: 404
   METHODS teams_check_permissions_for_re
@@ -10099,6 +10211,8 @@ INTERFACE zif_ghes30 PUBLIC.
       team_slug TYPE string
       owner TYPE string
       repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE team_repository
     RAISING cx_static_check.
 
 * PUT - "Add or update team repository permissions"
@@ -10633,13 +10747,15 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: job_id, required, path
-* Response: 202
+* Response: 200
 *     application/json, #/components/schemas/job
   METHODS actions_get_job_for_workflow_r
     IMPORTING
       owner TYPE string
       repo TYPE string
       job_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE job
     RAISING cx_static_check.
 
 * GET - "Download job logs for a workflow run"
@@ -10661,7 +10777,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-repository-permissions
-  METHODS actions_get_github_actions_p01
+  METHODS actions_get_github_actions_per
     IMPORTING
       owner TYPE string
       repo TYPE string
@@ -10879,6 +10995,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 202
+*     application/json, #/components/schemas/response_actions_cancel_workflow_run
   METHODS actions_cancel_workflow_run
     IMPORTING
       owner TYPE string
@@ -10940,11 +11057,14 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 201
+*     application/json, #/components/schemas/response_actions_re_run_workflow
   METHODS actions_re_run_workflow
     IMPORTING
       owner TYPE string
       repo TYPE string
       run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_actions_re_run_workfl
     RAISING cx_static_check.
 
 * GET - "List repository secrets"
@@ -11001,6 +11121,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: secret_name, required, path
 * Response: 201
+*     application/json, #/components/schemas/response_actions_create_or_update_repo_
 * Response: 204
 * Body ref: #/components/schemas/bodyactions_create_or_update_r
   METHODS actions_create_or_update_repo_
@@ -11009,6 +11130,8 @@ INTERFACE zif_ghes30 PUBLIC.
       repo TYPE string
       secret_name TYPE string
       body TYPE bodyactions_create_or_update_r
+    RETURNING
+      VALUE(return_data) TYPE response_actions_create_or_u01
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository secret"
@@ -11191,6 +11314,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: branch, required, path
 * Response: 200
 *     application/json, #/components/schemas/branch-with-protection
+* Response: 301
 * Response: 404
 * Response: 415
   METHODS repos_get_branch
@@ -11309,12 +11433,14 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: branch, required, path
 * Response: 200
-*     application/vnd.github.luke-cage-preview+json, #/components/schemas/protected-branch-pull-request-review
+*     application/json, #/components/schemas/protected-branch-pull-request-review
   METHODS repos_get_pull_request_review_
     IMPORTING
       owner TYPE string
       repo TYPE string
       branch TYPE string
+    RETURNING
+      VALUE(return_data) TYPE protected_branch_pull_request_
     RAISING cx_static_check.
 
 * PATCH - "Update pull request review protection"
@@ -11844,6 +11970,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Operation id: checks/create-suite
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/check-suite
 * Response: 201
 *     application/json, #/components/schemas/check-suite
 * Body ref: #/components/schemas/bodychecks_create_suite
@@ -11920,11 +12048,14 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: check_suite_id, required, path
 * Response: 201
+*     application/json, #/components/schemas/response_checks_rerequest_suite
   METHODS checks_rerequest_suite
     IMPORTING
       owner TYPE string
       repo TYPE string
       check_suite_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_checks_rerequest_suit
     RAISING cx_static_check.
 
 * GET - "List code scanning alerts for a repository"
@@ -12029,6 +12160,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Operation id: code-scanning/upload-sarif
 * Parameter: owner, required, path
 * Parameter: repo, required, path
+* Response: 200
+*     application/json, string
 * Response: 202
 *     application/json, #/components/schemas/code-scanning-sarifs-receipt
 * Response: 400
@@ -12793,7 +12926,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-*     application/json, #/components/schemas/repository
+*     application/json, #/components/schemas/full-repository
 * Response: 400
 * Response: 403
 * Response: 404
@@ -13805,6 +13938,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
 * Response: 415
@@ -14044,6 +14179,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 201
 *     application/json, #/components/schemas/commit
+* Response: 204
 * Response: 403
 * Response: 404
 * Response: 409
@@ -14203,6 +14339,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
+*     application/json, #/components/schemas/response_activity_mark_repo_notificatio
+* Response: 205
 * Body ref: #/components/schemas/bodyactivity_mark_repo_notific
   METHODS activity_mark_repo_notificatio
     IMPORTING
@@ -14875,6 +15013,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: pull_number, required, path
 * Response: 200
+*     application/json, #/components/schemas/pull-request-simple
 * Response: 422
 * Body ref: #/components/schemas/bodypulls_remove_requested_rev
   METHODS pulls_remove_requested_reviewe
@@ -14883,6 +15022,8 @@ INTERFACE zif_ghes30 PUBLIC.
       repo TYPE string
       pull_number TYPE i
       body TYPE bodypulls_remove_requested_rev
+    RETURNING
+      VALUE(return_data) TYPE pull_request_simple
     RAISING cx_static_check.
 
 * GET - "List reviews for a pull request"
@@ -15328,8 +15469,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, #/components/schemas/response_activity_list_stargazers_for_r
-*     application/vnd.github.v3.star+json, array
+*     application/json, string
 * Response: 422
   METHODS activity_list_stargazers_for_r
     IMPORTING
@@ -15337,8 +15477,6 @@ INTERFACE zif_ghes30 PUBLIC.
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_stargaz
     RAISING cx_static_check.
 
 * GET - "Get the weekly commit activity"
@@ -15347,6 +15485,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/response_repos_get_code_frequency_stats
+* Response: 202
+* Response: 204
   METHODS repos_get_code_frequency_stats
     IMPORTING
       owner TYPE string
@@ -15361,6 +15501,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/response_repos_get_commit_activity_stat
+* Response: 202
+* Response: 204
   METHODS repos_get_commit_activity_stat
     IMPORTING
       owner TYPE string
@@ -15375,6 +15517,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/response_repos_get_contributors_stats
+* Response: 202
+* Response: 204
   METHODS repos_get_contributors_stats
     IMPORTING
       owner TYPE string
@@ -15404,6 +15548,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/response_repos_get_punch_card_stats
+* Response: 204
   METHODS repos_get_punch_card_stats
     IMPORTING
       owner TYPE string
@@ -15586,7 +15731,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 202
-*     application/json, #/components/schemas/repository
+*     application/json, #/components/schemas/minimal-repository
 * Body ref: #/components/schemas/bodyrepos_transfer
   METHODS repos_transfer
     IMPORTING
@@ -16606,6 +16751,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: username, required, path
 * Response: 200
 *     application/json, string
+* Response: 202
 * Response: 404
   METHODS users_get_by_username
     IMPORTING
@@ -16903,8 +17049,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, #/components/schemas/response_activity_list_repos_starred_01
-*     application/vnd.github.v3.star+json, array
+*     application/json, string
   METHODS activity_list_repos_starred_01
     IMPORTING
       username TYPE string
@@ -16912,8 +17057,6 @@ INTERFACE zif_ghes30 PUBLIC.
       direction TYPE string DEFAULT 'desc'
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_repos01
     RAISING cx_static_check.
 
 * GET - "List repositories watched by a user"

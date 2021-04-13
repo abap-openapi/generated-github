@@ -1780,6 +1780,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_org_secr) TYPE zif_githubae=>response_actions_list_org_secr
       RAISING cx_static_check.
+    METHODS parse_actions_create_or_update
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_create_or_upd) TYPE zif_githubae=>response_actions_create_or_upd
+      RAISING cx_static_check.
     METHODS parse_actions_list_selected_01
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_select01) TYPE zif_githubae=>response_actions_list_select01
@@ -1807,6 +1811,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_orgs_list_outside_collab
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_outside_col) TYPE zif_githubae=>response_orgs_list_outside_col
+      RAISING cx_static_check.
+    METHODS parse_orgs_convert_member_to_o
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_orgs_convert_member_t) TYPE zif_githubae=>response_orgs_convert_member_t
       RAISING cx_static_check.
     METHODS parse_orgs_remove_outside_coll
       IMPORTING iv_prefix TYPE string
@@ -1928,13 +1936,25 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_workfl01) TYPE zif_githubae=>response_actions_list_workfl01
       RAISING cx_static_check.
+    METHODS parse_actions_cancel_workflow_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_cancel_workfl) TYPE zif_githubae=>response_actions_cancel_workfl
+      RAISING cx_static_check.
     METHODS parse_actions_list_jobs_for_wo
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_jobs_for) TYPE zif_githubae=>response_actions_list_jobs_for
       RAISING cx_static_check.
+    METHODS parse_actions_re_run_workflow
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_re_run_workfl) TYPE zif_githubae=>response_actions_re_run_workfl
+      RAISING cx_static_check.
     METHODS parse_actions_list_repo_secret
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_repo_sec) TYPE zif_githubae=>response_actions_list_repo_sec
+      RAISING cx_static_check.
+    METHODS parse_actions_create_or_upda01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_create_or_u01) TYPE zif_githubae=>response_actions_create_or_u01
       RAISING cx_static_check.
     METHODS parse_actions_list_repo_workfl
       IMPORTING iv_prefix TYPE string
@@ -2023,6 +2043,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_checks_list_for_suite
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_checks_list_for_suite) TYPE zif_githubae=>response_checks_list_for_suite
+      RAISING cx_static_check.
+    METHODS parse_checks_rerequest_suite
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_checks_rerequest_suit) TYPE zif_githubae=>response_checks_rerequest_suit
       RAISING cx_static_check.
     METHODS parse_code_scanning_list_alert
       IMPORTING iv_prefix TYPE string
@@ -2180,6 +2204,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_activity_list_repo_no) TYPE zif_githubae=>response_activity_list_repo_no
       RAISING cx_static_check.
+    METHODS parse_activity_mark_repo_notif
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_activity_mark_repo_no) TYPE zif_githubae=>response_activity_mark_repo_no
+      RAISING cx_static_check.
     METHODS parse_repos_list_pages_builds
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_pages_buil) TYPE zif_githubae=>response_repos_list_pages_buil
@@ -2239,10 +2267,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_release_asset
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_release_as) TYPE zif_githubae=>response_repos_list_release_as
-      RAISING cx_static_check.
-    METHODS parse_activity_list_stargazers
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_activity_list_stargaz) TYPE zif_githubae=>response_activity_list_stargaz
       RAISING cx_static_check.
     METHODS parse_repos_get_code_frequency
       IMPORTING iv_prefix TYPE string
@@ -2415,10 +2439,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_for_user
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_for_user) TYPE zif_githubae=>response_repos_list_for_user
-      RAISING cx_static_check.
-    METHODS parse_activity_list_repos_st01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_activity_list_repos01) TYPE zif_githubae=>response_activity_list_repos01
       RAISING cx_static_check.
     METHODS parse_activity_list_repos_watc
       IMPORTING iv_prefix TYPE string
@@ -2625,6 +2645,8 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_basic_error.
     basic_error-message = mo_json->value_string( iv_prefix && '/message' ).
     basic_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
+    basic_error-url = mo_json->value_string( iv_prefix && '/url' ).
+    basic_error-status = mo_json->value_string( iv_prefix && '/status' ).
   ENDMETHOD.
 
   METHOD parse_validation_error_simple.
@@ -2714,6 +2736,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     repository-name = mo_json->value_string( iv_prefix && '/name' ).
     repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
     repository-license = mo_json->value_string( iv_prefix && '/license' ).
+    repository-organization = mo_json->value_string( iv_prefix && '/organization' ).
     repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
@@ -3227,6 +3250,27 @@ CLASS zcl_githubae IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_gist_simple.
+* todo, array, forks
+* todo, array, history
+    gist_simple-fork_of-url = mo_json->value_string( iv_prefix && '/fork_of/url' ).
+    gist_simple-fork_of-forks_url = mo_json->value_string( iv_prefix && '/fork_of/forks_url' ).
+    gist_simple-fork_of-commits_url = mo_json->value_string( iv_prefix && '/fork_of/commits_url' ).
+    gist_simple-fork_of-id = mo_json->value_string( iv_prefix && '/fork_of/id' ).
+    gist_simple-fork_of-node_id = mo_json->value_string( iv_prefix && '/fork_of/node_id' ).
+    gist_simple-fork_of-git_pull_url = mo_json->value_string( iv_prefix && '/fork_of/git_pull_url' ).
+    gist_simple-fork_of-git_push_url = mo_json->value_string( iv_prefix && '/fork_of/git_push_url' ).
+    gist_simple-fork_of-html_url = mo_json->value_string( iv_prefix && '/fork_of/html_url' ).
+    gist_simple-fork_of-public = mo_json->value_boolean( iv_prefix && '/fork_of/public' ).
+    gist_simple-fork_of-created_at = mo_json->value_string( iv_prefix && '/fork_of/created_at' ).
+    gist_simple-fork_of-updated_at = mo_json->value_string( iv_prefix && '/fork_of/updated_at' ).
+    gist_simple-fork_of-description = mo_json->value_string( iv_prefix && '/fork_of/description' ).
+    gist_simple-fork_of-comments = mo_json->value_string( iv_prefix && '/fork_of/comments' ).
+    gist_simple-fork_of-user = mo_json->value_string( iv_prefix && '/fork_of/user' ).
+    gist_simple-fork_of-comments_url = mo_json->value_string( iv_prefix && '/fork_of/comments_url' ).
+    gist_simple-fork_of-owner = mo_json->value_string( iv_prefix && '/fork_of/owner' ).
+    gist_simple-fork_of-truncated = mo_json->value_boolean( iv_prefix && '/fork_of/truncated' ).
+* todo, array, forks
+* todo, array, history
     gist_simple-url = mo_json->value_string( iv_prefix && '/url' ).
     gist_simple-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
     gist_simple-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
@@ -3335,9 +3379,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, web
 * todo, array, api
 * todo, array, git
+* todo, array, packages
 * todo, array, pages
 * todo, array, importer
 * todo, array, actions
+* todo, array, dependabot
   ENDMETHOD.
 
   METHOD parse_minimal_repository.
@@ -3502,6 +3548,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     organization_full-members_can_create_private_rep = mo_json->value_boolean( iv_prefix && '/members_can_create_private_repositories' ).
     organization_full-members_can_create_internal_re = mo_json->value_boolean( iv_prefix && '/members_can_create_internal_repositories' ).
     organization_full-members_can_create_pages = mo_json->value_boolean( iv_prefix && '/members_can_create_pages' ).
+    organization_full-members_can_create_public_page = mo_json->value_boolean( iv_prefix && '/members_can_create_public_pages' ).
+    organization_full-members_can_create_private_pag = mo_json->value_boolean( iv_prefix && '/members_can_create_private_pages' ).
     organization_full-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
   ENDMETHOD.
 
@@ -4023,6 +4071,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     workflow_run-id = mo_json->value_string( iv_prefix && '/id' ).
     workflow_run-name = mo_json->value_string( iv_prefix && '/name' ).
     workflow_run-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    workflow_run-check_suite_id = mo_json->value_string( iv_prefix && '/check_suite_id' ).
+    workflow_run-check_suite_node_id = mo_json->value_string( iv_prefix && '/check_suite_node_id' ).
     workflow_run-head_branch = mo_json->value_string( iv_prefix && '/head_branch' ).
     workflow_run-head_sha = mo_json->value_string( iv_prefix && '/head_sha' ).
     workflow_run-run_number = mo_json->value_string( iv_prefix && '/run_number' ).
@@ -4042,7 +4092,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     workflow_run-cancel_url = mo_json->value_string( iv_prefix && '/cancel_url' ).
     workflow_run-rerun_url = mo_json->value_string( iv_prefix && '/rerun_url' ).
     workflow_run-workflow_url = mo_json->value_string( iv_prefix && '/workflow_url' ).
-    workflow_run-head_commit = parse_simple_commit( iv_prefix ).
+    workflow_run-head_commit = mo_json->value_string( iv_prefix && '/head_commit' ).
     workflow_run-repository = parse_minimal_repository( iv_prefix ).
     workflow_run-head_repository = parse_minimal_repository( iv_prefix ).
     workflow_run-head_repository_id = mo_json->value_string( iv_prefix && '/head_repository_id' ).
@@ -4123,9 +4173,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     branch_protection-required_linear_history-enabled = mo_json->value_boolean( iv_prefix && '/required_linear_history/enabled' ).
     branch_protection-allow_force_pushes-enabled = mo_json->value_boolean( iv_prefix && '/allow_force_pushes/enabled' ).
     branch_protection-allow_deletions-enabled = mo_json->value_boolean( iv_prefix && '/allow_deletions/enabled' ).
-    branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
+    branch_protection-required_conversation_resoluti-enabled = mo_json->value_boolean( iv_prefix && '/required_conversation_resolution/enabled' ).
     branch_protection-name = mo_json->value_string( iv_prefix && '/name' ).
     branch_protection-protection_url = mo_json->value_string( iv_prefix && '/protection_url' ).
+    branch_protection-required_signatures-url = mo_json->value_string( iv_prefix && '/required_signatures/url' ).
+    branch_protection-required_signatures-enabled = mo_json->value_boolean( iv_prefix && '/required_signatures/enabled' ).
   ENDMETHOD.
 
   METHOD parse_short_branch.
@@ -4212,6 +4264,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     protected_branch-allow_force_pushes-enabled = mo_json->value_boolean( iv_prefix && '/allow_force_pushes/enabled' ).
     protected_branch-allow_deletions-enabled = mo_json->value_boolean( iv_prefix && '/allow_deletions/enabled' ).
     protected_branch-restrictions = parse_branch_restriction_polic( iv_prefix ).
+    protected_branch-required_conversation_resoluti-enabled = mo_json->value_boolean( iv_prefix && '/required_conversation_resolution/enabled' ).
   ENDMETHOD.
 
   METHOD parse_deployment_simple.
@@ -4290,7 +4343,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 
   METHOD parse_check_suite_preference.
 * todo, array, auto_trigger_checks
-    check_suite_preference-repository = parse_repository( iv_prefix ).
+    check_suite_preference-repository = parse_minimal_repository( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_analysis_t.
@@ -4416,6 +4469,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
     code_scanning_alert-url = parse_alert_url( iv_prefix ).
     code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
+    code_scanning_alert-instances = mo_json->value_string( iv_prefix && '/instances' ).
     code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
     code_scanning_alert-dismissed_by = parse_simple_user( iv_prefix ).
@@ -4818,6 +4872,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     deployment-sha = mo_json->value_string( iv_prefix && '/sha' ).
     deployment-ref = mo_json->value_string( iv_prefix && '/ref' ).
     deployment-task = mo_json->value_string( iv_prefix && '/task' ).
+    deployment-payload = mo_json->value_string( iv_prefix && '/payload' ).
     deployment-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
     deployment-environment = mo_json->value_string( iv_prefix && '/environment' ).
     deployment-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -4998,6 +5053,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     issue_event-rename = parse_issue_event_rename( iv_prefix ).
     issue_event-author_association = parse_author_association( iv_prefix ).
     issue_event-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
+    issue_event-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
   ENDMETHOD.
 
   METHOD parse_issue_event_for_issue.
@@ -5599,7 +5655,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_search_result_item-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
     code_search_result_item-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     code_search_result_item-repository = parse_minimal_repository( iv_prefix ).
-    code_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     code_search_result_item-file_size = mo_json->value_string( iv_prefix && '/file_size' ).
     code_search_result_item-language = mo_json->value_string( iv_prefix && '/language' ).
     code_search_result_item-last_modified_at = mo_json->value_string( iv_prefix && '/last_modified_at' ).
@@ -5626,7 +5682,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     commit_search_result_item-committer = mo_json->value_string( iv_prefix && '/committer' ).
 * todo, array, parents
     commit_search_result_item-repository = parse_minimal_repository( iv_prefix ).
-    commit_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     commit_search_result_item-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     commit_search_result_item-text_matches = parse_search_result_text_match( iv_prefix ).
   ENDMETHOD.
@@ -5661,7 +5717,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     issue_search_result_item-pull_request-patch_url = mo_json->value_string( iv_prefix && '/pull_request/patch_url' ).
     issue_search_result_item-pull_request-url = mo_json->value_string( iv_prefix && '/pull_request/url' ).
     issue_search_result_item-body = mo_json->value_string( iv_prefix && '/body' ).
-    issue_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     issue_search_result_item-author_association = parse_author_association( iv_prefix ).
     issue_search_result_item-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
     issue_search_result_item-repository = parse_repository( iv_prefix ).
@@ -5679,7 +5735,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     label_search_result_item-color = mo_json->value_string( iv_prefix && '/color' ).
     label_search_result_item-default = mo_json->value_boolean( iv_prefix && '/default' ).
     label_search_result_item-description = mo_json->value_string( iv_prefix && '/description' ).
-    label_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     label_search_result_item-text_matches = parse_search_result_text_match( iv_prefix ).
   ENDMETHOD.
 
@@ -5706,7 +5762,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     repo_search_result_item-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
     repo_search_result_item-master_branch = mo_json->value_string( iv_prefix && '/master_branch' ).
     repo_search_result_item-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
-    repo_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     repo_search_result_item-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
     repo_search_result_item-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
     repo_search_result_item-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
@@ -5782,7 +5838,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     topic_search_result_item-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     topic_search_result_item-featured = mo_json->value_boolean( iv_prefix && '/featured' ).
     topic_search_result_item-curated = mo_json->value_boolean( iv_prefix && '/curated' ).
-    topic_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     topic_search_result_item-repository_count = mo_json->value_string( iv_prefix && '/repository_count' ).
     topic_search_result_item-logo_url = mo_json->value_string( iv_prefix && '/logo_url' ).
     topic_search_result_item-text_matches = parse_search_result_text_match( iv_prefix ).
@@ -5804,7 +5860,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     user_search_result_item-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
     user_search_result_item-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
     user_search_result_item-type = mo_json->value_string( iv_prefix && '/type' ).
-    user_search_result_item-score = mo_json->value_string( iv_prefix && '/score' ).
+* todo, number, score
     user_search_result_item-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
     user_search_result_item-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
     user_search_result_item-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
@@ -5937,7 +5993,6 @@ CLASS zcl_githubae IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_key.
-    key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
     key-key = mo_json->value_string( iv_prefix && '/key' ).
     key-id = mo_json->value_string( iv_prefix && '/id' ).
     key-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -6283,6 +6338,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, secrets
   ENDMETHOD.
 
+  METHOD parse_actions_create_or_update.
+  ENDMETHOD.
+
   METHOD parse_actions_list_selected_01.
     response_actions_list_select01-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, repositories
@@ -6351,6 +6409,9 @@ CLASS zcl_githubae IMPLEMENTATION.
       simple_user = parse_simple_user( iv_prefix && '/' && lv_member ).
       APPEND simple_user TO response_orgs_list_outside_col.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_orgs_convert_member_to_o.
   ENDMETHOD.
 
   METHOD parse_orgs_remove_outside_coll.
@@ -6612,14 +6673,23 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, artifacts
   ENDMETHOD.
 
+  METHOD parse_actions_cancel_workflow_.
+  ENDMETHOD.
+
   METHOD parse_actions_list_jobs_for_wo.
     response_actions_list_jobs_for-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, jobs
   ENDMETHOD.
 
+  METHOD parse_actions_re_run_workflow.
+  ENDMETHOD.
+
   METHOD parse_actions_list_repo_secret.
     response_actions_list_repo_sec-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, secrets
+  ENDMETHOD.
+
+  METHOD parse_actions_create_or_upda01.
   ENDMETHOD.
 
   METHOD parse_actions_list_repo_workfl.
@@ -6831,6 +6901,9 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_checks_list_for_suite.
     response_checks_list_for_suite-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, check_runs
+  ENDMETHOD.
+
+  METHOD parse_checks_rerequest_suite.
   ENDMETHOD.
 
   METHOD parse_code_scanning_list_alert.
@@ -7279,6 +7352,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_activity_mark_repo_notif.
+    response_activity_mark_repo_no-message = mo_json->value_string( iv_prefix && '/message' ).
+    response_activity_mark_repo_no-url = mo_json->value_string( iv_prefix && '/url' ).
+  ENDMETHOD.
+
   METHOD parse_repos_list_pages_builds.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -7435,18 +7513,6 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR release_asset.
       release_asset = parse_release_asset( iv_prefix && '/' && lv_member ).
       APPEND release_asset TO response_repos_list_release_as.
-    ENDLOOP.
-  ENDMETHOD.
-
-  METHOD parse_activity_list_stargazers.
-    DATA lt_members TYPE string_table.
-    DATA lv_member LIKE LINE OF lt_members.
-    DATA simple_user TYPE zif_githubae=>simple_user.
-    lt_members = mo_json->members( iv_prefix && '/' ).
-    LOOP AT lt_members INTO lv_member.
-      CLEAR simple_user.
-      simple_user = parse_simple_user( iv_prefix && '/' && lv_member ).
-      APPEND simple_user TO response_activity_list_stargaz.
     ENDLOOP.
   ENDMETHOD.
 
@@ -7908,18 +7974,6 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR minimal_repository.
       minimal_repository = parse_minimal_repository( iv_prefix && '/' && lv_member ).
       APPEND minimal_repository TO response_repos_list_for_user.
-    ENDLOOP.
-  ENDMETHOD.
-
-  METHOD parse_activity_list_repos_st01.
-    DATA lt_members TYPE string_table.
-    DATA lv_member LIKE LINE OF lt_members.
-    DATA repository TYPE zif_githubae=>repository.
-    lt_members = mo_json->members( iv_prefix && '/' ).
-    LOOP AT lt_members INTO lv_member.
-      CLEAR repository.
-      repository = parse_repository( iv_prefix && '/' && lv_member ).
-      APPEND repository TO response_activity_list_repos01.
     ENDLOOP.
   ENDMETHOD.
 
@@ -10827,8 +10881,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_enterprise_overview( '' ).
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~enterprise_admin_get_github_ac.
@@ -11951,7 +12005,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_organization_full( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_get_github_actions_per.
+  METHOD zif_githubae~actions_actions_policies_get_g.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/orgs/{org}/actions/permissions'.
@@ -12199,8 +12253,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_cdata( json_actions_create_or_update_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_create_or_update( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~actions_delete_org_secret.
@@ -13454,8 +13508,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_team_repository( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~teams_add_or_update_repo_permi.
@@ -13996,8 +14050,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_job( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~actions_download_job_logs_for_.
@@ -14017,7 +14071,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_get_github_actions_p01.
+  METHOD zif_githubae~actions_get_github_actions_per.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/actions/permissions'.
@@ -14307,8 +14361,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_re_run_workflow( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~actions_get_workflow_run_usage.
@@ -14393,8 +14447,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_cdata( json_actions_create_or_updat01( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_actions_create_or_upda01( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~actions_delete_repo_secret.
@@ -14736,8 +14790,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_protected_branch_pull_re( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~repos_update_pull_request_revi.
@@ -15307,8 +15361,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_checks_rerequest_suite( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~code_scanning_list_alerts_for_.
@@ -18408,8 +18462,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_cdata( json_pulls_remove_requested_re( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_pull_request_simple( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~pulls_list_reviews.
@@ -18888,8 +18942,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_activity_list_stargazers( '' ).
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~repos_get_code_frequency_stats.
@@ -20614,8 +20668,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_activity_list_repos_st01( '' ).
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~activity_list_repos_watched_by.
