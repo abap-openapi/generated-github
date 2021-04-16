@@ -755,6 +755,8 @@ INTERFACE zif_ghes222 PUBLIC.
            architecture TYPE string,
            download_url TYPE string,
            filename TYPE string,
+           temp_download_token TYPE string,
+           sha256_checksum TYPE string,
          END OF runner_application.
 
 * Component schema: authentication-token, object
