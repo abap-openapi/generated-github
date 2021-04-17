@@ -2619,6 +2619,14 @@ INTERFACE zif_ghes218 PUBLIC.
            path TYPE string,
          END OF pages_source_hash.
 
+* Component schema: pages-https-certificate, object
+  TYPES: BEGIN OF pages_https_certificate,
+           state TYPE string,
+           description TYPE string,
+           domains TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           expires_at TYPE string,
+         END OF pages_https_certificate.
+
 * Component schema: page, object
   TYPES: BEGIN OF page,
            url TYPE string,
@@ -2628,6 +2636,8 @@ INTERFACE zif_ghes218 PUBLIC.
            html_url TYPE string,
            source TYPE pages_source_hash,
            public TYPE abap_bool,
+           https_certificate TYPE pages_https_certificate,
+           https_enforced TYPE abap_bool,
          END OF page.
 
 * Component schema: page-build, object
@@ -4922,12 +4932,14 @@ INTERFACE zif_ghes218 PUBLIC.
 
 * Component schema: bodyrepos_update_information_a, object
   TYPES: BEGIN OF bodyrepos_update_information_a,
+           https_enforced TYPE abap_bool,
            public TYPE abap_bool,
            source TYPE string,
          END OF bodyrepos_update_information_a.
 
 * Component schema: bodyrepos_delete_pages_site, object
   TYPES: BEGIN OF bodyrepos_delete_pages_site,
+           https_enforced TYPE abap_bool,
            public TYPE abap_bool,
            source TYPE string,
          END OF bodyrepos_delete_pages_site.

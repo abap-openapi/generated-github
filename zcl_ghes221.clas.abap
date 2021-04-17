@@ -532,6 +532,10 @@ CLASS zcl_ghes221 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(pages_source_hash) TYPE zif_ghes221=>pages_source_hash
       RAISING cx_static_check.
+    METHODS parse_pages_https_certificate
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pages_https_certificate) TYPE zif_ghes221=>pages_https_certificate
+      RAISING cx_static_check.
     METHODS parse_page
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(page) TYPE zif_ghes221=>page
@@ -4499,6 +4503,13 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     pages_source_hash-path = mo_json->value_string( iv_prefix && '/path' ).
   ENDMETHOD.
 
+  METHOD parse_pages_https_certificate.
+    pages_https_certificate-state = mo_json->value_string( iv_prefix && '/state' ).
+    pages_https_certificate-description = mo_json->value_string( iv_prefix && '/description' ).
+* todo, array, domains
+    pages_https_certificate-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
+  ENDMETHOD.
+
   METHOD parse_page.
     page-url = mo_json->value_string( iv_prefix && '/url' ).
     page-status = mo_json->value_string( iv_prefix && '/status' ).
@@ -4507,6 +4518,8 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     page-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     page-source = parse_pages_source_hash( iv_prefix ).
     page-public = mo_json->value_boolean( iv_prefix && '/public' ).
+    page-https_certificate = parse_pages_https_certificate( iv_prefix ).
+    page-https_enforced = mo_json->value_boolean( iv_prefix && '/https_enforced' ).
   ENDMETHOD.
 
   METHOD parse_page_build.
@@ -8985,6 +8998,11 @@ CLASS zcl_ghes221 IMPLEMENTATION.
 
   METHOD json_repos_update_information_.
     json = json && '{'.
+    IF data-https_enforced = abap_true.
+      json = json && |"https_enforced": true,|.
+    ELSEIF data-https_enforced = abap_false.
+      json = json && |"https_enforced": false,|.
+    ENDIF.
     IF data-public = abap_true.
       json = json && |"public": true,|.
     ELSEIF data-public = abap_false.
@@ -8997,6 +9015,11 @@ CLASS zcl_ghes221 IMPLEMENTATION.
 
   METHOD json_repos_delete_pages_site.
     json = json && '{'.
+    IF data-https_enforced = abap_true.
+      json = json && |"https_enforced": true,|.
+    ELSEIF data-https_enforced = abap_false.
+      json = json && |"https_enforced": false,|.
+    ENDIF.
     IF data-public = abap_true.
       json = json && |"public": true,|.
     ELSEIF data-public = abap_false.

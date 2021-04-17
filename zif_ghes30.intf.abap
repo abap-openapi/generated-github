@@ -2475,6 +2475,7 @@ INTERFACE zif_ghes30 PUBLIC.
            sarif_id TYPE code_scanning_analysis_sarif_i,
            tool TYPE code_scanning_analysis_tool,
            deletable TYPE abap_bool,
+           warning TYPE string,
          END OF code_scanning_analysis.
 
 * Component schema: code-scanning-analysis-sarif-file, string
@@ -3174,6 +3175,14 @@ INTERFACE zif_ghes30 PUBLIC.
            path TYPE string,
          END OF pages_source_hash.
 
+* Component schema: pages-https-certificate, object
+  TYPES: BEGIN OF pages_https_certificate,
+           state TYPE string,
+           description TYPE string,
+           domains TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           expires_at TYPE string,
+         END OF pages_https_certificate.
+
 * Component schema: page, object
   TYPES: BEGIN OF page,
            url TYPE string,
@@ -3183,6 +3192,8 @@ INTERFACE zif_ghes30 PUBLIC.
            html_url TYPE string,
            source TYPE pages_source_hash,
            public TYPE abap_bool,
+           https_certificate TYPE pages_https_certificate,
+           https_enforced TYPE abap_bool,
          END OF page.
 
 * Component schema: page-build, object
@@ -5644,6 +5655,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: bodyrepos_update_information_a, object
   TYPES: BEGIN OF bodyrepos_update_information_a,
            cname TYPE string,
+           https_enforced TYPE abap_bool,
            public TYPE abap_bool,
            source TYPE string,
          END OF bodyrepos_update_information_a.
@@ -5651,6 +5663,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: bodyrepos_delete_pages_site, object
   TYPES: BEGIN OF bodyrepos_delete_pages_site,
            cname TYPE string,
+           https_enforced TYPE abap_bool,
            public TYPE abap_bool,
            source TYPE string,
          END OF bodyrepos_delete_pages_site.
