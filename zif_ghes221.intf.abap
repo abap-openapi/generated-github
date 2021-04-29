@@ -1650,7 +1650,7 @@ INTERFACE zif_ghes221 PUBLIC.
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE string,
+           owner TYPE simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -4774,7 +4774,6 @@ INTERFACE zif_ghes221 PUBLIC.
            description TYPE string,
            transient_environment TYPE abap_bool,
            production_environment TYPE abap_bool,
-           created_at TYPE string,
          END OF bodyrepos_create_deployment.
 
 * Component schema: bodyrepos_create_deployment_st, object

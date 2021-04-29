@@ -1343,6 +1343,11 @@ INTERFACE zif_ghes222 PUBLIC.
            created_at TYPE string,
          END OF actions_public_key.
 
+* Component schema: empty-object, object
+  TYPES: BEGIN OF empty_object,
+           dummy_workaround TYPE i,
+         END OF empty_object.
+
 * Component schema: org-hook, object
   TYPES: BEGIN OF suborg_hook_config,
            url TYPE string,
@@ -1727,7 +1732,7 @@ INTERFACE zif_ghes222 PUBLIC.
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE string,
+           owner TYPE simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -2387,6 +2392,9 @@ INTERFACE zif_ghes222 PUBLIC.
 * Component schema: code-scanning-analysis-environment, string
   TYPES code_scanning_analysis_environ TYPE string.
 
+* Component schema: code-scanning-analysis-category, string
+  TYPES code_scanning_analysis_categor TYPE string.
+
 * Component schema: code-scanning-analysis-created-at, string
   TYPES code_scanning_analysis_created TYPE string.
 
@@ -2399,6 +2407,7 @@ INTERFACE zif_ghes222 PUBLIC.
            commit_sha TYPE code_scanning_analysis_commit_,
            analysis_key TYPE code_scanning_analysis_analysi,
            environment TYPE code_scanning_analysis_environ,
+           category TYPE code_scanning_analysis_categor,
            error TYPE string,
            created_at TYPE code_scanning_analysis_created,
            results_count TYPE i,
@@ -5230,7 +5239,6 @@ INTERFACE zif_ghes222 PUBLIC.
            description TYPE string,
            transient_environment TYPE abap_bool,
            production_environment TYPE abap_bool,
-           created_at TYPE string,
          END OF bodyrepos_create_deployment.
 
 * Component schema: bodyrepos_create_deployment_st, object
@@ -6062,11 +6070,6 @@ INTERFACE zif_ghes222 PUBLIC.
            secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_org_secr.
 
-* Component schema: response_actions_create_or_update_org_s, object
-  TYPES: BEGIN OF response_actions_create_or_upd,
-           dummy_workaround TYPE i,
-         END OF response_actions_create_or_upd.
-
 * Component schema: response_actions_list_selected_repos_fo, object
   TYPES: BEGIN OF response_actions_list_selected,
            total_count TYPE i,
@@ -6269,9 +6272,9 @@ INTERFACE zif_ghes222 PUBLIC.
          END OF response_actions_list_repo_sec.
 
 * Component schema: response_actions_create_or_update_repo_, object
-  TYPES: BEGIN OF response_actions_create_or_u01,
+  TYPES: BEGIN OF response_actions_create_or_upd,
            dummy_workaround TYPE i,
-         END OF response_actions_create_or_u01.
+         END OF response_actions_create_or_upd.
 
 * Component schema: response_actions_list_repo_workflows, object
   TYPES: BEGIN OF response_actions_list_repo_wor,
@@ -8661,7 +8664,7 @@ INTERFACE zif_ghes222 PUBLIC.
 * Parameter: org, required, path
 * Parameter: secret_name, required, path
 * Response: 201
-*     application/json, #/components/schemas/response_actions_create_or_update_org_s
+*     application/json, #/components/schemas/empty-object
 * Response: 204
 * Body ref: #/components/schemas/bodyactions_create_or_update_o
   METHODS actions_create_or_update_org_s
@@ -8670,7 +8673,7 @@ INTERFACE zif_ghes222 PUBLIC.
       secret_name TYPE string
       body TYPE bodyactions_create_or_update_o
     RETURNING
-      VALUE(return_data) TYPE response_actions_create_or_upd
+      VALUE(return_data) TYPE empty_object
     RAISING cx_static_check.
 
 * DELETE - "Delete an organization secret"
@@ -10664,7 +10667,7 @@ INTERFACE zif_ghes222 PUBLIC.
       secret_name TYPE string
       body TYPE bodyactions_create_or_update_r
     RETURNING
-      VALUE(return_data) TYPE response_actions_create_or_u01
+      VALUE(return_data) TYPE response_actions_create_or_upd
     RAISING cx_static_check.
 
 * DELETE - "Delete a repository secret"
@@ -11667,8 +11670,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Operation id: code-scanning/upload-sarif
 * Parameter: owner, required, path
 * Parameter: repo, required, path
-* Response: 200
-*     application/json, string
 * Response: 202
 *     application/json, #/components/schemas/code-scanning-sarifs-receipt
 * Response: 400

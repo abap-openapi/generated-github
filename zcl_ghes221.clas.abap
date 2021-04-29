@@ -3601,7 +3601,7 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     full_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     full_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     full_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    full_repository-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    full_repository-owner = parse_simple_user( iv_prefix ).
     full_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     full_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     full_repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -8648,7 +8648,6 @@ CLASS zcl_ghes221 IMPLEMENTATION.
     ELSEIF data-production_environment = abap_false.
       json = json && |"production_environment": false,|.
     ENDIF.
-    json = json && |"created_at": "{ data-created_at }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.

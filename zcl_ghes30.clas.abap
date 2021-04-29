@@ -292,6 +292,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actions_public_key) TYPE zif_ghes30=>actions_public_key
       RAISING cx_static_check.
+    METHODS parse_empty_object
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(empty_object) TYPE zif_ghes30=>empty_object
+      RAISING cx_static_check.
     METHODS parse_org_hook
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(org_hook) TYPE zif_ghes30=>org_hook
@@ -578,6 +582,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis04
       IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_categor) TYPE zif_ghes30=>code_scanning_analysis_categor
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis05
+      IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_created) TYPE zif_ghes30=>code_scanning_analysis_created
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis_u
@@ -588,7 +596,7 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis) TYPE zif_ghes30=>code_scanning_analysis
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis05
+    METHODS parse_code_scanning_analysis06
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_sarif_f) TYPE zif_ghes30=>code_scanning_analysis_sarif_f
       RAISING cx_static_check.
@@ -1912,10 +1920,6 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_org_secr) TYPE zif_ghes30=>response_actions_list_org_secr
       RAISING cx_static_check.
-    METHODS parse_actions_create_or_update
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_actions_create_or_upd) TYPE zif_ghes30=>response_actions_create_or_upd
-      RAISING cx_static_check.
     METHODS parse_actions_list_selected_01
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_select01) TYPE zif_ghes30=>response_actions_list_select01
@@ -2092,9 +2096,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_repo_sec) TYPE zif_ghes30=>response_actions_list_repo_sec
       RAISING cx_static_check.
-    METHODS parse_actions_create_or_upda01
+    METHODS parse_actions_create_or_update
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_actions_create_or_u01) TYPE zif_ghes30=>response_actions_create_or_u01
+      RETURNING VALUE(response_actions_create_or_upd) TYPE zif_ghes30=>response_actions_create_or_upd
       RAISING cx_static_check.
     METHODS parse_actions_list_repo_workfl
       IMPORTING iv_prefix TYPE string
@@ -3847,6 +3851,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     actions_public_key-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
   ENDMETHOD.
 
+  METHOD parse_empty_object.
+  ENDMETHOD.
+
   METHOD parse_org_hook.
     org_hook-id = mo_json->value_string( iv_prefix && '/id' ).
     org_hook-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -4172,7 +4179,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     full_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     full_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     full_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    full_repository-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    full_repository-owner = parse_simple_user( iv_prefix ).
     full_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     full_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     full_repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -4746,6 +4753,10 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
+  METHOD parse_code_scanning_analysis05.
+* todo, handle type string
+  ENDMETHOD.
+
   METHOD parse_code_scanning_analysis_u.
 * todo, handle type string
   ENDMETHOD.
@@ -4755,8 +4766,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     code_scanning_analysis-commit_sha = parse_code_scanning_analysis_c( iv_prefix ).
     code_scanning_analysis-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
     code_scanning_analysis-environment = parse_code_scanning_analysis_e( iv_prefix ).
+    code_scanning_analysis-category = parse_code_scanning_analysis04( iv_prefix ).
     code_scanning_analysis-error = mo_json->value_string( iv_prefix && '/error' ).
-    code_scanning_analysis-created_at = parse_code_scanning_analysis04( iv_prefix ).
+    code_scanning_analysis-created_at = parse_code_scanning_analysis05( iv_prefix ).
     code_scanning_analysis-results_count = mo_json->value_string( iv_prefix && '/results_count' ).
     code_scanning_analysis-rules_count = mo_json->value_string( iv_prefix && '/rules_count' ).
     code_scanning_analysis-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -4767,7 +4779,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     code_scanning_analysis-warning = mo_json->value_string( iv_prefix && '/warning' ).
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis05.
+  METHOD parse_code_scanning_analysis06.
 * todo, handle type string
   ENDMETHOD.
 
@@ -6764,9 +6776,6 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 * todo, array, secrets
   ENDMETHOD.
 
-  METHOD parse_actions_create_or_update.
-  ENDMETHOD.
-
   METHOD parse_actions_list_selected_01.
     response_actions_list_select01-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, repositories
@@ -7139,7 +7148,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 * todo, array, secrets
   ENDMETHOD.
 
-  METHOD parse_actions_create_or_upda01.
+  METHOD parse_actions_create_or_update.
   ENDMETHOD.
 
   METHOD parse_actions_list_repo_workfl.
@@ -9895,7 +9904,6 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     ELSEIF data-production_environment = abap_false.
       json = json && |"production_environment": false,|.
     ENDIF.
-    json = json && |"created_at": "{ data-created_at }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -13473,7 +13481,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_actions_create_or_update( '' ).
+    return_data = parse_empty_object( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes30~actions_delete_org_secret.
@@ -15788,7 +15796,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_actions_create_or_upda01( '' ).
+    return_data = parse_actions_create_or_update( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes30~actions_delete_repo_secret.
