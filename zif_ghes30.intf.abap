@@ -665,14 +665,6 @@ INTERFACE zif_ghes30 PUBLIC.
            html_url TYPE string,
          END OF code_of_conduct.
 
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
-
 * Component schema: announcement-message, string
   TYPES announcement_message TYPE string.
 
@@ -687,9 +679,9 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: license-info, object
   TYPES: BEGIN OF license_info,
-           seats TYPE i,
+           seats TYPE string,
            seats_used TYPE i,
-           seats_available TYPE i,
+           seats_available TYPE string,
            kind TYPE string,
            days_until_expiration TYPE i,
            expire_at TYPE string,
@@ -3731,6 +3723,7 @@ INTERFACE zif_ghes30 PUBLIC.
            assets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            body_html TYPE string,
            body_text TYPE string,
+           reactions TYPE reaction_rollup,
          END OF release.
 
 * Component schema: stargazer, object
@@ -4380,6 +4373,14 @@ INTERFACE zif_ghes30 PUBLIC.
            key TYPE string,
          END OF key_simple.
 
+* Component schema: content-reference-attachment, object
+  TYPES: BEGIN OF content_reference_attachment,
+           id TYPE i,
+           title TYPE string,
+           body TYPE string,
+           node_id TYPE string,
+         END OF content_reference_attachment.
+
 * Component schema: bodyenterprise_admin_create_gl, object
   TYPES: BEGIN OF subbodyenterprise_admin_create,
            url TYPE string,
@@ -4583,12 +4584,6 @@ INTERFACE zif_ghes30 PUBLIC.
            repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            permissions TYPE app_permissions,
          END OF bodyapps_scope_token.
-
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
 
 * Component schema: bodyenterprise_admin_set_githu, object
   TYPES: BEGIN OF bodyenterprise_admin_set_githu,
@@ -5980,6 +5975,12 @@ INTERFACE zif_ghes30 PUBLIC.
   TYPES: BEGIN OF bodyenterprise_admin_unsuspend,
            reason TYPE string,
          END OF bodyenterprise_admin_unsuspend.
+
+* Component schema: bodyapps_create_content_attach, object
+  TYPES: BEGIN OF bodyapps_create_content_attach,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyapps_create_content_attach.
 
 * Component schema: response_meta_root, object
   TYPES: BEGIN OF response_meta_root,
@@ -7550,26 +7551,6 @@ INTERFACE zif_ghes30 PUBLIC.
       VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
-    RAISING cx_static_check.
-
 * GET - "Get emojis"
 * Operation id: emojis/get
 * Response: 200
@@ -8657,11 +8638,11 @@ INTERFACE zif_ghes30 PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get GitHub Actions permissions for an organization"
-* Operation id: actions/actions-policies/get-github-actions-permissions-organization
+* Operation id: actions/get-github-actions-permissions-organization
 * Parameter: org, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-organization-permissions
-  METHODS actions_actions_policies_get_g
+  METHODS actions_get_github_actions_per
     IMPORTING
       org TYPE string
     RETURNING
@@ -10669,6 +10650,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/full-repository
+* Response: 307
 * Response: 403
 * Response: 404
 * Response: 422
@@ -10687,6 +10669,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Response: 307
 * Response: 403
 *     application/json, #/components/schemas/response_repos_delete
 * Response: 404
@@ -10795,7 +10778,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-repository-permissions
-  METHODS actions_get_github_actions_per
+  METHODS actions_get_github_actions_p01
     IMPORTING
       owner TYPE string
       repo TYPE string
@@ -15756,28 +15739,6 @@ INTERFACE zif_ghes30 PUBLIC.
       body TYPE bodyrepos_transfer
     RAISING cx_static_check.
 
-* PUT - "Enable vulnerability alerts"
-* Operation id: repos/enable-vulnerability-alerts
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 204
-  METHODS repos_enable_vulnerability_ale
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RAISING cx_static_check.
-
-* DELETE - "Disable vulnerability alerts"
-* Operation id: repos/disable-vulnerability-alerts
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 204
-  METHODS repos_disable_vulnerability_al
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RAISING cx_static_check.
-
 * GET - "Download a repository archive (zip)"
 * Operation id: repos/download-zipball-archive
 * Parameter: ref, required, path
@@ -17118,6 +17079,30 @@ INTERFACE zif_ghes30 PUBLIC.
 * Response: 200
 *     text/plain, string
   METHODS meta_get_zen
+    RAISING cx_static_check.
+
+* POST - "Create a content attachment"
+* Operation id: apps/create-content-attachment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: content_reference_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-reference-attachment
+* Response: 304
+* Response: 403
+* Response: 404
+* Response: 410
+* Response: 415
+* Response: 422
+* Body ref: #/components/schemas/bodyapps_create_content_attach
+  METHODS apps_create_content_attachment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      content_reference_id TYPE i
+      body TYPE bodyapps_create_content_attach
+    RETURNING
+      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 ENDINTERFACE.

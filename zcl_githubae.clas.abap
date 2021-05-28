@@ -108,10 +108,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_of_conduct) TYPE zif_githubae=>code_of_conduct
       RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_githubae=>content_reference_attachment
-      RAISING cx_static_check.
     METHODS parse_announcement_message
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(announcement_message) TYPE zif_githubae=>announcement_message
@@ -123,18 +119,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_announcement
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(announcement) TYPE zif_githubae=>announcement
-      RAISING cx_static_check.
-    METHODS parse_encryption_key
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(encryption_key) TYPE zif_githubae=>encryption_key
-      RAISING cx_static_check.
-    METHODS parse_encryption_update
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(encryption_update) TYPE zif_githubae=>encryption_update
-      RAISING cx_static_check.
-    METHODS parse_encryption_status
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(encryption_status) TYPE zif_githubae=>encryption_status
       RAISING cx_static_check.
     METHODS parse_license_info
       IMPORTING iv_prefix TYPE string
@@ -904,6 +888,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(starred_repository) TYPE zif_githubae=>starred_repository
       RAISING cx_static_check.
+    METHODS parse_personal_access_token
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(personal_access_token) TYPE zif_githubae=>personal_access_token
+      RAISING cx_static_check.
     METHODS parse_hovercard
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(hovercard) TYPE zif_githubae=>hovercard
@@ -911,6 +899,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_key_simple
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(key_simple) TYPE zif_githubae=>key_simple
+      RAISING cx_static_check.
+    METHODS parse_content_reference_attach
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_reference_attachment) TYPE zif_githubae=>content_reference_attachment
       RAISING cx_static_check.
     METHODS json_enterprise_admin_create_g
       IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_create_gl
@@ -978,18 +970,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_apps_delete_token
       IMPORTING data TYPE zif_githubae=>bodyapps_delete_token
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_githubae=>bodyapps_create_content_attach
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_update_e
-      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_update_en
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_disable_
-      IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_disable_e
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_enterprise_admin_set_gith
@@ -1584,6 +1564,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyrepos_delete_release
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_reactions_create_for_rele
+      IMPORTING data TYPE zif_githubae=>bodyreactions_create_for_relea
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_create_commit_statu
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_commit_status
       RETURNING VALUE(json) TYPE string
@@ -1654,6 +1638,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_enterprise_admin_unsuspen
       IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_unsuspend
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_create_content_attac
+      IMPORTING data TYPE zif_githubae=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS parse_meta_root
@@ -2303,10 +2291,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_teams
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_teams) TYPE zif_githubae=>response_repos_list_teams
-      RAISING cx_static_check.
-    METHODS parse_repos_list_public
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_repos_list_public) TYPE zif_githubae=>response_repos_list_public
       RAISING cx_static_check.
     METHODS parse_search_code
       IMPORTING iv_prefix TYPE string
@@ -2959,13 +2943,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_of_conduct-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
   ENDMETHOD.
 
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-  ENDMETHOD.
-
   METHOD parse_announcement_message.
 * todo, handle type string
   ENDMETHOD.
@@ -2977,23 +2954,6 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_announcement.
     announcement-announcement = parse_announcement_message( iv_prefix ).
     announcement-expires_at = parse_announcement_expiration( iv_prefix ).
-  ENDMETHOD.
-
-  METHOD parse_encryption_key.
-    encryption_key-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    encryption_key-primary_key_version = mo_json->value_string( iv_prefix && '/primary_key_version' ).
-    encryption_key-replica_key_version = mo_json->value_string( iv_prefix && '/replica_key_version' ).
-    encryption_key-backup_key_version = mo_json->value_string( iv_prefix && '/backup_key_version' ).
-  ENDMETHOD.
-
-  METHOD parse_encryption_update.
-    encryption_update-message = mo_json->value_string( iv_prefix && '/message' ).
-    encryption_update-status_url = mo_json->value_string( iv_prefix && '/status_url' ).
-  ENDMETHOD.
-
-  METHOD parse_encryption_status.
-    encryption_status-result = mo_json->value_string( iv_prefix && '/result' ).
-    encryption_status-error = mo_json->value_string( iv_prefix && '/error' ).
   ENDMETHOD.
 
   METHOD parse_license_info.
@@ -5599,6 +5559,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     release-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     release-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     release-discussion_url = mo_json->value_string( iv_prefix && '/discussion_url' ).
+    release-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_stargazer.
@@ -6033,6 +5994,22 @@ CLASS zcl_githubae IMPLEMENTATION.
     starred_repository-repo = parse_repository( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_personal_access_token.
+    personal_access_token-id = mo_json->value_string( iv_prefix && '/id' ).
+    personal_access_token-url = mo_json->value_string( iv_prefix && '/url' ).
+* todo, array, scopes
+    personal_access_token-token = mo_json->value_string( iv_prefix && '/token' ).
+    personal_access_token-token_last_eight = mo_json->value_string( iv_prefix && '/token_last_eight' ).
+    personal_access_token-hashed_token = mo_json->value_string( iv_prefix && '/hashed_token' ).
+    personal_access_token-note = mo_json->value_string( iv_prefix && '/note' ).
+    personal_access_token-note_url = mo_json->value_string( iv_prefix && '/note_url' ).
+    personal_access_token-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    personal_access_token-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    personal_access_token-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
+    personal_access_token-user = mo_json->value_string( iv_prefix && '/user' ).
+    personal_access_token-expiration = mo_json->value_string( iv_prefix && '/expiration' ).
+  ENDMETHOD.
+
   METHOD parse_hovercard.
 * todo, array, contexts
   ENDMETHOD.
@@ -6040,6 +6017,13 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_key_simple.
     key_simple-id = mo_json->value_string( iv_prefix && '/id' ).
     key_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+  ENDMETHOD.
+
+  METHOD parse_content_reference_attach.
+    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
+    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
+    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
+    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_meta_root.
@@ -7623,18 +7607,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD parse_repos_list_public.
-    DATA lt_members TYPE string_table.
-    DATA lv_member LIKE LINE OF lt_members.
-    DATA minimal_repository TYPE zif_githubae=>minimal_repository.
-    lt_members = mo_json->members( iv_prefix && '/' ).
-    LOOP AT lt_members INTO lv_member.
-      CLEAR minimal_repository.
-      minimal_repository = parse_minimal_repository( iv_prefix && '/' && lv_member ).
-      APPEND minimal_repository TO response_repos_list_public.
-    ENDLOOP.
-  ENDMETHOD.
-
   METHOD parse_search_code.
     response_search_code-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
     response_search_code-incomplete_results = mo_json->value_boolean( iv_prefix && '/incomplete_results' ).
@@ -8155,28 +8127,6 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD json_apps_delete_token.
     json = json && '{'.
     json = json && |"access_token": "{ data-access_token }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_update_e.
-    json = json && '{'.
-    json = json && |"key": "{ data-key }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_disable_.
-    json = json && '{'.
-    json = json && |"key": "{ data-key }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -9910,6 +9860,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_reactions_create_for_rele.
+    json = json && '{'.
+    json = json && |"content": "{ data-content }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_repos_create_commit_statu.
     json = json && '{'.
     json = json && |"state": "{ data-state }",|.
@@ -10147,6 +10104,14 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD json_enterprise_admin_unsuspen.
     json = json && '{'.
     json = json && |"reason": "{ data-reason }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_apps_create_content_attac.
+    json = json && '{'.
+    json = json && |"title": "{ data-title }",|.
+    json = json && |"body": "{ data-body }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10776,22 +10741,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_code_of_conduct( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/content_references/{content_reference_id}/attachments'.
-    lv_temp = content_reference_id.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_content_reference_attach( '' ).
-  ENDMETHOD.
-
   METHOD zif_githubae~emojis_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -10839,57 +10788,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubae~enterprise_admin_get_encryptio.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/enterprise/encryption'.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_encryption_key( '' ).
-  ENDMETHOD.
-
-  METHOD zif_githubae~enterprise_admin_update_encryp.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/enterprise/encryption'.
-    mi_client->request->set_method( 'PATCH' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_update_e( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubae~enterprise_admin_disable_encry.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/enterprise/encryption'.
-    mi_client->request->set_method( 'DELETE' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_disable_( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubae~enterprise_admin_get_encrypt01.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/enterprise/encryption/status/{request_id}'.
-    REPLACE ALL OCCURRENCES OF '{request_id}' IN lv_uri WITH request_id.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_encryption_status( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~enterprise_admin_get_license_i.
@@ -12037,7 +11935,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_organization_full( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_actions_policies_get_g.
+  METHOD zif_githubae~actions_get_github_actions_per.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/orgs/{org}/actions/permissions'.
@@ -14103,7 +14001,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_get_github_actions_per.
+  METHOD zif_githubae~actions_get_github_actions_p01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/actions/permissions'.
@@ -15464,7 +15362,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_code_scanning_alert( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~code_scanning_list_alerts_inst.
+  METHOD zif_githubae~code_scanning_list_alert_insta.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances'.
@@ -18954,6 +18852,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_release_asset( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubae~reactions_create_for_release.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/releases/{release_id}/reactions'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = release_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_reactions_create_for_rele( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_reaction( '' ).
+  ENDMETHOD.
+
   METHOD zif_githubae~activity_list_stargazers_for_r.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19249,34 +19165,6 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
-  METHOD zif_githubae~repos_enable_vulnerability_ale.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'PUT' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubae~repos_disable_vulnerability_al.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repos/{owner}/{repo}/vulnerability-alerts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'DELETE' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
   METHOD zif_githubae~repos_download_zipball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19305,23 +19193,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_repository( '' ).
-  ENDMETHOD.
-
-  METHOD zif_githubae~repos_list_public.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/repositories'.
-    lv_temp = since.
-    CONDENSE lv_temp.
-    IF since IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'since' value = lv_temp ).
-    ENDIF.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_repos_list_public( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~enterprise_admin_list_provisio.
@@ -20765,6 +20636,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~apps_create_content_attachment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://api.{hostname}/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = content_reference_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
 ENDCLASS.

@@ -104,10 +104,6 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_of_conduct) TYPE zif_ghes222=>code_of_conduct
       RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_ghes222=>content_reference_attachment
-      RAISING cx_static_check.
     METHODS parse_license_info
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(license_info) TYPE zif_ghes222=>license_info
@@ -455,10 +451,6 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
     METHODS parse_alert_html_url
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(alert_html_url) TYPE zif_ghes222=>alert_html_url
-      RAISING cx_static_check.
-    METHODS parse_alert_instances_url
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_instances_url) TYPE zif_ghes222=>alert_instances_url
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert_dism
       IMPORTING iv_prefix TYPE string
@@ -876,6 +868,10 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(key_simple) TYPE zif_ghes222=>key_simple
       RAISING cx_static_check.
+    METHODS parse_content_reference_attach
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_reference_attachment) TYPE zif_ghes222=>content_reference_attachment
+      RAISING cx_static_check.
     METHODS json_enterprise_admin_create_g
       IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_gl
       RETURNING VALUE(json) TYPE string
@@ -970,10 +966,6 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_apps_delete_token
       IMPORTING data TYPE zif_ghes222=>bodyapps_delete_token
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_ghes222=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_enterprise_admin_create_s
@@ -1650,6 +1642,10 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_enterprise_admin_unsuspen
       IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_unsuspend
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_create_content_attac
+      IMPORTING data TYPE zif_ghes222=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS parse_meta_root
@@ -3098,13 +3094,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     code_of_conduct-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
   ENDMETHOD.
 
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-  ENDMETHOD.
-
   METHOD parse_license_info.
     license_info-seats = mo_json->value_string( iv_prefix && '/seats' ).
     license_info-seats_used = mo_json->value_string( iv_prefix && '/seats_used' ).
@@ -4467,10 +4456,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_alert_instances_url.
-* todo, handle type string
-  ENDMETHOD.
-
   METHOD parse_code_scanning_alert_dism.
 * todo, handle type string
   ENDMETHOD.
@@ -4533,14 +4518,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     code_scanning_alert_items-created_at = parse_alert_created_at( iv_prefix ).
     code_scanning_alert_items-url = parse_alert_url( iv_prefix ).
     code_scanning_alert_items-html_url = parse_alert_html_url( iv_prefix ).
-    code_scanning_alert_items-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert_items-state = parse_code_scanning_alert_stat( iv_prefix ).
     code_scanning_alert_items-dismissed_by = parse_simple_user( iv_prefix ).
     code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
     code_scanning_alert_items-rule = parse_code_scanning_alert_rule( iv_prefix ).
     code_scanning_alert_items-tool = parse_code_scanning_analysis03( iv_prefix ).
-    code_scanning_alert_items-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
+    code_scanning_alert_items-instance = parse_code_scanning_alert_inst( iv_prefix ).
+    code_scanning_alert_items-classification = parse_code_scanning_alert_clas( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert_ru01.
@@ -4559,14 +4544,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     code_scanning_alert-url = parse_alert_url( iv_prefix ).
     code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
     code_scanning_alert-instances = mo_json->value_string( iv_prefix && '/instances' ).
-    code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
     code_scanning_alert-dismissed_by = parse_simple_user( iv_prefix ).
     code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
     code_scanning_alert-rule = parse_code_scanning_alert_ru01( iv_prefix ).
     code_scanning_alert-tool = parse_code_scanning_analysis03( iv_prefix ).
-    code_scanning_alert-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert_set_.
@@ -5669,6 +5652,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, array, assets
     release-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     release-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
+    release-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_stargazer.
@@ -6214,6 +6198,13 @@ CLASS zcl_ghes222 IMPLEMENTATION.
   METHOD parse_key_simple.
     key_simple-id = mo_json->value_string( iv_prefix && '/id' ).
     key_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+  ENDMETHOD.
+
+  METHOD parse_content_reference_attach.
+    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
+    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
+    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
+    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_meta_root.
@@ -8567,14 +8558,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
   METHOD json_enterprise_admin_create_s.
     json = json && '{'.
     json = json && |"name": "{ data-name }",|.
@@ -10549,6 +10532,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_apps_create_content_attac.
+    json = json && '{'.
+    json = json && |"title": "{ data-title }",|.
+    json = json && |"body": "{ data-body }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD zif_ghes222~meta_root.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -11321,22 +11312,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_code_of_conduct( '' ).
-  ENDMETHOD.
-
-  METHOD zif_ghes222~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/content_references/{content_reference_id}/attachments'.
-    lv_temp = content_reference_id.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes222~emojis_get.
@@ -19839,34 +19814,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
-  METHOD zif_ghes222~repos_enable_vulnerability_ale.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/vulnerability-alerts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'PUT' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_ghes222~repos_disable_vulnerability_al.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/vulnerability-alerts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    mi_client->request->set_method( 'DELETE' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
-  ENDMETHOD.
-
   METHOD zif_ghes222~repos_download_zipball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -21485,6 +21432,24 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_ghes222~apps_create_content_attachment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = content_reference_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
 ENDCLASS.

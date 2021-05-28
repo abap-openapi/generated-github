@@ -546,14 +546,6 @@ INTERFACE zif_githubae PUBLIC.
            html_url TYPE string,
          END OF code_of_conduct.
 
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
-
 * Component schema: announcement-message, string
   TYPES announcement_message TYPE string.
 
@@ -566,31 +558,11 @@ INTERFACE zif_githubae PUBLIC.
            expires_at TYPE announcement_expiration,
          END OF announcement.
 
-* Component schema: encryption-key, object
-  TYPES: BEGIN OF encryption_key,
-           updated_at TYPE string,
-           primary_key_version TYPE string,
-           replica_key_version TYPE string,
-           backup_key_version TYPE string,
-         END OF encryption_key.
-
-* Component schema: encryption-update, object
-  TYPES: BEGIN OF encryption_update,
-           message TYPE string,
-           status_url TYPE string,
-         END OF encryption_update.
-
-* Component schema: encryption-status, object
-  TYPES: BEGIN OF encryption_status,
-           result TYPE string,
-           error TYPE string,
-         END OF encryption_status.
-
 * Component schema: license-info, object
   TYPES: BEGIN OF license_info,
-           seats TYPE i,
+           seats TYPE string,
            seats_used TYPE i,
-           seats_available TYPE i,
+           seats_available TYPE string,
            kind TYPE string,
            days_until_expiration TYPE i,
            expire_at TYPE string,
@@ -3664,6 +3636,7 @@ INTERFACE zif_githubae PUBLIC.
            body_html TYPE string,
            body_text TYPE string,
            discussion_url TYPE string,
+           reactions TYPE reaction_rollup,
          END OF release.
 
 * Component schema: stargazer, object
@@ -4144,6 +4117,23 @@ INTERFACE zif_githubae PUBLIC.
            repo TYPE repository,
          END OF starred_repository.
 
+* Component schema: personal-access-token, object
+  TYPES: BEGIN OF personal_access_token,
+           id TYPE i,
+           url TYPE string,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           token TYPE string,
+           token_last_eight TYPE string,
+           hashed_token TYPE string,
+           note TYPE string,
+           note_url TYPE string,
+           updated_at TYPE string,
+           created_at TYPE string,
+           fingerprint TYPE string,
+           user TYPE string,
+           expiration TYPE string,
+         END OF personal_access_token.
+
 * Component schema: hovercard, object
   TYPES: BEGIN OF hovercard,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -4154,6 +4144,14 @@ INTERFACE zif_githubae PUBLIC.
            id TYPE i,
            key TYPE string,
          END OF key_simple.
+
+* Component schema: content-reference-attachment, object
+  TYPES: BEGIN OF content_reference_attachment,
+           id TYPE i,
+           title TYPE string,
+           body TYPE string,
+           node_id TYPE string,
+         END OF content_reference_attachment.
 
 * Component schema: bodyenterprise_admin_create_gl, object
   TYPES: BEGIN OF subbodyenterprise_admin_create,
@@ -4274,22 +4272,6 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF bodyapps_delete_token,
            access_token TYPE string,
          END OF bodyapps_delete_token.
-
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
-
-* Component schema: bodyenterprise_admin_update_en, object
-  TYPES: BEGIN OF bodyenterprise_admin_update_en,
-           key TYPE string,
-         END OF bodyenterprise_admin_update_en.
-
-* Component schema: bodyenterprise_admin_disable_e, object
-  TYPES: BEGIN OF bodyenterprise_admin_disable_e,
-           key TYPE string,
-         END OF bodyenterprise_admin_disable_e.
 
 * Component schema: bodyenterprise_admin_set_githu, object
   TYPES: BEGIN OF bodyenterprise_admin_set_githu,
@@ -5501,6 +5483,11 @@ INTERFACE zif_githubae PUBLIC.
            prerelease TYPE abap_bool,
          END OF bodyrepos_delete_release.
 
+* Component schema: bodyreactions_create_for_relea, object
+  TYPES: BEGIN OF bodyreactions_create_for_relea,
+           content TYPE string,
+         END OF bodyreactions_create_for_relea.
+
 * Component schema: bodyrepos_create_commit_status, object
   TYPES: BEGIN OF bodyrepos_create_commit_status,
            state TYPE string,
@@ -5631,6 +5618,12 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF bodyenterprise_admin_unsuspend,
            reason TYPE string,
          END OF bodyenterprise_admin_unsuspend.
+
+* Component schema: bodyapps_create_content_attach, object
+  TYPES: BEGIN OF bodyapps_create_content_attach,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyapps_create_content_attach.
 
 * Component schema: response_meta_root, object
   TYPES: BEGIN OF response_meta_root,
@@ -6091,7 +6084,7 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_code_scanning_list_alerts_for_, array
   TYPES response_code_scanning_list_al TYPE STANDARD TABLE OF code_scanning_alert_items WITH DEFAULT KEY.
 
-* Component schema: response_code_scanning_list_alerts_inst, array
+* Component schema: response_code_scanning_list_alert_insta, array
   TYPES response_code_scanning_list_01 TYPE STANDARD TABLE OF code_scanning_alert_instance WITH DEFAULT KEY.
 
 * Component schema: response_code_scanning_list_recent_anal, array
@@ -6293,9 +6286,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_teams, array
   TYPES response_repos_list_teams TYPE STANDARD TABLE OF team WITH DEFAULT KEY.
-
-* Component schema: response_repos_list_public, array
-  TYPES response_repos_list_public TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
 
 * Component schema: response_search_code, object
   TYPES: BEGIN OF response_search_code,
@@ -6959,26 +6949,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE code_of_conduct
     RAISING cx_static_check.
 
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
-    RAISING cx_static_check.
-
 * GET - "Get emojis"
 * Operation id: emojis/get
 * Response: 200
@@ -7014,48 +6984,6 @@ INTERFACE zif_githubae PUBLIC.
 * Operation id: enterprise-admin/remove-announcement
 * Response: 204
   METHODS enterprise_admin_remove_announ
-    RAISING cx_static_check.
-
-* GET - "Get an encryption key"
-* Operation id: enterprise-admin/get-encryption-key
-* Response: 200
-*     application/json, #/components/schemas/encryption-key
-  METHODS enterprise_admin_get_encryptio
-    RETURNING
-      VALUE(return_data) TYPE encryption_key
-    RAISING cx_static_check.
-
-* PATCH - "Update an encryption key"
-* Operation id: enterprise-admin/update-encryption-key
-* Response: 202
-*     application/json, #/components/schemas/encryption-update
-* Body ref: #/components/schemas/bodyenterprise_admin_update_en
-  METHODS enterprise_admin_update_encryp
-    IMPORTING
-      body TYPE bodyenterprise_admin_update_en
-    RAISING cx_static_check.
-
-* DELETE - "Disable encryption at rest"
-* Operation id: enterprise-admin/disable-encryption
-* Response: 202
-*     application/json, #/components/schemas/encryption-update
-* Body ref: #/components/schemas/bodyenterprise_admin_disable_e
-  METHODS enterprise_admin_disable_encry
-    IMPORTING
-      body TYPE bodyenterprise_admin_disable_e
-    RAISING cx_static_check.
-
-* GET - "Get an encryption status"
-* Operation id: enterprise-admin/get-encryption-status
-* Parameter: request_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/encryption-status
-* Response: 404
-  METHODS enterprise_admin_get_encrypt01
-    IMPORTING
-      request_id TYPE string
-    RETURNING
-      VALUE(return_data) TYPE encryption_status
     RAISING cx_static_check.
 
 * GET - "Get license information"
@@ -8015,11 +7943,11 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get GitHub Actions permissions for an organization"
-* Operation id: actions/actions-policies/get-github-actions-permissions-organization
+* Operation id: actions/get-github-actions-permissions-organization
 * Parameter: org, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-organization-permissions
-  METHODS actions_actions_policies_get_g
+  METHODS actions_get_github_actions_per
     IMPORTING
       org TYPE string
     RETURNING
@@ -9751,6 +9679,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/full-repository
+* Response: 307
 * Response: 403
 * Response: 404
 * Response: 422
@@ -9769,6 +9698,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Response: 204
+* Response: 307
 * Response: 403
 *     application/json, #/components/schemas/response_repos_delete
 * Response: 404
@@ -9877,7 +9807,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Response: 200
 *     application/json, #/components/schemas/actions-repository-permissions
-  METHODS actions_get_github_actions_per
+  METHODS actions_get_github_actions_p01
     IMPORTING
       owner TYPE string
       repo TYPE string
@@ -11202,7 +11132,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "List instances of a code scanning alert"
-* Operation id: code-scanning/list-alerts-instances
+* Operation id: code-scanning/list-alert-instances
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: alert_number, required, path
@@ -11210,11 +11140,11 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: ref, optional, query
 * Response: 200
-*     application/json, #/components/schemas/response_code_scanning_list_alerts_inst
+*     application/json, #/components/schemas/response_code_scanning_list_alert_insta
 * Response: 403
 * Response: 404
 * Response: 503
-  METHODS code_scanning_list_alerts_inst
+  METHODS code_scanning_list_alert_insta
     IMPORTING
       owner TYPE string
       repo TYPE string
@@ -14514,6 +14444,28 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
+* POST - "Create reaction for a release"
+* Operation id: reactions/create-for-release
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: release_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/reaction
+* Response: 201
+*     application/json, #/components/schemas/reaction
+* Response: 415
+* Response: 422
+* Body ref: #/components/schemas/bodyreactions_create_for_relea
+  METHODS reactions_create_for_release
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      release_id TYPE i
+      body TYPE bodyreactions_create_for_relea
+    RETURNING
+      VALUE(return_data) TYPE reaction
+    RAISING cx_static_check.
+
 * GET - "List stargazers"
 * Operation id: activity/list-stargazers-for-repo
 * Parameter: owner, required, path
@@ -14792,28 +14744,6 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyrepos_transfer
     RAISING cx_static_check.
 
-* PUT - "Enable vulnerability alerts"
-* Operation id: repos/enable-vulnerability-alerts
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 204
-  METHODS repos_enable_vulnerability_ale
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RAISING cx_static_check.
-
-* DELETE - "Disable vulnerability alerts"
-* Operation id: repos/disable-vulnerability-alerts
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Response: 204
-  METHODS repos_disable_vulnerability_al
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-    RAISING cx_static_check.
-
 * GET - "Download a repository archive (zip)"
 * Operation id: repos/download-zipball-archive
 * Parameter: ref, required, path
@@ -14841,20 +14771,6 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyrepos_create_using_templat
     RETURNING
       VALUE(return_data) TYPE repository
-    RAISING cx_static_check.
-
-* GET - "List public repositories"
-* Operation id: repos/list-public
-* Parameter: since, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_repos_list_public
-* Response: 304
-* Response: 422
-  METHODS repos_list_public
-    IMPORTING
-      since TYPE i OPTIONAL
-    RETURNING
-      VALUE(return_data) TYPE response_repos_list_public
     RAISING cx_static_check.
 
 * GET - "List provisioned SCIM groups for an enterprise"
@@ -16061,6 +15977,30 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     text/plain, string
   METHODS meta_get_zen
+    RAISING cx_static_check.
+
+* POST - "Create a content attachment"
+* Operation id: apps/create-content-attachment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: content_reference_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-reference-attachment
+* Response: 304
+* Response: 403
+* Response: 404
+* Response: 410
+* Response: 415
+* Response: 422
+* Body ref: #/components/schemas/bodyapps_create_content_attach
+  METHODS apps_create_content_attachment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      content_reference_id TYPE i
+      body TYPE bodyapps_create_content_attach
+    RETURNING
+      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 ENDINTERFACE.
