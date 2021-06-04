@@ -396,6 +396,10 @@ CLASS zcl_ghes220 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(commit_comparison) TYPE zif_ghes220=>commit_comparison
       RAISING cx_static_check.
+    METHODS parse_content_reference_attach
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_reference_attachment) TYPE zif_ghes220=>content_reference_attachment
+      RAISING cx_static_check.
     METHODS parse_content_tree
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(content_tree) TYPE zif_ghes220=>content_tree
@@ -692,10 +696,6 @@ CLASS zcl_ghes220 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(key_simple) TYPE zif_ghes220=>key_simple
       RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_ghes220=>content_reference_attachment
-      RAISING cx_static_check.
     METHODS json_enterprise_admin_create_g
       IMPORTING data TYPE zif_ghes220=>bodyenterprise_admin_create_gl
       RETURNING VALUE(json) TYPE string
@@ -990,6 +990,10 @@ CLASS zcl_ghes220 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_commit_comme
       IMPORTING data TYPE zif_ghes220=>bodyrepos_create_commit_commen
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_apps_create_content_attac
+      IMPORTING data TYPE zif_ghes220=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_or_update_fi
@@ -1390,10 +1394,6 @@ CLASS zcl_ghes220 DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_enterprise_admin_unsuspen
       IMPORTING data TYPE zif_ghes220=>bodyenterprise_admin_unsuspend
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_ghes220=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS parse_meta_root
@@ -3952,6 +3952,13 @@ CLASS zcl_ghes220 IMPLEMENTATION.
 * todo, array, files
   ENDMETHOD.
 
+  METHOD parse_content_reference_attach.
+    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
+    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
+    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
+    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+  ENDMETHOD.
+
   METHOD parse_content_tree.
     content_tree-type = mo_json->value_string( iv_prefix && '/type' ).
     content_tree-size = mo_json->value_string( iv_prefix && '/size' ).
@@ -5436,13 +5443,6 @@ CLASS zcl_ghes220 IMPLEMENTATION.
   METHOD parse_key_simple.
     key_simple-id = mo_json->value_string( iv_prefix && '/id' ).
     key_simple-key = mo_json->value_string( iv_prefix && '/key' ).
-  ENDMETHOD.
-
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_meta_root.
@@ -8386,6 +8386,14 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_apps_create_content_attac.
+    json = json && '{'.
+    json = json && |"title": "{ data-title }",|.
+    json = json && |"body": "{ data-body }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_repos_create_or_update_fi.
     json = json && '{'.
     json = json && |"message": "{ data-message }",|.
@@ -9446,14 +9454,6 @@ CLASS zcl_ghes220 IMPLEMENTATION.
   METHOD json_enterprise_admin_unsuspen.
     json = json && '{'.
     json = json && |"reason": "{ data-reason }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -13307,6 +13307,24 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_commit_comparison( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes220~apps_create_content_attachment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = content_reference_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes220~repos_get_content.
@@ -18676,24 +18694,6 @@ CLASS zcl_ghes220 IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_ghes220~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    lv_temp = content_reference_id.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
 ENDCLASS.

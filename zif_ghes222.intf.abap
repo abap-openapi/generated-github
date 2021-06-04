@@ -2407,7 +2407,7 @@ INTERFACE zif_ghes222 PUBLIC.
            warning TYPE string,
          END OF code_scanning_analysis.
 
-* Component schema: code-scanning-analysis-sarif-file, string
+* Component schema: code-scanning-analysis-sarif-file-2, string
   TYPES code_scanning_analysis_sarif_f TYPE string.
 
 * Component schema: code-scanning-sarifs-receipt, object
@@ -2637,6 +2637,14 @@ INTERFACE zif_ghes222 PUBLIC.
            commits TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF commit_comparison.
+
+* Component schema: content-reference-attachment, object
+  TYPES: BEGIN OF content_reference_attachment,
+           id TYPE i,
+           title TYPE string,
+           body TYPE string,
+           node_id TYPE string,
+         END OF content_reference_attachment.
 
 * Component schema: content-tree, object
   TYPES: BEGIN OF subcontent_tree__links,
@@ -4301,14 +4309,6 @@ INTERFACE zif_ghes222 PUBLIC.
            key TYPE string,
          END OF key_simple.
 
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
-
 * Component schema: bodyenterprise_admin_create_gl, object
   TYPES: BEGIN OF subbodyenterprise_admin_create,
            url TYPE string,
@@ -5181,6 +5181,12 @@ INTERFACE zif_ghes222 PUBLIC.
            line TYPE i,
          END OF bodyrepos_create_commit_commen.
 
+* Component schema: bodyapps_create_content_attach, object
+  TYPES: BEGIN OF bodyapps_create_content_attach,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyapps_create_content_attach.
+
 * Component schema: bodyrepos_create_or_update_fil, object
   TYPES: BEGIN OF subbodyrepos_create_or_updat01,
            name TYPE string,
@@ -5840,12 +5846,6 @@ INTERFACE zif_ghes222 PUBLIC.
   TYPES: BEGIN OF bodyenterprise_admin_unsuspend,
            reason TYPE string,
          END OF bodyenterprise_admin_unsuspend.
-
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
 
 * Component schema: response_meta_root, object
   TYPES: BEGIN OF response_meta_root,
@@ -12128,6 +12128,30 @@ INTERFACE zif_ghes222 PUBLIC.
       VALUE(return_data) TYPE commit_comparison
     RAISING cx_static_check.
 
+* POST - "Create a content attachment"
+* Operation id: apps/create-content-attachment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: content_reference_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-reference-attachment
+* Response: 304
+* Response: 403
+* Response: 404
+* Response: 410
+* Response: 415
+* Response: 422
+* Body ref: #/components/schemas/bodyapps_create_content_attach
+  METHODS apps_create_content_attachment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      content_reference_id TYPE i
+      body TYPE bodyapps_create_content_attach
+    RETURNING
+      VALUE(return_data) TYPE content_reference_attachment
+    RAISING cx_static_check.
+
 * GET - "Get repository content"
 * Operation id: repos/get-content
 * Parameter: path, required, path
@@ -16532,30 +16556,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Response: 200
 *     text/plain, string
   METHODS meta_get_zen
-    RAISING cx_static_check.
-
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 ENDINTERFACE.

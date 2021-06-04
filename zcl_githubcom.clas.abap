@@ -700,6 +700,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(commit_comparison) TYPE zif_githubcom=>commit_comparison
       RAISING cx_static_check.
+    METHODS parse_content_reference_attach
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(content_reference_attachment) TYPE zif_githubcom=>content_reference_attachment
+      RAISING cx_static_check.
     METHODS parse_content_tree
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(content_tree) TYPE zif_githubcom=>content_tree
@@ -1047,10 +1051,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_key_simple
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(key_simple) TYPE zif_githubcom=>key_simple
-      RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_githubcom=>content_reference_attachment
       RAISING cx_static_check.
     METHODS json_apps_create_from_manifest
       IMPORTING data TYPE zif_githubcom=>bodyapps_create_from_manifest
@@ -1456,6 +1456,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubcom=>bodyrepos_create_commit_commen
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_apps_create_content_attac
+      IMPORTING data TYPE zif_githubcom=>bodyapps_create_content_attach
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_create_or_update_fi
       IMPORTING data TYPE zif_githubcom=>bodyrepos_create_or_update_fil
       RETURNING VALUE(json) TYPE string
@@ -1858,10 +1862,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_for_authenti
       IMPORTING data TYPE zif_githubcom=>bodyrepos_create_for_authentic
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_githubcom=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS parse_meta_root
@@ -5254,6 +5254,13 @@ CLASS zcl_githubcom IMPLEMENTATION.
 * todo, array, files
   ENDMETHOD.
 
+  METHOD parse_content_reference_attach.
+    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
+    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
+    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
+    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+  ENDMETHOD.
+
   METHOD parse_content_tree.
     content_tree-type = mo_json->value_string( iv_prefix && '/type' ).
     content_tree-size = mo_json->value_string( iv_prefix && '/size' ).
@@ -6791,13 +6798,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_key_simple.
     key_simple-id = mo_json->value_string( iv_prefix && '/id' ).
     key_simple-key = mo_json->value_string( iv_prefix && '/key' ).
-  ENDMETHOD.
-
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_meta_root.
@@ -10372,6 +10372,14 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_apps_create_content_attac.
+    json = json && '{'.
+    json = json && |"title": "{ data-title }",|.
+    json = json && |"body": "{ data-body }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_repos_create_or_update_fi.
     json = json && '{'.
     json = json && |"message": "{ data-message }",|.
@@ -11496,14 +11504,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ELSEIF data-is_template = abap_false.
       json = json && |"is_template": false,|.
     ENDIF.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -18456,6 +18456,24 @@ CLASS zcl_githubcom IMPLEMENTATION.
     return_data = parse_commit_comparison( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubcom~apps_create_content_attachment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = content_reference_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_content_reference_attach( '' ).
+  ENDMETHOD.
+
   METHOD zif_githubcom~repos_get_content.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -24344,24 +24362,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubcom~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    lv_temp = content_reference_id.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_content_reference_attach( '' ).
   ENDMETHOD.
 
 ENDCLASS.

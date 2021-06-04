@@ -681,146 +681,6 @@ INTERFACE zif_githubae PUBLIC.
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF runner.
 
-* Component schema: actor, object
-  TYPES: BEGIN OF actor,
-           id TYPE i,
-           login TYPE string,
-           display_login TYPE string,
-           gravatar_id TYPE string,
-           url TYPE string,
-           avatar_url TYPE string,
-         END OF actor.
-
-* Component schema: label, object
-  TYPES: BEGIN OF label,
-           id TYPE i,
-           node_id TYPE string,
-           url TYPE string,
-           name TYPE string,
-           description TYPE string,
-           color TYPE string,
-           default TYPE abap_bool,
-         END OF label.
-
-* Component schema: milestone, object
-  TYPES: BEGIN OF milestone,
-           url TYPE string,
-           html_url TYPE string,
-           labels_url TYPE string,
-           id TYPE i,
-           node_id TYPE string,
-           number TYPE i,
-           state TYPE string,
-           title TYPE string,
-           description TYPE string,
-           creator TYPE string,
-           open_issues TYPE i,
-           closed_issues TYPE i,
-           created_at TYPE string,
-           updated_at TYPE string,
-           closed_at TYPE string,
-           due_on TYPE string,
-         END OF milestone.
-
-* Component schema: author_association, string
-  TYPES author_association TYPE string.
-
-* Component schema: issue-simple, object
-  TYPES: BEGIN OF subissue_simple_pull_request,
-           merged_at TYPE string,
-           diff_url TYPE string,
-           html_url TYPE string,
-           patch_url TYPE string,
-           url TYPE string,
-         END OF subissue_simple_pull_request.
-  TYPES: BEGIN OF issue_simple,
-           id TYPE i,
-           node_id TYPE string,
-           url TYPE string,
-           repository_url TYPE string,
-           labels_url TYPE string,
-           comments_url TYPE string,
-           events_url TYPE string,
-           html_url TYPE string,
-           number TYPE i,
-           state TYPE string,
-           title TYPE string,
-           body TYPE string,
-           user TYPE string,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE string,
-           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE string,
-           locked TYPE abap_bool,
-           active_lock_reason TYPE string,
-           comments TYPE i,
-           pull_request TYPE subissue_simple_pull_request,
-           closed_at TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           author_association TYPE author_association,
-           body_html TYPE string,
-           body_text TYPE string,
-           timeline_url TYPE string,
-           repository TYPE repository,
-           performed_via_github_app TYPE string,
-         END OF issue_simple.
-
-* Component schema: reaction-rollup, object
-  TYPES: BEGIN OF reaction_rollup,
-           url TYPE string,
-           total_count TYPE i,
-           n1 TYPE i,
-           _1 TYPE i,
-           laugh TYPE i,
-           confused TYPE i,
-           heart TYPE i,
-           hooray TYPE i,
-           eyes TYPE i,
-           rocket TYPE i,
-         END OF reaction_rollup.
-
-* Component schema: issue-comment, object
-  TYPES: BEGIN OF issue_comment,
-           id TYPE i,
-           node_id TYPE string,
-           url TYPE string,
-           body TYPE string,
-           body_text TYPE string,
-           body_html TYPE string,
-           html_url TYPE string,
-           user TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           issue_url TYPE string,
-           author_association TYPE author_association,
-           performed_via_github_app TYPE string,
-           reactions TYPE reaction_rollup,
-         END OF issue_comment.
-
-* Component schema: event, object
-  TYPES: BEGIN OF subevent_payload,
-           action TYPE string,
-           issue TYPE issue_simple,
-           comment TYPE issue_comment,
-           pages TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF subevent_payload.
-  TYPES: BEGIN OF subevent_repo,
-           id TYPE i,
-           name TYPE string,
-           url TYPE string,
-         END OF subevent_repo.
-  TYPES: BEGIN OF event,
-           id TYPE string,
-           type TYPE string,
-           actor TYPE actor,
-           repo TYPE subevent_repo,
-           org TYPE actor,
-           payload TYPE subevent_payload,
-           public TYPE abap_bool,
-           created_at TYPE string,
-         END OF event.
-
 * Component schema: link-with-type, object
   TYPES: BEGIN OF link_with_type,
            href TYPE string,
@@ -930,6 +790,9 @@ INTERFACE zif_githubae PUBLIC.
            truncated TYPE abap_bool,
          END OF gist_simple.
 
+* Component schema: author_association, string
+  TYPES author_association TYPE string.
+
 * Component schema: gist-comment, object
   TYPES: BEGIN OF gist_comment,
            id TYPE i,
@@ -961,6 +824,40 @@ INTERFACE zif_githubae PUBLIC.
            name TYPE string,
            source TYPE string,
          END OF gitignore_template.
+
+* Component schema: milestone, object
+  TYPES: BEGIN OF milestone,
+           url TYPE string,
+           html_url TYPE string,
+           labels_url TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           number TYPE i,
+           state TYPE string,
+           title TYPE string,
+           description TYPE string,
+           creator TYPE string,
+           open_issues TYPE i,
+           closed_issues TYPE i,
+           created_at TYPE string,
+           updated_at TYPE string,
+           closed_at TYPE string,
+           due_on TYPE string,
+         END OF milestone.
+
+* Component schema: reaction-rollup, object
+  TYPES: BEGIN OF reaction_rollup,
+           url TYPE string,
+           total_count TYPE i,
+           n1 TYPE i,
+           _1 TYPE i,
+           laugh TYPE i,
+           confused TYPE i,
+           heart TYPE i,
+           hooray TYPE i,
+           eyes TYPE i,
+           rocket TYPE i,
+         END OF reaction_rollup.
 
 * Component schema: issue, object
   TYPES: BEGIN OF subissue_pull_request,
@@ -2629,6 +2526,14 @@ INTERFACE zif_githubae PUBLIC.
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF commit_comparison.
 
+* Component schema: content-reference-attachment, object
+  TYPES: BEGIN OF content_reference_attachment,
+           id TYPE i,
+           title TYPE string,
+           body TYPE string,
+           node_id TYPE string,
+         END OF content_reference_attachment.
+
 * Component schema: content-tree, object
   TYPES: BEGIN OF subcontent_tree__links,
            git TYPE string,
@@ -2835,6 +2740,109 @@ INTERFACE zif_githubae PUBLIC.
            log_url TYPE string,
            performed_via_github_app TYPE string,
          END OF deployment_status.
+
+* Component schema: actor, object
+  TYPES: BEGIN OF actor,
+           id TYPE i,
+           login TYPE string,
+           display_login TYPE string,
+           gravatar_id TYPE string,
+           url TYPE string,
+           avatar_url TYPE string,
+         END OF actor.
+
+* Component schema: label, object
+  TYPES: BEGIN OF label,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           name TYPE string,
+           description TYPE string,
+           color TYPE string,
+           default TYPE abap_bool,
+         END OF label.
+
+* Component schema: issue-simple, object
+  TYPES: BEGIN OF subissue_simple_pull_request,
+           merged_at TYPE string,
+           diff_url TYPE string,
+           html_url TYPE string,
+           patch_url TYPE string,
+           url TYPE string,
+         END OF subissue_simple_pull_request.
+  TYPES: BEGIN OF issue_simple,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           repository_url TYPE string,
+           labels_url TYPE string,
+           comments_url TYPE string,
+           events_url TYPE string,
+           html_url TYPE string,
+           number TYPE i,
+           state TYPE string,
+           title TYPE string,
+           body TYPE string,
+           user TYPE string,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           assignee TYPE string,
+           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           milestone TYPE string,
+           locked TYPE abap_bool,
+           active_lock_reason TYPE string,
+           comments TYPE i,
+           pull_request TYPE subissue_simple_pull_request,
+           closed_at TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           author_association TYPE author_association,
+           body_html TYPE string,
+           body_text TYPE string,
+           timeline_url TYPE string,
+           repository TYPE repository,
+           performed_via_github_app TYPE string,
+         END OF issue_simple.
+
+* Component schema: issue-comment, object
+  TYPES: BEGIN OF issue_comment,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           body TYPE string,
+           body_text TYPE string,
+           body_html TYPE string,
+           html_url TYPE string,
+           user TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           issue_url TYPE string,
+           author_association TYPE author_association,
+           performed_via_github_app TYPE string,
+           reactions TYPE reaction_rollup,
+         END OF issue_comment.
+
+* Component schema: event, object
+  TYPES: BEGIN OF subevent_payload,
+           action TYPE string,
+           issue TYPE issue_simple,
+           comment TYPE issue_comment,
+           pages TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subevent_payload.
+  TYPES: BEGIN OF subevent_repo,
+           id TYPE i,
+           name TYPE string,
+           url TYPE string,
+         END OF subevent_repo.
+  TYPES: BEGIN OF event,
+           id TYPE string,
+           type TYPE string,
+           actor TYPE actor,
+           repo TYPE subevent_repo,
+           org TYPE actor,
+           payload TYPE subevent_payload,
+           public TYPE abap_bool,
+           created_at TYPE string,
+         END OF event.
 
 * Component schema: short-blob, object
   TYPES: BEGIN OF short_blob,
@@ -4145,14 +4153,6 @@ INTERFACE zif_githubae PUBLIC.
            key TYPE string,
          END OF key_simple.
 
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
-
 * Component schema: bodyenterprise_admin_create_gl, object
   TYPES: BEGIN OF subbodyenterprise_admin_create,
            url TYPE string,
@@ -4971,6 +4971,12 @@ INTERFACE zif_githubae PUBLIC.
            line TYPE i,
          END OF bodyrepos_create_commit_commen.
 
+* Component schema: bodyapps_create_content_attach, object
+  TYPES: BEGIN OF bodyapps_create_content_attach,
+           title TYPE string,
+           body TYPE string,
+         END OF bodyapps_create_content_attach.
+
 * Component schema: bodyrepos_create_or_update_fil, object
   TYPES: BEGIN OF subbodyrepos_create_or_updat01,
            name TYPE string,
@@ -5619,12 +5625,6 @@ INTERFACE zif_githubae PUBLIC.
            reason TYPE string,
          END OF bodyenterprise_admin_unsuspend.
 
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
-
 * Component schema: response_meta_root, object
   TYPES: BEGIN OF response_meta_root,
            current_user_url TYPE string,
@@ -5733,9 +5733,6 @@ INTERFACE zif_githubae PUBLIC.
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_enterprise_admin_li07.
 
-* Component schema: response_activity_list_public_events, array
-  TYPES response_activity_list_public_ TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
-
 * Component schema: response_gists_list, array
   TYPES response_gists_list TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
 
@@ -5775,9 +5772,6 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_licenses_get_all_commonly_used, array
   TYPES response_licenses_get_all_comm TYPE STANDARD TABLE OF license_simple WITH DEFAULT KEY.
 
-* Component schema: response_activity_list_public_events_fo, array
-  TYPES response_activity_list_publi01 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
-
 * Component schema: response_activity_list_notifications_fo, array
   TYPES response_activity_list_notific TYPE STANDARD TABLE OF thread WITH DEFAULT KEY.
 
@@ -5806,9 +5800,6 @@ INTERFACE zif_githubae PUBLIC.
            total_count TYPE i,
            repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_select01.
-
-* Component schema: response_activity_list_public_org_event, array
-  TYPES response_activity_list_publi02 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
 
 * Component schema: response_orgs_list_webhooks, array
   TYPES response_orgs_list_webhooks TYPE STANDARD TABLE OF org_hook WITH DEFAULT KEY.
@@ -5841,9 +5832,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_projects_list_for_org, array
   TYPES response_projects_list_for_org TYPE STANDARD TABLE OF project WITH DEFAULT KEY.
-
-* Component schema: response_orgs_list_public_members, array
-  TYPES response_orgs_list_public_memb TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_for_org, array
   TYPES response_repos_list_for_org TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
@@ -6394,9 +6382,6 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_activity_list_org_events_for_a, array
   TYPES response_activity_list_org_eve TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
 
-* Component schema: response_activity_list_public_events_01, array
-  TYPES response_activity_list_publi03 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
-
 * Component schema: response_users_list_followers_for_user, array
   TYPES response_users_list_follower01 TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
 
@@ -6417,12 +6402,6 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_projects_list_for_user, array
   TYPES response_projects_list_for_use TYPE STANDARD TABLE OF project WITH DEFAULT KEY.
-
-* Component schema: response_activity_list_received_events_, array
-  TYPES response_activity_list_receive TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
-
-* Component schema: response_activity_list_received_public_, array
-  TYPES response_activity_list_recei01 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_for_user, array
   TYPES response_repos_list_for_user TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
@@ -7271,23 +7250,6 @@ INTERFACE zif_githubae PUBLIC.
       runner_id TYPE i
     RAISING cx_static_check.
 
-* GET - "List public events"
-* Operation id: activity/list-public-events
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_public_events
-* Response: 304
-* Response: 403
-* Response: 503
-  METHODS activity_list_public_events
-    IMPORTING
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_public_
-    RAISING cx_static_check.
-
 * GET - "Get feeds"
 * Operation id: activity/get-feeds
 * Response: 200
@@ -7752,28 +7714,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE api_overview
     RAISING cx_static_check.
 
-* GET - "List public events for a network of repositories"
-* Operation id: activity/list-public-events-for-repo-network
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_public_events_fo
-* Response: 301
-* Response: 304
-* Response: 403
-* Response: 404
-  METHODS activity_list_public_events_fo
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_publi01
-    RAISING cx_static_check.
-
 * GET - "List notifications for the authenticated user"
 * Operation id: activity/list-notifications-for-authenticated-user
 * Parameter: all, optional, query
@@ -8222,22 +8162,6 @@ INTERFACE zif_githubae PUBLIC.
       secret_name TYPE string
     RAISING cx_static_check.
 
-* GET - "List public organization events"
-* Operation id: activity/list-public-org-events
-* Parameter: org, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_public_org_event
-  METHODS activity_list_public_org_event
-    IMPORTING
-      org TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_publi02
-    RAISING cx_static_check.
-
 * GET - "List organization webhooks"
 * Operation id: orgs/list-webhooks
 * Parameter: org, required, path
@@ -8595,57 +8519,6 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyprojects_create_for_org
     RETURNING
       VALUE(return_data) TYPE project
-    RAISING cx_static_check.
-
-* GET - "List public organization members"
-* Operation id: orgs/list-public-members
-* Parameter: org, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_orgs_list_public_members
-  METHODS orgs_list_public_members
-    IMPORTING
-      org TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_orgs_list_public_memb
-    RAISING cx_static_check.
-
-* GET - "Check public organization membership for a user"
-* Operation id: orgs/check-public-membership-for-user
-* Parameter: org, required, path
-* Parameter: username, required, path
-* Response: 204
-* Response: 404
-  METHODS orgs_check_public_membership_f
-    IMPORTING
-      org TYPE string
-      username TYPE string
-    RAISING cx_static_check.
-
-* PUT - "Set public organization membership for the authenticated user"
-* Operation id: orgs/set-public-membership-for-authenticated-user
-* Parameter: org, required, path
-* Parameter: username, required, path
-* Response: 204
-* Response: 403
-  METHODS orgs_set_public_membership_for
-    IMPORTING
-      org TYPE string
-      username TYPE string
-    RAISING cx_static_check.
-
-* DELETE - "Remove public organization membership for the authenticated user"
-* Operation id: orgs/remove-public-membership-for-authenticated-user
-* Parameter: org, required, path
-* Parameter: username, required, path
-* Response: 204
-  METHODS orgs_remove_public_membership_
-    IMPORTING
-      org TYPE string
-      username TYPE string
     RAISING cx_static_check.
 
 * GET - "List organization repositories"
@@ -11710,6 +11583,30 @@ INTERFACE zif_githubae PUBLIC.
       per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit_comparison
+    RAISING cx_static_check.
+
+* POST - "Create a content attachment"
+* Operation id: apps/create-content-attachment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: content_reference_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/content-reference-attachment
+* Response: 304
+* Response: 403
+* Response: 404
+* Response: 410
+* Response: 415
+* Response: 422
+* Body ref: #/components/schemas/bodyapps_create_content_attach
+  METHODS apps_create_content_attachment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      content_reference_id TYPE i
+      body TYPE bodyapps_create_content_attach
+    RETURNING
+      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 * GET - "Get repository content"
@@ -15685,22 +15582,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_activity_list_org_eve
     RAISING cx_static_check.
 
-* GET - "List public events for a user"
-* Operation id: activity/list-public-events-for-user
-* Parameter: username, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_public_events_01
-  METHODS activity_list_public_events_01
-    IMPORTING
-      username TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_publi03
-    RAISING cx_static_check.
-
 * GET - "List followers of a user"
 * Operation id: users/list-followers-for-user
 * Parameter: username, required, path
@@ -15862,38 +15743,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_projects_list_for_use
     RAISING cx_static_check.
 
-* GET - "List events received by the authenticated user"
-* Operation id: activity/list-received-events-for-user
-* Parameter: username, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_received_events_
-  METHODS activity_list_received_events_
-    IMPORTING
-      username TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_receive
-    RAISING cx_static_check.
-
-* GET - "List public events received by a user"
-* Operation id: activity/list-received-public-events-for-user
-* Parameter: username, required, path
-* Parameter: per_page, optional, query
-* Parameter: page, optional, query
-* Response: 200
-*     application/json, #/components/schemas/response_activity_list_received_public_
-  METHODS activity_list_received_public_
-    IMPORTING
-      username TYPE string
-      per_page TYPE i DEFAULT 30
-      page TYPE i DEFAULT 1
-    RETURNING
-      VALUE(return_data) TYPE response_activity_list_recei01
-    RAISING cx_static_check.
-
 * GET - "List repositories for a user"
 * Operation id: repos/list-for-user
 * Parameter: type, optional, query
@@ -15977,30 +15826,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     text/plain, string
   METHODS meta_get_zen
-    RAISING cx_static_check.
-
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 ENDINTERFACE.
