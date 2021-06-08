@@ -1811,6 +1811,7 @@ INTERFACE zif_ghes222 PUBLIC.
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
            code_of_conduct TYPE code_of_conduct_simple,
+           has_advanced_security TYPE abap_bool,
          END OF full_repository.
 
 * Component schema: artifact, object

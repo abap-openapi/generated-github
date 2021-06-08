@@ -3500,6 +3500,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     full_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
     full_repository-anonymous_access_enabled = mo_json->value_boolean( iv_prefix && '/anonymous_access_enabled' ).
     full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
+    full_repository-has_advanced_security = mo_json->value_boolean( iv_prefix && '/has_advanced_security' ).
   ENDMETHOD.
 
   METHOD parse_protected_branch_admin_e.
