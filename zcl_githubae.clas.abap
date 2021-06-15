@@ -5987,7 +5987,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     personal_access_token-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     personal_access_token-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
     personal_access_token-user = mo_json->value_string( iv_prefix && '/user' ).
-    personal_access_token-expiration = mo_json->value_string( iv_prefix && '/expiration' ).
+    personal_access_token-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
   ENDMETHOD.
 
   METHOD parse_hovercard.

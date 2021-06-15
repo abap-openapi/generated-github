@@ -4585,7 +4585,7 @@ INTERFACE zif_githubcom PUBLIC.
            created_at TYPE string,
            fingerprint TYPE string,
            user TYPE string,
-           expiration TYPE string,
+           expires_at TYPE string,
          END OF personal_access_token.
 
 * Component schema: hovercard, object
