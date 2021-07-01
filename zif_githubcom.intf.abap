@@ -4,6 +4,8 @@ INTERFACE zif_githubcom PUBLIC.
 
 * Component schema: simple-user, object
   TYPES: BEGIN OF simple_user,
+           name TYPE string,
+           email TYPE string,
            login TYPE string,
            id TYPE i,
            node_id TYPE string,
@@ -102,40 +104,6 @@ INTERFACE zif_githubcom PUBLIC.
            avatar_url TYPE string,
          END OF enterprise.
 
-* Component schema: installation, object
-  TYPES: BEGIN OF subinstallation_permissions,
-           deployments TYPE string,
-           checks TYPE string,
-           metadata TYPE string,
-           contents TYPE string,
-           pull_requests TYPE string,
-           statuses TYPE string,
-           issues TYPE string,
-           organization_administration TYPE string,
-         END OF subinstallation_permissions.
-  TYPES: BEGIN OF installation,
-           id TYPE i,
-           account TYPE string,
-           repository_selection TYPE string,
-           access_tokens_url TYPE string,
-           repositories_url TYPE string,
-           html_url TYPE string,
-           app_id TYPE i,
-           target_id TYPE i,
-           target_type TYPE string,
-           permissions TYPE subinstallation_permissions,
-           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           created_at TYPE string,
-           updated_at TYPE string,
-           single_file_name TYPE string,
-           has_multiple_single_files TYPE abap_bool,
-           single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           app_slug TYPE string,
-           suspended_by TYPE string,
-           suspended_at TYPE string,
-           contact_email TYPE string,
-         END OF installation.
-
 * Component schema: app-permissions, object
   TYPES: BEGIN OF app_permissions,
            actions TYPE string,
@@ -164,11 +132,36 @@ INTERFACE zif_githubcom PUBLIC.
            organization_hooks TYPE string,
            organization_plan TYPE string,
            organization_projects TYPE string,
+           organization_packages TYPE string,
            organization_secrets TYPE string,
            organization_self_hosted_runne TYPE string,
            organization_user_blocking TYPE string,
            team_discussions TYPE string,
          END OF app_permissions.
+
+* Component schema: installation, object
+  TYPES: BEGIN OF installation,
+           id TYPE i,
+           account TYPE string,
+           repository_selection TYPE string,
+           access_tokens_url TYPE string,
+           repositories_url TYPE string,
+           html_url TYPE string,
+           app_id TYPE i,
+           target_id TYPE i,
+           target_type TYPE string,
+           permissions TYPE app_permissions,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           created_at TYPE string,
+           updated_at TYPE string,
+           single_file_name TYPE string,
+           has_multiple_single_files TYPE abap_bool,
+           single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           app_slug TYPE string,
+           suspended_by TYPE string,
+           suspended_at TYPE string,
+           contact_email TYPE string,
+         END OF installation.
 
 * Component schema: license-simple, object
   TYPES: BEGIN OF license_simple,
@@ -387,16 +380,10 @@ INTERFACE zif_githubcom PUBLIC.
          END OF repository.
 
 * Component schema: installation-token, object
-  TYPES: BEGIN OF subinstallation_token_permissi,
-           issues TYPE string,
-           contents TYPE string,
-           metadata TYPE string,
-           single_file TYPE string,
-         END OF subinstallation_token_permissi.
   TYPES: BEGIN OF installation_token,
            token TYPE string,
            expires_at TYPE string,
-           permissions TYPE subinstallation_token_permissi,
+           permissions TYPE app_permissions,
            repository_selection TYPE string,
            repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            single_file TYPE string,
@@ -555,12 +542,22 @@ INTERFACE zif_githubcom PUBLIC.
          END OF authentication_token.
 
 * Component schema: audit-log-event, object
+  TYPES: BEGIN OF subaudit_log_event_data,
+           dummy_workaround TYPE i,
+         END OF subaudit_log_event_data.
+  TYPES: BEGIN OF subaudit_log_event_actor_locat,
+           country_name TYPE string,
+         END OF subaudit_log_event_actor_locat.
   TYPES: BEGIN OF audit_log_event,
            timestamp TYPE i,
            action TYPE string,
            active TYPE abap_bool,
            active_was TYPE abap_bool,
            actor TYPE string,
+           actor_id TYPE i,
+           actor_location TYPE subaudit_log_event_actor_locat,
+           data TYPE subaudit_log_event_data,
+           org_id TYPE i,
            blocked_user TYPE string,
            business TYPE string,
            config TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -817,6 +814,69 @@ INTERFACE zif_githubcom PUBLIC.
            history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF base_gist.
 
+* Component schema: public-user, object
+  TYPES: BEGIN OF subpublic_user_plan,
+           collaborators TYPE i,
+           name TYPE string,
+           space TYPE i,
+           private_repos TYPE i,
+         END OF subpublic_user_plan.
+  TYPES: BEGIN OF public_user,
+           login TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           avatar_url TYPE string,
+           gravatar_id TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           followers_url TYPE string,
+           following_url TYPE string,
+           gists_url TYPE string,
+           starred_url TYPE string,
+           subscriptions_url TYPE string,
+           organizations_url TYPE string,
+           repos_url TYPE string,
+           events_url TYPE string,
+           received_events_url TYPE string,
+           type TYPE string,
+           site_admin TYPE abap_bool,
+           name TYPE string,
+           company TYPE string,
+           blog TYPE string,
+           location TYPE string,
+           email TYPE string,
+           hireable TYPE abap_bool,
+           bio TYPE string,
+           twitter_username TYPE string,
+           public_repos TYPE i,
+           public_gists TYPE i,
+           followers TYPE i,
+           following TYPE i,
+           created_at TYPE string,
+           updated_at TYPE string,
+           plan TYPE subpublic_user_plan,
+           suspended_at TYPE string,
+           private_gists TYPE i,
+           total_private_repos TYPE i,
+           owned_private_repos TYPE i,
+           disk_usage TYPE i,
+           collaborators TYPE i,
+         END OF public_user.
+
+* Component schema: gist-history, object
+  TYPES: BEGIN OF subgist_history_change_status,
+           total TYPE i,
+           additions TYPE i,
+           deletions TYPE i,
+         END OF subgist_history_change_status.
+  TYPES: BEGIN OF gist_history,
+           user TYPE simple_user,
+           version TYPE string,
+           committed_at TYPE string,
+           change_status TYPE subgist_history_change_status,
+           url TYPE string,
+         END OF gist_history.
+
 * Component schema: gist-simple, object
   TYPES: BEGIN OF subgist_simple_files,
            dummy_workaround TYPE i,
@@ -1042,6 +1102,8 @@ INTERFACE zif_githubcom PUBLIC.
            admin TYPE abap_bool,
            push TYPE abap_bool,
            pull TYPE abap_bool,
+           maintain TYPE abap_bool,
+           triage TYPE abap_bool,
          END OF subminimal_repository_permissi.
   TYPES: BEGIN OF subminimal_repository_owner,
            dummy_workaround TYPE i,
@@ -1125,6 +1187,7 @@ INTERFACE zif_githubcom PUBLIC.
            delete_branch_on_merge TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
+           code_of_conduct TYPE code_of_conduct,
            license TYPE subminimal_repository_license,
            forks TYPE i,
            open_issues TYPE i,
@@ -1352,6 +1415,13 @@ INTERFACE zif_githubcom PUBLIC.
          END OF team_simple.
 
 * Component schema: team, object
+  TYPES: BEGIN OF subteam_permissions,
+           pull TYPE abap_bool,
+           triage TYPE abap_bool,
+           push TYPE abap_bool,
+           maintain TYPE abap_bool,
+           admin TYPE abap_bool,
+         END OF subteam_permissions.
   TYPES: BEGIN OF team,
            id TYPE i,
            node_id TYPE string,
@@ -1360,6 +1430,7 @@ INTERFACE zif_githubcom PUBLIC.
            description TYPE string,
            privacy TYPE string,
            permission TYPE string,
+           permissions TYPE subteam_permissions,
            url TYPE string,
            html_url TYPE string,
            members_url TYPE string,
@@ -1675,6 +1746,8 @@ INTERFACE zif_githubcom PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            archived TYPE abap_bool,
+           column_name TYPE string,
+           project_id TYPE string,
            column_url TYPE string,
            content_url TYPE string,
            project_url TYPE string,
@@ -1703,6 +1776,7 @@ INTERFACE zif_githubcom PUBLIC.
            limit TYPE i,
            remaining TYPE i,
            reset TYPE i,
+           used TYPE i,
          END OF rate_limit.
 
 * Component schema: rate-limit-overview, object
@@ -1728,6 +1802,16 @@ INTERFACE zif_githubcom PUBLIC.
          END OF code_of_conduct_simple.
 
 * Component schema: full-repository, object
+  TYPES: BEGIN OF subsubfull_repository_securi01,
+           status TYPE string,
+         END OF subsubfull_repository_securi01.
+  TYPES: BEGIN OF subsubfull_repository_security,
+           status TYPE string,
+         END OF subsubfull_repository_security.
+  TYPES: BEGIN OF subfull_repository_security_an,
+           advanced_security TYPE subsubfull_repository_security,
+           secret_scanning TYPE subsubfull_repository_securi01,
+         END OF subfull_repository_security_an.
   TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
          END OF subfull_repository_template_re.
@@ -1828,7 +1912,7 @@ INTERFACE zif_githubcom PUBLIC.
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
            code_of_conduct TYPE code_of_conduct_simple,
-           has_advanced_security TYPE abap_bool,
+           security_and_analysis TYPE subfull_repository_security_an,
          END OF full_repository.
 
 * Component schema: artifact, object
@@ -2120,9 +2204,11 @@ INTERFACE zif_githubcom PUBLIC.
            enforcement_level TYPE string,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            contexts_url TYPE string,
+           strict TYPE abap_bool,
          END OF subbranch_protection_required_.
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
+           enabled TYPE abap_bool,
            required_status_checks TYPE subbranch_protection_required_,
            enforce_admins TYPE protected_branch_admin_enforce,
            required_pull_request_reviews TYPE protected_branch_pull_request_,
@@ -2468,6 +2554,7 @@ INTERFACE zif_githubcom PUBLIC.
            id TYPE string,
            name TYPE string,
            severity TYPE string,
+           security_severity_level TYPE string,
            description TYPE string,
            full_description TYPE string,
            tags TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -2529,6 +2616,7 @@ INTERFACE zif_githubcom PUBLIC.
            tool TYPE code_scanning_analysis_tool,
            deletable TYPE abap_bool,
            warning TYPE string,
+           tool_name TYPE string,
          END OF code_scanning_analysis.
 
 * Component schema: code-scanning-analysis-deletion, object
@@ -2571,6 +2659,8 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF collaborator,
            login TYPE string,
            id TYPE i,
+           email TYPE string,
+           name TYPE string,
            node_id TYPE string,
            avatar_url TYPE string,
            gravatar_id TYPE string,
@@ -3259,8 +3349,12 @@ INTERFACE zif_githubcom PUBLIC.
            performed_via_github_app TYPE string,
          END OF issue_event.
 
-* Component schema: issue-event-for-issue, object
-  TYPES: BEGIN OF issue_event_for_issue,
+* Component schema: labeled-issue-event, object
+  TYPES: BEGIN OF sublabeled_issue_event_label,
+           name TYPE string,
+           color TYPE string,
+         END OF sublabeled_issue_event_label.
+  TYPES: BEGIN OF labeled_issue_event,
            id TYPE i,
            node_id TYPE string,
            url TYPE string,
@@ -3269,20 +3363,456 @@ INTERFACE zif_githubcom PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           sha TYPE string,
-           html_url TYPE string,
-           message TYPE string,
-           issue_url TYPE string,
-           updated_at TYPE string,
-           author_association TYPE author_association,
-           body TYPE string,
-           lock_reason TYPE string,
-           submitted_at TYPE string,
+           performed_via_github_app TYPE integration,
+           label TYPE sublabeled_issue_event_label,
+         END OF labeled_issue_event.
+
+* Component schema: unlabeled-issue-event, object
+  TYPES: BEGIN OF subunlabeled_issue_event_label,
+           name TYPE string,
+           color TYPE string,
+         END OF subunlabeled_issue_event_label.
+  TYPES: BEGIN OF unlabeled_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           label TYPE subunlabeled_issue_event_label,
+         END OF unlabeled_issue_event.
+
+* Component schema: assigned-issue-event, object
+  TYPES: BEGIN OF assigned_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           assignee TYPE simple_user,
+           assigner TYPE simple_user,
+         END OF assigned_issue_event.
+
+* Component schema: unassigned-issue-event, object
+  TYPES: BEGIN OF unassigned_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           assignee TYPE simple_user,
+           assigner TYPE simple_user,
+         END OF unassigned_issue_event.
+
+* Component schema: milestoned-issue-event, object
+  TYPES: BEGIN OF submilestoned_issue_event_mile,
+           title TYPE string,
+         END OF submilestoned_issue_event_mile.
+  TYPES: BEGIN OF milestoned_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           milestone TYPE submilestoned_issue_event_mile,
+         END OF milestoned_issue_event.
+
+* Component schema: demilestoned-issue-event, object
+  TYPES: BEGIN OF subdemilestoned_issue_event_mi,
+           title TYPE string,
+         END OF subdemilestoned_issue_event_mi.
+  TYPES: BEGIN OF demilestoned_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           milestone TYPE subdemilestoned_issue_event_mi,
+         END OF demilestoned_issue_event.
+
+* Component schema: renamed-issue-event, object
+  TYPES: BEGIN OF subrenamed_issue_event_rename,
+           from TYPE string,
+           to TYPE string,
+         END OF subrenamed_issue_event_rename.
+  TYPES: BEGIN OF renamed_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           rename TYPE subrenamed_issue_event_rename,
+         END OF renamed_issue_event.
+
+* Component schema: review-requested-issue-event, object
+  TYPES: BEGIN OF review_requested_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           review_requester TYPE simple_user,
+           requested_team TYPE team,
+           requested_reviewer TYPE simple_user,
+         END OF review_requested_issue_event.
+
+* Component schema: review-request-removed-issue-event, object
+  TYPES: BEGIN OF review_request_removed_issue_e,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           review_requester TYPE simple_user,
+           requested_team TYPE team,
+           requested_reviewer TYPE simple_user,
+         END OF review_request_removed_issue_e.
+
+* Component schema: review-dismissed-issue-event, object
+  TYPES: BEGIN OF subreview_dismissed_issue_even,
            state TYPE string,
+           review_id TYPE i,
+           dismissal_message TYPE string,
+           dismissal_commit_id TYPE string,
+         END OF subreview_dismissed_issue_even.
+  TYPES: BEGIN OF review_dismissed_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           dismissed_review TYPE subreview_dismissed_issue_even,
+         END OF review_dismissed_issue_event.
+
+* Component schema: locked-issue-event, object
+  TYPES: BEGIN OF locked_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           lock_reason TYPE string,
+         END OF locked_issue_event.
+
+* Component schema: added-to-project-issue-event, object
+  TYPES: BEGIN OF subadded_to_project_issue_even,
+           id TYPE i,
+           url TYPE string,
+           project_id TYPE i,
+           project_url TYPE string,
+           column_name TYPE string,
+           previous_column_name TYPE string,
+         END OF subadded_to_project_issue_even.
+  TYPES: BEGIN OF added_to_project_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           project_card TYPE subadded_to_project_issue_even,
+         END OF added_to_project_issue_event.
+
+* Component schema: moved-column-in-project-issue-event, object
+  TYPES: BEGIN OF submoved_column_in_project_iss,
+           id TYPE i,
+           url TYPE string,
+           project_id TYPE i,
+           project_url TYPE string,
+           column_name TYPE string,
+           previous_column_name TYPE string,
+         END OF submoved_column_in_project_iss.
+  TYPES: BEGIN OF moved_column_in_project_issue_,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           project_card TYPE submoved_column_in_project_iss,
+         END OF moved_column_in_project_issue_.
+
+* Component schema: removed-from-project-issue-event, object
+  TYPES: BEGIN OF subremoved_from_project_issue_,
+           id TYPE i,
+           url TYPE string,
+           project_id TYPE i,
+           project_url TYPE string,
+           column_name TYPE string,
+           previous_column_name TYPE string,
+         END OF subremoved_from_project_issue_.
+  TYPES: BEGIN OF removed_from_project_issue_eve,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           project_card TYPE subremoved_from_project_issue_,
+         END OF removed_from_project_issue_eve.
+
+* Component schema: converted-note-to-issue-issue-event, object
+  TYPES: BEGIN OF subconverted_note_to_issue_iss,
+           id TYPE i,
+           url TYPE string,
+           project_id TYPE i,
+           project_url TYPE string,
+           column_name TYPE string,
+           previous_column_name TYPE string,
+         END OF subconverted_note_to_issue_iss.
+  TYPES: BEGIN OF converted_note_to_issue_issue_,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           project_card TYPE subconverted_note_to_issue_iss,
+         END OF converted_note_to_issue_issue_.
+
+* Component schema: issue-event-for-issue, string
+  TYPES issue_event_for_issue TYPE string.
+
+* Component schema: timeline-comment-event, object
+  TYPES: BEGIN OF timeline_comment_event,
+           event TYPE string,
+           actor TYPE simple_user,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           body TYPE string,
+           body_text TYPE string,
+           body_html TYPE string,
+           html_url TYPE string,
+           user TYPE simple_user,
+           created_at TYPE string,
+           updated_at TYPE string,
+           issue_url TYPE string,
+           author_association TYPE author_association,
+           performed_via_github_app TYPE integration,
+           reactions TYPE reaction_rollup,
+         END OF timeline_comment_event.
+
+* Component schema: timeline-cross-referenced-event, object
+  TYPES: BEGIN OF subtimeline_cross_referenced_e,
+           type TYPE string,
+           issue TYPE issue_simple,
+         END OF subtimeline_cross_referenced_e.
+  TYPES: BEGIN OF timeline_cross_referenced_even,
+           event TYPE string,
+           actor TYPE simple_user,
+           created_at TYPE string,
+           updated_at TYPE string,
+           source TYPE subtimeline_cross_referenced_e,
+         END OF timeline_cross_referenced_even.
+
+* Component schema: timeline-committed-event, object
+  TYPES: BEGIN OF subtimeline_committed_event_ve,
+           verified TYPE abap_bool,
+           reason TYPE string,
+           signature TYPE string,
+           payload TYPE string,
+         END OF subtimeline_committed_event_ve.
+  TYPES: BEGIN OF subtimeline_committed_event_tr,
+           sha TYPE string,
+           url TYPE string,
+         END OF subtimeline_committed_event_tr.
+  TYPES: BEGIN OF subtimeline_committed_event_co,
+           date TYPE string,
+           email TYPE string,
+           name TYPE string,
+         END OF subtimeline_committed_event_co.
+  TYPES: BEGIN OF subtimeline_committed_event_au,
+           date TYPE string,
+           email TYPE string,
+           name TYPE string,
+         END OF subtimeline_committed_event_au.
+  TYPES: BEGIN OF timeline_committed_event,
+           event TYPE string,
+           sha TYPE string,
+           node_id TYPE string,
+           url TYPE string,
+           author TYPE subtimeline_committed_event_au,
+           committer TYPE subtimeline_committed_event_co,
+           message TYPE string,
+           tree TYPE subtimeline_committed_event_tr,
+           parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           verification TYPE subtimeline_committed_event_ve,
+           html_url TYPE string,
+         END OF timeline_committed_event.
+
+* Component schema: timeline-reviewed-event, object
+  TYPES: BEGIN OF subsubtimeline_reviewed_even01,
+           href TYPE string,
+         END OF subsubtimeline_reviewed_even01.
+  TYPES: BEGIN OF subsubtimeline_reviewed_event_,
+           href TYPE string,
+         END OF subsubtimeline_reviewed_event_.
+  TYPES: BEGIN OF subtimeline_reviewed_event__li,
+           html TYPE subsubtimeline_reviewed_event_,
+           pull_request TYPE subsubtimeline_reviewed_even01,
+         END OF subtimeline_reviewed_event__li.
+  TYPES: BEGIN OF timeline_reviewed_event,
+           event TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           user TYPE simple_user,
+           body TYPE string,
+           state TYPE string,
+           html_url TYPE string,
            pull_request_url TYPE string,
+           _links TYPE subtimeline_reviewed_event__li,
+           submitted_at TYPE string,
+           commit_id TYPE string,
            body_html TYPE string,
            body_text TYPE string,
-         END OF issue_event_for_issue.
+           author_association TYPE author_association,
+         END OF timeline_reviewed_event.
+
+* Component schema: pull-request-review-comment, object
+  TYPES: BEGIN OF subsubpull_request_review_co02,
+           href TYPE string,
+         END OF subsubpull_request_review_co02.
+  TYPES: BEGIN OF subsubpull_request_review_co01,
+           href TYPE string,
+         END OF subsubpull_request_review_co01.
+  TYPES: BEGIN OF subsubpull_request_review_comm,
+           href TYPE string,
+         END OF subsubpull_request_review_comm.
+  TYPES: BEGIN OF subpull_request_review_comment,
+           self TYPE subsubpull_request_review_comm,
+           html TYPE subsubpull_request_review_co01,
+           pull_request TYPE subsubpull_request_review_co02,
+         END OF subpull_request_review_comment.
+  TYPES: BEGIN OF pull_request_review_comment,
+           url TYPE string,
+           pull_request_review_id TYPE i,
+           id TYPE i,
+           node_id TYPE string,
+           diff_hunk TYPE string,
+           path TYPE string,
+           position TYPE i,
+           original_position TYPE i,
+           commit_id TYPE string,
+           original_commit_id TYPE string,
+           in_reply_to_id TYPE i,
+           user TYPE simple_user,
+           body TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           html_url TYPE string,
+           pull_request_url TYPE string,
+           author_association TYPE author_association,
+           _links TYPE subpull_request_review_comment,
+           start_line TYPE i,
+           original_start_line TYPE i,
+           start_side TYPE string,
+           line TYPE i,
+           original_line TYPE i,
+           side TYPE string,
+           reactions TYPE reaction_rollup,
+           body_html TYPE string,
+           body_text TYPE string,
+         END OF pull_request_review_comment.
+
+* Component schema: timeline-line-commented-event, object
+  TYPES: BEGIN OF timeline_line_commented_event,
+           event TYPE string,
+           node_id TYPE string,
+           comments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF timeline_line_commented_event.
+
+* Component schema: timeline-commit-commented-event, object
+  TYPES: BEGIN OF timeline_commit_commented_even,
+           event TYPE string,
+           node_id TYPE string,
+           commit_id TYPE string,
+           comments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF timeline_commit_commented_even.
+
+* Component schema: timeline-assigned-issue-event, object
+  TYPES: BEGIN OF timeline_assigned_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           assignee TYPE simple_user,
+         END OF timeline_assigned_issue_event.
+
+* Component schema: timeline-unassigned-issue-event, object
+  TYPES: BEGIN OF timeline_unassigned_issue_even,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE integration,
+           assignee TYPE simple_user,
+         END OF timeline_unassigned_issue_even.
+
+* Component schema: timeline-issue-events, object
+  TYPES: BEGIN OF timeline_issue_events,
+           dummy_workaround TYPE i,
+         END OF timeline_issue_events.
 
 * Component schema: deploy-key, object
   TYPES: BEGIN OF deploy_key,
@@ -3773,52 +4303,6 @@ INTERFACE zif_githubcom PUBLIC.
            changed_files TYPE i,
          END OF pull_request.
 
-* Component schema: pull-request-review-comment, object
-  TYPES: BEGIN OF subsubpull_request_review_co02,
-           href TYPE string,
-         END OF subsubpull_request_review_co02.
-  TYPES: BEGIN OF subsubpull_request_review_co01,
-           href TYPE string,
-         END OF subsubpull_request_review_co01.
-  TYPES: BEGIN OF subsubpull_request_review_comm,
-           href TYPE string,
-         END OF subsubpull_request_review_comm.
-  TYPES: BEGIN OF subpull_request_review_comment,
-           self TYPE subsubpull_request_review_comm,
-           html TYPE subsubpull_request_review_co01,
-           pull_request TYPE subsubpull_request_review_co02,
-         END OF subpull_request_review_comment.
-  TYPES: BEGIN OF pull_request_review_comment,
-           url TYPE string,
-           pull_request_review_id TYPE i,
-           id TYPE i,
-           node_id TYPE string,
-           diff_hunk TYPE string,
-           path TYPE string,
-           position TYPE i,
-           original_position TYPE i,
-           commit_id TYPE string,
-           original_commit_id TYPE string,
-           in_reply_to_id TYPE i,
-           user TYPE simple_user,
-           body TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           html_url TYPE string,
-           pull_request_url TYPE string,
-           author_association TYPE author_association,
-           _links TYPE subpull_request_review_comment,
-           start_line TYPE i,
-           original_start_line TYPE i,
-           start_side TYPE string,
-           line TYPE i,
-           original_line TYPE i,
-           side TYPE string,
-           reactions TYPE reaction_rollup,
-           body_html TYPE string,
-           body_text TYPE string,
-         END OF pull_request_review_comment.
-
 * Component schema: pull-request-merge-result, object
   TYPES: BEGIN OF pull_request_merge_result,
            sha TYPE string,
@@ -3887,6 +4371,7 @@ INTERFACE zif_githubcom PUBLIC.
            _links TYPE subreview_comment__links,
            body_text TYPE string,
            body_html TYPE string,
+           reactions TYPE reaction_rollup,
            side TYPE string,
            start_side TYPE string,
            line TYPE i,
@@ -4457,55 +4942,6 @@ INTERFACE zif_githubcom PUBLIC.
            ldap_dn TYPE string,
          END OF private_user.
 
-* Component schema: public-user, object
-  TYPES: BEGIN OF subpublic_user_plan,
-           collaborators TYPE i,
-           name TYPE string,
-           space TYPE i,
-           private_repos TYPE i,
-         END OF subpublic_user_plan.
-  TYPES: BEGIN OF public_user,
-           login TYPE string,
-           id TYPE i,
-           node_id TYPE string,
-           avatar_url TYPE string,
-           gravatar_id TYPE string,
-           url TYPE string,
-           html_url TYPE string,
-           followers_url TYPE string,
-           following_url TYPE string,
-           gists_url TYPE string,
-           starred_url TYPE string,
-           subscriptions_url TYPE string,
-           organizations_url TYPE string,
-           repos_url TYPE string,
-           events_url TYPE string,
-           received_events_url TYPE string,
-           type TYPE string,
-           site_admin TYPE abap_bool,
-           name TYPE string,
-           company TYPE string,
-           blog TYPE string,
-           location TYPE string,
-           email TYPE string,
-           hireable TYPE abap_bool,
-           bio TYPE string,
-           twitter_username TYPE string,
-           public_repos TYPE i,
-           public_gists TYPE i,
-           followers TYPE i,
-           following TYPE i,
-           created_at TYPE string,
-           updated_at TYPE string,
-           plan TYPE subpublic_user_plan,
-           suspended_at TYPE string,
-           private_gists TYPE i,
-           total_private_repos TYPE i,
-           owned_private_repos TYPE i,
-           disk_usage TYPE i,
-           collaborators TYPE i,
-         END OF public_user.
-
 * Component schema: email, object
   TYPES: BEGIN OF email,
            email TYPE string,
@@ -4570,23 +5006,6 @@ INTERFACE zif_githubcom PUBLIC.
            starred_at TYPE string,
            repo TYPE repository,
          END OF starred_repository.
-
-* Component schema: personal-access-token, object
-  TYPES: BEGIN OF personal_access_token,
-           id TYPE i,
-           url TYPE string,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           token TYPE string,
-           token_last_eight TYPE string,
-           hashed_token TYPE string,
-           note TYPE string,
-           note_url TYPE string,
-           updated_at TYPE string,
-           created_at TYPE string,
-           fingerprint TYPE string,
-           user TYPE string,
-           expires_at TYPE string,
-         END OF personal_access_token.
 
 * Component schema: hovercard, object
   TYPES: BEGIN OF hovercard,
@@ -5121,12 +5540,23 @@ INTERFACE zif_githubcom PUBLIC.
          END OF bodyprojects_create_column.
 
 * Component schema: bodyrepos_update, object
+  TYPES: BEGIN OF subsubbodyrepos_update_secur01,
+           status TYPE string,
+         END OF subsubbodyrepos_update_secur01.
+  TYPES: BEGIN OF subsubbodyrepos_update_securit,
+           status TYPE string,
+         END OF subsubbodyrepos_update_securit.
+  TYPES: BEGIN OF subbodyrepos_update_security_a,
+           advanced_security TYPE subsubbodyrepos_update_securit,
+           secret_scanning TYPE subsubbodyrepos_update_secur01,
+         END OF subbodyrepos_update_security_a.
   TYPES: BEGIN OF bodyrepos_update,
            name TYPE string,
            description TYPE string,
            homepage TYPE string,
            private TYPE abap_bool,
            visibility TYPE string,
+           security_and_analysis TYPE subbodyrepos_update_security_a,
            has_issues TYPE abap_bool,
            has_projects TYPE abap_bool,
            has_wiki TYPE abap_bool,
@@ -5140,12 +5570,23 @@ INTERFACE zif_githubcom PUBLIC.
          END OF bodyrepos_update.
 
 * Component schema: bodyrepos_delete, object
+  TYPES: BEGIN OF subsubbodyrepos_delete_secur01,
+           status TYPE string,
+         END OF subsubbodyrepos_delete_secur01.
+  TYPES: BEGIN OF subsubbodyrepos_delete_securit,
+           status TYPE string,
+         END OF subsubbodyrepos_delete_securit.
+  TYPES: BEGIN OF subbodyrepos_delete_security_a,
+           advanced_security TYPE subsubbodyrepos_delete_securit,
+           secret_scanning TYPE subsubbodyrepos_delete_secur01,
+         END OF subbodyrepos_delete_security_a.
   TYPES: BEGIN OF bodyrepos_delete,
            name TYPE string,
            description TYPE string,
            homepage TYPE string,
            private TYPE abap_bool,
            visibility TYPE string,
+           security_and_analysis TYPE subbodyrepos_delete_security_a,
            has_issues TYPE abap_bool,
            has_projects TYPE abap_bool,
            has_wiki TYPE abap_bool,
@@ -5220,6 +5661,7 @@ INTERFACE zif_githubcom PUBLIC.
            required_linear_history TYPE abap_bool,
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
+           required_conversation_resoluti TYPE abap_bool,
          END OF bodyrepos_update_branch_protec.
 
 * Component schema: bodyrepos_delete_branch_protec, object
@@ -5250,6 +5692,7 @@ INTERFACE zif_githubcom PUBLIC.
            required_linear_history TYPE abap_bool,
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
+           required_conversation_resoluti TYPE abap_bool,
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object
@@ -6162,7 +6605,6 @@ INTERFACE zif_githubcom PUBLIC.
 
 * Component schema: bodyusers_set_primary_email_vi, object
   TYPES: BEGIN OF bodyusers_set_primary_email_vi,
-           email TYPE string,
            visibility TYPE string,
          END OF bodyusers_set_primary_email_vi.
 
@@ -6850,7 +7292,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES response_reactions_list_for_02 TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
 
 * Component schema: response_issues_list_events_for_timelin, array
-  TYPES response_issues_list_events_01 TYPE STANDARD TABLE OF issue_event_for_issue WITH DEFAULT KEY.
+  TYPES response_issues_list_events_01 TYPE STANDARD TABLE OF timeline_issue_events WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_deploy_keys, array
   TYPES response_repos_list_deploy_key TYPE STANDARD TABLE OF deploy_key WITH DEFAULT KEY.
@@ -16401,6 +16843,7 @@ INTERFACE zif_githubcom PUBLIC.
 * GET - "List secret scanning alerts for a repository"
 * Operation id: secret-scanning/list-alerts-for-repo
 * Parameter: state, optional, query
+* Parameter: secret_type, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: page, optional, query
@@ -16412,6 +16855,7 @@ INTERFACE zif_githubcom PUBLIC.
   METHODS secret_scanning_list_alerts_fo
     IMPORTING
       state TYPE string OPTIONAL
+      secret_type TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string
       page TYPE i DEFAULT 1
@@ -17328,6 +17772,8 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: q, required, query
 * Parameter: sort, optional, query
 * Parameter: order, optional, query
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_search_labels
 * Response: 304
@@ -17340,6 +17786,8 @@ INTERFACE zif_githubcom PUBLIC.
       q TYPE string
       sort TYPE string OPTIONAL
       order TYPE string DEFAULT 'desc'
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_search_labels
     RAISING cx_static_check.
@@ -17370,6 +17818,8 @@ INTERFACE zif_githubcom PUBLIC.
 * GET - "Search topics"
 * Operation id: search/topics
 * Parameter: q, required, query
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_search_topics
 * Response: 304
@@ -17377,6 +17827,8 @@ INTERFACE zif_githubcom PUBLIC.
   METHODS search_topics
     IMPORTING
       q TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_search_topics
     RAISING cx_static_check.

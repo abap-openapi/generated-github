@@ -16,9 +16,9 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(global_hook_2) TYPE zif_ghes218=>global_hook_2
       RAISING cx_static_check.
-    METHODS parse_enterprise_public_key
+    METHODS parse_public_key_full
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(enterprise_public_key) TYPE zif_ghes218=>enterprise_public_key
+      RETURNING VALUE(public_key_full) TYPE zif_ghes218=>public_key_full
       RAISING cx_static_check.
     METHODS parse_ldap_mapping_team
       IMPORTING iv_prefix TYPE string
@@ -112,6 +112,46 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(license_info) TYPE zif_ghes218=>license_info
       RAISING cx_static_check.
+    METHODS parse_enterprise_repository_ov
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_repository_overview) TYPE zif_ghes218=>enterprise_repository_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_hook_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_hook_overview) TYPE zif_ghes218=>enterprise_hook_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_page_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_page_overview) TYPE zif_ghes218=>enterprise_page_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_organization_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_organization_overvi) TYPE zif_ghes218=>enterprise_organization_overvi
+      RAISING cx_static_check.
+    METHODS parse_enterprise_user_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_user_overview) TYPE zif_ghes218=>enterprise_user_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_pull_request_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_pull_request_overvi) TYPE zif_ghes218=>enterprise_pull_request_overvi
+      RAISING cx_static_check.
+    METHODS parse_enterprise_issue_overvie
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_issue_overview) TYPE zif_ghes218=>enterprise_issue_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_milestone_ove
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_milestone_overview) TYPE zif_ghes218=>enterprise_milestone_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_gist_overview
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_gist_overview) TYPE zif_ghes218=>enterprise_gist_overview
+      RAISING cx_static_check.
+    METHODS parse_enterprise_comment_overv
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(enterprise_comment_overview) TYPE zif_ghes218=>enterprise_comment_overview
+      RAISING cx_static_check.
     METHODS parse_enterprise_overview
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(enterprise_overview) TYPE zif_ghes218=>enterprise_overview
@@ -159,6 +199,14 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
     METHODS parse_base_gist
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(base_gist) TYPE zif_ghes218=>base_gist
+      RAISING cx_static_check.
+    METHODS parse_public_user
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(public_user) TYPE zif_ghes218=>public_user
+      RAISING cx_static_check.
+    METHODS parse_gist_history
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(gist_history) TYPE zif_ghes218=>gist_history
       RAISING cx_static_check.
     METHODS parse_gist_simple
       IMPORTING iv_prefix TYPE string
@@ -496,9 +544,109 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(issue_event) TYPE zif_ghes218=>issue_event
       RAISING cx_static_check.
+    METHODS parse_labeled_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(labeled_issue_event) TYPE zif_ghes218=>labeled_issue_event
+      RAISING cx_static_check.
+    METHODS parse_unlabeled_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(unlabeled_issue_event) TYPE zif_ghes218=>unlabeled_issue_event
+      RAISING cx_static_check.
+    METHODS parse_assigned_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(assigned_issue_event) TYPE zif_ghes218=>assigned_issue_event
+      RAISING cx_static_check.
+    METHODS parse_unassigned_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(unassigned_issue_event) TYPE zif_ghes218=>unassigned_issue_event
+      RAISING cx_static_check.
+    METHODS parse_milestoned_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(milestoned_issue_event) TYPE zif_ghes218=>milestoned_issue_event
+      RAISING cx_static_check.
+    METHODS parse_demilestoned_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(demilestoned_issue_event) TYPE zif_ghes218=>demilestoned_issue_event
+      RAISING cx_static_check.
+    METHODS parse_renamed_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(renamed_issue_event) TYPE zif_ghes218=>renamed_issue_event
+      RAISING cx_static_check.
+    METHODS parse_review_requested_issue_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(review_requested_issue_event) TYPE zif_ghes218=>review_requested_issue_event
+      RAISING cx_static_check.
+    METHODS parse_review_request_removed_i
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(review_request_removed_issue_e) TYPE zif_ghes218=>review_request_removed_issue_e
+      RAISING cx_static_check.
+    METHODS parse_review_dismissed_issue_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(review_dismissed_issue_event) TYPE zif_ghes218=>review_dismissed_issue_event
+      RAISING cx_static_check.
+    METHODS parse_locked_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(locked_issue_event) TYPE zif_ghes218=>locked_issue_event
+      RAISING cx_static_check.
+    METHODS parse_added_to_project_issue_e
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(added_to_project_issue_event) TYPE zif_ghes218=>added_to_project_issue_event
+      RAISING cx_static_check.
+    METHODS parse_moved_column_in_project_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(moved_column_in_project_issue_) TYPE zif_ghes218=>moved_column_in_project_issue_
+      RAISING cx_static_check.
+    METHODS parse_removed_from_project_iss
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(removed_from_project_issue_eve) TYPE zif_ghes218=>removed_from_project_issue_eve
+      RAISING cx_static_check.
+    METHODS parse_converted_note_to_issue_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(converted_note_to_issue_issue_) TYPE zif_ghes218=>converted_note_to_issue_issue_
+      RAISING cx_static_check.
     METHODS parse_issue_event_for_issue
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(issue_event_for_issue) TYPE zif_ghes218=>issue_event_for_issue
+      RAISING cx_static_check.
+    METHODS parse_timeline_comment_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_comment_event) TYPE zif_ghes218=>timeline_comment_event
+      RAISING cx_static_check.
+    METHODS parse_timeline_cross_reference
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_cross_referenced_even) TYPE zif_ghes218=>timeline_cross_referenced_even
+      RAISING cx_static_check.
+    METHODS parse_timeline_committed_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_committed_event) TYPE zif_ghes218=>timeline_committed_event
+      RAISING cx_static_check.
+    METHODS parse_timeline_reviewed_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_reviewed_event) TYPE zif_ghes218=>timeline_reviewed_event
+      RAISING cx_static_check.
+    METHODS parse_pull_request_review_comm
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(pull_request_review_comment) TYPE zif_ghes218=>pull_request_review_comment
+      RAISING cx_static_check.
+    METHODS parse_timeline_line_commented_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_line_commented_event) TYPE zif_ghes218=>timeline_line_commented_event
+      RAISING cx_static_check.
+    METHODS parse_timeline_commit_commente
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_commit_commented_even) TYPE zif_ghes218=>timeline_commit_commented_even
+      RAISING cx_static_check.
+    METHODS parse_timeline_assigned_issue_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_assigned_issue_event) TYPE zif_ghes218=>timeline_assigned_issue_event
+      RAISING cx_static_check.
+    METHODS parse_timeline_unassigned_issu
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_unassigned_issue_even) TYPE zif_ghes218=>timeline_unassigned_issue_even
+      RAISING cx_static_check.
+    METHODS parse_timeline_issue_events
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(timeline_issue_events) TYPE zif_ghes218=>timeline_issue_events
       RAISING cx_static_check.
     METHODS parse_deploy_key
       IMPORTING iv_prefix TYPE string
@@ -539,10 +687,6 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
     METHODS parse_pull_request
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(pull_request) TYPE zif_ghes218=>pull_request
-      RAISING cx_static_check.
-    METHODS parse_pull_request_review_comm
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(pull_request_review_comment) TYPE zif_ghes218=>pull_request_review_comment
       RAISING cx_static_check.
     METHODS parse_legacy_review_comment
       IMPORTING iv_prefix TYPE string
@@ -675,10 +819,6 @@ CLASS zcl_ghes218 DEFINITION PUBLIC.
     METHODS parse_private_user
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(private_user) TYPE zif_ghes218=>private_user
-      RAISING cx_static_check.
-    METHODS parse_public_user
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(public_user) TYPE zif_ghes218=>public_user
       RAISING cx_static_check.
     METHODS parse_email
       IMPORTING iv_prefix TYPE string
@@ -2164,13 +2304,17 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     global_hook_2-ping_url = mo_json->value_string( iv_prefix && '/ping_url' ).
   ENDMETHOD.
 
-  METHOD parse_enterprise_public_key.
-    enterprise_public_key-id = mo_json->value_string( iv_prefix && '/id' ).
-    enterprise_public_key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
-    enterprise_public_key-key = mo_json->value_string( iv_prefix && '/key' ).
-    enterprise_public_key-user_id = mo_json->value_string( iv_prefix && '/user_id' ).
-    enterprise_public_key-repository_id = mo_json->value_string( iv_prefix && '/repository_id' ).
-    enterprise_public_key-url = mo_json->value_string( iv_prefix && '/url' ).
+  METHOD parse_public_key_full.
+    public_key_full-id = mo_json->value_string( iv_prefix && '/id' ).
+    public_key_full-key = mo_json->value_string( iv_prefix && '/key' ).
+    public_key_full-user_id = mo_json->value_string( iv_prefix && '/user_id' ).
+    public_key_full-repository_id = mo_json->value_string( iv_prefix && '/repository_id' ).
+    public_key_full-url = mo_json->value_string( iv_prefix && '/url' ).
+    public_key_full-title = mo_json->value_string( iv_prefix && '/title' ).
+    public_key_full-read_only = mo_json->value_boolean( iv_prefix && '/read_only' ).
+    public_key_full-verified = mo_json->value_boolean( iv_prefix && '/verified' ).
+    public_key_full-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    public_key_full-last_used = mo_json->value_string( iv_prefix && '/last_used' ).
   ENDMETHOD.
 
   METHOD parse_ldap_mapping_team.
@@ -2299,6 +2443,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_simple_user.
+    simple_user-name = mo_json->value_string( iv_prefix && '/name' ).
+    simple_user-email = mo_json->value_string( iv_prefix && '/email' ).
     simple_user-login = mo_json->value_string( iv_prefix && '/login' ).
     simple_user-id = mo_json->value_string( iv_prefix && '/id' ).
     simple_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -2347,6 +2493,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     app_permissions-organization_hooks = mo_json->value_string( iv_prefix && '/organization_hooks' ).
     app_permissions-organization_plan = mo_json->value_string( iv_prefix && '/organization_plan' ).
     app_permissions-organization_projects = mo_json->value_string( iv_prefix && '/organization_projects' ).
+    app_permissions-organization_packages = mo_json->value_string( iv_prefix && '/organization_packages' ).
     app_permissions-organization_secrets = mo_json->value_string( iv_prefix && '/organization_secrets' ).
     app_permissions-organization_self_hosted_runne = mo_json->value_string( iv_prefix && '/organization_self_hosted_runners' ).
     app_permissions-organization_user_blocking = mo_json->value_string( iv_prefix && '/organization_user_blocking' ).
@@ -2660,10 +2807,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_installation_token.
     installation_token-token = mo_json->value_string( iv_prefix && '/token' ).
     installation_token-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
-    installation_token-permissions-issues = mo_json->value_string( iv_prefix && '/permissions/issues' ).
-    installation_token-permissions-contents = mo_json->value_string( iv_prefix && '/permissions/contents' ).
-    installation_token-permissions-metadata = mo_json->value_string( iv_prefix && '/permissions/metadata' ).
-    installation_token-permissions-single_file = mo_json->value_string( iv_prefix && '/permissions/single_file' ).
+    installation_token-permissions = parse_app_permissions( iv_prefix ).
     installation_token-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
 * todo, array, repositories
     installation_token-single_file = mo_json->value_string( iv_prefix && '/single_file' ).
@@ -2741,41 +2885,81 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     license_info-expire_at = mo_json->value_string( iv_prefix && '/expire_at' ).
   ENDMETHOD.
 
+  METHOD parse_enterprise_repository_ov.
+    enterprise_repository_overview-total_repos = mo_json->value_string( iv_prefix && '/total_repos' ).
+    enterprise_repository_overview-root_repos = mo_json->value_string( iv_prefix && '/root_repos' ).
+    enterprise_repository_overview-fork_repos = mo_json->value_string( iv_prefix && '/fork_repos' ).
+    enterprise_repository_overview-org_repos = mo_json->value_string( iv_prefix && '/org_repos' ).
+    enterprise_repository_overview-total_pushes = mo_json->value_string( iv_prefix && '/total_pushes' ).
+    enterprise_repository_overview-total_wikis = mo_json->value_string( iv_prefix && '/total_wikis' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_hook_overview.
+    enterprise_hook_overview-total_hooks = mo_json->value_string( iv_prefix && '/total_hooks' ).
+    enterprise_hook_overview-active_hooks = mo_json->value_string( iv_prefix && '/active_hooks' ).
+    enterprise_hook_overview-inactive_hooks = mo_json->value_string( iv_prefix && '/inactive_hooks' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_page_overview.
+    enterprise_page_overview-total_pages = mo_json->value_string( iv_prefix && '/total_pages' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_organization_.
+    enterprise_organization_overvi-total_orgs = mo_json->value_string( iv_prefix && '/total_orgs' ).
+    enterprise_organization_overvi-disabled_orgs = mo_json->value_string( iv_prefix && '/disabled_orgs' ).
+    enterprise_organization_overvi-total_teams = mo_json->value_string( iv_prefix && '/total_teams' ).
+    enterprise_organization_overvi-total_team_members = mo_json->value_string( iv_prefix && '/total_team_members' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_user_overview.
+    enterprise_user_overview-total_users = mo_json->value_string( iv_prefix && '/total_users' ).
+    enterprise_user_overview-admin_users = mo_json->value_string( iv_prefix && '/admin_users' ).
+    enterprise_user_overview-suspended_users = mo_json->value_string( iv_prefix && '/suspended_users' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_pull_request_.
+    enterprise_pull_request_overvi-total_pulls = mo_json->value_string( iv_prefix && '/total_pulls' ).
+    enterprise_pull_request_overvi-merged_pulls = mo_json->value_string( iv_prefix && '/merged_pulls' ).
+    enterprise_pull_request_overvi-mergeable_pulls = mo_json->value_string( iv_prefix && '/mergeable_pulls' ).
+    enterprise_pull_request_overvi-unmergeable_pulls = mo_json->value_string( iv_prefix && '/unmergeable_pulls' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_issue_overvie.
+    enterprise_issue_overview-total_issues = mo_json->value_string( iv_prefix && '/total_issues' ).
+    enterprise_issue_overview-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    enterprise_issue_overview-closed_issues = mo_json->value_string( iv_prefix && '/closed_issues' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_milestone_ove.
+    enterprise_milestone_overview-total_milestones = mo_json->value_string( iv_prefix && '/total_milestones' ).
+    enterprise_milestone_overview-open_milestones = mo_json->value_string( iv_prefix && '/open_milestones' ).
+    enterprise_milestone_overview-closed_milestones = mo_json->value_string( iv_prefix && '/closed_milestones' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_gist_overview.
+    enterprise_gist_overview-total_gists = mo_json->value_string( iv_prefix && '/total_gists' ).
+    enterprise_gist_overview-private_gists = mo_json->value_string( iv_prefix && '/private_gists' ).
+    enterprise_gist_overview-public_gists = mo_json->value_string( iv_prefix && '/public_gists' ).
+  ENDMETHOD.
+
+  METHOD parse_enterprise_comment_overv.
+    enterprise_comment_overview-total_commit_comments = mo_json->value_string( iv_prefix && '/total_commit_comments' ).
+    enterprise_comment_overview-total_gist_comments = mo_json->value_string( iv_prefix && '/total_gist_comments' ).
+    enterprise_comment_overview-total_issue_comments = mo_json->value_string( iv_prefix && '/total_issue_comments' ).
+    enterprise_comment_overview-total_pull_request_comments = mo_json->value_string( iv_prefix && '/total_pull_request_comments' ).
+  ENDMETHOD.
+
   METHOD parse_enterprise_overview.
-    enterprise_overview-repos-total_repos = mo_json->value_string( iv_prefix && '/repos/total_repos' ).
-    enterprise_overview-repos-root_repos = mo_json->value_string( iv_prefix && '/repos/root_repos' ).
-    enterprise_overview-repos-fork_repos = mo_json->value_string( iv_prefix && '/repos/fork_repos' ).
-    enterprise_overview-repos-org_repos = mo_json->value_string( iv_prefix && '/repos/org_repos' ).
-    enterprise_overview-repos-total_pushes = mo_json->value_string( iv_prefix && '/repos/total_pushes' ).
-    enterprise_overview-repos-total_wikis = mo_json->value_string( iv_prefix && '/repos/total_wikis' ).
-    enterprise_overview-hooks-total_hooks = mo_json->value_string( iv_prefix && '/hooks/total_hooks' ).
-    enterprise_overview-hooks-active_hooks = mo_json->value_string( iv_prefix && '/hooks/active_hooks' ).
-    enterprise_overview-hooks-inactive_hooks = mo_json->value_string( iv_prefix && '/hooks/inactive_hooks' ).
-    enterprise_overview-pages-total_pages = mo_json->value_string( iv_prefix && '/pages/total_pages' ).
-    enterprise_overview-orgs-total_orgs = mo_json->value_string( iv_prefix && '/orgs/total_orgs' ).
-    enterprise_overview-orgs-disabled_orgs = mo_json->value_string( iv_prefix && '/orgs/disabled_orgs' ).
-    enterprise_overview-orgs-total_teams = mo_json->value_string( iv_prefix && '/orgs/total_teams' ).
-    enterprise_overview-orgs-total_team_members = mo_json->value_string( iv_prefix && '/orgs/total_team_members' ).
-    enterprise_overview-users-total_users = mo_json->value_string( iv_prefix && '/users/total_users' ).
-    enterprise_overview-users-admin_users = mo_json->value_string( iv_prefix && '/users/admin_users' ).
-    enterprise_overview-users-suspended_users = mo_json->value_string( iv_prefix && '/users/suspended_users' ).
-    enterprise_overview-pulls-total_pulls = mo_json->value_string( iv_prefix && '/pulls/total_pulls' ).
-    enterprise_overview-pulls-merged_pulls = mo_json->value_string( iv_prefix && '/pulls/merged_pulls' ).
-    enterprise_overview-pulls-mergeable_pulls = mo_json->value_string( iv_prefix && '/pulls/mergeable_pulls' ).
-    enterprise_overview-pulls-unmergeable_pulls = mo_json->value_string( iv_prefix && '/pulls/unmergeable_pulls' ).
-    enterprise_overview-issues-total_issues = mo_json->value_string( iv_prefix && '/issues/total_issues' ).
-    enterprise_overview-issues-open_issues = mo_json->value_string( iv_prefix && '/issues/open_issues' ).
-    enterprise_overview-issues-closed_issues = mo_json->value_string( iv_prefix && '/issues/closed_issues' ).
-    enterprise_overview-milestones-total_milestones = mo_json->value_string( iv_prefix && '/milestones/total_milestones' ).
-    enterprise_overview-milestones-open_milestones = mo_json->value_string( iv_prefix && '/milestones/open_milestones' ).
-    enterprise_overview-milestones-closed_milestones = mo_json->value_string( iv_prefix && '/milestones/closed_milestones' ).
-    enterprise_overview-gists-total_gists = mo_json->value_string( iv_prefix && '/gists/total_gists' ).
-    enterprise_overview-gists-private_gists = mo_json->value_string( iv_prefix && '/gists/private_gists' ).
-    enterprise_overview-gists-public_gists = mo_json->value_string( iv_prefix && '/gists/public_gists' ).
-    enterprise_overview-comments-total_commit_comments = mo_json->value_string( iv_prefix && '/comments/total_commit_comments' ).
-    enterprise_overview-comments-total_gist_comments = mo_json->value_string( iv_prefix && '/comments/total_gist_comments' ).
-    enterprise_overview-comments-total_issue_comments = mo_json->value_string( iv_prefix && '/comments/total_issue_comments' ).
-    enterprise_overview-comments-total_pull_request_comments = mo_json->value_string( iv_prefix && '/comments/total_pull_request_comments' ).
+    enterprise_overview-repos = parse_enterprise_repository_ov( iv_prefix ).
+    enterprise_overview-hooks = parse_enterprise_hook_overview( iv_prefix ).
+    enterprise_overview-pages = parse_enterprise_page_overview( iv_prefix ).
+    enterprise_overview-orgs = parse_enterprise_organization_( iv_prefix ).
+    enterprise_overview-users = parse_enterprise_user_overview( iv_prefix ).
+    enterprise_overview-pulls = parse_enterprise_pull_request_( iv_prefix ).
+    enterprise_overview-issues = parse_enterprise_issue_overvie( iv_prefix ).
+    enterprise_overview-milestones = parse_enterprise_milestone_ove( iv_prefix ).
+    enterprise_overview-gists = parse_enterprise_gist_overview( iv_prefix ).
+    enterprise_overview-comments = parse_enterprise_comment_overv( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_actor.
@@ -2946,6 +3130,60 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     base_gist-truncated = mo_json->value_boolean( iv_prefix && '/truncated' ).
 * todo, array, forks
 * todo, array, history
+  ENDMETHOD.
+
+  METHOD parse_public_user.
+    public_user-login = mo_json->value_string( iv_prefix && '/login' ).
+    public_user-id = mo_json->value_string( iv_prefix && '/id' ).
+    public_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    public_user-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
+    public_user-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
+    public_user-url = mo_json->value_string( iv_prefix && '/url' ).
+    public_user-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    public_user-followers_url = mo_json->value_string( iv_prefix && '/followers_url' ).
+    public_user-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
+    public_user-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
+    public_user-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
+    public_user-subscriptions_url = mo_json->value_string( iv_prefix && '/subscriptions_url' ).
+    public_user-organizations_url = mo_json->value_string( iv_prefix && '/organizations_url' ).
+    public_user-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
+    public_user-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    public_user-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
+    public_user-type = mo_json->value_string( iv_prefix && '/type' ).
+    public_user-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
+    public_user-name = mo_json->value_string( iv_prefix && '/name' ).
+    public_user-company = mo_json->value_string( iv_prefix && '/company' ).
+    public_user-blog = mo_json->value_string( iv_prefix && '/blog' ).
+    public_user-location = mo_json->value_string( iv_prefix && '/location' ).
+    public_user-email = mo_json->value_string( iv_prefix && '/email' ).
+    public_user-hireable = mo_json->value_boolean( iv_prefix && '/hireable' ).
+    public_user-bio = mo_json->value_string( iv_prefix && '/bio' ).
+    public_user-public_repos = mo_json->value_string( iv_prefix && '/public_repos' ).
+    public_user-public_gists = mo_json->value_string( iv_prefix && '/public_gists' ).
+    public_user-followers = mo_json->value_string( iv_prefix && '/followers' ).
+    public_user-following = mo_json->value_string( iv_prefix && '/following' ).
+    public_user-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    public_user-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    public_user-plan-collaborators = mo_json->value_string( iv_prefix && '/plan/collaborators' ).
+    public_user-plan-name = mo_json->value_string( iv_prefix && '/plan/name' ).
+    public_user-plan-space = mo_json->value_string( iv_prefix && '/plan/space' ).
+    public_user-plan-private_repos = mo_json->value_string( iv_prefix && '/plan/private_repos' ).
+    public_user-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
+    public_user-private_gists = mo_json->value_string( iv_prefix && '/private_gists' ).
+    public_user-total_private_repos = mo_json->value_string( iv_prefix && '/total_private_repos' ).
+    public_user-owned_private_repos = mo_json->value_string( iv_prefix && '/owned_private_repos' ).
+    public_user-disk_usage = mo_json->value_string( iv_prefix && '/disk_usage' ).
+    public_user-collaborators = mo_json->value_string( iv_prefix && '/collaborators' ).
+  ENDMETHOD.
+
+  METHOD parse_gist_history.
+    gist_history-user = parse_simple_user( iv_prefix ).
+    gist_history-version = mo_json->value_string( iv_prefix && '/version' ).
+    gist_history-committed_at = mo_json->value_string( iv_prefix && '/committed_at' ).
+    gist_history-change_status-total = mo_json->value_string( iv_prefix && '/change_status/total' ).
+    gist_history-change_status-additions = mo_json->value_string( iv_prefix && '/change_status/additions' ).
+    gist_history-change_status-deletions = mo_json->value_string( iv_prefix && '/change_status/deletions' ).
+    gist_history-url = mo_json->value_string( iv_prefix && '/url' ).
   ENDMETHOD.
 
   METHOD parse_gist_simple.
@@ -3152,8 +3390,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     minimal_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
     minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    minimal_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    minimal_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     minimal_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
+    minimal_repository-code_of_conduct = parse_code_of_conduct( iv_prefix ).
     minimal_repository-license-key = mo_json->value_string( iv_prefix && '/license/key' ).
     minimal_repository-license-name = mo_json->value_string( iv_prefix && '/license/name' ).
     minimal_repository-license-spdx_id = mo_json->value_string( iv_prefix && '/license/spdx_id' ).
@@ -3329,6 +3570,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     team-description = mo_json->value_string( iv_prefix && '/description' ).
     team-privacy = mo_json->value_string( iv_prefix && '/privacy' ).
     team-permission = mo_json->value_string( iv_prefix && '/permission' ).
+    team-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    team-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    team-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    team-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    team-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     team-url = mo_json->value_string( iv_prefix && '/url' ).
     team-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     team-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
@@ -3366,6 +3612,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     project_card-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     project_card-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project_card-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
+    project_card-column_name = mo_json->value_string( iv_prefix && '/column_name' ).
+    project_card-project_id = mo_json->value_string( iv_prefix && '/project_id' ).
     project_card-column_url = mo_json->value_string( iv_prefix && '/column_url' ).
     project_card-content_url = mo_json->value_string( iv_prefix && '/content_url' ).
     project_card-project_url = mo_json->value_string( iv_prefix && '/project_url' ).
@@ -3391,6 +3639,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     rate_limit-limit = mo_json->value_string( iv_prefix && '/limit' ).
     rate_limit-remaining = mo_json->value_string( iv_prefix && '/remaining' ).
     rate_limit-reset = mo_json->value_string( iv_prefix && '/reset' ).
+    rate_limit-used = mo_json->value_string( iv_prefix && '/used' ).
   ENDMETHOD.
 
   METHOD parse_rate_limit_overview.
@@ -3500,7 +3749,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     full_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
     full_repository-anonymous_access_enabled = mo_json->value_boolean( iv_prefix && '/anonymous_access_enabled' ).
     full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
-    full_repository-has_advanced_security = mo_json->value_boolean( iv_prefix && '/has_advanced_security' ).
+    full_repository-security_and_analysis-advanced_security-status = mo_json->value_string( iv_prefix && '/security_and_analysis/advanced_security/status' ).
+    full_repository-security_and_analysis-secret_scanning-status = mo_json->value_string( iv_prefix && '/security_and_analysis/secret_scanning/status' ).
   ENDMETHOD.
 
   METHOD parse_protected_branch_admin_e.
@@ -3533,10 +3783,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
 
   METHOD parse_branch_protection.
     branch_protection-url = mo_json->value_string( iv_prefix && '/url' ).
+    branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
     branch_protection-required_status_checks-url = mo_json->value_string( iv_prefix && '/required_status_checks/url' ).
     branch_protection-required_status_checks-enforcement_level = mo_json->value_string( iv_prefix && '/required_status_checks/enforcement_level' ).
 * todo, array, contexts
     branch_protection-required_status_checks-contexts_url = mo_json->value_string( iv_prefix && '/required_status_checks/contexts_url' ).
+    branch_protection-required_status_checks-strict = mo_json->value_boolean( iv_prefix && '/required_status_checks/strict' ).
     branch_protection-enforce_admins = parse_protected_branch_admin_e( iv_prefix ).
     branch_protection-required_pull_request_reviews = parse_protected_branch_pull_re( iv_prefix ).
     branch_protection-restrictions = parse_branch_restriction_polic( iv_prefix ).
@@ -3743,6 +3995,8 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_collaborator.
     collaborator-login = mo_json->value_string( iv_prefix && '/login' ).
     collaborator-id = mo_json->value_string( iv_prefix && '/id' ).
+    collaborator-email = mo_json->value_string( iv_prefix && '/email' ).
+    collaborator-name = mo_json->value_string( iv_prefix && '/name' ).
     collaborator-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     collaborator-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
     collaborator-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
@@ -4269,28 +4523,372 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     issue_event-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
   ENDMETHOD.
 
+  METHOD parse_labeled_issue_event.
+    labeled_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    labeled_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    labeled_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    labeled_issue_event-actor = parse_simple_user( iv_prefix ).
+    labeled_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    labeled_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    labeled_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    labeled_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    labeled_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    labeled_issue_event-label-name = mo_json->value_string( iv_prefix && '/label/name' ).
+    labeled_issue_event-label-color = mo_json->value_string( iv_prefix && '/label/color' ).
+  ENDMETHOD.
+
+  METHOD parse_unlabeled_issue_event.
+    unlabeled_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    unlabeled_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    unlabeled_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    unlabeled_issue_event-actor = parse_simple_user( iv_prefix ).
+    unlabeled_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    unlabeled_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    unlabeled_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    unlabeled_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    unlabeled_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    unlabeled_issue_event-label-name = mo_json->value_string( iv_prefix && '/label/name' ).
+    unlabeled_issue_event-label-color = mo_json->value_string( iv_prefix && '/label/color' ).
+  ENDMETHOD.
+
+  METHOD parse_assigned_issue_event.
+    assigned_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    assigned_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    assigned_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    assigned_issue_event-actor = parse_simple_user( iv_prefix ).
+    assigned_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    assigned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    assigned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    assigned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    assigned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    assigned_issue_event-assignee = parse_simple_user( iv_prefix ).
+    assigned_issue_event-assigner = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_unassigned_issue_event.
+    unassigned_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    unassigned_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    unassigned_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    unassigned_issue_event-actor = parse_simple_user( iv_prefix ).
+    unassigned_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    unassigned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    unassigned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    unassigned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    unassigned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    unassigned_issue_event-assignee = parse_simple_user( iv_prefix ).
+    unassigned_issue_event-assigner = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_milestoned_issue_event.
+    milestoned_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    milestoned_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    milestoned_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    milestoned_issue_event-actor = parse_simple_user( iv_prefix ).
+    milestoned_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    milestoned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    milestoned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    milestoned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    milestoned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    milestoned_issue_event-milestone-title = mo_json->value_string( iv_prefix && '/milestone/title' ).
+  ENDMETHOD.
+
+  METHOD parse_demilestoned_issue_event.
+    demilestoned_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    demilestoned_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    demilestoned_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    demilestoned_issue_event-actor = parse_simple_user( iv_prefix ).
+    demilestoned_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    demilestoned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    demilestoned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    demilestoned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    demilestoned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    demilestoned_issue_event-milestone-title = mo_json->value_string( iv_prefix && '/milestone/title' ).
+  ENDMETHOD.
+
+  METHOD parse_renamed_issue_event.
+    renamed_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    renamed_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    renamed_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    renamed_issue_event-actor = parse_simple_user( iv_prefix ).
+    renamed_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    renamed_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    renamed_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    renamed_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    renamed_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    renamed_issue_event-rename-from = mo_json->value_string( iv_prefix && '/rename/from' ).
+    renamed_issue_event-rename-to = mo_json->value_string( iv_prefix && '/rename/to' ).
+  ENDMETHOD.
+
+  METHOD parse_review_requested_issue_e.
+    review_requested_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    review_requested_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    review_requested_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    review_requested_issue_event-actor = parse_simple_user( iv_prefix ).
+    review_requested_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    review_requested_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    review_requested_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    review_requested_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    review_requested_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    review_requested_issue_event-review_requester = parse_simple_user( iv_prefix ).
+    review_requested_issue_event-requested_team = parse_team( iv_prefix ).
+    review_requested_issue_event-requested_reviewer = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_review_request_removed_i.
+    review_request_removed_issue_e-id = mo_json->value_string( iv_prefix && '/id' ).
+    review_request_removed_issue_e-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    review_request_removed_issue_e-url = mo_json->value_string( iv_prefix && '/url' ).
+    review_request_removed_issue_e-actor = parse_simple_user( iv_prefix ).
+    review_request_removed_issue_e-event = mo_json->value_string( iv_prefix && '/event' ).
+    review_request_removed_issue_e-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    review_request_removed_issue_e-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    review_request_removed_issue_e-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    review_request_removed_issue_e-performed_via_github_app = parse_integration( iv_prefix ).
+    review_request_removed_issue_e-review_requester = parse_simple_user( iv_prefix ).
+    review_request_removed_issue_e-requested_team = parse_team( iv_prefix ).
+    review_request_removed_issue_e-requested_reviewer = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_review_dismissed_issue_e.
+    review_dismissed_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    review_dismissed_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    review_dismissed_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    review_dismissed_issue_event-actor = parse_simple_user( iv_prefix ).
+    review_dismissed_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    review_dismissed_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    review_dismissed_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    review_dismissed_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    review_dismissed_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    review_dismissed_issue_event-dismissed_review-state = mo_json->value_string( iv_prefix && '/dismissed_review/state' ).
+    review_dismissed_issue_event-dismissed_review-review_id = mo_json->value_string( iv_prefix && '/dismissed_review/review_id' ).
+    review_dismissed_issue_event-dismissed_review-dismissal_message = mo_json->value_string( iv_prefix && '/dismissed_review/dismissal_message' ).
+    review_dismissed_issue_event-dismissed_review-dismissal_commit_id = mo_json->value_string( iv_prefix && '/dismissed_review/dismissal_commit_id' ).
+  ENDMETHOD.
+
+  METHOD parse_locked_issue_event.
+    locked_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    locked_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    locked_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    locked_issue_event-actor = parse_simple_user( iv_prefix ).
+    locked_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    locked_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    locked_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    locked_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    locked_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    locked_issue_event-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
+  ENDMETHOD.
+
+  METHOD parse_added_to_project_issue_e.
+    added_to_project_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    added_to_project_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    added_to_project_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    added_to_project_issue_event-actor = parse_simple_user( iv_prefix ).
+    added_to_project_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    added_to_project_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    added_to_project_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    added_to_project_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    added_to_project_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    added_to_project_issue_event-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
+    added_to_project_issue_event-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
+    added_to_project_issue_event-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
+    added_to_project_issue_event-project_card-project_url = mo_json->value_string( iv_prefix && '/project_card/project_url' ).
+    added_to_project_issue_event-project_card-column_name = mo_json->value_string( iv_prefix && '/project_card/column_name' ).
+    added_to_project_issue_event-project_card-previous_column_name = mo_json->value_string( iv_prefix && '/project_card/previous_column_name' ).
+  ENDMETHOD.
+
+  METHOD parse_moved_column_in_project_.
+    moved_column_in_project_issue_-id = mo_json->value_string( iv_prefix && '/id' ).
+    moved_column_in_project_issue_-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    moved_column_in_project_issue_-url = mo_json->value_string( iv_prefix && '/url' ).
+    moved_column_in_project_issue_-actor = parse_simple_user( iv_prefix ).
+    moved_column_in_project_issue_-event = mo_json->value_string( iv_prefix && '/event' ).
+    moved_column_in_project_issue_-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    moved_column_in_project_issue_-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    moved_column_in_project_issue_-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    moved_column_in_project_issue_-performed_via_github_app = parse_integration( iv_prefix ).
+    moved_column_in_project_issue_-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
+    moved_column_in_project_issue_-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
+    moved_column_in_project_issue_-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
+    moved_column_in_project_issue_-project_card-project_url = mo_json->value_string( iv_prefix && '/project_card/project_url' ).
+    moved_column_in_project_issue_-project_card-column_name = mo_json->value_string( iv_prefix && '/project_card/column_name' ).
+    moved_column_in_project_issue_-project_card-previous_column_name = mo_json->value_string( iv_prefix && '/project_card/previous_column_name' ).
+  ENDMETHOD.
+
+  METHOD parse_removed_from_project_iss.
+    removed_from_project_issue_eve-id = mo_json->value_string( iv_prefix && '/id' ).
+    removed_from_project_issue_eve-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    removed_from_project_issue_eve-url = mo_json->value_string( iv_prefix && '/url' ).
+    removed_from_project_issue_eve-actor = parse_simple_user( iv_prefix ).
+    removed_from_project_issue_eve-event = mo_json->value_string( iv_prefix && '/event' ).
+    removed_from_project_issue_eve-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    removed_from_project_issue_eve-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    removed_from_project_issue_eve-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    removed_from_project_issue_eve-performed_via_github_app = parse_integration( iv_prefix ).
+    removed_from_project_issue_eve-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
+    removed_from_project_issue_eve-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
+    removed_from_project_issue_eve-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
+    removed_from_project_issue_eve-project_card-project_url = mo_json->value_string( iv_prefix && '/project_card/project_url' ).
+    removed_from_project_issue_eve-project_card-column_name = mo_json->value_string( iv_prefix && '/project_card/column_name' ).
+    removed_from_project_issue_eve-project_card-previous_column_name = mo_json->value_string( iv_prefix && '/project_card/previous_column_name' ).
+  ENDMETHOD.
+
+  METHOD parse_converted_note_to_issue_.
+    converted_note_to_issue_issue_-id = mo_json->value_string( iv_prefix && '/id' ).
+    converted_note_to_issue_issue_-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    converted_note_to_issue_issue_-url = mo_json->value_string( iv_prefix && '/url' ).
+    converted_note_to_issue_issue_-actor = parse_simple_user( iv_prefix ).
+    converted_note_to_issue_issue_-event = mo_json->value_string( iv_prefix && '/event' ).
+    converted_note_to_issue_issue_-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    converted_note_to_issue_issue_-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    converted_note_to_issue_issue_-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    converted_note_to_issue_issue_-performed_via_github_app = parse_integration( iv_prefix ).
+    converted_note_to_issue_issue_-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
+    converted_note_to_issue_issue_-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
+    converted_note_to_issue_issue_-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
+    converted_note_to_issue_issue_-project_card-project_url = mo_json->value_string( iv_prefix && '/project_card/project_url' ).
+    converted_note_to_issue_issue_-project_card-column_name = mo_json->value_string( iv_prefix && '/project_card/column_name' ).
+    converted_note_to_issue_issue_-project_card-previous_column_name = mo_json->value_string( iv_prefix && '/project_card/previous_column_name' ).
+  ENDMETHOD.
+
   METHOD parse_issue_event_for_issue.
-    issue_event_for_issue-id = mo_json->value_string( iv_prefix && '/id' ).
-    issue_event_for_issue-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    issue_event_for_issue-url = mo_json->value_string( iv_prefix && '/url' ).
-    issue_event_for_issue-actor = parse_simple_user( iv_prefix ).
-    issue_event_for_issue-event = mo_json->value_string( iv_prefix && '/event' ).
-    issue_event_for_issue-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
-    issue_event_for_issue-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
-    issue_event_for_issue-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    issue_event_for_issue-sha = mo_json->value_string( iv_prefix && '/sha' ).
-    issue_event_for_issue-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    issue_event_for_issue-message = mo_json->value_string( iv_prefix && '/message' ).
-    issue_event_for_issue-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
-    issue_event_for_issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    issue_event_for_issue-author_association = parse_author_association( iv_prefix ).
-    issue_event_for_issue-body = mo_json->value_string( iv_prefix && '/body' ).
-    issue_event_for_issue-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
-    issue_event_for_issue-submitted_at = mo_json->value_string( iv_prefix && '/submitted_at' ).
-    issue_event_for_issue-state = mo_json->value_string( iv_prefix && '/state' ).
-    issue_event_for_issue-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
-    issue_event_for_issue-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
-    issue_event_for_issue-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_timeline_comment_event.
+    timeline_comment_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_comment_event-actor = parse_simple_user( iv_prefix ).
+    timeline_comment_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    timeline_comment_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_comment_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    timeline_comment_event-body = mo_json->value_string( iv_prefix && '/body' ).
+    timeline_comment_event-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
+    timeline_comment_event-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
+    timeline_comment_event-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    timeline_comment_event-user = parse_simple_user( iv_prefix ).
+    timeline_comment_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    timeline_comment_event-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    timeline_comment_event-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
+    timeline_comment_event-author_association = parse_author_association( iv_prefix ).
+    timeline_comment_event-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_comment_event-reactions = parse_reaction_rollup( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_cross_reference.
+    timeline_cross_referenced_even-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_cross_referenced_even-actor = parse_simple_user( iv_prefix ).
+    timeline_cross_referenced_even-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    timeline_cross_referenced_even-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    timeline_cross_referenced_even-source-type = mo_json->value_string( iv_prefix && '/source/type' ).
+    timeline_cross_referenced_even-source-issue = parse_issue_simple( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_committed_event.
+    timeline_committed_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_committed_event-sha = mo_json->value_string( iv_prefix && '/sha' ).
+    timeline_committed_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_committed_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    timeline_committed_event-author-date = mo_json->value_string( iv_prefix && '/author/date' ).
+    timeline_committed_event-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
+    timeline_committed_event-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
+    timeline_committed_event-committer-date = mo_json->value_string( iv_prefix && '/committer/date' ).
+    timeline_committed_event-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
+    timeline_committed_event-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
+    timeline_committed_event-message = mo_json->value_string( iv_prefix && '/message' ).
+    timeline_committed_event-tree-sha = mo_json->value_string( iv_prefix && '/tree/sha' ).
+    timeline_committed_event-tree-url = mo_json->value_string( iv_prefix && '/tree/url' ).
+* todo, array, parents
+    timeline_committed_event-verification-verified = mo_json->value_boolean( iv_prefix && '/verification/verified' ).
+    timeline_committed_event-verification-reason = mo_json->value_string( iv_prefix && '/verification/reason' ).
+    timeline_committed_event-verification-signature = mo_json->value_string( iv_prefix && '/verification/signature' ).
+    timeline_committed_event-verification-payload = mo_json->value_string( iv_prefix && '/verification/payload' ).
+    timeline_committed_event-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_reviewed_event.
+    timeline_reviewed_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_reviewed_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    timeline_reviewed_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_reviewed_event-user = parse_simple_user( iv_prefix ).
+    timeline_reviewed_event-body = mo_json->value_string( iv_prefix && '/body' ).
+    timeline_reviewed_event-state = mo_json->value_string( iv_prefix && '/state' ).
+    timeline_reviewed_event-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    timeline_reviewed_event-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
+    timeline_reviewed_event-_links-html-href = mo_json->value_string( iv_prefix && '/_links/html/href' ).
+    timeline_reviewed_event-_links-pull_request-href = mo_json->value_string( iv_prefix && '/_links/pull_request/href' ).
+    timeline_reviewed_event-submitted_at = mo_json->value_string( iv_prefix && '/submitted_at' ).
+    timeline_reviewed_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    timeline_reviewed_event-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
+    timeline_reviewed_event-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
+    timeline_reviewed_event-author_association = parse_author_association( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_pull_request_review_comm.
+    pull_request_review_comment-url = mo_json->value_string( iv_prefix && '/url' ).
+    pull_request_review_comment-pull_request_review_id = mo_json->value_string( iv_prefix && '/pull_request_review_id' ).
+    pull_request_review_comment-id = mo_json->value_string( iv_prefix && '/id' ).
+    pull_request_review_comment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    pull_request_review_comment-diff_hunk = mo_json->value_string( iv_prefix && '/diff_hunk' ).
+    pull_request_review_comment-path = mo_json->value_string( iv_prefix && '/path' ).
+    pull_request_review_comment-position = mo_json->value_string( iv_prefix && '/position' ).
+    pull_request_review_comment-original_position = mo_json->value_string( iv_prefix && '/original_position' ).
+    pull_request_review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    pull_request_review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
+    pull_request_review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
+    pull_request_review_comment-user = parse_simple_user( iv_prefix ).
+    pull_request_review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
+    pull_request_review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    pull_request_review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    pull_request_review_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    pull_request_review_comment-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
+    pull_request_review_comment-author_association = parse_author_association( iv_prefix ).
+    pull_request_review_comment-_links-self-href = mo_json->value_string( iv_prefix && '/_links/self/href' ).
+    pull_request_review_comment-_links-html-href = mo_json->value_string( iv_prefix && '/_links/html/href' ).
+    pull_request_review_comment-_links-pull_request-href = mo_json->value_string( iv_prefix && '/_links/pull_request/href' ).
+    pull_request_review_comment-reactions = parse_reaction_rollup( iv_prefix ).
+    pull_request_review_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
+    pull_request_review_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_line_commented_.
+    timeline_line_commented_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_line_commented_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+* todo, array, comments
+  ENDMETHOD.
+
+  METHOD parse_timeline_commit_commente.
+    timeline_commit_commented_even-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_commit_commented_even-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_commit_commented_even-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+* todo, array, comments
+  ENDMETHOD.
+
+  METHOD parse_timeline_assigned_issue_.
+    timeline_assigned_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    timeline_assigned_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_assigned_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    timeline_assigned_issue_event-actor = parse_simple_user( iv_prefix ).
+    timeline_assigned_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_assigned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    timeline_assigned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    timeline_assigned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    timeline_assigned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_assigned_issue_event-assignee = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_unassigned_issu.
+    timeline_unassigned_issue_even-id = mo_json->value_string( iv_prefix && '/id' ).
+    timeline_unassigned_issue_even-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    timeline_unassigned_issue_even-url = mo_json->value_string( iv_prefix && '/url' ).
+    timeline_unassigned_issue_even-actor = parse_simple_user( iv_prefix ).
+    timeline_unassigned_issue_even-event = mo_json->value_string( iv_prefix && '/event' ).
+    timeline_unassigned_issue_even-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    timeline_unassigned_issue_even-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    timeline_unassigned_issue_even-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    timeline_unassigned_issue_even-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_unassigned_issue_even-assignee = parse_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_timeline_issue_events.
   ENDMETHOD.
 
   METHOD parse_deploy_key.
@@ -4670,33 +5268,6 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     pull_request-changed_files = mo_json->value_string( iv_prefix && '/changed_files' ).
   ENDMETHOD.
 
-  METHOD parse_pull_request_review_comm.
-    pull_request_review_comment-url = mo_json->value_string( iv_prefix && '/url' ).
-    pull_request_review_comment-pull_request_review_id = mo_json->value_string( iv_prefix && '/pull_request_review_id' ).
-    pull_request_review_comment-id = mo_json->value_string( iv_prefix && '/id' ).
-    pull_request_review_comment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    pull_request_review_comment-diff_hunk = mo_json->value_string( iv_prefix && '/diff_hunk' ).
-    pull_request_review_comment-path = mo_json->value_string( iv_prefix && '/path' ).
-    pull_request_review_comment-position = mo_json->value_string( iv_prefix && '/position' ).
-    pull_request_review_comment-original_position = mo_json->value_string( iv_prefix && '/original_position' ).
-    pull_request_review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
-    pull_request_review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
-    pull_request_review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
-    pull_request_review_comment-user = parse_simple_user( iv_prefix ).
-    pull_request_review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
-    pull_request_review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    pull_request_review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    pull_request_review_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    pull_request_review_comment-pull_request_url = mo_json->value_string( iv_prefix && '/pull_request_url' ).
-    pull_request_review_comment-author_association = parse_author_association( iv_prefix ).
-    pull_request_review_comment-_links-self-href = mo_json->value_string( iv_prefix && '/_links/self/href' ).
-    pull_request_review_comment-_links-html-href = mo_json->value_string( iv_prefix && '/_links/html/href' ).
-    pull_request_review_comment-_links-pull_request-href = mo_json->value_string( iv_prefix && '/_links/pull_request/href' ).
-    pull_request_review_comment-reactions = parse_reaction_rollup( iv_prefix ).
-    pull_request_review_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
-    pull_request_review_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
-  ENDMETHOD.
-
   METHOD parse_legacy_review_comment.
     legacy_review_comment-url = mo_json->value_string( iv_prefix && '/url' ).
     legacy_review_comment-pull_request_review_id = mo_json->value_string( iv_prefix && '/pull_request_review_id' ).
@@ -4790,6 +5361,7 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     review_comment-_links-pull_request = parse_link( iv_prefix ).
     review_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     review_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
+    review_comment-reactions = parse_reaction_rollup( iv_prefix ).
     review_comment-side = mo_json->value_string( iv_prefix && '/side' ).
     review_comment-start_side = mo_json->value_string( iv_prefix && '/start_side' ).
     review_comment-line = mo_json->value_string( iv_prefix && '/line' ).
@@ -5380,50 +5952,6 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     private_user-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
   ENDMETHOD.
 
-  METHOD parse_public_user.
-    public_user-login = mo_json->value_string( iv_prefix && '/login' ).
-    public_user-id = mo_json->value_string( iv_prefix && '/id' ).
-    public_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    public_user-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
-    public_user-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
-    public_user-url = mo_json->value_string( iv_prefix && '/url' ).
-    public_user-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    public_user-followers_url = mo_json->value_string( iv_prefix && '/followers_url' ).
-    public_user-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
-    public_user-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
-    public_user-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
-    public_user-subscriptions_url = mo_json->value_string( iv_prefix && '/subscriptions_url' ).
-    public_user-organizations_url = mo_json->value_string( iv_prefix && '/organizations_url' ).
-    public_user-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
-    public_user-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
-    public_user-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
-    public_user-type = mo_json->value_string( iv_prefix && '/type' ).
-    public_user-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
-    public_user-name = mo_json->value_string( iv_prefix && '/name' ).
-    public_user-company = mo_json->value_string( iv_prefix && '/company' ).
-    public_user-blog = mo_json->value_string( iv_prefix && '/blog' ).
-    public_user-location = mo_json->value_string( iv_prefix && '/location' ).
-    public_user-email = mo_json->value_string( iv_prefix && '/email' ).
-    public_user-hireable = mo_json->value_boolean( iv_prefix && '/hireable' ).
-    public_user-bio = mo_json->value_string( iv_prefix && '/bio' ).
-    public_user-public_repos = mo_json->value_string( iv_prefix && '/public_repos' ).
-    public_user-public_gists = mo_json->value_string( iv_prefix && '/public_gists' ).
-    public_user-followers = mo_json->value_string( iv_prefix && '/followers' ).
-    public_user-following = mo_json->value_string( iv_prefix && '/following' ).
-    public_user-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    public_user-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    public_user-plan-collaborators = mo_json->value_string( iv_prefix && '/plan/collaborators' ).
-    public_user-plan-name = mo_json->value_string( iv_prefix && '/plan/name' ).
-    public_user-plan-space = mo_json->value_string( iv_prefix && '/plan/space' ).
-    public_user-plan-private_repos = mo_json->value_string( iv_prefix && '/plan/private_repos' ).
-    public_user-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
-    public_user-private_gists = mo_json->value_string( iv_prefix && '/private_gists' ).
-    public_user-total_private_repos = mo_json->value_string( iv_prefix && '/total_private_repos' ).
-    public_user-owned_private_repos = mo_json->value_string( iv_prefix && '/owned_private_repos' ).
-    public_user-disk_usage = mo_json->value_string( iv_prefix && '/disk_usage' ).
-    public_user-collaborators = mo_json->value_string( iv_prefix && '/collaborators' ).
-  ENDMETHOD.
-
   METHOD parse_email.
     email-email = mo_json->value_string( iv_prefix && '/email' ).
     email-primary = mo_json->value_boolean( iv_prefix && '/primary' ).
@@ -5522,12 +6050,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_enterprise_admin_list_pu.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
-    DATA enterprise_public_key TYPE zif_ghes218=>enterprise_public_key.
+    DATA public_key_full TYPE zif_ghes218=>public_key_full.
     lt_members = mo_json->members( iv_prefix && '/' ).
     LOOP AT lt_members INTO lv_member.
-      CLEAR enterprise_public_key.
-      enterprise_public_key = parse_enterprise_public_key( iv_prefix && '/' && lv_member ).
-      APPEND enterprise_public_key TO response_enterprise_admin_li01.
+      CLEAR public_key_full.
+      public_key_full = parse_public_key_full( iv_prefix && '/' && lv_member ).
+      APPEND public_key_full TO response_enterprise_admin_li01.
     ENDLOOP.
   ENDMETHOD.
 
@@ -6498,12 +7026,12 @@ CLASS zcl_ghes218 IMPLEMENTATION.
   METHOD parse_issues_list_events_for_t.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
-    DATA issue_event_for_issue TYPE zif_ghes218=>issue_event_for_issue.
+    DATA timeline_issue_events TYPE zif_ghes218=>timeline_issue_events.
     lt_members = mo_json->members( iv_prefix && '/' ).
     LOOP AT lt_members INTO lv_member.
-      CLEAR issue_event_for_issue.
-      issue_event_for_issue = parse_issue_event_for_issue( iv_prefix && '/' && lv_member ).
-      APPEND issue_event_for_issue TO response_issues_list_events_01.
+      CLEAR timeline_issue_events.
+      timeline_issue_events = parse_timeline_issue_events( iv_prefix && '/' && lv_member ).
+      APPEND timeline_issue_events TO response_issues_list_events_01.
     ENDLOOP.
   ENDMETHOD.
 
@@ -8138,6 +8666,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
     ENDIF.
+    IF data-required_conversation_resoluti = abap_true.
+      json = json && |"required_conversation_resolution": true,|.
+    ELSEIF data-required_conversation_resoluti = abap_false.
+      json = json && |"required_conversation_resolution": false,|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -8166,6 +8699,11 @@ CLASS zcl_ghes218 IMPLEMENTATION.
       json = json && |"allow_deletions": true,|.
     ELSEIF data-allow_deletions = abap_false.
       json = json && |"allow_deletions": false,|.
+    ENDIF.
+    IF data-required_conversation_resoluti = abap_true.
+      json = json && |"required_conversation_resolution": true,|.
+    ELSEIF data-required_conversation_resoluti = abap_false.
+      json = json && |"required_conversation_resolution": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
@@ -10134,17 +10672,136 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     return_data = parse_license_info( '' ).
   ENDMETHOD.
 
-  METHOD zif_ghes218~enterprise_admin_get_type_stat.
+  METHOD zif_ghes218~enterprise_admin_get_all_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/{type}'.
-    REPLACE ALL OCCURRENCES OF '{type}' IN lv_uri WITH type.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/all'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
-    WRITE / mi_client->response->get_cdata( ).
-* todo, handle more responses
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_overview( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_comment_s.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/comments'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_comment_overv( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_all_sta01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/gists'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_gist_overview( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_hooks_sta.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/hooks'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_hook_overview( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_issue_sta.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/issues'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_issue_overvie( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_milestone.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/milestones'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_milestone_ove( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_org_stats.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/orgs'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_organization_( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_pages_sta.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/pages'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_page_overview( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_pull_requ.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/pulls'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_pull_request_( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_repo_stat.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/repos'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_repository_ov( '' ).
+  ENDMETHOD.
+
+  METHOD zif_ghes218~enterprise_admin_get_user_stat.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprise/stats/users'.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_enterprise_user_overview( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes218~activity_list_public_events.
@@ -16383,6 +17040,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     IF order IS SUPPLIED.
       mi_client->request->set_form_field( name = 'order' value = order ).
     ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16425,6 +17092,16 @@ CLASS zcl_ghes218 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/search/topics'.
     mi_client->request->set_form_field( name = 'q' value = q ).
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
