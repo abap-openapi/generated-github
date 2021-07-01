@@ -1,5 +1,5 @@
 # generated-github
-![cron](https://github.com/abap-openapi/generated-github/workflows/cron/badge.svg)
+[![cron](https://github.com/abap-openapi/generated-github/workflows/cron/badge.svg)](https://github.com/abap-openapi/generated-github/actions)
 
 Automatically updated daily
 
