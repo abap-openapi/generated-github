@@ -1732,30 +1732,6 @@ CLASS zcl_ghes222 DEFINITION PUBLIC.
       IMPORTING data TYPE zif_ghes222=>bodyrepos_create_using_templat
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
-    METHODS json_enterprise_admin_enable_o
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_enable_or
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_set_sett
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_set_setti
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_add_auth
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_add_autho
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_remove_a
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_remove_au
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_create_e
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_create_en
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_enterprise_admin_upgrade_
-      IMPORTING data TYPE zif_ghes222=>bodyenterprise_admin_upgrade_l
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
     METHODS json_users_update_authenticate
       IMPORTING data TYPE zif_ghes222=>bodyusers_update_authenticated
       RETURNING VALUE(json) TYPE string
@@ -4351,8 +4327,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     full_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
     full_repository-anonymous_access_enabled = mo_json->value_boolean( iv_prefix && '/anonymous_access_enabled' ).
     full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix ).
-    full_repository-security_and_analysis-advanced_security-status = mo_json->value_string( iv_prefix && '/security_and_analysis/advanced_security/status' ).
-    full_repository-security_and_analysis-secret_scanning-status = mo_json->value_string( iv_prefix && '/security_and_analysis/secret_scanning/status' ).
   ENDMETHOD.
 
   METHOD parse_artifact.
@@ -4785,7 +4759,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
     code_scanning_alert_rule-name = mo_json->value_string( iv_prefix && '/name' ).
     code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
-    code_scanning_alert_rule-security_severity_level = mo_json->value_string( iv_prefix && '/security_severity_level' ).
     code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
     code_scanning_alert_rule-full_description = mo_json->value_string( iv_prefix && '/full_description' ).
 * todo, array, tags
@@ -10902,50 +10875,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ELSEIF data-private = abap_false.
       json = json && |"private": false,|.
     ENDIF.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_enable_o.
-    json = json && '{'.
-    json = json && |"maintenance": "{ data-maintenance }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_set_sett.
-    json = json && '{'.
-    json = json && |"settings": "{ data-settings }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_add_auth.
-    json = json && '{'.
-    json = json && |"authorized_key": "{ data-authorized_key }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_remove_a.
-    json = json && '{'.
-    json = json && |"authorized_key": "{ data-authorized_key }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_create_e.
-    json = json && '{'.
-    json = json && |"license": "{ data-license }",|.
-    json = json && |"password": "{ data-password }",|.
-    json = json && |"settings": "{ data-settings }",|.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_enterprise_admin_upgrade_.
-    json = json && '{'.
-    json = json && |"license": "{ data-license }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -20784,7 +20713,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/maintenance'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_enable_o( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -20809,7 +20737,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_set_sett( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -20834,7 +20761,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_add_auth( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -20847,7 +20773,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/settings/authorized-keys'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_remove_a( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
@@ -20860,7 +20785,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/start'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_create_e( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
@@ -20873,7 +20797,6 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/setup/api/upgrade'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_enterprise_admin_upgrade_( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).

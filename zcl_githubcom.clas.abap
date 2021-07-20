@@ -44,6 +44,22 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(webhook_config) TYPE zif_githubcom=>webhook_config
       RAISING cx_static_check.
+    METHODS parse_hook_delivery_item
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(hook_delivery_item) TYPE zif_githubcom=>hook_delivery_item
+      RAISING cx_static_check.
+    METHODS parse_scim_error
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(scim_error) TYPE zif_githubcom=>scim_error
+      RAISING cx_static_check.
+    METHODS parse_validation_error
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(validation_error) TYPE zif_githubcom=>validation_error
+      RAISING cx_static_check.
+    METHODS parse_hook_delivery
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(hook_delivery) TYPE zif_githubcom=>hook_delivery
+      RAISING cx_static_check.
     METHODS parse_enterprise
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(enterprise) TYPE zif_githubcom=>enterprise
@@ -67,10 +83,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_installation_token
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(installation_token) TYPE zif_githubcom=>installation_token
-      RAISING cx_static_check.
-    METHODS parse_validation_error
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(validation_error) TYPE zif_githubcom=>validation_error
       RAISING cx_static_check.
     METHODS parse_application_grant
       IMPORTING iv_prefix TYPE string
@@ -635,10 +647,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_code_scanning_analysis_d
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_deletio) TYPE zif_githubcom=>code_scanning_analysis_deletio
-      RAISING cx_static_check.
-    METHODS parse_scim_error
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(scim_error) TYPE zif_githubcom=>scim_error
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis06
       IMPORTING iv_prefix TYPE string
@@ -1964,6 +1972,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_meta_root) TYPE zif_githubcom=>response_meta_root
       RAISING cx_static_check.
+    METHODS parse_apps_list_webhook_delive
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_apps_list_webhook_del) TYPE zif_githubcom=>response_apps_list_webhook_del
+      RAISING cx_static_check.
     METHODS parse_apps_list_installations
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_apps_list_installatio) TYPE zif_githubcom=>response_apps_list_installatio
@@ -2139,6 +2151,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_orgs_list_webhooks
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_webhooks) TYPE zif_githubcom=>response_orgs_list_webhooks
+      RAISING cx_static_check.
+    METHODS parse_orgs_list_webhook_delive
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_orgs_list_webhook_del) TYPE zif_githubcom=>response_orgs_list_webhook_del
       RAISING cx_static_check.
     METHODS parse_orgs_list_app_installati
       IMPORTING iv_prefix TYPE string
@@ -2519,6 +2535,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_repos_list_webhooks
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_webhooks) TYPE zif_githubcom=>response_repos_list_webhooks
+      RAISING cx_static_check.
+    METHODS parse_repos_list_webhook_deliv
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_repos_list_webhook_de) TYPE zif_githubcom=>response_repos_list_webhook_de
       RAISING cx_static_check.
     METHODS parse_migrations_get_commit_au
       IMPORTING iv_prefix TYPE string
@@ -2997,6 +3017,50 @@ CLASS zcl_githubcom IMPLEMENTATION.
     webhook_config-insecure_ssl = parse_webhook_config_insecure_( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_hook_delivery_item.
+    hook_delivery_item-id = mo_json->value_string( iv_prefix && '/id' ).
+    hook_delivery_item-guid = mo_json->value_string( iv_prefix && '/guid' ).
+    hook_delivery_item-delivered_at = mo_json->value_string( iv_prefix && '/delivered_at' ).
+    hook_delivery_item-redelivery = mo_json->value_boolean( iv_prefix && '/redelivery' ).
+* todo, number, duration
+    hook_delivery_item-status = mo_json->value_string( iv_prefix && '/status' ).
+    hook_delivery_item-status_code = mo_json->value_string( iv_prefix && '/status_code' ).
+    hook_delivery_item-event = mo_json->value_string( iv_prefix && '/event' ).
+    hook_delivery_item-action = mo_json->value_string( iv_prefix && '/action' ).
+    hook_delivery_item-installation_id = mo_json->value_string( iv_prefix && '/installation_id' ).
+    hook_delivery_item-repository_id = mo_json->value_string( iv_prefix && '/repository_id' ).
+  ENDMETHOD.
+
+  METHOD parse_scim_error.
+    scim_error-message = mo_json->value_string( iv_prefix && '/message' ).
+    scim_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
+    scim_error-detail = mo_json->value_string( iv_prefix && '/detail' ).
+    scim_error-status = mo_json->value_string( iv_prefix && '/status' ).
+    scim_error-scimtype = mo_json->value_string( iv_prefix && '/scimType' ).
+* todo, array, schemas
+  ENDMETHOD.
+
+  METHOD parse_validation_error.
+    validation_error-message = mo_json->value_string( iv_prefix && '/message' ).
+    validation_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
+* todo, array, errors
+  ENDMETHOD.
+
+  METHOD parse_hook_delivery.
+    hook_delivery-id = mo_json->value_string( iv_prefix && '/id' ).
+    hook_delivery-guid = mo_json->value_string( iv_prefix && '/guid' ).
+    hook_delivery-delivered_at = mo_json->value_string( iv_prefix && '/delivered_at' ).
+    hook_delivery-redelivery = mo_json->value_boolean( iv_prefix && '/redelivery' ).
+* todo, number, duration
+    hook_delivery-status = mo_json->value_string( iv_prefix && '/status' ).
+    hook_delivery-status_code = mo_json->value_string( iv_prefix && '/status_code' ).
+    hook_delivery-event = mo_json->value_string( iv_prefix && '/event' ).
+    hook_delivery-action = mo_json->value_string( iv_prefix && '/action' ).
+    hook_delivery-installation_id = mo_json->value_string( iv_prefix && '/installation_id' ).
+    hook_delivery-repository_id = mo_json->value_string( iv_prefix && '/repository_id' ).
+    hook_delivery-response-payload = mo_json->value_string( iv_prefix && '/response/payload' ).
+  ENDMETHOD.
+
   METHOD parse_enterprise.
     enterprise-description = mo_json->value_string( iv_prefix && '/description' ).
     enterprise-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
@@ -3278,12 +3342,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     installation_token-single_file = mo_json->value_string( iv_prefix && '/single_file' ).
     installation_token-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
 * todo, array, single_file_paths
-  ENDMETHOD.
-
-  METHOD parse_validation_error.
-    validation_error-message = mo_json->value_string( iv_prefix && '/message' ).
-    validation_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-* todo, array, errors
   ENDMETHOD.
 
   METHOD parse_application_grant.
@@ -4120,6 +4178,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     org_hook-id = mo_json->value_string( iv_prefix && '/id' ).
     org_hook-url = mo_json->value_string( iv_prefix && '/url' ).
     org_hook-ping_url = mo_json->value_string( iv_prefix && '/ping_url' ).
+    org_hook-deliveries_url = mo_json->value_string( iv_prefix && '/deliveries_url' ).
     org_hook-name = mo_json->value_string( iv_prefix && '/name' ).
 * todo, array, events
     org_hook-active = mo_json->value_boolean( iv_prefix && '/active' ).
@@ -5181,15 +5240,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     code_scanning_analysis_deletio-confirm_delete_url = mo_json->value_string( iv_prefix && '/confirm_delete_url' ).
   ENDMETHOD.
 
-  METHOD parse_scim_error.
-    scim_error-message = mo_json->value_string( iv_prefix && '/message' ).
-    scim_error-documentation_url = mo_json->value_string( iv_prefix && '/documentation_url' ).
-    scim_error-detail = mo_json->value_string( iv_prefix && '/detail' ).
-    scim_error-status = mo_json->value_string( iv_prefix && '/status' ).
-    scim_error-scimtype = mo_json->value_string( iv_prefix && '/scimType' ).
-* todo, array, schemas
-  ENDMETHOD.
-
   METHOD parse_code_scanning_analysis06.
 * todo, handle type string
   ENDMETHOD.
@@ -5688,6 +5738,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     hook-url = mo_json->value_string( iv_prefix && '/url' ).
     hook-test_url = mo_json->value_string( iv_prefix && '/test_url' ).
     hook-ping_url = mo_json->value_string( iv_prefix && '/ping_url' ).
+    hook-deliveries_url = mo_json->value_string( iv_prefix && '/deliveries_url' ).
     hook-last_response = parse_hook_response( iv_prefix ).
   ENDMETHOD.
 
@@ -7259,6 +7310,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
     response_meta_root-user_search_url = mo_json->value_string( iv_prefix && '/user_search_url' ).
   ENDMETHOD.
 
+  METHOD parse_apps_list_webhook_delive.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA hook_delivery_item TYPE zif_githubcom=>hook_delivery_item.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR hook_delivery_item.
+      hook_delivery_item = parse_hook_delivery_item( iv_prefix && '/' && lv_member ).
+      APPEND hook_delivery_item TO response_apps_list_webhook_del.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_apps_list_installations.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -7660,6 +7723,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
       CLEAR org_hook.
       org_hook = parse_org_hook( iv_prefix && '/' && lv_member ).
       APPEND org_hook TO response_orgs_list_webhooks.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_orgs_list_webhook_delive.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA hook_delivery_item TYPE zif_githubcom=>hook_delivery_item.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR hook_delivery_item.
+      hook_delivery_item = parse_hook_delivery_item( iv_prefix && '/' && lv_member ).
+      APPEND hook_delivery_item TO response_orgs_list_webhook_del.
     ENDLOOP.
   ENDMETHOD.
 
@@ -8551,6 +8626,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
       CLEAR hook.
       hook = parse_hook( iv_prefix && '/' && lv_member ).
       APPEND hook TO response_repos_list_webhooks.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_repos_list_webhook_deliv.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA hook_delivery_item TYPE zif_githubcom=>hook_delivery_item.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR hook_delivery_item.
+      hook_delivery_item = parse_hook_delivery_item( iv_prefix && '/' && lv_member ).
+      APPEND hook_delivery_item TO response_repos_list_webhook_de.
     ENDLOOP.
   ENDMETHOD.
 
@@ -12005,6 +12092,56 @@ CLASS zcl_githubcom IMPLEMENTATION.
     return_data = parse_webhook_config( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubcom~apps_list_webhook_deliveries.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/app/hook/deliveries'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF cursor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'cursor' value = cursor ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_apps_list_webhook_delive( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~apps_get_webhook_delivery.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/app/hook/deliveries/{delivery_id}'.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook_delivery( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~apps_redeliver_webhook_deliver.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/app/hook/deliveries/{delivery_id}/attempts'.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
   METHOD zif_githubcom~apps_list_installations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -14587,6 +14724,68 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_webhook_config( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~orgs_list_webhook_deliveries.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF cursor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'cursor' value = cursor ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_orgs_list_webhook_delive( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~orgs_get_webhook_delivery.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook_delivery( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~orgs_redeliver_webhook_deliver.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubcom~orgs_ping_webhook.
@@ -19612,6 +19811,71 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_webhook_config( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~repos_list_webhook_deliveries.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF cursor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'cursor' value = cursor ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repos_list_webhook_deliv( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~repos_get_webhook_delivery.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_hook_delivery( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubcom~repos_redeliver_webhook_delive.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = hook_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = delivery_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubcom~repos_ping_webhook.

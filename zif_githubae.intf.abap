@@ -255,6 +255,72 @@ INTERFACE zif_githubae PUBLIC.
            insecure_ssl TYPE webhook_config_insecure_ssl,
          END OF webhook_config.
 
+* Component schema: hook-delivery-item, object
+  TYPES: BEGIN OF hook_delivery_item,
+           id TYPE i,
+           guid TYPE string,
+           delivered_at TYPE string,
+           redelivery TYPE abap_bool,
+           duration TYPE f,
+           status TYPE string,
+           status_code TYPE i,
+           event TYPE string,
+           action TYPE string,
+           installation_id TYPE i,
+           repository_id TYPE i,
+         END OF hook_delivery_item.
+
+* Component schema: scim-error, object
+  TYPES: BEGIN OF scim_error,
+           message TYPE string,
+           documentation_url TYPE string,
+           detail TYPE string,
+           status TYPE i,
+           scimtype TYPE string,
+           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF scim_error.
+
+* Component schema: validation-error, object
+  TYPES: BEGIN OF validation_error,
+           message TYPE string,
+           documentation_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF validation_error.
+
+* Component schema: hook-delivery, object
+  TYPES: BEGIN OF subsubhook_delivery_response_h,
+           dummy_workaround TYPE i,
+         END OF subsubhook_delivery_response_h.
+  TYPES: BEGIN OF subhook_delivery_response,
+           headers TYPE subsubhook_delivery_response_h,
+           payload TYPE string,
+         END OF subhook_delivery_response.
+  TYPES: BEGIN OF subsubhook_delivery_request_pa,
+           dummy_workaround TYPE i,
+         END OF subsubhook_delivery_request_pa.
+  TYPES: BEGIN OF subsubhook_delivery_request_he,
+           dummy_workaround TYPE i,
+         END OF subsubhook_delivery_request_he.
+  TYPES: BEGIN OF subhook_delivery_request,
+           headers TYPE subsubhook_delivery_request_he,
+           payload TYPE subsubhook_delivery_request_pa,
+         END OF subhook_delivery_request.
+  TYPES: BEGIN OF hook_delivery,
+           id TYPE i,
+           guid TYPE string,
+           delivered_at TYPE string,
+           redelivery TYPE abap_bool,
+           duration TYPE f,
+           status TYPE string,
+           status_code TYPE i,
+           event TYPE string,
+           action TYPE string,
+           installation_id TYPE i,
+           repository_id TYPE i,
+           request TYPE subhook_delivery_request,
+           response TYPE subhook_delivery_response,
+         END OF hook_delivery.
+
 * Component schema: enterprise, object
   TYPES: BEGIN OF enterprise,
            description TYPE string,
@@ -520,13 +586,6 @@ INTERFACE zif_githubae PUBLIC.
            has_multiple_single_files TYPE abap_bool,
            single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF installation_token.
-
-* Component schema: validation-error, object
-  TYPES: BEGIN OF validation_error,
-           message TYPE string,
-           documentation_url TYPE string,
-           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF validation_error.
 
 * Component schema: code-of-conduct, object
   TYPES: BEGIN OF code_of_conduct,
@@ -1265,6 +1324,7 @@ INTERFACE zif_githubae PUBLIC.
            id TYPE i,
            url TYPE string,
            ping_url TYPE string,
+           deliveries_url TYPE string,
            name TYPE string,
            events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            active TYPE abap_bool,
@@ -2460,16 +2520,6 @@ INTERFACE zif_githubae PUBLIC.
            reactions TYPE reaction_rollup,
          END OF commit_comment.
 
-* Component schema: scim-error, object
-  TYPES: BEGIN OF scim_error,
-           message TYPE string,
-           documentation_url TYPE string,
-           detail TYPE string,
-           status TYPE i,
-           scimtype TYPE string,
-           schemas TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF scim_error.
-
 * Component schema: branch-short, object
   TYPES: BEGIN OF subbranch_short_commit,
            sha TYPE string,
@@ -3075,6 +3125,7 @@ INTERFACE zif_githubae PUBLIC.
            url TYPE string,
            test_url TYPE string,
            ping_url TYPE string,
+           deliveries_url TYPE string,
            last_response TYPE hook_response,
          END OF hook.
 
@@ -6134,6 +6185,9 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_enterprise_admin_list_personal, array
   TYPES response_enterprise_admin_li03 TYPE STANDARD TABLE OF authorization WITH DEFAULT KEY.
 
+* Component schema: response_apps_list_webhook_deliveries, array
+  TYPES response_apps_list_webhook_del TYPE STANDARD TABLE OF hook_delivery_item WITH DEFAULT KEY.
+
 * Component schema: response_apps_list_installations, array
   TYPES response_apps_list_installatio TYPE STANDARD TABLE OF installation WITH DEFAULT KEY.
 
@@ -6575,6 +6629,9 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_webhooks, array
   TYPES response_repos_list_webhooks TYPE STANDARD TABLE OF hook WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_webhook_deliveries, array
+  TYPES response_repos_list_webhook_de TYPE STANDARD TABLE OF hook_delivery_item WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_invitations, array
   TYPES response_repos_list_invitation TYPE STANDARD TABLE OF repository_invitation WITH DEFAULT KEY.
@@ -7187,6 +7244,47 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE webhook_config
     RAISING cx_static_check.
 
+* GET - "List deliveries for an app webhook"
+* Operation id: apps/list-webhook-deliveries
+* Parameter: per_page, optional, query
+* Parameter: cursor, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_apps_list_webhook_deliveries
+* Response: 400
+* Response: 422
+  METHODS apps_list_webhook_deliveries
+    IMPORTING
+      per_page TYPE i DEFAULT 30
+      cursor TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_apps_list_webhook_del
+    RAISING cx_static_check.
+
+* GET - "Get a delivery for an app webhook"
+* Operation id: apps/get-webhook-delivery
+* Parameter: delivery_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/hook-delivery
+* Response: 400
+* Response: 422
+  METHODS apps_get_webhook_delivery
+    IMPORTING
+      delivery_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE hook_delivery
+    RAISING cx_static_check.
+
+* POST - "Redeliver a delivery for an app webhook"
+* Operation id: apps/redeliver-webhook-delivery
+* Parameter: delivery_id, required, path
+* Response: 202
+* Response: 400
+* Response: 422
+  METHODS apps_redeliver_webhook_deliver
+    IMPORTING
+      delivery_id TYPE i
+    RAISING cx_static_check.
+
 * GET - "List installations for the authenticated app"
 * Operation id: apps/list-installations
 * Parameter: outdated, optional, query
@@ -7343,7 +7441,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_codes_of_conduct_get_all_codes
 * Response: 304
-* Response: 415
   METHODS codes_of_conduct_get_all_codes
     RETURNING
       VALUE(return_data) TYPE response_codes_of_conduct_get_
@@ -7356,7 +7453,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/code-of-conduct
 * Response: 304
 * Response: 404
-* Response: 415
   METHODS codes_of_conduct_get_conduct_c
     IMPORTING
       key TYPE string
@@ -8795,6 +8891,39 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyorgs_update_webhook_config
     RETURNING
       VALUE(return_data) TYPE webhook_config
+    RAISING cx_static_check.
+
+* GET - "Get a webhook delivery for an organization webhook"
+* Operation id: orgs/get-webhook-delivery
+* Parameter: org, required, path
+* Parameter: hook_id, required, path
+* Parameter: delivery_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/hook-delivery
+* Response: 400
+* Response: 422
+  METHODS orgs_get_webhook_delivery
+    IMPORTING
+      org TYPE string
+      hook_id TYPE i
+      delivery_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE hook_delivery
+    RAISING cx_static_check.
+
+* POST - "Redeliver a delivery for an organization webhook"
+* Operation id: orgs/redeliver-webhook-delivery
+* Parameter: org, required, path
+* Parameter: hook_id, required, path
+* Parameter: delivery_id, required, path
+* Response: 202
+* Response: 400
+* Response: 422
+  METHODS orgs_redeliver_webhook_deliver
+    IMPORTING
+      org TYPE string
+      hook_id TYPE i
+      delivery_id TYPE i
     RAISING cx_static_check.
 
 * POST - "Ping an organization webhook"
@@ -12776,6 +12905,65 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyrepos_update_webhook_confi
     RETURNING
       VALUE(return_data) TYPE webhook_config
+    RAISING cx_static_check.
+
+* GET - "List deliveries for a repository webhook"
+* Operation id: repos/list-webhook-deliveries
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: hook_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: cursor, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_repos_list_webhook_deliveries
+* Response: 400
+* Response: 422
+  METHODS repos_list_webhook_deliveries
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      hook_id TYPE i
+      per_page TYPE i DEFAULT 30
+      cursor TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_webhook_de
+    RAISING cx_static_check.
+
+* GET - "Get a delivery for a repository webhook"
+* Operation id: repos/get-webhook-delivery
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: hook_id, required, path
+* Parameter: delivery_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/hook-delivery
+* Response: 400
+* Response: 422
+  METHODS repos_get_webhook_delivery
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      hook_id TYPE i
+      delivery_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE hook_delivery
+    RAISING cx_static_check.
+
+* POST - "Redeliver a delivery for a repository webhook"
+* Operation id: repos/redeliver-webhook-delivery
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: hook_id, required, path
+* Parameter: delivery_id, required, path
+* Response: 202
+* Response: 400
+* Response: 422
+  METHODS repos_redeliver_webhook_delive
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      hook_id TYPE i
+      delivery_id TYPE i
     RAISING cx_static_check.
 
 * POST - "Ping a repository webhook"

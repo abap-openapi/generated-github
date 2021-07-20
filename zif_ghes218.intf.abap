@@ -1579,16 +1579,6 @@ INTERFACE zif_ghes218 PUBLIC.
          END OF code_of_conduct_simple.
 
 * Component schema: full-repository, object
-  TYPES: BEGIN OF subsubfull_repository_securi01,
-           status TYPE string,
-         END OF subsubfull_repository_securi01.
-  TYPES: BEGIN OF subsubfull_repository_security,
-           status TYPE string,
-         END OF subsubfull_repository_security.
-  TYPES: BEGIN OF subfull_repository_security_an,
-           advanced_security TYPE subsubfull_repository_security,
-           secret_scanning TYPE subsubfull_repository_securi01,
-         END OF subfull_repository_security_an.
   TYPES: BEGIN OF subfull_repository_template_re,
            dummy_workaround TYPE i,
          END OF subfull_repository_template_re.
@@ -1686,7 +1676,6 @@ INTERFACE zif_ghes218 PUBLIC.
            watchers TYPE i,
            anonymous_access_enabled TYPE abap_bool,
            code_of_conduct TYPE code_of_conduct_simple,
-           security_and_analysis TYPE subfull_repository_security_an,
          END OF full_repository.
 
 * Component schema: protected-branch-admin-enforced, object
@@ -5606,38 +5595,6 @@ INTERFACE zif_ghes218 PUBLIC.
            private TYPE abap_bool,
          END OF bodyrepos_create_using_templat.
 
-* Component schema: bodyenterprise_admin_enable_or, object
-  TYPES: BEGIN OF bodyenterprise_admin_enable_or,
-           maintenance TYPE string,
-         END OF bodyenterprise_admin_enable_or.
-
-* Component schema: bodyenterprise_admin_set_setti, object
-  TYPES: BEGIN OF bodyenterprise_admin_set_setti,
-           settings TYPE string,
-         END OF bodyenterprise_admin_set_setti.
-
-* Component schema: bodyenterprise_admin_add_autho, object
-  TYPES: BEGIN OF bodyenterprise_admin_add_autho,
-           authorized_key TYPE string,
-         END OF bodyenterprise_admin_add_autho.
-
-* Component schema: bodyenterprise_admin_remove_au, object
-  TYPES: BEGIN OF bodyenterprise_admin_remove_au,
-           authorized_key TYPE string,
-         END OF bodyenterprise_admin_remove_au.
-
-* Component schema: bodyenterprise_admin_create_en, object
-  TYPES: BEGIN OF bodyenterprise_admin_create_en,
-           license TYPE string,
-           password TYPE string,
-           settings TYPE string,
-         END OF bodyenterprise_admin_create_en.
-
-* Component schema: bodyenterprise_admin_upgrade_l, object
-  TYPES: BEGIN OF bodyenterprise_admin_upgrade_l,
-           license TYPE string,
-         END OF bodyenterprise_admin_upgrade_l.
-
 * Component schema: bodyteams_update, object
   TYPES: BEGIN OF bodyteams_update,
            name TYPE string,
@@ -7115,7 +7072,6 @@ INTERFACE zif_ghes218 PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_codes_of_conduct_get_all_codes
 * Response: 304
-* Response: 415
   METHODS codes_of_conduct_get_all_codes
     RETURNING
       VALUE(return_data) TYPE response_codes_of_conduct_get_
@@ -7128,7 +7084,6 @@ INTERFACE zif_ghes218 PUBLIC.
 *     application/json, #/components/schemas/code-of-conduct
 * Response: 304
 * Response: 404
-* Response: 415
   METHODS codes_of_conduct_get_conduct_c
     IMPORTING
       key TYPE string
@@ -13274,10 +13229,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: enterprise-admin/enable-or-disable-maintenance-mode
 * Response: 200
 *     application/json, #/components/schemas/maintenance-status
-* Body ref: #/components/schemas/bodyenterprise_admin_enable_or
   METHODS enterprise_admin_enable_or_dis
-    IMPORTING
-      body TYPE bodyenterprise_admin_enable_or
     RETURNING
       VALUE(return_data) TYPE maintenance_status
     RAISING cx_static_check.
@@ -13294,10 +13246,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * PUT - "Set settings"
 * Operation id: enterprise-admin/set-settings
 * Response: 204
-* Body ref: #/components/schemas/bodyenterprise_admin_set_setti
   METHODS enterprise_admin_set_settings
-    IMPORTING
-      body TYPE bodyenterprise_admin_set_setti
     RAISING cx_static_check.
 
 * GET - "Get all authorized SSH keys"
@@ -13313,10 +13262,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: enterprise-admin/add-authorized-ssh-key
 * Response: 201
 *     application/json, #/components/schemas/response_enterprise_admin_add_authorize
-* Body ref: #/components/schemas/bodyenterprise_admin_add_autho
   METHODS enterprise_admin_add_authorize
-    IMPORTING
-      body TYPE bodyenterprise_admin_add_autho
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_add_
     RAISING cx_static_check.
@@ -13325,10 +13271,7 @@ INTERFACE zif_ghes218 PUBLIC.
 * Operation id: enterprise-admin/remove-authorized-ssh-key
 * Response: 200
 *     application/json, #/components/schemas/response_enterprise_admin_remove_author
-* Body ref: #/components/schemas/bodyenterprise_admin_remove_au
   METHODS enterprise_admin_remove_author
-    IMPORTING
-      body TYPE bodyenterprise_admin_remove_au
     RETURNING
       VALUE(return_data) TYPE response_enterprise_admin_remo
     RAISING cx_static_check.
@@ -13336,19 +13279,13 @@ INTERFACE zif_ghes218 PUBLIC.
 * POST - "Create a GitHub license"
 * Operation id: enterprise-admin/create-enterprise-server-license
 * Response: 202
-* Body ref: #/components/schemas/bodyenterprise_admin_create_en
   METHODS enterprise_admin_create_enterp
-    IMPORTING
-      body TYPE bodyenterprise_admin_create_en
     RAISING cx_static_check.
 
 * POST - "Upgrade a license"
 * Operation id: enterprise-admin/upgrade-license
 * Response: 202
-* Body ref: #/components/schemas/bodyenterprise_admin_upgrade_l
   METHODS enterprise_admin_upgrade_licen
-    IMPORTING
-      body TYPE bodyenterprise_admin_upgrade_l
     RAISING cx_static_check.
 
 * GET - "Get a team"
