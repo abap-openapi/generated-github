@@ -16130,6 +16130,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
     ENDIF.
+    IF created IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'created' value = created ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -16495,6 +16498,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
       mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF created IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'created' value = created ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
