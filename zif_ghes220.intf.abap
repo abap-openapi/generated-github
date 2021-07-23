@@ -12825,7 +12825,7 @@ INTERFACE zif_ghes220 PUBLIC.
 
 * POST - "Upload a release asset"
 * Operation id: repos/upload-release-asset
-* Parameter: name, optional, query
+* Parameter: name, required, query
 * Parameter: label, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -12834,7 +12834,7 @@ INTERFACE zif_ghes220 PUBLIC.
 *     application/json, #/components/schemas/release-asset
   METHODS repos_upload_release_asset
     IMPORTING
-      name TYPE string OPTIONAL
+      name TYPE string
       label TYPE string OPTIONAL
       owner TYPE string
       repo TYPE string

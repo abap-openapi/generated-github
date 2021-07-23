@@ -20860,9 +20860,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     lv_temp = release_id.
     CONDENSE lv_temp.
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
-    IF name IS SUPPLIED.
-      mi_client->request->set_form_field( name = 'name' value = name ).
-    ENDIF.
+    mi_client->request->set_form_field( name = 'name' value = name ).
     IF label IS SUPPLIED.
       mi_client->request->set_form_field( name = 'label' value = label ).
     ENDIF.
