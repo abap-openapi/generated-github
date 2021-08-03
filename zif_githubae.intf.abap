@@ -4194,6 +4194,7 @@ INTERFACE zif_githubae PUBLIC.
            assets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            body_html TYPE string,
            body_text TYPE string,
+           mentions_count TYPE i,
            discussion_url TYPE string,
            reactions TYPE reaction_rollup,
          END OF release.
