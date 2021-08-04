@@ -472,6 +472,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_rebase_merge TYPE abap_bool,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
@@ -493,7 +494,7 @@ INTERFACE zif_githubae PUBLIC.
            organization TYPE string,
            forks TYPE i,
            permissions TYPE subrepository_permissions,
-           owner TYPE string,
+           owner TYPE simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -565,6 +566,7 @@ INTERFACE zif_githubae PUBLIC.
            template_repository TYPE subrepository_template_reposit,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
@@ -1089,15 +1091,12 @@ INTERFACE zif_githubae PUBLIC.
            maintain TYPE abap_bool,
            triage TYPE abap_bool,
          END OF subminimal_repository_permissi.
-  TYPES: BEGIN OF subminimal_repository_owner,
-           dummy_workaround TYPE i,
-         END OF subminimal_repository_owner.
   TYPES: BEGIN OF minimal_repository,
            id TYPE i,
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE subminimal_repository_owner,
+           owner TYPE simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -1600,6 +1599,7 @@ INTERFACE zif_githubae PUBLIC.
            template_repository TYPE subteam_repository_template_re,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
@@ -1771,6 +1771,7 @@ INTERFACE zif_githubae PUBLIC.
            template_repository TYPE subfull_repository_template_re,
            temp_clone_token TYPE string,
            allow_squash_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
@@ -4481,6 +4482,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_merge_commit TYPE abap_bool,
            allow_squash_merge TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
          END OF repo_search_result_item.
 
@@ -5022,6 +5024,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
          END OF bodyrepos_create_in_org.
 
@@ -5209,6 +5212,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
          END OF bodyrepos_update.
@@ -5228,6 +5232,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
          END OF bodyrepos_delete.
@@ -6098,6 +6103,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
+           allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            has_downloads TYPE abap_bool,
            is_template TYPE abap_bool,

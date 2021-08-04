@@ -2633,7 +2633,7 @@ CLASS zcl_ghes219 IMPLEMENTATION.
     repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
     repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
-    repository-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    repository-owner = parse_simple_user( iv_prefix ).
     repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -3326,6 +3326,7 @@ CLASS zcl_ghes219 IMPLEMENTATION.
     minimal_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     minimal_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     minimal_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
+    minimal_repository-owner = parse_simple_user( iv_prefix ).
     minimal_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     minimal_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     minimal_repository-description = mo_json->value_string( iv_prefix && '/description' ).
