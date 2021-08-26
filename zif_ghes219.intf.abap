@@ -397,7 +397,9 @@ INTERFACE zif_ghes219 PUBLIC.
 * Component schema: repository, object
   TYPES: BEGIN OF subsubrepository_template_re01,
            admin TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
            pull TYPE abap_bool,
          END OF subsubrepository_template_re01.
   TYPES: BEGIN OF subsubrepository_template_repo,
@@ -1204,10 +1206,10 @@ INTERFACE zif_ghes219 PUBLIC.
          END OF subminimal_repository_template.
   TYPES: BEGIN OF subminimal_repository_permissi,
            admin TYPE abap_bool,
-           push TYPE abap_bool,
-           pull TYPE abap_bool,
            maintain TYPE abap_bool,
+           push TYPE abap_bool,
            triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subminimal_repository_permissi.
   TYPES: BEGIN OF minimal_repository,
            id TYPE i,
@@ -1582,8 +1584,10 @@ INTERFACE zif_ghes219 PUBLIC.
          END OF subfull_repository_template_re.
   TYPES: BEGIN OF subfull_repository_permissions,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subfull_repository_permissions.
   TYPES: BEGIN OF full_repository,
            id TYPE i,
@@ -2014,7 +2018,9 @@ INTERFACE zif_ghes219 PUBLIC.
 * Component schema: collaborator, object
   TYPES: BEGIN OF subcollaborator_permissions,
            pull TYPE abap_bool,
+           triage TYPE abap_bool,
            push TYPE abap_bool,
+           maintain TYPE abap_bool,
            admin TYPE abap_bool,
          END OF subcollaborator_permissions.
   TYPES: BEGIN OF collaborator,
@@ -3235,8 +3241,10 @@ INTERFACE zif_ghes219 PUBLIC.
          END OF subsubpull_request_base_user.
   TYPES: BEGIN OF subsubsubpull_request_base_r01,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subsubsubpull_request_base_r01.
   TYPES: BEGIN OF subsubsubpull_request_base_rep,
            avatar_url TYPE string,
@@ -3376,8 +3384,10 @@ INTERFACE zif_ghes219 PUBLIC.
          END OF subsubsubpull_request_head_r02.
   TYPES: BEGIN OF subsubsubpull_request_head_r01,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subsubsubpull_request_head_r01.
   TYPES: BEGIN OF subsubsubpull_request_head_rep,
            avatar_url TYPE string,
@@ -3885,8 +3895,10 @@ INTERFACE zif_ghes219 PUBLIC.
 * Component schema: repo-search-result-item, object
   TYPES: BEGIN OF subrepo_search_result_item_per,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subrepo_search_result_item_per.
   TYPES: BEGIN OF repo_search_result_item,
            id TYPE i,

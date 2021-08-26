@@ -372,7 +372,9 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: repository, object
   TYPES: BEGIN OF subsubrepository_template_re01,
            admin TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
            pull TYPE abap_bool,
          END OF subsubrepository_template_re01.
   TYPES: BEGIN OF subsubrepository_template_repo,
@@ -1086,10 +1088,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF subminimal_repository_template.
   TYPES: BEGIN OF subminimal_repository_permissi,
            admin TYPE abap_bool,
-           push TYPE abap_bool,
-           pull TYPE abap_bool,
            maintain TYPE abap_bool,
+           push TYPE abap_bool,
            triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subminimal_repository_permissi.
   TYPES: BEGIN OF minimal_repository,
            id TYPE i,
@@ -1690,8 +1692,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF subfull_repository_template_re.
   TYPES: BEGIN OF subfull_repository_permissions,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subfull_repository_permissions.
   TYPES: BEGIN OF full_repository,
            id TYPE i,
@@ -1973,6 +1977,13 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF workflow_usage,
            billable TYPE subworkflow_usage_billable,
          END OF workflow_usage.
+
+* Component schema: autolink, object
+  TYPES: BEGIN OF autolink,
+           id TYPE i,
+           key_prefix TYPE string,
+           url_template TYPE string,
+         END OF autolink.
 
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
@@ -2462,7 +2473,9 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: collaborator, object
   TYPES: BEGIN OF subcollaborator_permissions,
            pull TYPE abap_bool,
+           triage TYPE abap_bool,
            push TYPE abap_bool,
+           maintain TYPE abap_bool,
            admin TYPE abap_bool,
          END OF subcollaborator_permissions.
   TYPES: BEGIN OF collaborator,
@@ -3775,8 +3788,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF subsubpull_request_base_user.
   TYPES: BEGIN OF subsubsubpull_request_base_r01,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subsubsubpull_request_base_r01.
   TYPES: BEGIN OF subsubsubpull_request_base_rep,
            avatar_url TYPE string,
@@ -3916,8 +3931,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF subsubsubpull_request_head_r02.
   TYPES: BEGIN OF subsubsubpull_request_head_r01,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subsubsubpull_request_head_r01.
   TYPES: BEGIN OF subsubsubpull_request_head_rep,
            avatar_url TYPE string,
@@ -4396,8 +4413,10 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: repo-search-result-item, object
   TYPES: BEGIN OF subrepo_search_result_item_per,
            admin TYPE abap_bool,
-           pull TYPE abap_bool,
+           maintain TYPE abap_bool,
            push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
          END OF subrepo_search_result_item_per.
   TYPES: BEGIN OF repo_search_result_item,
            id TYPE i,
@@ -5263,6 +5282,12 @@ INTERFACE zif_githubae PUBLIC.
            ref TYPE string,
            inputs TYPE subbodyactions_create_workflow,
          END OF bodyactions_create_workflow_di.
+
+* Component schema: bodyrepos_create_autolink, object
+  TYPES: BEGIN OF bodyrepos_create_autolink,
+           key_prefix TYPE string,
+           url_template TYPE string,
+         END OF bodyrepos_create_autolink.
 
 * Component schema: bodyrepos_update_branch_protec, object
   TYPES: BEGIN OF subbodyrepos_update_branch_p02,
@@ -6500,6 +6525,9 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_issues_list_assignees, array
   TYPES response_issues_list_assignees TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_repos_list_autolinks, array
+  TYPES response_repos_list_autolinks TYPE STANDARD TABLE OF autolink WITH DEFAULT KEY.
 
 * Component schema: response_repos_list_branches, array
   TYPES response_repos_list_branches TYPE STANDARD TABLE OF short_branch WITH DEFAULT KEY.
@@ -10828,6 +10856,70 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
     RAISING cx_static_check.
 
+* GET - "List all autolinks of a repository"
+* Operation id: repos/list-autolinks
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_repos_list_autolinks
+  METHODS repos_list_autolinks
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_repos_list_autolinks
+    RAISING cx_static_check.
+
+* POST - "Create an autolink reference for a repository"
+* Operation id: repos/create-autolink
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 201
+*     application/json, #/components/schemas/autolink
+* Response: 422
+* Body ref: #/components/schemas/bodyrepos_create_autolink
+  METHODS repos_create_autolink
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      body TYPE bodyrepos_create_autolink
+    RETURNING
+      VALUE(return_data) TYPE autolink
+    RAISING cx_static_check.
+
+* GET - "Get an autolink reference of a repository"
+* Operation id: repos/get-autolink
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: autolink_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/autolink
+* Response: 404
+  METHODS repos_get_autolink
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      autolink_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE autolink
+    RAISING cx_static_check.
+
+* DELETE - "Delete an autolink reference from a repository"
+* Operation id: repos/delete-autolink
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: autolink_id, required, path
+* Response: 204
+* Response: 404
+  METHODS repos_delete_autolink
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      autolink_id TYPE i
+    RAISING cx_static_check.
+
 * GET - "List branches"
 * Operation id: repos/list-branches
 * Parameter: protected, optional, query
@@ -13834,6 +13926,29 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
     RETURNING
       VALUE(return_data) TYPE language
+    RAISING cx_static_check.
+
+* PUT - "Enable Git LFS for a repository"
+* Operation id: enterprise-admin/enable-lfs-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 202
+* Response: 403
+  METHODS enterprise_admin_enable_lfs_fo
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RAISING cx_static_check.
+
+* DELETE - "Disable Git LFS for a repository"
+* Operation id: enterprise-admin/disable-lfs-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 204
+  METHODS enterprise_admin_disable_lfs_f
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
     RAISING cx_static_check.
 
 * GET - "Get the license for a repository"

@@ -428,6 +428,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(workflow_usage) TYPE zif_githubae=>workflow_usage
       RAISING cx_static_check.
+    METHODS parse_autolink
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(autolink) TYPE zif_githubae=>autolink
+      RAISING cx_static_check.
     METHODS parse_protected_branch_admin_e
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(protected_branch_admin_enforce) TYPE zif_githubae=>protected_branch_admin_enforce
@@ -1384,6 +1388,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyactions_create_workflow_di
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_repos_create_autolink
+      IMPORTING data TYPE zif_githubae=>bodyrepos_create_autolink
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_update_branch_prote
       IMPORTING data TYPE zif_githubae=>bodyrepos_update_branch_protec
       RETURNING VALUE(json) TYPE string
@@ -2095,6 +2103,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_issues_list_assignees
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_issues_list_assignees) TYPE zif_githubae=>response_issues_list_assignees
+      RAISING cx_static_check.
+    METHODS parse_repos_list_autolinks
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_repos_list_autolinks) TYPE zif_githubae=>response_repos_list_autolinks
       RAISING cx_static_check.
     METHODS parse_repos_list_branches
       IMPORTING iv_prefix TYPE string
@@ -3062,7 +3074,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     repository-template_repository-created_at = mo_json->value_string( iv_prefix && '/template_repository/created_at' ).
     repository-template_repository-updated_at = mo_json->value_string( iv_prefix && '/template_repository/updated_at' ).
     repository-template_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/admin' ).
+    repository-template_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/maintain' ).
     repository-template_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/push' ).
+    repository-template_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/triage' ).
     repository-template_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/pull' ).
     repository-template_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_rebase_merge' ).
     repository-template_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/template_repository/temp_clone_token' ).
@@ -3595,10 +3609,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     minimal_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     minimal_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     minimal_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
-    minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
-    minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     minimal_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
     minimal_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     minimal_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     minimal_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
@@ -4131,8 +4145,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     full_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     full_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     full_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
-    full_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    full_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
     full_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    full_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    full_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     full_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
     full_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     full_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
@@ -4287,6 +4303,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     workflow_usage-billable-ubuntu-total_ms = mo_json->value_string( iv_prefix && '/billable/UBUNTU/total_ms' ).
     workflow_usage-billable-macos-total_ms = mo_json->value_string( iv_prefix && '/billable/MACOS/total_ms' ).
     workflow_usage-billable-windows-total_ms = mo_json->value_string( iv_prefix && '/billable/WINDOWS/total_ms' ).
+  ENDMETHOD.
+
+  METHOD parse_autolink.
+    autolink-id = mo_json->value_string( iv_prefix && '/id' ).
+    autolink-key_prefix = mo_json->value_string( iv_prefix && '/key_prefix' ).
+    autolink-url_template = mo_json->value_string( iv_prefix && '/url_template' ).
   ENDMETHOD.
 
   METHOD parse_protected_branch_admin_e.
@@ -4721,7 +4743,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     collaborator-type = mo_json->value_string( iv_prefix && '/type' ).
     collaborator-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
     collaborator-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    collaborator-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     collaborator-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    collaborator-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
     collaborator-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
   ENDMETHOD.
 
@@ -5871,8 +5895,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-head-repo-open_issues = mo_json->value_string( iv_prefix && '/head/repo/open_issues' ).
     pull_request-head-repo-open_issues_count = mo_json->value_string( iv_prefix && '/head/repo/open_issues_count' ).
     pull_request-head-repo-permissions-admin = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/admin' ).
-    pull_request-head-repo-permissions-pull = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/pull' ).
+    pull_request-head-repo-permissions-maintain = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/maintain' ).
     pull_request-head-repo-permissions-push = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/push' ).
+    pull_request-head-repo-permissions-triage = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/triage' ).
+    pull_request-head-repo-permissions-pull = mo_json->value_boolean( iv_prefix && '/head/repo/permissions/pull' ).
     pull_request-head-repo-temp_clone_token = mo_json->value_string( iv_prefix && '/head/repo/temp_clone_token' ).
     pull_request-head-repo-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/head/repo/allow_merge_commit' ).
     pull_request-head-repo-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/head/repo/allow_squash_merge' ).
@@ -5995,8 +6021,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-base-repo-open_issues = mo_json->value_string( iv_prefix && '/base/repo/open_issues' ).
     pull_request-base-repo-open_issues_count = mo_json->value_string( iv_prefix && '/base/repo/open_issues_count' ).
     pull_request-base-repo-permissions-admin = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/admin' ).
-    pull_request-base-repo-permissions-pull = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/pull' ).
+    pull_request-base-repo-permissions-maintain = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/maintain' ).
     pull_request-base-repo-permissions-push = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/push' ).
+    pull_request-base-repo-permissions-triage = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/triage' ).
+    pull_request-base-repo-permissions-pull = mo_json->value_boolean( iv_prefix && '/base/repo/permissions/pull' ).
     pull_request-base-repo-temp_clone_token = mo_json->value_string( iv_prefix && '/base/repo/temp_clone_token' ).
     pull_request-base-repo-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/base/repo/allow_merge_commit' ).
     pull_request-base-repo-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/base/repo/allow_squash_merge' ).
@@ -6401,8 +6429,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     repo_search_result_item-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
     repo_search_result_item-license = mo_json->value_string( iv_prefix && '/license' ).
     repo_search_result_item-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
-    repo_search_result_item-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    repo_search_result_item-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
     repo_search_result_item-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    repo_search_result_item-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    repo_search_result_item-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     repo_search_result_item-text_matches = parse_search_result_text_match( iv_prefix ).
     repo_search_result_item-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     repo_search_result_item-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
@@ -7212,6 +7242,18 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR simple_user.
       simple_user = parse_simple_user( iv_prefix && '/' && lv_member ).
       APPEND simple_user TO response_issues_list_assignees.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_repos_list_autolinks.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA autolink TYPE zif_githubae=>autolink.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR autolink.
+      autolink = parse_autolink( iv_prefix && '/' && lv_member ).
+      APPEND autolink TO response_repos_list_autolinks.
     ENDLOOP.
   ENDMETHOD.
 
@@ -9424,6 +9466,14 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '{'.
     json = json && |"ref": "{ data-ref }",|.
 *  json = json && '"inputs":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_create_autolink.
+    json = json && '{'.
+    json = json && |"key_prefix": "{ data-key_prefix }",|.
+    json = json && |"url_template": "{ data-url_template }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -15152,6 +15202,74 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
+  METHOD zif_githubae~repos_list_autolinks.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/autolinks'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_repos_list_autolinks( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_create_autolink.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/autolinks'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_autolink( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_autolink( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_get_autolink.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/autolinks/{autolink_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = autolink_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{autolink_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_autolink( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_delete_autolink.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/autolinks/{autolink_id}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = autolink_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{autolink_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
   METHOD zif_githubae~repos_list_branches.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -18204,6 +18322,34 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_language( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_enable_lfs_fo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/lfs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_disable_lfs_f.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/lfs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
   ENDMETHOD.
 
   METHOD zif_githubae~licenses_get_for_repo.
