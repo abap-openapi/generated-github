@@ -317,6 +317,7 @@ INTERFACE zif_githubae PUBLIC.
            action TYPE string,
            installation_id TYPE i,
            repository_id TYPE i,
+           url TYPE string,
            request TYPE subhook_delivery_request,
            response TYPE subhook_delivery_response,
          END OF hook_delivery.

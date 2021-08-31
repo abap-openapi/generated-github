@@ -2854,6 +2854,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     hook_delivery-action = mo_json->value_string( iv_prefix && '/action' ).
     hook_delivery-installation_id = mo_json->value_string( iv_prefix && '/installation_id' ).
     hook_delivery-repository_id = mo_json->value_string( iv_prefix && '/repository_id' ).
+    hook_delivery-url = mo_json->value_string( iv_prefix && '/url' ).
     hook_delivery-response-payload = mo_json->value_string( iv_prefix && '/response/payload' ).
   ENDMETHOD.
 
