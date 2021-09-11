@@ -201,8 +201,8 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_downstream_configuration TYPE abap_bool,
          END OF pre_receive_hook.
 
-* Component schema: simple-user, object
-  TYPES: BEGIN OF simple_user,
+* Component schema: nullable-simple-user, object
+  TYPES: BEGIN OF nullable_simple_user,
            name TYPE string,
            email TYPE string,
            login TYPE string,
@@ -224,7 +224,7 @@ INTERFACE zif_ghes221 PUBLIC.
            type TYPE string,
            site_admin TYPE abap_bool,
            starred_at TYPE string,
-         END OF simple_user.
+         END OF nullable_simple_user.
 
 * Component schema: app-permissions, object
   TYPES: BEGIN OF app_permissions,
@@ -261,8 +261,33 @@ INTERFACE zif_ghes221 PUBLIC.
            team_discussions TYPE string,
          END OF app_permissions.
 
-* Component schema: scoped-installation, object
-  TYPES: BEGIN OF scoped_installation,
+* Component schema: simple-user, object
+  TYPES: BEGIN OF simple_user,
+           name TYPE string,
+           email TYPE string,
+           login TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           avatar_url TYPE string,
+           gravatar_id TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           followers_url TYPE string,
+           following_url TYPE string,
+           gists_url TYPE string,
+           starred_url TYPE string,
+           subscriptions_url TYPE string,
+           organizations_url TYPE string,
+           repos_url TYPE string,
+           events_url TYPE string,
+           received_events_url TYPE string,
+           type TYPE string,
+           site_admin TYPE abap_bool,
+           starred_at TYPE string,
+         END OF simple_user.
+
+* Component schema: nullable-scoped-installation, object
+  TYPES: BEGIN OF nullable_scoped_installation,
            permissions TYPE app_permissions,
            repository_selection TYPE string,
            single_file_name TYPE string,
@@ -270,7 +295,7 @@ INTERFACE zif_ghes221 PUBLIC.
            single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            repositories_url TYPE string,
            account TYPE simple_user,
-         END OF scoped_installation.
+         END OF nullable_scoped_installation.
 
 * Component schema: authorization, object
   TYPES: BEGIN OF subauthorization_app,
@@ -291,8 +316,8 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            created_at TYPE string,
            fingerprint TYPE string,
-           user TYPE string,
-           installation TYPE string,
+           user TYPE nullable_simple_user,
+           installation TYPE nullable_scoped_installation,
          END OF authorization.
 
 * Component schema: integration, object
@@ -307,7 +332,7 @@ INTERFACE zif_ghes221 PUBLIC.
            id TYPE i,
            slug TYPE string,
            node_id TYPE string,
-           owner TYPE string,
+           owner TYPE nullable_simple_user,
            name TYPE string,
            description TYPE string,
            external_url TYPE string,
@@ -379,20 +404,20 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            single_file_name TYPE string,
            app_slug TYPE string,
-           suspended_by TYPE string,
+           suspended_by TYPE nullable_simple_user,
            suspended_at TYPE string,
            contact_email TYPE string,
          END OF installation_ghes_2.
 
-* Component schema: license-simple, object
-  TYPES: BEGIN OF license_simple,
+* Component schema: nullable-license-simple, object
+  TYPES: BEGIN OF nullable_license_simple,
            key TYPE string,
            name TYPE string,
            url TYPE string,
            spdx_id TYPE string,
            node_id TYPE string,
            html_url TYPE string,
-         END OF license_simple.
+         END OF nullable_license_simple.
 
 * Component schema: repository, object
   TYPES: BEGIN OF subsubrepository_template_re01,
@@ -516,8 +541,8 @@ INTERFACE zif_ghes221 PUBLIC.
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           license TYPE string,
-           organization TYPE string,
+           license TYPE nullable_license_simple,
+           organization TYPE nullable_simple_user,
            forks TYPE i,
            permissions TYPE subrepository_permissions,
            owner TYPE simple_user,
@@ -634,8 +659,31 @@ INTERFACE zif_ghes221 PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           user TYPE string,
+           user TYPE nullable_simple_user,
          END OF application_grant.
+
+* Component schema: nullable-authorization, object
+  TYPES: BEGIN OF subnullable_authorization_app,
+           client_id TYPE string,
+           name TYPE string,
+           url TYPE string,
+         END OF subnullable_authorization_app.
+  TYPES: BEGIN OF nullable_authorization,
+           id TYPE i,
+           url TYPE string,
+           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           token TYPE string,
+           token_last_eight TYPE string,
+           hashed_token TYPE string,
+           app TYPE subnullable_authorization_app,
+           note TYPE string,
+           note_url TYPE string,
+           updated_at TYPE string,
+           created_at TYPE string,
+           fingerprint TYPE string,
+           user TYPE nullable_simple_user,
+           installation TYPE nullable_scoped_installation,
+         END OF nullable_authorization.
 
 * Component schema: code-of-conduct, object
   TYPES: BEGIN OF code_of_conduct,
@@ -765,8 +813,8 @@ INTERFACE zif_ghes221 PUBLIC.
            default TYPE abap_bool,
          END OF label.
 
-* Component schema: milestone, object
-  TYPES: BEGIN OF milestone,
+* Component schema: nullable-milestone, object
+  TYPES: BEGIN OF nullable_milestone,
            url TYPE string,
            html_url TYPE string,
            labels_url TYPE string,
@@ -776,17 +824,45 @@ INTERFACE zif_ghes221 PUBLIC.
            state TYPE string,
            title TYPE string,
            description TYPE string,
-           creator TYPE string,
+           creator TYPE nullable_simple_user,
            open_issues TYPE i,
            closed_issues TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
            closed_at TYPE string,
            due_on TYPE string,
-         END OF milestone.
+         END OF nullable_milestone.
 
 * Component schema: author_association, string
   TYPES author_association TYPE string.
+
+* Component schema: nullable-integration, object
+  TYPES: BEGIN OF subnullable_integration_permis,
+           issues TYPE string,
+           checks TYPE string,
+           metadata TYPE string,
+           contents TYPE string,
+           deployments TYPE string,
+         END OF subnullable_integration_permis.
+  TYPES: BEGIN OF nullable_integration,
+           id TYPE i,
+           slug TYPE string,
+           node_id TYPE string,
+           owner TYPE nullable_simple_user,
+           name TYPE string,
+           description TYPE string,
+           external_url TYPE string,
+           html_url TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           permissions TYPE subnullable_integration_permis,
+           events TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           installations_count TYPE i,
+           client_id TYPE string,
+           client_secret TYPE string,
+           webhook_secret TYPE string,
+           pem TYPE string,
+         END OF nullable_integration.
 
 * Component schema: issue-simple, object
   TYPES: BEGIN OF subissue_simple_pull_request,
@@ -809,11 +885,11 @@ INTERFACE zif_ghes221 PUBLIC.
            state TYPE string,
            title TYPE string,
            body TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE string,
+           assignee TYPE nullable_simple_user,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE string,
+           milestone TYPE nullable_milestone,
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
@@ -826,7 +902,7 @@ INTERFACE zif_ghes221 PUBLIC.
            body_text TYPE string,
            timeline_url TYPE string,
            repository TYPE repository,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF issue_simple.
 
 * Component schema: reaction-rollup, object
@@ -852,12 +928,12 @@ INTERFACE zif_ghes221 PUBLIC.
            body_text TYPE string,
            body_html TYPE string,
            html_url TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            issue_url TYPE string,
            author_association TYPE author_association,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
            reactions TYPE reaction_rollup,
          END OF issue_comment.
 
@@ -931,9 +1007,9 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            description TYPE string,
            comments TYPE i,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            comments_url TYPE string,
-           owner TYPE string,
+           owner TYPE simple_user,
            truncated TYPE abap_bool,
            forks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -994,7 +1070,7 @@ INTERFACE zif_ghes221 PUBLIC.
            deletions TYPE i,
          END OF subgist_history_change_status.
   TYPES: BEGIN OF gist_history,
-           user TYPE simple_user,
+           user TYPE nullable_simple_user,
            version TYPE string,
            committed_at TYPE string,
            change_status TYPE subgist_history_change_status,
@@ -1023,9 +1099,9 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            description TYPE string,
            comments TYPE i,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            comments_url TYPE string,
-           owner TYPE string,
+           owner TYPE nullable_simple_user,
            truncated TYPE abap_bool,
            forks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            history TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -1060,7 +1136,7 @@ INTERFACE zif_ghes221 PUBLIC.
            node_id TYPE string,
            url TYPE string,
            body TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            author_association TYPE author_association,
@@ -1075,7 +1151,7 @@ INTERFACE zif_ghes221 PUBLIC.
   TYPES: BEGIN OF gist_commit,
            url TYPE string,
            version TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            change_status TYPE subgist_commit_change_status,
            committed_at TYPE string,
          END OF gist_commit.
@@ -1107,11 +1183,11 @@ INTERFACE zif_ghes221 PUBLIC.
            state TYPE string,
            title TYPE string,
            body TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE string,
+           assignee TYPE nullable_simple_user,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE string,
+           milestone TYPE nullable_milestone,
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            comments TYPE i,
@@ -1119,15 +1195,25 @@ INTERFACE zif_ghes221 PUBLIC.
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           closed_by TYPE string,
+           closed_by TYPE nullable_simple_user,
            body_html TYPE string,
            body_text TYPE string,
            timeline_url TYPE string,
            repository TYPE repository,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
            author_association TYPE author_association,
            reactions TYPE reaction_rollup,
          END OF issue.
+
+* Component schema: license-simple, object
+  TYPES: BEGIN OF license_simple,
+           key TYPE string,
+           name TYPE string,
+           url TYPE string,
+           spdx_id TYPE string,
+           node_id TYPE string,
+           html_url TYPE string,
+         END OF license_simple.
 
 * Component schema: license, object
   TYPES: BEGIN OF license,
@@ -1154,6 +1240,214 @@ INTERFACE zif_ghes221 PUBLIC.
            installed_version TYPE string,
          END OF api_overview.
 
+* Component schema: nullable-repository, object
+  TYPES: BEGIN OF subsubnullable_repository_te01,
+           admin TYPE abap_bool,
+           maintain TYPE abap_bool,
+           push TYPE abap_bool,
+           triage TYPE abap_bool,
+           pull TYPE abap_bool,
+         END OF subsubnullable_repository_te01.
+  TYPES: BEGIN OF subsubnullable_repository_temp,
+           login TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           avatar_url TYPE string,
+           gravatar_id TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           followers_url TYPE string,
+           following_url TYPE string,
+           gists_url TYPE string,
+           starred_url TYPE string,
+           subscriptions_url TYPE string,
+           organizations_url TYPE string,
+           repos_url TYPE string,
+           events_url TYPE string,
+           received_events_url TYPE string,
+           type TYPE string,
+           site_admin TYPE abap_bool,
+         END OF subsubnullable_repository_temp.
+  TYPES: BEGIN OF subnullable_repository_templat,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           full_name TYPE string,
+           owner TYPE subsubnullable_repository_temp,
+           private TYPE abap_bool,
+           html_url TYPE string,
+           description TYPE string,
+           fork TYPE abap_bool,
+           url TYPE string,
+           archive_url TYPE string,
+           assignees_url TYPE string,
+           blobs_url TYPE string,
+           branches_url TYPE string,
+           collaborators_url TYPE string,
+           comments_url TYPE string,
+           commits_url TYPE string,
+           compare_url TYPE string,
+           contents_url TYPE string,
+           contributors_url TYPE string,
+           deployments_url TYPE string,
+           downloads_url TYPE string,
+           events_url TYPE string,
+           forks_url TYPE string,
+           git_commits_url TYPE string,
+           git_refs_url TYPE string,
+           git_tags_url TYPE string,
+           git_url TYPE string,
+           issue_comment_url TYPE string,
+           issue_events_url TYPE string,
+           issues_url TYPE string,
+           keys_url TYPE string,
+           labels_url TYPE string,
+           languages_url TYPE string,
+           merges_url TYPE string,
+           milestones_url TYPE string,
+           notifications_url TYPE string,
+           pulls_url TYPE string,
+           releases_url TYPE string,
+           ssh_url TYPE string,
+           stargazers_url TYPE string,
+           statuses_url TYPE string,
+           subscribers_url TYPE string,
+           subscription_url TYPE string,
+           tags_url TYPE string,
+           teams_url TYPE string,
+           trees_url TYPE string,
+           clone_url TYPE string,
+           mirror_url TYPE string,
+           hooks_url TYPE string,
+           svn_url TYPE string,
+           homepage TYPE string,
+           language TYPE string,
+           forks_count TYPE i,
+           stargazers_count TYPE i,
+           watchers_count TYPE i,
+           size TYPE i,
+           default_branch TYPE string,
+           open_issues_count TYPE i,
+           is_template TYPE abap_bool,
+           topics TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           has_pages TYPE abap_bool,
+           has_downloads TYPE abap_bool,
+           archived TYPE abap_bool,
+           disabled TYPE abap_bool,
+           visibility TYPE string,
+           pushed_at TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           permissions TYPE subsubnullable_repository_te01,
+           allow_rebase_merge TYPE abap_bool,
+           allow_squash_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           subscribers_count TYPE i,
+           network_count TYPE i,
+           anonymous_access_enabled TYPE abap_bool,
+         END OF subnullable_repository_templat.
+  TYPES: BEGIN OF subnullable_repository_permiss,
+           admin TYPE abap_bool,
+           pull TYPE abap_bool,
+           triage TYPE abap_bool,
+           push TYPE abap_bool,
+           maintain TYPE abap_bool,
+         END OF subnullable_repository_permiss.
+  TYPES: BEGIN OF nullable_repository,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           full_name TYPE string,
+           license TYPE nullable_license_simple,
+           organization TYPE nullable_simple_user,
+           forks TYPE i,
+           permissions TYPE subnullable_repository_permiss,
+           owner TYPE simple_user,
+           private TYPE abap_bool,
+           html_url TYPE string,
+           description TYPE string,
+           fork TYPE abap_bool,
+           url TYPE string,
+           archive_url TYPE string,
+           assignees_url TYPE string,
+           blobs_url TYPE string,
+           branches_url TYPE string,
+           collaborators_url TYPE string,
+           comments_url TYPE string,
+           commits_url TYPE string,
+           compare_url TYPE string,
+           contents_url TYPE string,
+           contributors_url TYPE string,
+           deployments_url TYPE string,
+           downloads_url TYPE string,
+           events_url TYPE string,
+           forks_url TYPE string,
+           git_commits_url TYPE string,
+           git_refs_url TYPE string,
+           git_tags_url TYPE string,
+           git_url TYPE string,
+           issue_comment_url TYPE string,
+           issue_events_url TYPE string,
+           issues_url TYPE string,
+           keys_url TYPE string,
+           labels_url TYPE string,
+           languages_url TYPE string,
+           merges_url TYPE string,
+           milestones_url TYPE string,
+           notifications_url TYPE string,
+           pulls_url TYPE string,
+           releases_url TYPE string,
+           ssh_url TYPE string,
+           stargazers_url TYPE string,
+           statuses_url TYPE string,
+           subscribers_url TYPE string,
+           subscription_url TYPE string,
+           tags_url TYPE string,
+           teams_url TYPE string,
+           trees_url TYPE string,
+           clone_url TYPE string,
+           mirror_url TYPE string,
+           hooks_url TYPE string,
+           svn_url TYPE string,
+           homepage TYPE string,
+           language TYPE string,
+           forks_count TYPE i,
+           stargazers_count TYPE i,
+           watchers_count TYPE i,
+           size TYPE i,
+           default_branch TYPE string,
+           open_issues_count TYPE i,
+           is_template TYPE abap_bool,
+           topics TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           has_issues TYPE abap_bool,
+           has_projects TYPE abap_bool,
+           has_wiki TYPE abap_bool,
+           has_pages TYPE abap_bool,
+           has_downloads TYPE abap_bool,
+           archived TYPE abap_bool,
+           disabled TYPE abap_bool,
+           visibility TYPE string,
+           pushed_at TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           allow_rebase_merge TYPE abap_bool,
+           template_repository TYPE subnullable_repository_templat,
+           allow_squash_merge TYPE abap_bool,
+           delete_branch_on_merge TYPE abap_bool,
+           allow_merge_commit TYPE abap_bool,
+           subscribers_count TYPE i,
+           network_count TYPE i,
+           open_issues TYPE i,
+           watchers TYPE i,
+           master_branch TYPE string,
+           starred_at TYPE string,
+           anonymous_access_enabled TYPE abap_bool,
+         END OF nullable_repository.
+
 * Component schema: minimal-repository, object
   TYPES: BEGIN OF subminimal_repository_license,
            key TYPE string,
@@ -1162,9 +1456,6 @@ INTERFACE zif_ghes221 PUBLIC.
            url TYPE string,
            node_id TYPE string,
          END OF subminimal_repository_license.
-  TYPES: BEGIN OF subminimal_repository_template,
-           dummy_workaround TYPE i,
-         END OF subminimal_repository_template.
   TYPES: BEGIN OF subminimal_repository_permissi,
            admin TYPE abap_bool,
            maintain TYPE abap_bool,
@@ -1246,7 +1537,7 @@ INTERFACE zif_ghes221 PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            permissions TYPE subminimal_repository_permissi,
-           template_repository TYPE subminimal_repository_template,
+           template_repository TYPE nullable_repository,
            delete_branch_on_merge TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
@@ -1385,7 +1676,7 @@ INTERFACE zif_ghes221 PUBLIC.
            role TYPE string,
            organization_url TYPE string,
            organization TYPE organization_simple,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            permissions TYPE suborg_membership_permissions,
          END OF org_membership.
 
@@ -1410,15 +1701,15 @@ INTERFACE zif_ghes221 PUBLIC.
            body TYPE string,
            number TYPE i,
            state TYPE string,
-           creator TYPE string,
+           creator TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            organization_permission TYPE string,
            private TYPE abap_bool,
          END OF project.
 
-* Component schema: team-simple, object
-  TYPES: BEGIN OF team_simple,
+* Component schema: nullable-team-simple, object
+  TYPES: BEGIN OF nullable_team_simple,
            id TYPE i,
            node_id TYPE string,
            url TYPE string,
@@ -1431,7 +1722,7 @@ INTERFACE zif_ghes221 PUBLIC.
            repositories_url TYPE string,
            slug TYPE string,
            ldap_dn TYPE string,
-         END OF team_simple.
+         END OF nullable_team_simple.
 
 * Component schema: team, object
   TYPES: BEGIN OF subteam_permissions,
@@ -1454,7 +1745,7 @@ INTERFACE zif_ghes221 PUBLIC.
            html_url TYPE string,
            members_url TYPE string,
            repositories_url TYPE string,
-           parent TYPE string,
+           parent TYPE nullable_team_simple,
          END OF team.
 
 * Component schema: team-full, object
@@ -1470,7 +1761,7 @@ INTERFACE zif_ghes221 PUBLIC.
            permission TYPE string,
            members_url TYPE string,
            repositories_url TYPE string,
-           parent TYPE string,
+           parent TYPE nullable_team_simple,
            members_count TYPE i,
            repos_count TYPE i,
            created_at TYPE string,
@@ -1481,7 +1772,7 @@ INTERFACE zif_ghes221 PUBLIC.
 
 * Component schema: team-discussion, object
   TYPES: BEGIN OF team_discussion,
-           author TYPE string,
+           author TYPE nullable_simple_user,
            body TYPE string,
            body_html TYPE string,
            body_version TYPE string,
@@ -1503,7 +1794,7 @@ INTERFACE zif_ghes221 PUBLIC.
 
 * Component schema: team-discussion-comment, object
   TYPES: BEGIN OF team_discussion_comment,
-           author TYPE string,
+           author TYPE nullable_simple_user,
            body TYPE string,
            body_html TYPE string,
            body_version TYPE string,
@@ -1522,7 +1813,7 @@ INTERFACE zif_ghes221 PUBLIC.
   TYPES: BEGIN OF reaction,
            id TYPE i,
            node_id TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            content TYPE string,
            created_at TYPE string,
          END OF reaction.
@@ -1560,9 +1851,6 @@ INTERFACE zif_ghes221 PUBLIC.
          END OF team_project.
 
 * Component schema: team-repository, object
-  TYPES: BEGIN OF subteam_repository_template_re,
-           anonymous_access_enabled TYPE abap_bool,
-         END OF subteam_repository_template_re.
   TYPES: BEGIN OF subteam_repository_permissions,
            admin TYPE abap_bool,
            pull TYPE abap_bool,
@@ -1575,10 +1863,10 @@ INTERFACE zif_ghes221 PUBLIC.
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           license TYPE string,
+           license TYPE nullable_license_simple,
            forks TYPE i,
            permissions TYPE subteam_repository_permissions,
-           owner TYPE string,
+           owner TYPE nullable_simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -1647,7 +1935,7 @@ INTERFACE zif_ghes221 PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            allow_rebase_merge TYPE abap_bool,
-           template_repository TYPE subteam_repository_template_re,
+           template_repository TYPE nullable_repository,
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
@@ -1665,7 +1953,7 @@ INTERFACE zif_ghes221 PUBLIC.
            id TYPE i,
            node_id TYPE string,
            note TYPE string,
-           creator TYPE string,
+           creator TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            archived TYPE abap_bool,
@@ -1691,7 +1979,7 @@ INTERFACE zif_ghes221 PUBLIC.
 * Component schema: repository-collaborator-permission, object
   TYPES: BEGIN OF repository_collaborator_permis,
            permission TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
          END OF repository_collaborator_permis.
 
 * Component schema: rate-limit, object
@@ -1725,9 +2013,6 @@ INTERFACE zif_ghes221 PUBLIC.
          END OF code_of_conduct_simple.
 
 * Component schema: full-repository, object
-  TYPES: BEGIN OF subfull_repository_template_re,
-           dummy_workaround TYPE i,
-         END OF subfull_repository_template_re.
   TYPES: BEGIN OF subfull_repository_permissions,
            admin TYPE abap_bool,
            maintain TYPE abap_bool,
@@ -1810,14 +2095,14 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            permissions TYPE subfull_repository_permissions,
            allow_rebase_merge TYPE abap_bool,
-           template_repository TYPE subfull_repository_template_re,
+           template_repository TYPE nullable_repository,
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
-           license TYPE string,
-           organization TYPE string,
+           license TYPE nullable_license_simple,
+           organization TYPE nullable_simple_user,
            parent TYPE repository,
            source TYPE repository,
            forks TYPE i,
@@ -1914,12 +2199,12 @@ INTERFACE zif_ghes221 PUBLIC.
            protection_url TYPE string,
          END OF short_branch.
 
-* Component schema: git-user, object
-  TYPES: BEGIN OF git_user,
+* Component schema: nullable-git-user, object
+  TYPES: BEGIN OF nullable_git_user,
            name TYPE string,
            email TYPE string,
            date TYPE string,
-         END OF git_user.
+         END OF nullable_git_user.
 
 * Component schema: verification, object
   TYPES: BEGIN OF verification,
@@ -1941,8 +2226,8 @@ INTERFACE zif_ghes221 PUBLIC.
          END OF subsubcommit_commit_tree.
   TYPES: BEGIN OF subcommit_commit,
            url TYPE string,
-           author TYPE string,
-           committer TYPE string,
+           author TYPE nullable_git_user,
+           committer TYPE nullable_git_user,
            message TYPE string,
            comment_count TYPE i,
            tree TYPE subsubcommit_commit_tree,
@@ -1955,8 +2240,8 @@ INTERFACE zif_ghes221 PUBLIC.
            html_url TYPE string,
            comments_url TYPE string,
            commit TYPE subcommit_commit,
-           author TYPE string,
-           committer TYPE string,
+           author TYPE nullable_simple_user,
+           committer TYPE nullable_simple_user,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            stats TYPE subcommit_stats,
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -2078,7 +2363,7 @@ INTERFACE zif_ghes221 PUBLIC.
            repository_url TYPE string,
            transient_environment TYPE abap_bool,
            production_environment TYPE abap_bool,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF deployment_simple.
 
 * Component schema: check-run, object
@@ -2107,7 +2392,7 @@ INTERFACE zif_ghes221 PUBLIC.
            output TYPE subcheck_run_output,
            name TYPE string,
            check_suite TYPE subcheck_run_check_suite,
-           app TYPE string,
+           app TYPE nullable_integration,
            pull_requests TYPE string,
            deployment TYPE deployment_simple,
          END OF check_run.
@@ -2156,7 +2441,7 @@ INTERFACE zif_ghes221 PUBLIC.
            before TYPE string,
            after TYPE string,
            pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           app TYPE string,
+           app TYPE nullable_integration,
            repository TYPE minimal_repository,
            created_at TYPE string,
            updated_at TYPE string,
@@ -2210,8 +2495,8 @@ INTERFACE zif_ghes221 PUBLIC.
   TYPES: BEGIN OF repository_invitation,
            id TYPE i,
            repository TYPE minimal_repository,
-           invitee TYPE string,
-           inviter TYPE string,
+           invitee TYPE nullable_simple_user,
+           inviter TYPE nullable_simple_user,
            permissions TYPE string,
            created_at TYPE string,
            expired TYPE abap_bool,
@@ -2231,7 +2516,7 @@ INTERFACE zif_ghes221 PUBLIC.
            position TYPE i,
            line TYPE i,
            commit_id TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            author_association TYPE author_association,
@@ -2280,14 +2565,14 @@ INTERFACE zif_ghes221 PUBLIC.
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
          END OF subpull_request_simple_base.
   TYPES: BEGIN OF subpull_request_simple_head,
            label TYPE string,
            ref TYPE string,
            repo TYPE repository,
            sha TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
          END OF subpull_request_simple_head.
   TYPES: BEGIN OF pull_request_simple,
            url TYPE string,
@@ -2306,17 +2591,17 @@ INTERFACE zif_ghes221 PUBLIC.
            state TYPE string,
            locked TYPE abap_bool,
            title TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            body TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE string,
+           milestone TYPE nullable_milestone,
            active_lock_reason TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            closed_at TYPE string,
            merged_at TYPE string,
            merge_commit_sha TYPE string,
-           assignee TYPE string,
+           assignee TYPE nullable_simple_user,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -2365,7 +2650,7 @@ INTERFACE zif_ghes221 PUBLIC.
            context TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
-           creator TYPE simple_user,
+           creator TYPE nullable_simple_user,
          END OF status.
 
 * Component schema: diff-entry, object
@@ -2586,14 +2871,14 @@ INTERFACE zif_ghes221 PUBLIC.
            original_environment TYPE string,
            environment TYPE string,
            description TYPE string,
-           creator TYPE string,
+           creator TYPE nullable_simple_user,
            created_at TYPE string,
            updated_at TYPE string,
            statuses_url TYPE string,
            repository_url TYPE string,
            transient_environment TYPE abap_bool,
            production_environment TYPE abap_bool,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF deployment.
 
 * Component schema: deployment-status, object
@@ -2602,7 +2887,7 @@ INTERFACE zif_ghes221 PUBLIC.
            id TYPE i,
            node_id TYPE string,
            state TYPE string,
-           creator TYPE string,
+           creator TYPE nullable_simple_user,
            description TYPE string,
            environment TYPE string,
            target_url TYPE string,
@@ -2612,7 +2897,7 @@ INTERFACE zif_ghes221 PUBLIC.
            repository_url TYPE string,
            environment_url TYPE string,
            log_url TYPE string,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF deployment_status.
 
 * Component schema: short-blob, object
@@ -2784,17 +3069,17 @@ INTERFACE zif_ghes221 PUBLIC.
            id TYPE i,
            node_id TYPE string,
            url TYPE string,
-           actor TYPE string,
+           actor TYPE nullable_simple_user,
            event TYPE string,
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
            issue TYPE issue_simple,
            label TYPE issue_event_label,
-           assignee TYPE string,
-           assigner TYPE string,
-           review_requester TYPE string,
-           requested_reviewer TYPE string,
+           assignee TYPE nullable_simple_user,
+           assigner TYPE nullable_simple_user,
+           review_requester TYPE nullable_simple_user,
+           requested_reviewer TYPE nullable_simple_user,
            requested_team TYPE team,
            dismissed_review TYPE issue_event_dismissed_review,
            milestone TYPE issue_event_milestone,
@@ -2802,7 +3087,7 @@ INTERFACE zif_ghes221 PUBLIC.
            rename TYPE issue_event_rename,
            author_association TYPE author_association,
            lock_reason TYPE string,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF issue_event.
 
 * Component schema: labeled-issue-event, object
@@ -2819,7 +3104,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            label TYPE sublabeled_issue_event_label,
          END OF labeled_issue_event.
 
@@ -2837,7 +3122,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            label TYPE subunlabeled_issue_event_label,
          END OF unlabeled_issue_event.
 
@@ -2866,7 +3151,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            assignee TYPE simple_user,
            assigner TYPE simple_user,
          END OF unassigned_issue_event.
@@ -2884,7 +3169,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            milestone TYPE submilestoned_issue_event_mile,
          END OF milestoned_issue_event.
 
@@ -2901,7 +3186,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            milestone TYPE subdemilestoned_issue_event_mi,
          END OF demilestoned_issue_event.
 
@@ -2919,7 +3204,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            rename TYPE subrenamed_issue_event_rename,
          END OF renamed_issue_event.
 
@@ -2933,7 +3218,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            review_requester TYPE simple_user,
            requested_team TYPE team,
            requested_reviewer TYPE simple_user,
@@ -2949,7 +3234,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            review_requester TYPE simple_user,
            requested_team TYPE team,
            requested_reviewer TYPE simple_user,
@@ -2971,7 +3256,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            dismissed_review TYPE subreview_dismissed_issue_even,
          END OF review_dismissed_issue_event.
 
@@ -2985,7 +3270,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            lock_reason TYPE string,
          END OF locked_issue_event.
 
@@ -3007,7 +3292,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            project_card TYPE subadded_to_project_issue_even,
          END OF added_to_project_issue_event.
 
@@ -3029,7 +3314,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            project_card TYPE submoved_column_in_project_iss,
          END OF moved_column_in_project_issue_.
 
@@ -3051,7 +3336,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            project_card TYPE subremoved_from_project_issue_,
          END OF removed_from_project_issue_eve.
 
@@ -3096,7 +3381,7 @@ INTERFACE zif_ghes221 PUBLIC.
            updated_at TYPE string,
            issue_url TYPE string,
            author_association TYPE author_association,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            reactions TYPE reaction_rollup,
          END OF timeline_comment_event.
 
@@ -3247,7 +3532,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            assignee TYPE simple_user,
          END OF timeline_assigned_issue_event.
 
@@ -3261,7 +3546,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           performed_via_github_app TYPE integration,
+           performed_via_github_app TYPE nullable_integration,
            assignee TYPE simple_user,
          END OF timeline_unassigned_issue_even.
 
@@ -3305,8 +3590,28 @@ INTERFACE zif_ghes221 PUBLIC.
            content TYPE string,
            encoding TYPE string,
            _links TYPE sublicense_content__links,
-           license TYPE string,
+           license TYPE nullable_license_simple,
          END OF license_content.
+
+* Component schema: milestone, object
+  TYPES: BEGIN OF milestone,
+           url TYPE string,
+           html_url TYPE string,
+           labels_url TYPE string,
+           id TYPE i,
+           node_id TYPE string,
+           number TYPE i,
+           state TYPE string,
+           title TYPE string,
+           description TYPE string,
+           creator TYPE nullable_simple_user,
+           open_issues TYPE i,
+           closed_issues TYPE i,
+           created_at TYPE string,
+           updated_at TYPE string,
+           closed_at TYPE string,
+           due_on TYPE string,
+         END OF milestone.
 
 * Component schema: pages-source-hash, object
   TYPES: BEGIN OF pages_source_hash,
@@ -3343,7 +3648,7 @@ INTERFACE zif_ghes221 PUBLIC.
            url TYPE string,
            status TYPE string,
            error TYPE subpage_build_error,
-           pusher TYPE string,
+           pusher TYPE nullable_simple_user,
            commit TYPE string,
            duration TYPE i,
            created_at TYPE string,
@@ -3363,6 +3668,22 @@ INTERFACE zif_ghes221 PUBLIC.
            enforcement TYPE string,
            configuration_url TYPE string,
          END OF repository_pre_receive_hook.
+
+* Component schema: team-simple, object
+  TYPES: BEGIN OF team_simple,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           members_url TYPE string,
+           name TYPE string,
+           description TYPE string,
+           permission TYPE string,
+           privacy TYPE string,
+           html_url TYPE string,
+           repositories_url TYPE string,
+           slug TYPE string,
+           ldap_dn TYPE string,
+         END OF team_simple.
 
 * Component schema: pull-request, object
   TYPES: BEGIN OF subpull_request__links,
@@ -3491,7 +3812,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_merge_commit TYPE abap_bool,
            allow_squash_merge TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
-           license TYPE string,
+           license TYPE nullable_license_simple,
            pushed_at TYPE string,
            size TYPE i,
            ssh_url TYPE string,
@@ -3671,17 +3992,17 @@ INTERFACE zif_ghes221 PUBLIC.
            state TYPE string,
            locked TYPE abap_bool,
            title TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            body TYPE string,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE string,
+           milestone TYPE nullable_milestone,
            active_lock_reason TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
            closed_at TYPE string,
            merged_at TYPE string,
            merge_commit_sha TYPE string,
-           assignee TYPE string,
+           assignee TYPE nullable_simple_user,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            requested_teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -3694,7 +4015,7 @@ INTERFACE zif_ghes221 PUBLIC.
            mergeable TYPE abap_bool,
            rebaseable TYPE abap_bool,
            mergeable_state TYPE string,
-           merged_by TYPE string,
+           merged_by TYPE nullable_simple_user,
            comments TYPE i,
            review_comments TYPE i,
            maintainer_can_modify TYPE abap_bool,
@@ -3731,7 +4052,7 @@ INTERFACE zif_ghes221 PUBLIC.
   TYPES: BEGIN OF pull_request_review,
            id TYPE i,
            node_id TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            body TYPE string,
            state TYPE string,
            html_url TYPE string,
@@ -3762,7 +4083,7 @@ INTERFACE zif_ghes221 PUBLIC.
            commit_id TYPE string,
            original_commit_id TYPE string,
            in_reply_to_id TYPE i,
-           user TYPE string,
+           user TYPE nullable_simple_user,
            body TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
@@ -3795,7 +4116,7 @@ INTERFACE zif_ghes221 PUBLIC.
            download_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
-           uploader TYPE string,
+           uploader TYPE nullable_simple_user,
          END OF release_asset.
 
 * Component schema: release, object
@@ -3826,7 +4147,7 @@ INTERFACE zif_ghes221 PUBLIC.
 * Component schema: stargazer, object
   TYPES: BEGIN OF stargazer,
            starred_at TYPE string,
-           user TYPE string,
+           user TYPE nullable_simple_user,
          END OF stargazer.
 
 * Component schema: code-frequency-stat, array
@@ -3841,7 +4162,7 @@ INTERFACE zif_ghes221 PUBLIC.
 
 * Component schema: contributor-activity, object
   TYPES: BEGIN OF contributor_activity,
-           author TYPE string,
+           author TYPE nullable_simple_user,
            total TYPE i,
            weeks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF contributor_activity.
@@ -3912,7 +4233,7 @@ INTERFACE zif_ghes221 PUBLIC.
          END OF subsubcommit_search_result_ite.
   TYPES: BEGIN OF subcommit_search_result_item_c,
            author TYPE subsubcommit_search_result_ite,
-           committer TYPE string,
+           committer TYPE nullable_git_user,
            comment_count TYPE i,
            message TYPE string,
            tree TYPE subsubcommit_search_result_i01,
@@ -3925,8 +4246,8 @@ INTERFACE zif_ghes221 PUBLIC.
            html_url TYPE string,
            comments_url TYPE string,
            commit TYPE subcommit_search_result_item_c,
-           author TYPE string,
-           committer TYPE string,
+           author TYPE nullable_simple_user,
+           committer TYPE nullable_git_user,
            parents TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            repository TYPE minimal_repository,
            score TYPE f,
@@ -3956,11 +4277,11 @@ INTERFACE zif_ghes221 PUBLIC.
            locked TYPE abap_bool,
            active_lock_reason TYPE string,
            assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           user TYPE string,
+           user TYPE nullable_simple_user,
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            state TYPE string,
-           assignee TYPE string,
-           milestone TYPE string,
+           assignee TYPE nullable_simple_user,
+           milestone TYPE nullable_milestone,
            comments TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
@@ -3975,7 +4296,7 @@ INTERFACE zif_ghes221 PUBLIC.
            body_html TYPE string,
            body_text TYPE string,
            timeline_url TYPE string,
-           performed_via_github_app TYPE string,
+           performed_via_github_app TYPE nullable_integration,
          END OF issue_search_result_item.
 
 * Component schema: label-search-result-item, object
@@ -4004,7 +4325,7 @@ INTERFACE zif_ghes221 PUBLIC.
            node_id TYPE string,
            name TYPE string,
            full_name TYPE string,
-           owner TYPE string,
+           owner TYPE nullable_simple_user,
            private TYPE abap_bool,
            html_url TYPE string,
            description TYPE string,
@@ -4075,7 +4396,7 @@ INTERFACE zif_ghes221 PUBLIC.
            has_downloads TYPE abap_bool,
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
-           license TYPE string,
+           license TYPE nullable_license_simple,
            permissions TYPE subrepo_search_result_item_per,
            text_matches TYPE search_result_text_matches,
            temp_clone_token TYPE string,

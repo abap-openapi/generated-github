@@ -44,17 +44,21 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(pre_receive_hook) TYPE zif_ghes30=>pre_receive_hook
       RAISING cx_static_check.
-    METHODS parse_simple_user
+    METHODS parse_nullable_simple_user
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(simple_user) TYPE zif_ghes30=>simple_user
+      RETURNING VALUE(nullable_simple_user) TYPE zif_ghes30=>nullable_simple_user
       RAISING cx_static_check.
     METHODS parse_app_permissions
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(app_permissions) TYPE zif_ghes30=>app_permissions
       RAISING cx_static_check.
-    METHODS parse_scoped_installation
+    METHODS parse_simple_user
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(scoped_installation) TYPE zif_ghes30=>scoped_installation
+      RETURNING VALUE(simple_user) TYPE zif_ghes30=>simple_user
+      RAISING cx_static_check.
+    METHODS parse_nullable_scoped_installa
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(nullable_scoped_installation) TYPE zif_ghes30=>nullable_scoped_installation
       RAISING cx_static_check.
     METHODS parse_authorization
       IMPORTING iv_prefix TYPE string
@@ -100,9 +104,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(installation) TYPE zif_ghes30=>installation
       RAISING cx_static_check.
-    METHODS parse_license_simple
+    METHODS parse_nullable_license_simple
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(license_simple) TYPE zif_ghes30=>license_simple
+      RETURNING VALUE(nullable_license_simple) TYPE zif_ghes30=>nullable_license_simple
       RAISING cx_static_check.
     METHODS parse_repository
       IMPORTING iv_prefix TYPE string
@@ -119,6 +123,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_application_grant
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(application_grant) TYPE zif_ghes30=>application_grant
+      RAISING cx_static_check.
+    METHODS parse_nullable_authorization
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(nullable_authorization) TYPE zif_ghes30=>nullable_authorization
       RAISING cx_static_check.
     METHODS parse_code_of_conduct
       IMPORTING iv_prefix TYPE string
@@ -228,13 +236,17 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(label) TYPE zif_ghes30=>label
       RAISING cx_static_check.
-    METHODS parse_milestone
+    METHODS parse_nullable_milestone
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(milestone) TYPE zif_ghes30=>milestone
+      RETURNING VALUE(nullable_milestone) TYPE zif_ghes30=>nullable_milestone
       RAISING cx_static_check.
     METHODS parse_author_association
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(author_association) TYPE zif_ghes30=>author_association
+      RAISING cx_static_check.
+    METHODS parse_nullable_integration
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(nullable_integration) TYPE zif_ghes30=>nullable_integration
       RAISING cx_static_check.
     METHODS parse_issue_simple
       IMPORTING iv_prefix TYPE string
@@ -292,6 +304,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(issue) TYPE zif_ghes30=>issue
       RAISING cx_static_check.
+    METHODS parse_license_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(license_simple) TYPE zif_ghes30=>license_simple
+      RAISING cx_static_check.
     METHODS parse_license
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(license) TYPE zif_ghes30=>license
@@ -299,6 +315,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_api_overview
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(api_overview) TYPE zif_ghes30=>api_overview
+      RAISING cx_static_check.
+    METHODS parse_nullable_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(nullable_repository) TYPE zif_ghes30=>nullable_repository
       RAISING cx_static_check.
     METHODS parse_minimal_repository
       IMPORTING iv_prefix TYPE string
@@ -356,9 +376,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(project) TYPE zif_ghes30=>project
       RAISING cx_static_check.
-    METHODS parse_team_simple
+    METHODS parse_nullable_team_simple
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(team_simple) TYPE zif_ghes30=>team_simple
+      RETURNING VALUE(nullable_team_simple) TYPE zif_ghes30=>nullable_team_simple
       RAISING cx_static_check.
     METHODS parse_team
       IMPORTING iv_prefix TYPE string
@@ -440,9 +460,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(pull_request_minimal) TYPE zif_ghes30=>pull_request_minimal
       RAISING cx_static_check.
-    METHODS parse_simple_commit
+    METHODS parse_nullable_simple_commit
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(simple_commit) TYPE zif_ghes30=>simple_commit
+      RETURNING VALUE(nullable_simple_commit) TYPE zif_ghes30=>nullable_simple_commit
       RAISING cx_static_check.
     METHODS parse_workflow_run
       IMPORTING iv_prefix TYPE string
@@ -476,9 +496,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(short_branch) TYPE zif_ghes30=>short_branch
       RAISING cx_static_check.
-    METHODS parse_git_user
+    METHODS parse_nullable_git_user
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(git_user) TYPE zif_ghes30=>git_user
+      RETURNING VALUE(nullable_git_user) TYPE zif_ghes30=>nullable_git_user
       RAISING cx_static_check.
     METHODS parse_verification
       IMPORTING iv_prefix TYPE string
@@ -511,6 +531,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_check_annotation
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_annotation) TYPE zif_ghes30=>check_annotation
+      RAISING cx_static_check.
+    METHODS parse_simple_commit
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(simple_commit) TYPE zif_ghes30=>simple_commit
       RAISING cx_static_check.
     METHODS parse_check_suite
       IMPORTING iv_prefix TYPE string
@@ -908,6 +932,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(license_content) TYPE zif_ghes30=>license_content
       RAISING cx_static_check.
+    METHODS parse_milestone
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(milestone) TYPE zif_ghes30=>milestone
+      RAISING cx_static_check.
     METHODS parse_pages_source_hash
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(pages_source_hash) TYPE zif_ghes30=>pages_source_hash
@@ -931,6 +959,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_repository_pre_receive_h
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(repository_pre_receive_hook) TYPE zif_ghes30=>repository_pre_receive_hook
+      RAISING cx_static_check.
+    METHODS parse_team_simple
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(team_simple) TYPE zif_ghes30=>team_simple
       RAISING cx_static_check.
     METHODS parse_pull_request
       IMPORTING iv_prefix TYPE string
@@ -2910,28 +2942,28 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pre_receive_hook-allow_downstream_configuration = mo_json->value_boolean( iv_prefix && '/allow_downstream_configuration' ).
   ENDMETHOD.
 
-  METHOD parse_simple_user.
-    simple_user-name = mo_json->value_string( iv_prefix && '/name' ).
-    simple_user-email = mo_json->value_string( iv_prefix && '/email' ).
-    simple_user-login = mo_json->value_string( iv_prefix && '/login' ).
-    simple_user-id = mo_json->value_string( iv_prefix && '/id' ).
-    simple_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    simple_user-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
-    simple_user-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
-    simple_user-url = mo_json->value_string( iv_prefix && '/url' ).
-    simple_user-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    simple_user-followers_url = mo_json->value_string( iv_prefix && '/followers_url' ).
-    simple_user-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
-    simple_user-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
-    simple_user-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
-    simple_user-subscriptions_url = mo_json->value_string( iv_prefix && '/subscriptions_url' ).
-    simple_user-organizations_url = mo_json->value_string( iv_prefix && '/organizations_url' ).
-    simple_user-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
-    simple_user-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
-    simple_user-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
-    simple_user-type = mo_json->value_string( iv_prefix && '/type' ).
-    simple_user-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
-    simple_user-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
+  METHOD parse_nullable_simple_user.
+    nullable_simple_user-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_simple_user-email = mo_json->value_string( iv_prefix && '/email' ).
+    nullable_simple_user-login = mo_json->value_string( iv_prefix && '/login' ).
+    nullable_simple_user-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_simple_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_simple_user-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
+    nullable_simple_user-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
+    nullable_simple_user-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_simple_user-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_simple_user-followers_url = mo_json->value_string( iv_prefix && '/followers_url' ).
+    nullable_simple_user-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
+    nullable_simple_user-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
+    nullable_simple_user-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
+    nullable_simple_user-subscriptions_url = mo_json->value_string( iv_prefix && '/subscriptions_url' ).
+    nullable_simple_user-organizations_url = mo_json->value_string( iv_prefix && '/organizations_url' ).
+    nullable_simple_user-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
+    nullable_simple_user-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    nullable_simple_user-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
+    nullable_simple_user-type = mo_json->value_string( iv_prefix && '/type' ).
+    nullable_simple_user-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
+    nullable_simple_user-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
   ENDMETHOD.
 
   METHOD parse_app_permissions.
@@ -2968,14 +3000,38 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     app_permissions-team_discussions = mo_json->value_string( iv_prefix && '/team_discussions' ).
   ENDMETHOD.
 
-  METHOD parse_scoped_installation.
-    scoped_installation-permissions = parse_app_permissions( iv_prefix ).
-    scoped_installation-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
-    scoped_installation-single_file_name = mo_json->value_string( iv_prefix && '/single_file_name' ).
-    scoped_installation-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
+  METHOD parse_simple_user.
+    simple_user-name = mo_json->value_string( iv_prefix && '/name' ).
+    simple_user-email = mo_json->value_string( iv_prefix && '/email' ).
+    simple_user-login = mo_json->value_string( iv_prefix && '/login' ).
+    simple_user-id = mo_json->value_string( iv_prefix && '/id' ).
+    simple_user-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    simple_user-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
+    simple_user-gravatar_id = mo_json->value_string( iv_prefix && '/gravatar_id' ).
+    simple_user-url = mo_json->value_string( iv_prefix && '/url' ).
+    simple_user-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    simple_user-followers_url = mo_json->value_string( iv_prefix && '/followers_url' ).
+    simple_user-following_url = mo_json->value_string( iv_prefix && '/following_url' ).
+    simple_user-gists_url = mo_json->value_string( iv_prefix && '/gists_url' ).
+    simple_user-starred_url = mo_json->value_string( iv_prefix && '/starred_url' ).
+    simple_user-subscriptions_url = mo_json->value_string( iv_prefix && '/subscriptions_url' ).
+    simple_user-organizations_url = mo_json->value_string( iv_prefix && '/organizations_url' ).
+    simple_user-repos_url = mo_json->value_string( iv_prefix && '/repos_url' ).
+    simple_user-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    simple_user-received_events_url = mo_json->value_string( iv_prefix && '/received_events_url' ).
+    simple_user-type = mo_json->value_string( iv_prefix && '/type' ).
+    simple_user-site_admin = mo_json->value_boolean( iv_prefix && '/site_admin' ).
+    simple_user-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
+  ENDMETHOD.
+
+  METHOD parse_nullable_scoped_installa.
+    nullable_scoped_installation-permissions = parse_app_permissions( iv_prefix ).
+    nullable_scoped_installation-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
+    nullable_scoped_installation-single_file_name = mo_json->value_string( iv_prefix && '/single_file_name' ).
+    nullable_scoped_installation-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
 * todo, array, single_file_paths
-    scoped_installation-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-    scoped_installation-account = parse_simple_user( iv_prefix ).
+    nullable_scoped_installation-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
+    nullable_scoped_installation-account = parse_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_authorization.
@@ -2993,15 +3049,15 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     authorization-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     authorization-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     authorization-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
-    authorization-user = mo_json->value_string( iv_prefix && '/user' ).
-    authorization-installation = mo_json->value_string( iv_prefix && '/installation' ).
+    authorization-user = parse_nullable_simple_user( iv_prefix ).
+    authorization-installation = parse_nullable_scoped_installa( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_integration.
     integration-id = mo_json->value_string( iv_prefix && '/id' ).
     integration-slug = mo_json->value_string( iv_prefix && '/slug' ).
     integration-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    integration-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    integration-owner = parse_nullable_simple_user( iv_prefix ).
     integration-name = mo_json->value_string( iv_prefix && '/name' ).
     integration-description = mo_json->value_string( iv_prefix && '/description' ).
     integration-external_url = mo_json->value_string( iv_prefix && '/external_url' ).
@@ -3088,18 +3144,18 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     installation-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
 * todo, array, single_file_paths
     installation-app_slug = mo_json->value_string( iv_prefix && '/app_slug' ).
-    installation-suspended_by = mo_json->value_string( iv_prefix && '/suspended_by' ).
+    installation-suspended_by = parse_nullable_simple_user( iv_prefix ).
     installation-suspended_at = mo_json->value_string( iv_prefix && '/suspended_at' ).
     installation-contact_email = mo_json->value_string( iv_prefix && '/contact_email' ).
   ENDMETHOD.
 
-  METHOD parse_license_simple.
-    license_simple-key = mo_json->value_string( iv_prefix && '/key' ).
-    license_simple-name = mo_json->value_string( iv_prefix && '/name' ).
-    license_simple-url = mo_json->value_string( iv_prefix && '/url' ).
-    license_simple-spdx_id = mo_json->value_string( iv_prefix && '/spdx_id' ).
-    license_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    license_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+  METHOD parse_nullable_license_simple.
+    nullable_license_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+    nullable_license_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_license_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_license_simple-spdx_id = mo_json->value_string( iv_prefix && '/spdx_id' ).
+    nullable_license_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_license_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
   ENDMETHOD.
 
   METHOD parse_repository.
@@ -3107,8 +3163,8 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     repository-name = mo_json->value_string( iv_prefix && '/name' ).
     repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    repository-license = mo_json->value_string( iv_prefix && '/license' ).
-    repository-organization = mo_json->value_string( iv_prefix && '/organization' ).
+    repository-license = parse_nullable_license_simple( iv_prefix ).
+    repository-organization = parse_nullable_simple_user( iv_prefix ).
     repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
@@ -3323,7 +3379,26 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     application_grant-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     application_grant-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
 * todo, array, scopes
-    application_grant-user = mo_json->value_string( iv_prefix && '/user' ).
+    application_grant-user = parse_nullable_simple_user( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_nullable_authorization.
+    nullable_authorization-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_authorization-url = mo_json->value_string( iv_prefix && '/url' ).
+* todo, array, scopes
+    nullable_authorization-token = mo_json->value_string( iv_prefix && '/token' ).
+    nullable_authorization-token_last_eight = mo_json->value_string( iv_prefix && '/token_last_eight' ).
+    nullable_authorization-hashed_token = mo_json->value_string( iv_prefix && '/hashed_token' ).
+    nullable_authorization-app-client_id = mo_json->value_string( iv_prefix && '/app/client_id' ).
+    nullable_authorization-app-name = mo_json->value_string( iv_prefix && '/app/name' ).
+    nullable_authorization-app-url = mo_json->value_string( iv_prefix && '/app/url' ).
+    nullable_authorization-note = mo_json->value_string( iv_prefix && '/note' ).
+    nullable_authorization-note_url = mo_json->value_string( iv_prefix && '/note_url' ).
+    nullable_authorization-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_authorization-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    nullable_authorization-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
+    nullable_authorization-user = parse_nullable_simple_user( iv_prefix ).
+    nullable_authorization-installation = parse_nullable_scoped_installa( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_of_conduct.
@@ -3512,27 +3587,51 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     label-default = mo_json->value_boolean( iv_prefix && '/default' ).
   ENDMETHOD.
 
-  METHOD parse_milestone.
-    milestone-url = mo_json->value_string( iv_prefix && '/url' ).
-    milestone-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    milestone-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
-    milestone-id = mo_json->value_string( iv_prefix && '/id' ).
-    milestone-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    milestone-number = mo_json->value_string( iv_prefix && '/number' ).
-    milestone-state = mo_json->value_string( iv_prefix && '/state' ).
-    milestone-title = mo_json->value_string( iv_prefix && '/title' ).
-    milestone-description = mo_json->value_string( iv_prefix && '/description' ).
-    milestone-creator = mo_json->value_string( iv_prefix && '/creator' ).
-    milestone-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
-    milestone-closed_issues = mo_json->value_string( iv_prefix && '/closed_issues' ).
-    milestone-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    milestone-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    milestone-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
-    milestone-due_on = mo_json->value_string( iv_prefix && '/due_on' ).
+  METHOD parse_nullable_milestone.
+    nullable_milestone-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_milestone-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_milestone-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
+    nullable_milestone-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_milestone-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_milestone-number = mo_json->value_string( iv_prefix && '/number' ).
+    nullable_milestone-state = mo_json->value_string( iv_prefix && '/state' ).
+    nullable_milestone-title = mo_json->value_string( iv_prefix && '/title' ).
+    nullable_milestone-description = mo_json->value_string( iv_prefix && '/description' ).
+    nullable_milestone-creator = parse_nullable_simple_user( iv_prefix ).
+    nullable_milestone-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    nullable_milestone-closed_issues = mo_json->value_string( iv_prefix && '/closed_issues' ).
+    nullable_milestone-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    nullable_milestone-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_milestone-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
+    nullable_milestone-due_on = mo_json->value_string( iv_prefix && '/due_on' ).
   ENDMETHOD.
 
   METHOD parse_author_association.
 * todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_nullable_integration.
+    nullable_integration-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_integration-slug = mo_json->value_string( iv_prefix && '/slug' ).
+    nullable_integration-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_integration-owner = parse_nullable_simple_user( iv_prefix ).
+    nullable_integration-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_integration-description = mo_json->value_string( iv_prefix && '/description' ).
+    nullable_integration-external_url = mo_json->value_string( iv_prefix && '/external_url' ).
+    nullable_integration-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_integration-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    nullable_integration-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_integration-permissions-issues = mo_json->value_string( iv_prefix && '/permissions/issues' ).
+    nullable_integration-permissions-checks = mo_json->value_string( iv_prefix && '/permissions/checks' ).
+    nullable_integration-permissions-metadata = mo_json->value_string( iv_prefix && '/permissions/metadata' ).
+    nullable_integration-permissions-contents = mo_json->value_string( iv_prefix && '/permissions/contents' ).
+    nullable_integration-permissions-deployments = mo_json->value_string( iv_prefix && '/permissions/deployments' ).
+* todo, array, events
+    nullable_integration-installations_count = mo_json->value_string( iv_prefix && '/installations_count' ).
+    nullable_integration-client_id = mo_json->value_string( iv_prefix && '/client_id' ).
+    nullable_integration-client_secret = mo_json->value_string( iv_prefix && '/client_secret' ).
+    nullable_integration-webhook_secret = mo_json->value_string( iv_prefix && '/webhook_secret' ).
+    nullable_integration-pem = mo_json->value_string( iv_prefix && '/pem' ).
   ENDMETHOD.
 
   METHOD parse_issue_simple.
@@ -3548,11 +3647,11 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_simple-state = mo_json->value_string( iv_prefix && '/state' ).
     issue_simple-title = mo_json->value_string( iv_prefix && '/title' ).
     issue_simple-body = mo_json->value_string( iv_prefix && '/body' ).
-    issue_simple-user = mo_json->value_string( iv_prefix && '/user' ).
+    issue_simple-user = parse_nullable_simple_user( iv_prefix ).
 * todo, array, labels
-    issue_simple-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
+    issue_simple-assignee = parse_nullable_simple_user( iv_prefix ).
 * todo, array, assignees
-    issue_simple-milestone = mo_json->value_string( iv_prefix && '/milestone' ).
+    issue_simple-milestone = parse_nullable_milestone( iv_prefix ).
     issue_simple-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue_simple-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     issue_simple-comments = mo_json->value_string( iv_prefix && '/comments' ).
@@ -3569,7 +3668,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_simple-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_simple-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
     issue_simple-repository = parse_repository( iv_prefix ).
-    issue_simple-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    issue_simple-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_reaction_rollup.
@@ -3593,12 +3692,12 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_comment-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue_comment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    issue_comment-user = mo_json->value_string( iv_prefix && '/user' ).
+    issue_comment-user = parse_nullable_simple_user( iv_prefix ).
     issue_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     issue_comment-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
     issue_comment-author_association = parse_author_association( iv_prefix ).
-    issue_comment-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    issue_comment-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     issue_comment-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
@@ -3655,9 +3754,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     base_gist-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     base_gist-description = mo_json->value_string( iv_prefix && '/description' ).
     base_gist-comments = mo_json->value_string( iv_prefix && '/comments' ).
-    base_gist-user = mo_json->value_string( iv_prefix && '/user' ).
+    base_gist-user = parse_nullable_simple_user( iv_prefix ).
     base_gist-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-    base_gist-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    base_gist-owner = parse_simple_user( iv_prefix ).
     base_gist-truncated = mo_json->value_boolean( iv_prefix && '/truncated' ).
 * todo, array, forks
 * todo, array, history
@@ -3708,7 +3807,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_gist_history.
-    gist_history-user = parse_simple_user( iv_prefix ).
+    gist_history-user = parse_nullable_simple_user( iv_prefix ).
     gist_history-version = mo_json->value_string( iv_prefix && '/version' ).
     gist_history-committed_at = mo_json->value_string( iv_prefix && '/committed_at' ).
     gist_history-change_status-total = mo_json->value_string( iv_prefix && '/change_status/total' ).
@@ -3733,9 +3832,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     gist_simple-fork_of-updated_at = mo_json->value_string( iv_prefix && '/fork_of/updated_at' ).
     gist_simple-fork_of-description = mo_json->value_string( iv_prefix && '/fork_of/description' ).
     gist_simple-fork_of-comments = mo_json->value_string( iv_prefix && '/fork_of/comments' ).
-    gist_simple-fork_of-user = mo_json->value_string( iv_prefix && '/fork_of/user' ).
+    gist_simple-fork_of-user = parse_nullable_simple_user( iv_prefix ).
     gist_simple-fork_of-comments_url = mo_json->value_string( iv_prefix && '/fork_of/comments_url' ).
-    gist_simple-fork_of-owner = mo_json->value_string( iv_prefix && '/fork_of/owner' ).
+    gist_simple-fork_of-owner = parse_nullable_simple_user( iv_prefix ).
     gist_simple-fork_of-truncated = mo_json->value_boolean( iv_prefix && '/fork_of/truncated' ).
 * todo, array, forks
 * todo, array, history
@@ -3763,7 +3862,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     gist_comment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     gist_comment-url = mo_json->value_string( iv_prefix && '/url' ).
     gist_comment-body = mo_json->value_string( iv_prefix && '/body' ).
-    gist_comment-user = mo_json->value_string( iv_prefix && '/user' ).
+    gist_comment-user = parse_nullable_simple_user( iv_prefix ).
     gist_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     gist_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     gist_comment-author_association = parse_author_association( iv_prefix ).
@@ -3772,7 +3871,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   METHOD parse_gist_commit.
     gist_commit-url = mo_json->value_string( iv_prefix && '/url' ).
     gist_commit-version = mo_json->value_string( iv_prefix && '/version' ).
-    gist_commit-user = mo_json->value_string( iv_prefix && '/user' ).
+    gist_commit-user = parse_nullable_simple_user( iv_prefix ).
     gist_commit-change_status-total = mo_json->value_string( iv_prefix && '/change_status/total' ).
     gist_commit-change_status-additions = mo_json->value_string( iv_prefix && '/change_status/additions' ).
     gist_commit-change_status-deletions = mo_json->value_string( iv_prefix && '/change_status/deletions' ).
@@ -3797,11 +3896,11 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue-state = mo_json->value_string( iv_prefix && '/state' ).
     issue-title = mo_json->value_string( iv_prefix && '/title' ).
     issue-body = mo_json->value_string( iv_prefix && '/body' ).
-    issue-user = mo_json->value_string( iv_prefix && '/user' ).
+    issue-user = parse_nullable_simple_user( iv_prefix ).
 * todo, array, labels
-    issue-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
+    issue-assignee = parse_nullable_simple_user( iv_prefix ).
 * todo, array, assignees
-    issue-milestone = mo_json->value_string( iv_prefix && '/milestone' ).
+    issue-milestone = parse_nullable_milestone( iv_prefix ).
     issue-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     issue-comments = mo_json->value_string( iv_prefix && '/comments' ).
@@ -3813,14 +3912,23 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     issue-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    issue-closed_by = mo_json->value_string( iv_prefix && '/closed_by' ).
+    issue-closed_by = parse_nullable_simple_user( iv_prefix ).
     issue-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
     issue-repository = parse_repository( iv_prefix ).
-    issue-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    issue-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     issue-author_association = parse_author_association( iv_prefix ).
     issue-reactions = parse_reaction_rollup( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_license_simple.
+    license_simple-key = mo_json->value_string( iv_prefix && '/key' ).
+    license_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    license_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    license_simple-spdx_id = mo_json->value_string( iv_prefix && '/spdx_id' ).
+    license_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    license_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
   ENDMETHOD.
 
   METHOD parse_license.
@@ -3844,6 +3952,201 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 * todo, array, packages
 * todo, array, dependabot
     api_overview-installed_version = mo_json->value_string( iv_prefix && '/installed_version' ).
+  ENDMETHOD.
+
+  METHOD parse_nullable_repository.
+    nullable_repository-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_repository-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
+    nullable_repository-license = parse_nullable_license_simple( iv_prefix ).
+    nullable_repository-organization = parse_nullable_simple_user( iv_prefix ).
+    nullable_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
+    nullable_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
+    nullable_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    nullable_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    nullable_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    nullable_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    nullable_repository-owner = parse_simple_user( iv_prefix ).
+    nullable_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
+    nullable_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_repository-description = mo_json->value_string( iv_prefix && '/description' ).
+    nullable_repository-fork = mo_json->value_boolean( iv_prefix && '/fork' ).
+    nullable_repository-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_repository-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
+    nullable_repository-assignees_url = mo_json->value_string( iv_prefix && '/assignees_url' ).
+    nullable_repository-blobs_url = mo_json->value_string( iv_prefix && '/blobs_url' ).
+    nullable_repository-branches_url = mo_json->value_string( iv_prefix && '/branches_url' ).
+    nullable_repository-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
+    nullable_repository-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
+    nullable_repository-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
+    nullable_repository-compare_url = mo_json->value_string( iv_prefix && '/compare_url' ).
+    nullable_repository-contents_url = mo_json->value_string( iv_prefix && '/contents_url' ).
+    nullable_repository-contributors_url = mo_json->value_string( iv_prefix && '/contributors_url' ).
+    nullable_repository-deployments_url = mo_json->value_string( iv_prefix && '/deployments_url' ).
+    nullable_repository-downloads_url = mo_json->value_string( iv_prefix && '/downloads_url' ).
+    nullable_repository-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    nullable_repository-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
+    nullable_repository-git_commits_url = mo_json->value_string( iv_prefix && '/git_commits_url' ).
+    nullable_repository-git_refs_url = mo_json->value_string( iv_prefix && '/git_refs_url' ).
+    nullable_repository-git_tags_url = mo_json->value_string( iv_prefix && '/git_tags_url' ).
+    nullable_repository-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
+    nullable_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/issue_comment_url' ).
+    nullable_repository-issue_events_url = mo_json->value_string( iv_prefix && '/issue_events_url' ).
+    nullable_repository-issues_url = mo_json->value_string( iv_prefix && '/issues_url' ).
+    nullable_repository-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
+    nullable_repository-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
+    nullable_repository-languages_url = mo_json->value_string( iv_prefix && '/languages_url' ).
+    nullable_repository-merges_url = mo_json->value_string( iv_prefix && '/merges_url' ).
+    nullable_repository-milestones_url = mo_json->value_string( iv_prefix && '/milestones_url' ).
+    nullable_repository-notifications_url = mo_json->value_string( iv_prefix && '/notifications_url' ).
+    nullable_repository-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
+    nullable_repository-releases_url = mo_json->value_string( iv_prefix && '/releases_url' ).
+    nullable_repository-ssh_url = mo_json->value_string( iv_prefix && '/ssh_url' ).
+    nullable_repository-stargazers_url = mo_json->value_string( iv_prefix && '/stargazers_url' ).
+    nullable_repository-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
+    nullable_repository-subscribers_url = mo_json->value_string( iv_prefix && '/subscribers_url' ).
+    nullable_repository-subscription_url = mo_json->value_string( iv_prefix && '/subscription_url' ).
+    nullable_repository-tags_url = mo_json->value_string( iv_prefix && '/tags_url' ).
+    nullable_repository-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
+    nullable_repository-trees_url = mo_json->value_string( iv_prefix && '/trees_url' ).
+    nullable_repository-clone_url = mo_json->value_string( iv_prefix && '/clone_url' ).
+    nullable_repository-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
+    nullable_repository-hooks_url = mo_json->value_string( iv_prefix && '/hooks_url' ).
+    nullable_repository-svn_url = mo_json->value_string( iv_prefix && '/svn_url' ).
+    nullable_repository-homepage = mo_json->value_string( iv_prefix && '/homepage' ).
+    nullable_repository-language = mo_json->value_string( iv_prefix && '/language' ).
+    nullable_repository-forks_count = mo_json->value_string( iv_prefix && '/forks_count' ).
+    nullable_repository-stargazers_count = mo_json->value_string( iv_prefix && '/stargazers_count' ).
+    nullable_repository-watchers_count = mo_json->value_string( iv_prefix && '/watchers_count' ).
+    nullable_repository-size = mo_json->value_string( iv_prefix && '/size' ).
+    nullable_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
+    nullable_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
+    nullable_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
+* todo, array, topics
+    nullable_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
+    nullable_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
+    nullable_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
+    nullable_repository-has_pages = mo_json->value_boolean( iv_prefix && '/has_pages' ).
+    nullable_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
+    nullable_repository-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
+    nullable_repository-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
+    nullable_repository-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    nullable_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
+    nullable_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    nullable_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
+    nullable_repository-template_repository-id = mo_json->value_string( iv_prefix && '/template_repository/id' ).
+    nullable_repository-template_repository-node_id = mo_json->value_string( iv_prefix && '/template_repository/node_id' ).
+    nullable_repository-template_repository-name = mo_json->value_string( iv_prefix && '/template_repository/name' ).
+    nullable_repository-template_repository-full_name = mo_json->value_string( iv_prefix && '/template_repository/full_name' ).
+    nullable_repository-template_repository-owner-login = mo_json->value_string( iv_prefix && '/template_repository/owner/login' ).
+    nullable_repository-template_repository-owner-id = mo_json->value_string( iv_prefix && '/template_repository/owner/id' ).
+    nullable_repository-template_repository-owner-node_id = mo_json->value_string( iv_prefix && '/template_repository/owner/node_id' ).
+    nullable_repository-template_repository-owner-avatar_url = mo_json->value_string( iv_prefix && '/template_repository/owner/avatar_url' ).
+    nullable_repository-template_repository-owner-gravatar_id = mo_json->value_string( iv_prefix && '/template_repository/owner/gravatar_id' ).
+    nullable_repository-template_repository-owner-url = mo_json->value_string( iv_prefix && '/template_repository/owner/url' ).
+    nullable_repository-template_repository-owner-html_url = mo_json->value_string( iv_prefix && '/template_repository/owner/html_url' ).
+    nullable_repository-template_repository-owner-followers_url = mo_json->value_string( iv_prefix && '/template_repository/owner/followers_url' ).
+    nullable_repository-template_repository-owner-following_url = mo_json->value_string( iv_prefix && '/template_repository/owner/following_url' ).
+    nullable_repository-template_repository-owner-gists_url = mo_json->value_string( iv_prefix && '/template_repository/owner/gists_url' ).
+    nullable_repository-template_repository-owner-starred_url = mo_json->value_string( iv_prefix && '/template_repository/owner/starred_url' ).
+    nullable_repository-template_repository-owner-subscriptions_url = mo_json->value_string( iv_prefix && '/template_repository/owner/subscriptions_url' ).
+    nullable_repository-template_repository-owner-organizations_url = mo_json->value_string( iv_prefix && '/template_repository/owner/organizations_url' ).
+    nullable_repository-template_repository-owner-repos_url = mo_json->value_string( iv_prefix && '/template_repository/owner/repos_url' ).
+    nullable_repository-template_repository-owner-events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/events_url' ).
+    nullable_repository-template_repository-owner-received_events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/received_events_url' ).
+    nullable_repository-template_repository-owner-type = mo_json->value_string( iv_prefix && '/template_repository/owner/type' ).
+    nullable_repository-template_repository-owner-site_admin = mo_json->value_boolean( iv_prefix && '/template_repository/owner/site_admin' ).
+    nullable_repository-template_repository-private = mo_json->value_boolean( iv_prefix && '/template_repository/private' ).
+    nullable_repository-template_repository-html_url = mo_json->value_string( iv_prefix && '/template_repository/html_url' ).
+    nullable_repository-template_repository-description = mo_json->value_string( iv_prefix && '/template_repository/description' ).
+    nullable_repository-template_repository-fork = mo_json->value_boolean( iv_prefix && '/template_repository/fork' ).
+    nullable_repository-template_repository-url = mo_json->value_string( iv_prefix && '/template_repository/url' ).
+    nullable_repository-template_repository-archive_url = mo_json->value_string( iv_prefix && '/template_repository/archive_url' ).
+    nullable_repository-template_repository-assignees_url = mo_json->value_string( iv_prefix && '/template_repository/assignees_url' ).
+    nullable_repository-template_repository-blobs_url = mo_json->value_string( iv_prefix && '/template_repository/blobs_url' ).
+    nullable_repository-template_repository-branches_url = mo_json->value_string( iv_prefix && '/template_repository/branches_url' ).
+    nullable_repository-template_repository-collaborators_url = mo_json->value_string( iv_prefix && '/template_repository/collaborators_url' ).
+    nullable_repository-template_repository-comments_url = mo_json->value_string( iv_prefix && '/template_repository/comments_url' ).
+    nullable_repository-template_repository-commits_url = mo_json->value_string( iv_prefix && '/template_repository/commits_url' ).
+    nullable_repository-template_repository-compare_url = mo_json->value_string( iv_prefix && '/template_repository/compare_url' ).
+    nullable_repository-template_repository-contents_url = mo_json->value_string( iv_prefix && '/template_repository/contents_url' ).
+    nullable_repository-template_repository-contributors_url = mo_json->value_string( iv_prefix && '/template_repository/contributors_url' ).
+    nullable_repository-template_repository-deployments_url = mo_json->value_string( iv_prefix && '/template_repository/deployments_url' ).
+    nullable_repository-template_repository-downloads_url = mo_json->value_string( iv_prefix && '/template_repository/downloads_url' ).
+    nullable_repository-template_repository-events_url = mo_json->value_string( iv_prefix && '/template_repository/events_url' ).
+    nullable_repository-template_repository-forks_url = mo_json->value_string( iv_prefix && '/template_repository/forks_url' ).
+    nullable_repository-template_repository-git_commits_url = mo_json->value_string( iv_prefix && '/template_repository/git_commits_url' ).
+    nullable_repository-template_repository-git_refs_url = mo_json->value_string( iv_prefix && '/template_repository/git_refs_url' ).
+    nullable_repository-template_repository-git_tags_url = mo_json->value_string( iv_prefix && '/template_repository/git_tags_url' ).
+    nullable_repository-template_repository-git_url = mo_json->value_string( iv_prefix && '/template_repository/git_url' ).
+    nullable_repository-template_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/template_repository/issue_comment_url' ).
+    nullable_repository-template_repository-issue_events_url = mo_json->value_string( iv_prefix && '/template_repository/issue_events_url' ).
+    nullable_repository-template_repository-issues_url = mo_json->value_string( iv_prefix && '/template_repository/issues_url' ).
+    nullable_repository-template_repository-keys_url = mo_json->value_string( iv_prefix && '/template_repository/keys_url' ).
+    nullable_repository-template_repository-labels_url = mo_json->value_string( iv_prefix && '/template_repository/labels_url' ).
+    nullable_repository-template_repository-languages_url = mo_json->value_string( iv_prefix && '/template_repository/languages_url' ).
+    nullable_repository-template_repository-merges_url = mo_json->value_string( iv_prefix && '/template_repository/merges_url' ).
+    nullable_repository-template_repository-milestones_url = mo_json->value_string( iv_prefix && '/template_repository/milestones_url' ).
+    nullable_repository-template_repository-notifications_url = mo_json->value_string( iv_prefix && '/template_repository/notifications_url' ).
+    nullable_repository-template_repository-pulls_url = mo_json->value_string( iv_prefix && '/template_repository/pulls_url' ).
+    nullable_repository-template_repository-releases_url = mo_json->value_string( iv_prefix && '/template_repository/releases_url' ).
+    nullable_repository-template_repository-ssh_url = mo_json->value_string( iv_prefix && '/template_repository/ssh_url' ).
+    nullable_repository-template_repository-stargazers_url = mo_json->value_string( iv_prefix && '/template_repository/stargazers_url' ).
+    nullable_repository-template_repository-statuses_url = mo_json->value_string( iv_prefix && '/template_repository/statuses_url' ).
+    nullable_repository-template_repository-subscribers_url = mo_json->value_string( iv_prefix && '/template_repository/subscribers_url' ).
+    nullable_repository-template_repository-subscription_url = mo_json->value_string( iv_prefix && '/template_repository/subscription_url' ).
+    nullable_repository-template_repository-tags_url = mo_json->value_string( iv_prefix && '/template_repository/tags_url' ).
+    nullable_repository-template_repository-teams_url = mo_json->value_string( iv_prefix && '/template_repository/teams_url' ).
+    nullable_repository-template_repository-trees_url = mo_json->value_string( iv_prefix && '/template_repository/trees_url' ).
+    nullable_repository-template_repository-clone_url = mo_json->value_string( iv_prefix && '/template_repository/clone_url' ).
+    nullable_repository-template_repository-mirror_url = mo_json->value_string( iv_prefix && '/template_repository/mirror_url' ).
+    nullable_repository-template_repository-hooks_url = mo_json->value_string( iv_prefix && '/template_repository/hooks_url' ).
+    nullable_repository-template_repository-svn_url = mo_json->value_string( iv_prefix && '/template_repository/svn_url' ).
+    nullable_repository-template_repository-homepage = mo_json->value_string( iv_prefix && '/template_repository/homepage' ).
+    nullable_repository-template_repository-language = mo_json->value_string( iv_prefix && '/template_repository/language' ).
+    nullable_repository-template_repository-forks_count = mo_json->value_string( iv_prefix && '/template_repository/forks_count' ).
+    nullable_repository-template_repository-stargazers_count = mo_json->value_string( iv_prefix && '/template_repository/stargazers_count' ).
+    nullable_repository-template_repository-watchers_count = mo_json->value_string( iv_prefix && '/template_repository/watchers_count' ).
+    nullable_repository-template_repository-size = mo_json->value_string( iv_prefix && '/template_repository/size' ).
+    nullable_repository-template_repository-default_branch = mo_json->value_string( iv_prefix && '/template_repository/default_branch' ).
+    nullable_repository-template_repository-open_issues_count = mo_json->value_string( iv_prefix && '/template_repository/open_issues_count' ).
+    nullable_repository-template_repository-is_template = mo_json->value_boolean( iv_prefix && '/template_repository/is_template' ).
+* todo, array, topics
+    nullable_repository-template_repository-has_issues = mo_json->value_boolean( iv_prefix && '/template_repository/has_issues' ).
+    nullable_repository-template_repository-has_projects = mo_json->value_boolean( iv_prefix && '/template_repository/has_projects' ).
+    nullable_repository-template_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/template_repository/has_wiki' ).
+    nullable_repository-template_repository-has_pages = mo_json->value_boolean( iv_prefix && '/template_repository/has_pages' ).
+    nullable_repository-template_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/template_repository/has_downloads' ).
+    nullable_repository-template_repository-archived = mo_json->value_boolean( iv_prefix && '/template_repository/archived' ).
+    nullable_repository-template_repository-disabled = mo_json->value_boolean( iv_prefix && '/template_repository/disabled' ).
+    nullable_repository-template_repository-visibility = mo_json->value_string( iv_prefix && '/template_repository/visibility' ).
+    nullable_repository-template_repository-pushed_at = mo_json->value_string( iv_prefix && '/template_repository/pushed_at' ).
+    nullable_repository-template_repository-created_at = mo_json->value_string( iv_prefix && '/template_repository/created_at' ).
+    nullable_repository-template_repository-updated_at = mo_json->value_string( iv_prefix && '/template_repository/updated_at' ).
+    nullable_repository-template_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/admin' ).
+    nullable_repository-template_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/maintain' ).
+    nullable_repository-template_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/push' ).
+    nullable_repository-template_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/triage' ).
+    nullable_repository-template_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/pull' ).
+    nullable_repository-template_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_rebase_merge' ).
+    nullable_repository-template_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/template_repository/temp_clone_token' ).
+    nullable_repository-template_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_squash_merge' ).
+    nullable_repository-template_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/template_repository/delete_branch_on_merge' ).
+    nullable_repository-template_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/template_repository/allow_merge_commit' ).
+    nullable_repository-template_repository-subscribers_count = mo_json->value_string( iv_prefix && '/template_repository/subscribers_count' ).
+    nullable_repository-template_repository-network_count = mo_json->value_string( iv_prefix && '/template_repository/network_count' ).
+    nullable_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
+    nullable_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
+    nullable_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
+    nullable_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    nullable_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
+    nullable_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
+    nullable_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    nullable_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
+    nullable_repository-master_branch = mo_json->value_string( iv_prefix && '/master_branch' ).
+    nullable_repository-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
   ENDMETHOD.
 
   METHOD parse_minimal_repository.
@@ -3924,6 +4227,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
     minimal_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    minimal_repository-template_repository = parse_nullable_repository( iv_prefix ).
     minimal_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     minimal_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
@@ -4082,7 +4386,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     org_membership-role = mo_json->value_string( iv_prefix && '/role' ).
     org_membership-organization_url = mo_json->value_string( iv_prefix && '/organization_url' ).
     org_membership-organization = parse_organization_simple( iv_prefix ).
-    org_membership-user = mo_json->value_string( iv_prefix && '/user' ).
+    org_membership-user = parse_nullable_simple_user( iv_prefix ).
     org_membership-permissions-can_create_repository = mo_json->value_boolean( iv_prefix && '/permissions/can_create_repository' ).
   ENDMETHOD.
 
@@ -4105,26 +4409,26 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     project-body = mo_json->value_string( iv_prefix && '/body' ).
     project-number = mo_json->value_string( iv_prefix && '/number' ).
     project-state = mo_json->value_string( iv_prefix && '/state' ).
-    project-creator = mo_json->value_string( iv_prefix && '/creator' ).
+    project-creator = parse_nullable_simple_user( iv_prefix ).
     project-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     project-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project-organization_permission = mo_json->value_string( iv_prefix && '/organization_permission' ).
     project-private = mo_json->value_boolean( iv_prefix && '/private' ).
   ENDMETHOD.
 
-  METHOD parse_team_simple.
-    team_simple-id = mo_json->value_string( iv_prefix && '/id' ).
-    team_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    team_simple-url = mo_json->value_string( iv_prefix && '/url' ).
-    team_simple-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
-    team_simple-name = mo_json->value_string( iv_prefix && '/name' ).
-    team_simple-description = mo_json->value_string( iv_prefix && '/description' ).
-    team_simple-permission = mo_json->value_string( iv_prefix && '/permission' ).
-    team_simple-privacy = mo_json->value_string( iv_prefix && '/privacy' ).
-    team_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    team_simple-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-    team_simple-slug = mo_json->value_string( iv_prefix && '/slug' ).
-    team_simple-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
+  METHOD parse_nullable_team_simple.
+    nullable_team_simple-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_team_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_team_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_team_simple-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
+    nullable_team_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_team_simple-description = mo_json->value_string( iv_prefix && '/description' ).
+    nullable_team_simple-permission = mo_json->value_string( iv_prefix && '/permission' ).
+    nullable_team_simple-privacy = mo_json->value_string( iv_prefix && '/privacy' ).
+    nullable_team_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_team_simple-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
+    nullable_team_simple-slug = mo_json->value_string( iv_prefix && '/slug' ).
+    nullable_team_simple-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
   ENDMETHOD.
 
   METHOD parse_team.
@@ -4144,7 +4448,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     team-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     team-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     team-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-    team-parent = mo_json->value_string( iv_prefix && '/parent' ).
+    team-parent = parse_nullable_team_simple( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_team_full.
@@ -4159,7 +4463,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     team_full-permission = mo_json->value_string( iv_prefix && '/permission' ).
     team_full-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
     team_full-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
-    team_full-parent = mo_json->value_string( iv_prefix && '/parent' ).
+    team_full-parent = parse_nullable_team_simple( iv_prefix ).
     team_full-members_count = mo_json->value_string( iv_prefix && '/members_count' ).
     team_full-repos_count = mo_json->value_string( iv_prefix && '/repos_count' ).
     team_full-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
@@ -4169,7 +4473,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_team_discussion.
-    team_discussion-author = mo_json->value_string( iv_prefix && '/author' ).
+    team_discussion-author = parse_nullable_simple_user( iv_prefix ).
     team_discussion-body = mo_json->value_string( iv_prefix && '/body' ).
     team_discussion-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     team_discussion-body_version = mo_json->value_string( iv_prefix && '/body_version' ).
@@ -4190,7 +4494,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_team_discussion_comment.
-    team_discussion_comment-author = mo_json->value_string( iv_prefix && '/author' ).
+    team_discussion_comment-author = parse_nullable_simple_user( iv_prefix ).
     team_discussion_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     team_discussion_comment-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     team_discussion_comment-body_version = mo_json->value_string( iv_prefix && '/body_version' ).
@@ -4208,7 +4512,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   METHOD parse_reaction.
     reaction-id = mo_json->value_string( iv_prefix && '/id' ).
     reaction-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    reaction-user = mo_json->value_string( iv_prefix && '/user' ).
+    reaction-user = parse_nullable_simple_user( iv_prefix ).
     reaction-content = mo_json->value_string( iv_prefix && '/content' ).
     reaction-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
   ENDMETHOD.
@@ -4245,14 +4549,14 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     team_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     team_repository-name = mo_json->value_string( iv_prefix && '/name' ).
     team_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    team_repository-license = mo_json->value_string( iv_prefix && '/license' ).
+    team_repository-license = parse_nullable_license_simple( iv_prefix ).
     team_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     team_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     team_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     team_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     team_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
     team_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
-    team_repository-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    team_repository-owner = parse_nullable_simple_user( iv_prefix ).
     team_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
     team_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     team_repository-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -4321,6 +4625,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     team_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     team_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     team_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
+    team_repository-template_repository = parse_nullable_repository( iv_prefix ).
     team_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     team_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     team_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
@@ -4337,7 +4642,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     project_card-id = mo_json->value_string( iv_prefix && '/id' ).
     project_card-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     project_card-note = mo_json->value_string( iv_prefix && '/note' ).
-    project_card-creator = mo_json->value_string( iv_prefix && '/creator' ).
+    project_card-creator = parse_nullable_simple_user( iv_prefix ).
     project_card-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     project_card-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project_card-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
@@ -4361,7 +4666,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 
   METHOD parse_repository_collaborator_.
     repository_collaborator_permis-permission = mo_json->value_string( iv_prefix && '/permission' ).
-    repository_collaborator_permis-user = mo_json->value_string( iv_prefix && '/user' ).
+    repository_collaborator_permis-user = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_rate_limit.
@@ -4467,14 +4772,15 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     full_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
     full_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
     full_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
+    full_repository-template_repository = parse_nullable_repository( iv_prefix ).
     full_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
     full_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     full_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     full_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
     full_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     full_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
-    full_repository-license = mo_json->value_string( iv_prefix && '/license' ).
-    full_repository-organization = mo_json->value_string( iv_prefix && '/organization' ).
+    full_repository-license = parse_nullable_license_simple( iv_prefix ).
+    full_repository-organization = parse_nullable_simple_user( iv_prefix ).
     full_repository-parent = parse_repository( iv_prefix ).
     full_repository-source = parse_repository( iv_prefix ).
     full_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
@@ -4541,15 +4847,15 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request_minimal-base-repo-name = mo_json->value_string( iv_prefix && '/base/repo/name' ).
   ENDMETHOD.
 
-  METHOD parse_simple_commit.
-    simple_commit-id = mo_json->value_string( iv_prefix && '/id' ).
-    simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
-    simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
-    simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
-    simple_commit-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
-    simple_commit-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
-    simple_commit-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
-    simple_commit-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
+  METHOD parse_nullable_simple_commit.
+    nullable_simple_commit-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
+    nullable_simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
+    nullable_simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
+    nullable_simple_commit-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
+    nullable_simple_commit-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
+    nullable_simple_commit-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
+    nullable_simple_commit-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
   ENDMETHOD.
 
   METHOD parse_workflow_run.
@@ -4577,7 +4883,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     workflow_run-cancel_url = mo_json->value_string( iv_prefix && '/cancel_url' ).
     workflow_run-rerun_url = mo_json->value_string( iv_prefix && '/rerun_url' ).
     workflow_run-workflow_url = mo_json->value_string( iv_prefix && '/workflow_url' ).
-    workflow_run-head_commit = mo_json->value_string( iv_prefix && '/head_commit' ).
+    workflow_run-head_commit = parse_nullable_simple_commit( iv_prefix ).
     workflow_run-repository = parse_minimal_repository( iv_prefix ).
     workflow_run-head_repository = parse_minimal_repository( iv_prefix ).
     workflow_run-head_repository_id = mo_json->value_string( iv_prefix && '/head_repository_id' ).
@@ -4660,10 +4966,10 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     short_branch-protection_url = mo_json->value_string( iv_prefix && '/protection_url' ).
   ENDMETHOD.
 
-  METHOD parse_git_user.
-    git_user-name = mo_json->value_string( iv_prefix && '/name' ).
-    git_user-email = mo_json->value_string( iv_prefix && '/email' ).
-    git_user-date = mo_json->value_string( iv_prefix && '/date' ).
+  METHOD parse_nullable_git_user.
+    nullable_git_user-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_git_user-email = mo_json->value_string( iv_prefix && '/email' ).
+    nullable_git_user-date = mo_json->value_string( iv_prefix && '/date' ).
   ENDMETHOD.
 
   METHOD parse_verification.
@@ -4680,15 +4986,15 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     commit-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     commit-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
     commit-commit-url = mo_json->value_string( iv_prefix && '/commit/url' ).
-    commit-commit-author = mo_json->value_string( iv_prefix && '/commit/author' ).
-    commit-commit-committer = mo_json->value_string( iv_prefix && '/commit/committer' ).
+    commit-commit-author = parse_nullable_git_user( iv_prefix ).
+    commit-commit-committer = parse_nullable_git_user( iv_prefix ).
     commit-commit-message = mo_json->value_string( iv_prefix && '/commit/message' ).
     commit-commit-comment_count = mo_json->value_string( iv_prefix && '/commit/comment_count' ).
     commit-commit-tree-sha = mo_json->value_string( iv_prefix && '/commit/tree/sha' ).
     commit-commit-tree-url = mo_json->value_string( iv_prefix && '/commit/tree/url' ).
     commit-commit-verification = parse_verification( iv_prefix ).
-    commit-author = mo_json->value_string( iv_prefix && '/author' ).
-    commit-committer = mo_json->value_string( iv_prefix && '/committer' ).
+    commit-author = parse_nullable_simple_user( iv_prefix ).
+    commit-committer = parse_nullable_simple_user( iv_prefix ).
 * todo, array, parents
     commit-stats-additions = mo_json->value_string( iv_prefix && '/stats/additions' ).
     commit-stats-deletions = mo_json->value_string( iv_prefix && '/stats/deletions' ).
@@ -4752,7 +5058,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     deployment_simple-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
     deployment_simple-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
     deployment_simple-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
-    deployment_simple-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    deployment_simple-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_check_run.
@@ -4774,7 +5080,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     check_run-output-annotations_url = mo_json->value_string( iv_prefix && '/output/annotations_url' ).
     check_run-name = mo_json->value_string( iv_prefix && '/name' ).
     check_run-check_suite-id = mo_json->value_string( iv_prefix && '/check_suite/id' ).
-    check_run-app = mo_json->value_string( iv_prefix && '/app' ).
+    check_run-app = parse_nullable_integration( iv_prefix ).
     check_run-pull_requests = mo_json->value_string( iv_prefix && '/pull_requests' ).
     check_run-deployment = parse_deployment_simple( iv_prefix ).
   ENDMETHOD.
@@ -4792,6 +5098,17 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     check_annotation-blob_href = mo_json->value_string( iv_prefix && '/blob_href' ).
   ENDMETHOD.
 
+  METHOD parse_simple_commit.
+    simple_commit-id = mo_json->value_string( iv_prefix && '/id' ).
+    simple_commit-tree_id = mo_json->value_string( iv_prefix && '/tree_id' ).
+    simple_commit-message = mo_json->value_string( iv_prefix && '/message' ).
+    simple_commit-timestamp = mo_json->value_string( iv_prefix && '/timestamp' ).
+    simple_commit-author-name = mo_json->value_string( iv_prefix && '/author/name' ).
+    simple_commit-author-email = mo_json->value_string( iv_prefix && '/author/email' ).
+    simple_commit-committer-name = mo_json->value_string( iv_prefix && '/committer/name' ).
+    simple_commit-committer-email = mo_json->value_string( iv_prefix && '/committer/email' ).
+  ENDMETHOD.
+
   METHOD parse_check_suite.
     check_suite-id = mo_json->value_string( iv_prefix && '/id' ).
     check_suite-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -4803,7 +5120,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     check_suite-before = mo_json->value_string( iv_prefix && '/before' ).
     check_suite-after = mo_json->value_string( iv_prefix && '/after' ).
 * todo, array, pull_requests
-    check_suite-app = mo_json->value_string( iv_prefix && '/app' ).
+    check_suite-app = parse_nullable_integration( iv_prefix ).
     check_suite-repository = parse_minimal_repository( iv_prefix ).
     check_suite-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     check_suite-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
@@ -4917,7 +5234,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     code_scanning_alert_items-html_url = parse_alert_html_url( iv_prefix ).
     code_scanning_alert_items-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert_items-state = parse_code_scanning_alert_stat( iv_prefix ).
-    code_scanning_alert_items-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert_items-dismissed_by = parse_nullable_simple_user( iv_prefix ).
     code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
     code_scanning_alert_items-rule = parse_code_scanning_alert_rule( iv_prefix ).
@@ -4943,7 +5260,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     code_scanning_alert-instances = mo_json->value_string( iv_prefix && '/instances' ).
     code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
-    code_scanning_alert-dismissed_by = parse_simple_user( iv_prefix ).
+    code_scanning_alert-dismissed_by = parse_nullable_simple_user( iv_prefix ).
     code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
     code_scanning_alert-rule = parse_code_scanning_alert_ru01( iv_prefix ).
@@ -5038,8 +5355,8 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   METHOD parse_repository_invitation.
     repository_invitation-id = mo_json->value_string( iv_prefix && '/id' ).
     repository_invitation-repository = parse_minimal_repository( iv_prefix ).
-    repository_invitation-invitee = mo_json->value_string( iv_prefix && '/invitee' ).
-    repository_invitation-inviter = mo_json->value_string( iv_prefix && '/inviter' ).
+    repository_invitation-invitee = parse_nullable_simple_user( iv_prefix ).
+    repository_invitation-inviter = parse_nullable_simple_user( iv_prefix ).
     repository_invitation-permissions = mo_json->value_string( iv_prefix && '/permissions' ).
     repository_invitation-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     repository_invitation-expired = mo_json->value_boolean( iv_prefix && '/expired' ).
@@ -5058,7 +5375,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     commit_comment-position = mo_json->value_string( iv_prefix && '/position' ).
     commit_comment-line = mo_json->value_string( iv_prefix && '/line' ).
     commit_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
-    commit_comment-user = mo_json->value_string( iv_prefix && '/user' ).
+    commit_comment-user = parse_nullable_simple_user( iv_prefix ).
     commit_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     commit_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     commit_comment-author_association = parse_author_association( iv_prefix ).
@@ -5102,17 +5419,17 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request_simple-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request_simple-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     pull_request_simple-title = mo_json->value_string( iv_prefix && '/title' ).
-    pull_request_simple-user = mo_json->value_string( iv_prefix && '/user' ).
+    pull_request_simple-user = parse_nullable_simple_user( iv_prefix ).
     pull_request_simple-body = mo_json->value_string( iv_prefix && '/body' ).
 * todo, array, labels
-    pull_request_simple-milestone = mo_json->value_string( iv_prefix && '/milestone' ).
+    pull_request_simple-milestone = parse_nullable_milestone( iv_prefix ).
     pull_request_simple-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     pull_request_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pull_request_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     pull_request_simple-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     pull_request_simple-merged_at = mo_json->value_string( iv_prefix && '/merged_at' ).
     pull_request_simple-merge_commit_sha = mo_json->value_string( iv_prefix && '/merge_commit_sha' ).
-    pull_request_simple-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
+    pull_request_simple-assignee = parse_nullable_simple_user( iv_prefix ).
 * todo, array, assignees
 * todo, array, requested_reviewers
 * todo, array, requested_teams
@@ -5120,12 +5437,12 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request_simple-head-ref = mo_json->value_string( iv_prefix && '/head/ref' ).
     pull_request_simple-head-repo = parse_repository( iv_prefix ).
     pull_request_simple-head-sha = mo_json->value_string( iv_prefix && '/head/sha' ).
-    pull_request_simple-head-user = mo_json->value_string( iv_prefix && '/head/user' ).
+    pull_request_simple-head-user = parse_nullable_simple_user( iv_prefix ).
     pull_request_simple-base-label = mo_json->value_string( iv_prefix && '/base/label' ).
     pull_request_simple-base-ref = mo_json->value_string( iv_prefix && '/base/ref' ).
     pull_request_simple-base-repo = parse_repository( iv_prefix ).
     pull_request_simple-base-sha = mo_json->value_string( iv_prefix && '/base/sha' ).
-    pull_request_simple-base-user = mo_json->value_string( iv_prefix && '/base/user' ).
+    pull_request_simple-base-user = parse_nullable_simple_user( iv_prefix ).
     pull_request_simple-_links-comments = parse_link( iv_prefix ).
     pull_request_simple-_links-commits = parse_link( iv_prefix ).
     pull_request_simple-_links-statuses = parse_link( iv_prefix ).
@@ -5173,7 +5490,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     status-context = mo_json->value_string( iv_prefix && '/context' ).
     status-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     status-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    status-creator = parse_simple_user( iv_prefix ).
+    status-creator = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_diff_entry.
@@ -5352,14 +5669,14 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     deployment-original_environment = mo_json->value_string( iv_prefix && '/original_environment' ).
     deployment-environment = mo_json->value_string( iv_prefix && '/environment' ).
     deployment-description = mo_json->value_string( iv_prefix && '/description' ).
-    deployment-creator = mo_json->value_string( iv_prefix && '/creator' ).
+    deployment-creator = parse_nullable_simple_user( iv_prefix ).
     deployment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     deployment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     deployment-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
     deployment-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
     deployment-transient_environment = mo_json->value_boolean( iv_prefix && '/transient_environment' ).
     deployment-production_environment = mo_json->value_boolean( iv_prefix && '/production_environment' ).
-    deployment-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    deployment-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_deployment_status.
@@ -5367,7 +5684,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     deployment_status-id = mo_json->value_string( iv_prefix && '/id' ).
     deployment_status-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     deployment_status-state = mo_json->value_string( iv_prefix && '/state' ).
-    deployment_status-creator = mo_json->value_string( iv_prefix && '/creator' ).
+    deployment_status-creator = parse_nullable_simple_user( iv_prefix ).
     deployment_status-description = mo_json->value_string( iv_prefix && '/description' ).
     deployment_status-environment = mo_json->value_string( iv_prefix && '/environment' ).
     deployment_status-target_url = mo_json->value_string( iv_prefix && '/target_url' ).
@@ -5377,7 +5694,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     deployment_status-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
     deployment_status-environment_url = mo_json->value_string( iv_prefix && '/environment_url' ).
     deployment_status-log_url = mo_json->value_string( iv_prefix && '/log_url' ).
-    deployment_status-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    deployment_status-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_short_blob.
@@ -5511,17 +5828,17 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
     issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
-    issue_event-actor = mo_json->value_string( iv_prefix && '/actor' ).
+    issue_event-actor = parse_nullable_simple_user( iv_prefix ).
     issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
     issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_event-issue = parse_issue_simple( iv_prefix ).
     issue_event-label = parse_issue_event_label( iv_prefix ).
-    issue_event-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
-    issue_event-assigner = mo_json->value_string( iv_prefix && '/assigner' ).
-    issue_event-review_requester = mo_json->value_string( iv_prefix && '/review_requester' ).
-    issue_event-requested_reviewer = mo_json->value_string( iv_prefix && '/requested_reviewer' ).
+    issue_event-assignee = parse_nullable_simple_user( iv_prefix ).
+    issue_event-assigner = parse_nullable_simple_user( iv_prefix ).
+    issue_event-review_requester = parse_nullable_simple_user( iv_prefix ).
+    issue_event-requested_reviewer = parse_nullable_simple_user( iv_prefix ).
     issue_event-requested_team = parse_team( iv_prefix ).
     issue_event-dismissed_review = parse_issue_event_dismissed_re( iv_prefix ).
     issue_event-milestone = parse_issue_event_milestone( iv_prefix ).
@@ -5529,7 +5846,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_event-rename = parse_issue_event_rename( iv_prefix ).
     issue_event-author_association = parse_author_association( iv_prefix ).
     issue_event-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
-    issue_event-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_labeled_issue_event.
@@ -5541,7 +5858,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     labeled_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     labeled_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     labeled_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    labeled_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    labeled_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     labeled_issue_event-label-name = mo_json->value_string( iv_prefix && '/label/name' ).
     labeled_issue_event-label-color = mo_json->value_string( iv_prefix && '/label/color' ).
   ENDMETHOD.
@@ -5555,7 +5872,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     unlabeled_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     unlabeled_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     unlabeled_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    unlabeled_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    unlabeled_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     unlabeled_issue_event-label-name = mo_json->value_string( iv_prefix && '/label/name' ).
     unlabeled_issue_event-label-color = mo_json->value_string( iv_prefix && '/label/color' ).
   ENDMETHOD.
@@ -5583,7 +5900,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     unassigned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     unassigned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     unassigned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    unassigned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    unassigned_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     unassigned_issue_event-assignee = parse_simple_user( iv_prefix ).
     unassigned_issue_event-assigner = parse_simple_user( iv_prefix ).
   ENDMETHOD.
@@ -5597,7 +5914,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     milestoned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     milestoned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     milestoned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    milestoned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    milestoned_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     milestoned_issue_event-milestone-title = mo_json->value_string( iv_prefix && '/milestone/title' ).
   ENDMETHOD.
 
@@ -5610,7 +5927,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     demilestoned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     demilestoned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     demilestoned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    demilestoned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    demilestoned_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     demilestoned_issue_event-milestone-title = mo_json->value_string( iv_prefix && '/milestone/title' ).
   ENDMETHOD.
 
@@ -5623,7 +5940,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     renamed_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     renamed_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     renamed_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    renamed_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    renamed_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     renamed_issue_event-rename-from = mo_json->value_string( iv_prefix && '/rename/from' ).
     renamed_issue_event-rename-to = mo_json->value_string( iv_prefix && '/rename/to' ).
   ENDMETHOD.
@@ -5637,7 +5954,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     review_requested_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     review_requested_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     review_requested_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    review_requested_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    review_requested_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     review_requested_issue_event-review_requester = parse_simple_user( iv_prefix ).
     review_requested_issue_event-requested_team = parse_team( iv_prefix ).
     review_requested_issue_event-requested_reviewer = parse_simple_user( iv_prefix ).
@@ -5652,7 +5969,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     review_request_removed_issue_e-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     review_request_removed_issue_e-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     review_request_removed_issue_e-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    review_request_removed_issue_e-performed_via_github_app = parse_integration( iv_prefix ).
+    review_request_removed_issue_e-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     review_request_removed_issue_e-review_requester = parse_simple_user( iv_prefix ).
     review_request_removed_issue_e-requested_team = parse_team( iv_prefix ).
     review_request_removed_issue_e-requested_reviewer = parse_simple_user( iv_prefix ).
@@ -5667,7 +5984,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     review_dismissed_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     review_dismissed_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     review_dismissed_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    review_dismissed_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    review_dismissed_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     review_dismissed_issue_event-dismissed_review-state = mo_json->value_string( iv_prefix && '/dismissed_review/state' ).
     review_dismissed_issue_event-dismissed_review-review_id = mo_json->value_string( iv_prefix && '/dismissed_review/review_id' ).
     review_dismissed_issue_event-dismissed_review-dismissal_message = mo_json->value_string( iv_prefix && '/dismissed_review/dismissal_message' ).
@@ -5683,7 +6000,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     locked_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     locked_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     locked_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    locked_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    locked_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     locked_issue_event-lock_reason = mo_json->value_string( iv_prefix && '/lock_reason' ).
   ENDMETHOD.
 
@@ -5696,7 +6013,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     added_to_project_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     added_to_project_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     added_to_project_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    added_to_project_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    added_to_project_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     added_to_project_issue_event-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
     added_to_project_issue_event-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
     added_to_project_issue_event-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
@@ -5714,7 +6031,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     moved_column_in_project_issue_-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     moved_column_in_project_issue_-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     moved_column_in_project_issue_-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    moved_column_in_project_issue_-performed_via_github_app = parse_integration( iv_prefix ).
+    moved_column_in_project_issue_-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     moved_column_in_project_issue_-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
     moved_column_in_project_issue_-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
     moved_column_in_project_issue_-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
@@ -5732,7 +6049,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     removed_from_project_issue_eve-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     removed_from_project_issue_eve-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     removed_from_project_issue_eve-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    removed_from_project_issue_eve-performed_via_github_app = parse_integration( iv_prefix ).
+    removed_from_project_issue_eve-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     removed_from_project_issue_eve-project_card-id = mo_json->value_string( iv_prefix && '/project_card/id' ).
     removed_from_project_issue_eve-project_card-url = mo_json->value_string( iv_prefix && '/project_card/url' ).
     removed_from_project_issue_eve-project_card-project_id = mo_json->value_string( iv_prefix && '/project_card/project_id' ).
@@ -5778,7 +6095,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     timeline_comment_event-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     timeline_comment_event-issue_url = mo_json->value_string( iv_prefix && '/issue_url' ).
     timeline_comment_event-author_association = parse_author_association( iv_prefix ).
-    timeline_comment_event-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_comment_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     timeline_comment_event-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
@@ -5886,7 +6203,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     timeline_assigned_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     timeline_assigned_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     timeline_assigned_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    timeline_assigned_issue_event-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_assigned_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     timeline_assigned_issue_event-assignee = parse_simple_user( iv_prefix ).
   ENDMETHOD.
 
@@ -5899,7 +6216,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     timeline_unassigned_issue_even-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     timeline_unassigned_issue_even-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     timeline_unassigned_issue_even-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    timeline_unassigned_issue_even-performed_via_github_app = parse_integration( iv_prefix ).
+    timeline_unassigned_issue_even-performed_via_github_app = parse_nullable_integration( iv_prefix ).
     timeline_unassigned_issue_even-assignee = parse_simple_user( iv_prefix ).
   ENDMETHOD.
 
@@ -5934,7 +6251,26 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     license_content-_links-git = mo_json->value_string( iv_prefix && '/_links/git' ).
     license_content-_links-html = mo_json->value_string( iv_prefix && '/_links/html' ).
     license_content-_links-self = mo_json->value_string( iv_prefix && '/_links/self' ).
-    license_content-license = mo_json->value_string( iv_prefix && '/license' ).
+    license_content-license = parse_nullable_license_simple( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_milestone.
+    milestone-url = mo_json->value_string( iv_prefix && '/url' ).
+    milestone-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    milestone-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
+    milestone-id = mo_json->value_string( iv_prefix && '/id' ).
+    milestone-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    milestone-number = mo_json->value_string( iv_prefix && '/number' ).
+    milestone-state = mo_json->value_string( iv_prefix && '/state' ).
+    milestone-title = mo_json->value_string( iv_prefix && '/title' ).
+    milestone-description = mo_json->value_string( iv_prefix && '/description' ).
+    milestone-creator = parse_nullable_simple_user( iv_prefix ).
+    milestone-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    milestone-closed_issues = mo_json->value_string( iv_prefix && '/closed_issues' ).
+    milestone-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    milestone-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    milestone-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
+    milestone-due_on = mo_json->value_string( iv_prefix && '/due_on' ).
   ENDMETHOD.
 
   METHOD parse_pages_source_hash.
@@ -5965,7 +6301,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     page_build-url = mo_json->value_string( iv_prefix && '/url' ).
     page_build-status = mo_json->value_string( iv_prefix && '/status' ).
     page_build-error-message = mo_json->value_string( iv_prefix && '/error/message' ).
-    page_build-pusher = mo_json->value_string( iv_prefix && '/pusher' ).
+    page_build-pusher = parse_nullable_simple_user( iv_prefix ).
     page_build-commit = mo_json->value_string( iv_prefix && '/commit' ).
     page_build-duration = mo_json->value_string( iv_prefix && '/duration' ).
     page_build-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
@@ -5982,6 +6318,21 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     repository_pre_receive_hook-name = mo_json->value_string( iv_prefix && '/name' ).
     repository_pre_receive_hook-enforcement = mo_json->value_string( iv_prefix && '/enforcement' ).
     repository_pre_receive_hook-configuration_url = mo_json->value_string( iv_prefix && '/configuration_url' ).
+  ENDMETHOD.
+
+  METHOD parse_team_simple.
+    team_simple-id = mo_json->value_string( iv_prefix && '/id' ).
+    team_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    team_simple-url = mo_json->value_string( iv_prefix && '/url' ).
+    team_simple-members_url = mo_json->value_string( iv_prefix && '/members_url' ).
+    team_simple-name = mo_json->value_string( iv_prefix && '/name' ).
+    team_simple-description = mo_json->value_string( iv_prefix && '/description' ).
+    team_simple-permission = mo_json->value_string( iv_prefix && '/permission' ).
+    team_simple-privacy = mo_json->value_string( iv_prefix && '/privacy' ).
+    team_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    team_simple-repositories_url = mo_json->value_string( iv_prefix && '/repositories_url' ).
+    team_simple-slug = mo_json->value_string( iv_prefix && '/slug' ).
+    team_simple-ldap_dn = mo_json->value_string( iv_prefix && '/ldap_dn' ).
   ENDMETHOD.
 
   METHOD parse_pull_request.
@@ -6001,17 +6352,17 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     pull_request-title = mo_json->value_string( iv_prefix && '/title' ).
-    pull_request-user = mo_json->value_string( iv_prefix && '/user' ).
+    pull_request-user = parse_nullable_simple_user( iv_prefix ).
     pull_request-body = mo_json->value_string( iv_prefix && '/body' ).
 * todo, array, labels
-    pull_request-milestone = mo_json->value_string( iv_prefix && '/milestone' ).
+    pull_request-milestone = parse_nullable_milestone( iv_prefix ).
     pull_request-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
     pull_request-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     pull_request-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     pull_request-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     pull_request-merged_at = mo_json->value_string( iv_prefix && '/merged_at' ).
     pull_request-merge_commit_sha = mo_json->value_string( iv_prefix && '/merge_commit_sha' ).
-    pull_request-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
+    pull_request-assignee = parse_nullable_simple_user( iv_prefix ).
 * todo, array, assignees
 * todo, array, requested_reviewers
 * todo, array, requested_teams
@@ -6233,7 +6584,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request-base-repo-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/base/repo/allow_merge_commit' ).
     pull_request-base-repo-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/base/repo/allow_squash_merge' ).
     pull_request-base-repo-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/base/repo/allow_rebase_merge' ).
-    pull_request-base-repo-license = mo_json->value_string( iv_prefix && '/base/repo/license' ).
+    pull_request-base-repo-license = parse_nullable_license_simple( iv_prefix ).
     pull_request-base-repo-pushed_at = mo_json->value_string( iv_prefix && '/base/repo/pushed_at' ).
     pull_request-base-repo-size = mo_json->value_string( iv_prefix && '/base/repo/size' ).
     pull_request-base-repo-ssh_url = mo_json->value_string( iv_prefix && '/base/repo/ssh_url' ).
@@ -6277,7 +6628,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     pull_request-mergeable = mo_json->value_boolean( iv_prefix && '/mergeable' ).
     pull_request-rebaseable = mo_json->value_boolean( iv_prefix && '/rebaseable' ).
     pull_request-mergeable_state = mo_json->value_string( iv_prefix && '/mergeable_state' ).
-    pull_request-merged_by = mo_json->value_string( iv_prefix && '/merged_by' ).
+    pull_request-merged_by = parse_nullable_simple_user( iv_prefix ).
     pull_request-comments = mo_json->value_string( iv_prefix && '/comments' ).
     pull_request-review_comments = mo_json->value_string( iv_prefix && '/review_comments' ).
     pull_request-maintainer_can_modify = mo_json->value_boolean( iv_prefix && '/maintainer_can_modify' ).
@@ -6301,7 +6652,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   METHOD parse_pull_request_review.
     pull_request_review-id = mo_json->value_string( iv_prefix && '/id' ).
     pull_request_review-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    pull_request_review-user = mo_json->value_string( iv_prefix && '/user' ).
+    pull_request_review-user = parse_nullable_simple_user( iv_prefix ).
     pull_request_review-body = mo_json->value_string( iv_prefix && '/body' ).
     pull_request_review-state = mo_json->value_string( iv_prefix && '/state' ).
     pull_request_review-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
@@ -6327,7 +6678,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     review_comment-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     review_comment-original_commit_id = mo_json->value_string( iv_prefix && '/original_commit_id' ).
     review_comment-in_reply_to_id = mo_json->value_string( iv_prefix && '/in_reply_to_id' ).
-    review_comment-user = mo_json->value_string( iv_prefix && '/user' ).
+    review_comment-user = parse_nullable_simple_user( iv_prefix ).
     review_comment-body = mo_json->value_string( iv_prefix && '/body' ).
     review_comment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     review_comment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
@@ -6361,7 +6712,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     release_asset-download_count = mo_json->value_string( iv_prefix && '/download_count' ).
     release_asset-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     release_asset-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    release_asset-uploader = mo_json->value_string( iv_prefix && '/uploader' ).
+    release_asset-uploader = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_release.
@@ -6390,7 +6741,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
 
   METHOD parse_stargazer.
     stargazer-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
-    stargazer-user = mo_json->value_string( iv_prefix && '/user' ).
+    stargazer-user = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_code_frequency_stat.
@@ -6404,7 +6755,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD parse_contributor_activity.
-    contributor_activity-author = mo_json->value_string( iv_prefix && '/author' ).
+    contributor_activity-author = parse_nullable_simple_user( iv_prefix ).
     contributor_activity-total = mo_json->value_string( iv_prefix && '/total' ).
 * todo, array, weeks
   ENDMETHOD.
@@ -6464,15 +6815,15 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     commit_search_result_item-commit-author-name = mo_json->value_string( iv_prefix && '/commit/author/name' ).
     commit_search_result_item-commit-author-email = mo_json->value_string( iv_prefix && '/commit/author/email' ).
     commit_search_result_item-commit-author-date = mo_json->value_string( iv_prefix && '/commit/author/date' ).
-    commit_search_result_item-commit-committer = mo_json->value_string( iv_prefix && '/commit/committer' ).
+    commit_search_result_item-commit-committer = parse_nullable_git_user( iv_prefix ).
     commit_search_result_item-commit-comment_count = mo_json->value_string( iv_prefix && '/commit/comment_count' ).
     commit_search_result_item-commit-message = mo_json->value_string( iv_prefix && '/commit/message' ).
     commit_search_result_item-commit-tree-sha = mo_json->value_string( iv_prefix && '/commit/tree/sha' ).
     commit_search_result_item-commit-tree-url = mo_json->value_string( iv_prefix && '/commit/tree/url' ).
     commit_search_result_item-commit-url = mo_json->value_string( iv_prefix && '/commit/url' ).
     commit_search_result_item-commit-verification = parse_verification( iv_prefix ).
-    commit_search_result_item-author = mo_json->value_string( iv_prefix && '/author' ).
-    commit_search_result_item-committer = mo_json->value_string( iv_prefix && '/committer' ).
+    commit_search_result_item-author = parse_nullable_simple_user( iv_prefix ).
+    commit_search_result_item-committer = parse_nullable_git_user( iv_prefix ).
 * todo, array, parents
     commit_search_result_item-repository = parse_minimal_repository( iv_prefix ).
 * todo, number, score
@@ -6494,11 +6845,11 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_search_result_item-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
     issue_search_result_item-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
 * todo, array, assignees
-    issue_search_result_item-user = mo_json->value_string( iv_prefix && '/user' ).
+    issue_search_result_item-user = parse_nullable_simple_user( iv_prefix ).
 * todo, array, labels
     issue_search_result_item-state = mo_json->value_string( iv_prefix && '/state' ).
-    issue_search_result_item-assignee = mo_json->value_string( iv_prefix && '/assignee' ).
-    issue_search_result_item-milestone = mo_json->value_string( iv_prefix && '/milestone' ).
+    issue_search_result_item-assignee = parse_nullable_simple_user( iv_prefix ).
+    issue_search_result_item-milestone = parse_nullable_milestone( iv_prefix ).
     issue_search_result_item-comments = mo_json->value_string( iv_prefix && '/comments' ).
     issue_search_result_item-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue_search_result_item-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
@@ -6517,7 +6868,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     issue_search_result_item-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue_search_result_item-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_search_result_item-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
-    issue_search_result_item-performed_via_github_app = mo_json->value_string( iv_prefix && '/performed_via_github_app' ).
+    issue_search_result_item-performed_via_github_app = parse_nullable_integration( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_label_search_result_item.
@@ -6537,7 +6888,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     repo_search_result_item-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     repo_search_result_item-name = mo_json->value_string( iv_prefix && '/name' ).
     repo_search_result_item-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    repo_search_result_item-owner = mo_json->value_string( iv_prefix && '/owner' ).
+    repo_search_result_item-owner = parse_nullable_simple_user( iv_prefix ).
     repo_search_result_item-private = mo_json->value_boolean( iv_prefix && '/private' ).
     repo_search_result_item-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     repo_search_result_item-description = mo_json->value_string( iv_prefix && '/description' ).
@@ -6608,7 +6959,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     repo_search_result_item-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
     repo_search_result_item-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
     repo_search_result_item-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
-    repo_search_result_item-license = mo_json->value_string( iv_prefix && '/license' ).
+    repo_search_result_item-license = parse_nullable_license_simple( iv_prefix ).
     repo_search_result_item-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     repo_search_result_item-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
     repo_search_result_item-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
