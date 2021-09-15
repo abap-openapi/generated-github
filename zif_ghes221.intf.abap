@@ -618,6 +618,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -1439,6 +1440,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -1546,6 +1548,7 @@ INTERFACE zif_ghes221 PUBLIC.
            forks TYPE i,
            open_issues TYPE i,
            watchers TYPE i,
+           allow_forking TYPE abap_bool,
            anonymous_access_enabled TYPE abap_bool,
          END OF minimal_repository.
 
@@ -1939,6 +1942,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -2099,6 +2103,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_squash_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            license TYPE nullable_license_simple,
@@ -3823,6 +3828,7 @@ INTERFACE zif_ghes221 PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
+           allow_forking TYPE abap_bool,
            anonymous_access_enabled TYPE abap_bool,
          END OF subsubpull_request_base_repo.
   TYPES: BEGIN OF subpull_request_base,
@@ -3966,6 +3972,7 @@ INTERFACE zif_ghes221 PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
+           allow_forking TYPE abap_bool,
            anonymous_access_enabled TYPE abap_bool,
          END OF subsubpull_request_head_repo.
   TYPES: BEGIN OF subpull_request_head,
@@ -4404,6 +4411,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_rebase_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF repo_search_result_item.
 
 * Component schema: topic-search-result-item, object
@@ -5296,6 +5304,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_rebase_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF bodyrepos_update.
 
 * Component schema: bodyrepos_delete, object
@@ -5315,6 +5324,7 @@ INTERFACE zif_ghes221 PUBLIC.
            allow_rebase_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF bodyrepos_delete.
 
 * Component schema: bodyrepos_update_branch_protec, object

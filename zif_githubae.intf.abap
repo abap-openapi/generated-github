@@ -598,6 +598,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -1149,6 +1150,8 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subapi_overview_ssh_key_finger,
            sha256_rsa TYPE string,
            sha256_dsa TYPE string,
+           sha256_ecdsa TYPE string,
+           sha256_ed25519 TYPE string,
          END OF subapi_overview_ssh_key_finger.
   TYPES: BEGIN OF api_overview,
            verifiable_password_authentica TYPE abap_bool,
@@ -1366,6 +1369,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -1473,6 +1477,7 @@ INTERFACE zif_githubae PUBLIC.
            forks TYPE i,
            open_issues TYPE i,
            watchers TYPE i,
+           allow_forking TYPE abap_bool,
          END OF minimal_repository.
 
 * Component schema: thread, object
@@ -1897,6 +1902,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            open_issues TYPE i,
@@ -2068,6 +2074,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
+           allow_forking TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
            license TYPE nullable_license_simple,
@@ -4245,6 +4252,7 @@ INTERFACE zif_githubae PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
+           allow_forking TYPE abap_bool,
          END OF subsubpull_request_base_repo.
   TYPES: BEGIN OF subpull_request_base,
            label TYPE string,
@@ -4388,6 +4396,7 @@ INTERFACE zif_githubae PUBLIC.
            watchers_count TYPE i,
            created_at TYPE string,
            updated_at TYPE string,
+           allow_forking TYPE abap_bool,
          END OF subsubpull_request_head_repo.
   TYPES: BEGIN OF subpull_request_head,
            label TYPE string,
@@ -4854,6 +4863,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_rebase_merge TYPE abap_bool,
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF repo_search_result_item.
 
 * Component schema: topic-search-result-item, object
@@ -5585,6 +5595,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF bodyrepos_update.
 
 * Component schema: bodyrepos_delete, object
@@ -5605,6 +5616,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            archived TYPE abap_bool,
+           allow_forking TYPE abap_bool,
          END OF bodyrepos_delete.
 
 * Component schema: bodyactions_set_github_actio01, object
@@ -6855,6 +6867,11 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF response_actions_re_run_workfl,
            dummy_workaround TYPE i,
          END OF response_actions_re_run_workfl.
+
+* Component schema: response_actions_retry_workflow, object
+  TYPES: BEGIN OF response_actions_retry_workflo,
+           dummy_workaround TYPE i,
+         END OF response_actions_retry_workflo.
 
 * Component schema: response_actions_list_repo_secrets, object
   TYPES: BEGIN OF response_actions_list_repo_sec,
@@ -10957,6 +10974,22 @@ INTERFACE zif_githubae PUBLIC.
       run_id TYPE i
     RETURNING
       VALUE(return_data) TYPE response_actions_re_run_workfl
+    RAISING cx_static_check.
+
+* POST - "Retry a workflow"
+* Operation id: actions/retry-workflow
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Response: 201
+*     application/json, #/components/schemas/response_actions_retry_workflow
+  METHODS actions_retry_workflow
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_actions_retry_workflo
     RAISING cx_static_check.
 
 * GET - "Get workflow run usage"

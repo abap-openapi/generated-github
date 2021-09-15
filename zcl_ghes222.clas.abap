@@ -3227,6 +3227,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
     repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
     repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
@@ -3985,6 +3986,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     nullable_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     nullable_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     nullable_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    nullable_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
     nullable_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     nullable_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
     nullable_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
@@ -4085,6 +4087,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     minimal_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
     minimal_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
     minimal_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
+    minimal_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
   ENDMETHOD.
 
   METHOD parse_thread.
@@ -4479,6 +4482,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     team_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     team_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     team_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    team_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
     team_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     team_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
     team_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
@@ -4626,6 +4630,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     full_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     full_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     full_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    full_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
     full_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
     full_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
     full_repository-license = parse_nullable_license_simple( iv_prefix ).
@@ -6306,6 +6311,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     pull_request-head-repo-watchers_count = mo_json->value_string( iv_prefix && '/head/repo/watchers_count' ).
     pull_request-head-repo-created_at = mo_json->value_string( iv_prefix && '/head/repo/created_at' ).
     pull_request-head-repo-updated_at = mo_json->value_string( iv_prefix && '/head/repo/updated_at' ).
+    pull_request-head-repo-allow_forking = mo_json->value_boolean( iv_prefix && '/head/repo/allow_forking' ).
     pull_request-head-sha = mo_json->value_string( iv_prefix && '/head/sha' ).
     pull_request-head-user-avatar_url = mo_json->value_string( iv_prefix && '/head/user/avatar_url' ).
     pull_request-head-user-events_url = mo_json->value_string( iv_prefix && '/head/user/events_url' ).
@@ -6428,6 +6434,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     pull_request-base-repo-watchers_count = mo_json->value_string( iv_prefix && '/base/repo/watchers_count' ).
     pull_request-base-repo-created_at = mo_json->value_string( iv_prefix && '/base/repo/created_at' ).
     pull_request-base-repo-updated_at = mo_json->value_string( iv_prefix && '/base/repo/updated_at' ).
+    pull_request-base-repo-allow_forking = mo_json->value_boolean( iv_prefix && '/base/repo/allow_forking' ).
     pull_request-base-sha = mo_json->value_string( iv_prefix && '/base/sha' ).
     pull_request-base-user-avatar_url = mo_json->value_string( iv_prefix && '/base/user/avatar_url' ).
     pull_request-base-user-events_url = mo_json->value_string( iv_prefix && '/base/user/events_url' ).
@@ -6804,6 +6811,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     repo_search_result_item-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
     repo_search_result_item-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
     repo_search_result_item-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
+    repo_search_result_item-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
   ENDMETHOD.
 
   METHOD parse_topic_search_result_item.
@@ -10131,6 +10139,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
     ENDIF.
+    IF data-allow_forking = abap_true.
+      json = json && |"allow_forking": true,|.
+    ELSEIF data-allow_forking = abap_false.
+      json = json && |"allow_forking": false,|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10191,6 +10204,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       json = json && |"archived": true,|.
     ELSEIF data-archived = abap_false.
       json = json && |"archived": false,|.
+    ENDIF.
+    IF data-allow_forking = abap_true.
+      json = json && |"allow_forking": true,|.
+    ELSEIF data-allow_forking = abap_false.
+      json = json && |"allow_forking": false,|.
     ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
