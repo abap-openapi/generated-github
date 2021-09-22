@@ -11730,7 +11730,6 @@ INTERFACE zif_ghes219 PUBLIC.
 *     application/json, #/components/schemas/response_issues_list_events_for_timelin
 * Response: 404
 * Response: 410
-* Response: 415
   METHODS issues_list_events_for_timelin
     IMPORTING
       owner TYPE string

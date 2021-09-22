@@ -2290,6 +2290,7 @@ INTERFACE zif_ghes222 PUBLIC.
            head_branch TYPE string,
            head_sha TYPE string,
            run_number TYPE i,
+           run_attempt TYPE i,
            event TYPE string,
            status TYPE string,
            conclusion TYPE string,
@@ -2305,6 +2306,7 @@ INTERFACE zif_ghes222 PUBLIC.
            artifacts_url TYPE string,
            cancel_url TYPE string,
            rerun_url TYPE string,
+           previous_attempt_url TYPE string,
            workflow_url TYPE string,
            head_commit TYPE nullable_simple_commit,
            repository TYPE minimal_repository,
@@ -7033,11 +7035,6 @@ INTERFACE zif_ghes222 PUBLIC.
            jobs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_jobs_for.
 
-* Component schema: response_actions_re_run_workflow, object
-  TYPES: BEGIN OF response_actions_re_run_workfl,
-           dummy_workaround TYPE i,
-         END OF response_actions_re_run_workfl.
-
 * Component schema: response_actions_list_repo_secrets, object
   TYPES: BEGIN OF response_actions_list_repo_sec,
            total_count TYPE i,
@@ -11431,22 +11428,6 @@ INTERFACE zif_ghes222 PUBLIC.
       run_id TYPE i
     RAISING cx_static_check.
 
-* POST - "Re-run a workflow"
-* Operation id: actions/re-run-workflow
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: run_id, required, path
-* Response: 201
-*     application/json, #/components/schemas/response_actions_re_run_workflow
-  METHODS actions_re_run_workflow
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      run_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE response_actions_re_run_workfl
-    RAISING cx_static_check.
-
 * GET - "List repository secrets"
 * Operation id: actions/list-repo-secrets
 * Parameter: owner, required, path
@@ -14325,7 +14306,6 @@ INTERFACE zif_ghes222 PUBLIC.
 *     application/json, #/components/schemas/response_issues_list_events_for_timelin
 * Response: 404
 * Response: 410
-* Response: 415
   METHODS issues_list_events_for_timelin
     IMPORTING
       owner TYPE string
