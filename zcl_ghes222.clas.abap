@@ -4532,6 +4532,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     rate_limit_overview-resources-source_import = parse_rate_limit( iv_prefix ).
     rate_limit_overview-resources-integration_manifest = parse_rate_limit( iv_prefix ).
     rate_limit_overview-resources-code_scanning_upload = parse_rate_limit( iv_prefix ).
+    rate_limit_overview-resources-actions_runner_registration = parse_rate_limit( iv_prefix ).
     rate_limit_overview-rate = parse_rate_limit( iv_prefix ).
   ENDMETHOD.
 
@@ -6125,6 +6126,8 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     page-url = mo_json->value_string( iv_prefix && '/url' ).
     page-status = mo_json->value_string( iv_prefix && '/status' ).
     page-cname = mo_json->value_string( iv_prefix && '/cname' ).
+    page-protected_domain_state = mo_json->value_string( iv_prefix && '/protected_domain_state' ).
+    page-pending_domain_unverified_at = mo_json->value_string( iv_prefix && '/pending_domain_unverified_at' ).
     page-custom_404 = mo_json->value_boolean( iv_prefix && '/custom_404' ).
     page-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     page-source = parse_pages_source_hash( iv_prefix ).

@@ -1961,6 +1961,7 @@ INTERFACE zif_githubae PUBLIC.
            source_import TYPE rate_limit,
            integration_manifest TYPE rate_limit,
            code_scanning_upload TYPE rate_limit,
+           actions_runner_registration TYPE rate_limit,
          END OF subrate_limit_overview_resourc.
   TYPES: BEGIN OF rate_limit_overview,
            resources TYPE subrate_limit_overview_resourc,
@@ -4070,6 +4071,8 @@ INTERFACE zif_githubae PUBLIC.
            url TYPE string,
            status TYPE string,
            cname TYPE string,
+           protected_domain_state TYPE string,
+           pending_domain_unverified_at TYPE string,
            custom_404 TYPE abap_bool,
            html_url TYPE string,
            source TYPE pages_source_hash,
@@ -10470,7 +10473,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 404
-* Response: 415
 * Response: 422
   METHODS projects_list_collaborators
     IMPORTING
@@ -10491,7 +10493,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 404
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyprojects_add_collaborator
   METHODS projects_add_collaborator
@@ -10510,7 +10511,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 404
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyprojects_remove_collaborat
   METHODS projects_remove_collaborator
@@ -10530,7 +10530,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 401
 * Response: 403
 * Response: 404
-* Response: 415
 * Response: 422
   METHODS projects_get_permission_for_us
     IMPORTING
@@ -11356,7 +11355,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/protected-branch
 * Response: 403
 * Response: 404
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_update_branch_protec
   METHODS repos_update_branch_protection
@@ -12501,7 +12499,6 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: commit_sha, required, path
 * Response: 200
 *     application/json, #/components/schemas/response_repos_list_branches_for_head_c
-* Response: 415
 * Response: 422
   METHODS repos_list_branches_for_head_c
     IMPORTING
@@ -12561,7 +12558,6 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_repos_list_pull_requests_assoc
-* Response: 415
   METHODS repos_list_pull_requests_assoc
     IMPORTING
       owner TYPE string
@@ -15309,7 +15305,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 202
 *     application/json, #/components/schemas/response_pulls_update_branch
 * Response: 403
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodypulls_update_branch
   METHODS pulls_update_branch
@@ -16965,7 +16960,6 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_projects_list_for_user
-* Response: 415
 * Response: 422
   METHODS projects_list_for_user
     IMPORTING
