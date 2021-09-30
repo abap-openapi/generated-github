@@ -584,6 +584,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_githubae=>code_scanning_alert_environmen
       RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_c
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_categor) TYPE zif_githubae=>code_scanning_analysis_categor
+      RAISING cx_static_check.
     METHODS parse_code_scanning_alert_loca
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_location) TYPE zif_githubae=>code_scanning_alert_location
@@ -616,17 +620,13 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_sarif_i) TYPE zif_githubae=>code_scanning_analysis_sarif_i
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_c
+    METHODS parse_code_scanning_analysis04
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_commit_) TYPE zif_githubae=>code_scanning_analysis_commit_
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis_e
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_environ) TYPE zif_githubae=>code_scanning_analysis_environ
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis04
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_categor) TYPE zif_githubae=>code_scanning_analysis_categor
       RAISING cx_static_check.
     METHODS parse_code_scanning_analysis05
       IMPORTING iv_prefix TYPE string
@@ -4934,6 +4934,10 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
+  METHOD parse_code_scanning_analysis_c.
+* todo, handle type string
+  ENDMETHOD.
+
   METHOD parse_code_scanning_alert_loca.
     code_scanning_alert_location-path = mo_json->value_string( iv_prefix && '/path' ).
     code_scanning_alert_location-start_line = mo_json->value_string( iv_prefix && '/start_line' ).
@@ -4950,6 +4954,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_scanning_alert_instance-ref = parse_code_scanning_ref( iv_prefix ).
     code_scanning_alert_instance-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
     code_scanning_alert_instance-environment = parse_code_scanning_alert_envi( iv_prefix ).
+    code_scanning_alert_instance-category = parse_code_scanning_analysis_c( iv_prefix ).
     code_scanning_alert_instance-state = parse_code_scanning_alert_stat( iv_prefix ).
     code_scanning_alert_instance-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
     code_scanning_alert_instance-message-text = mo_json->value_string( iv_prefix && '/message/text' ).
@@ -5008,15 +5013,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis_c.
+  METHOD parse_code_scanning_analysis04.
 * todo, handle type string
   ENDMETHOD.
 
   METHOD parse_code_scanning_analysis_e.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis04.
 * todo, handle type string
   ENDMETHOD.
 
@@ -5030,10 +5031,10 @@ CLASS zcl_githubae IMPLEMENTATION.
 
   METHOD parse_code_scanning_analysis.
     code_scanning_analysis-ref = parse_code_scanning_ref( iv_prefix ).
-    code_scanning_analysis-commit_sha = parse_code_scanning_analysis_c( iv_prefix ).
+    code_scanning_analysis-commit_sha = parse_code_scanning_analysis04( iv_prefix ).
     code_scanning_analysis-analysis_key = parse_code_scanning_analysis_a( iv_prefix ).
     code_scanning_analysis-environment = parse_code_scanning_analysis_e( iv_prefix ).
-    code_scanning_analysis-category = parse_code_scanning_analysis04( iv_prefix ).
+    code_scanning_analysis-category = parse_code_scanning_analysis_c( iv_prefix ).
     code_scanning_analysis-error = mo_json->value_string( iv_prefix && '/error' ).
     code_scanning_analysis-created_at = parse_code_scanning_analysis05( iv_prefix ).
     code_scanning_analysis-results_count = mo_json->value_string( iv_prefix && '/results_count' ).

@@ -2768,6 +2768,9 @@ INTERFACE zif_ghes30 PUBLIC.
 * Component schema: code-scanning-alert-environment, string
   TYPES code_scanning_alert_environmen TYPE string.
 
+* Component schema: code-scanning-analysis-category, string
+  TYPES code_scanning_analysis_categor TYPE string.
+
 * Component schema: code-scanning-alert-location, object
   TYPES: BEGIN OF code_scanning_alert_location,
            path TYPE string,
@@ -2788,6 +2791,7 @@ INTERFACE zif_ghes30 PUBLIC.
            ref TYPE code_scanning_ref,
            analysis_key TYPE code_scanning_analysis_analysi,
            environment TYPE code_scanning_alert_environmen,
+           category TYPE code_scanning_analysis_categor,
            state TYPE code_scanning_alert_state,
            commit_sha TYPE string,
            message TYPE subcode_scanning_alert_instanc,
@@ -2851,9 +2855,6 @@ INTERFACE zif_ghes30 PUBLIC.
 
 * Component schema: code-scanning-analysis-environment, string
   TYPES code_scanning_analysis_environ TYPE string.
-
-* Component schema: code-scanning-analysis-category, string
-  TYPES code_scanning_analysis_categor TYPE string.
 
 * Component schema: code-scanning-analysis-created-at, string
   TYPES code_scanning_analysis_created TYPE string.
