@@ -2110,6 +2110,7 @@ INTERFACE zif_githubae PUBLIC.
            id TYPE i,
            run_id TYPE i,
            run_url TYPE string,
+           run_attempt TYPE i,
            node_id TYPE string,
            head_sha TYPE string,
            url TYPE string,
@@ -2121,6 +2122,11 @@ INTERFACE zif_githubae PUBLIC.
            name TYPE string,
            steps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            check_run_url TYPE string,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           runner_id TYPE i,
+           runner_name TYPE string,
+           runner_group_id TYPE i,
+           runner_group_name TYPE string,
          END OF job.
 
 * Component schema: actions-enabled, boolean
@@ -2200,6 +2206,7 @@ INTERFACE zif_githubae PUBLIC.
            pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            created_at TYPE string,
            updated_at TYPE string,
+           run_started_at TYPE string,
            jobs_url TYPE string,
            logs_url TYPE string,
            check_suite_url TYPE string,
@@ -2218,14 +2225,17 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subsubworkflow_run_usage_bil02,
            total_ms TYPE i,
            jobs TYPE i,
+           job_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subsubworkflow_run_usage_bil02.
   TYPES: BEGIN OF subsubworkflow_run_usage_bil01,
            total_ms TYPE i,
            jobs TYPE i,
+           job_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subsubworkflow_run_usage_bil01.
   TYPES: BEGIN OF subsubworkflow_run_usage_billa,
            total_ms TYPE i,
            jobs TYPE i,
+           job_runs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subsubworkflow_run_usage_billa.
   TYPES: BEGIN OF subworkflow_run_usage_billable,
            ubuntu TYPE subsubworkflow_run_usage_billa,
@@ -2725,7 +2735,6 @@ INTERFACE zif_githubae PUBLIC.
            created_at TYPE alert_created_at,
            url TYPE alert_url,
            html_url TYPE alert_html_url,
-           instances TYPE string,
            instances_url TYPE alert_instances_url,
            state TYPE code_scanning_alert_state,
            dismissed_by TYPE nullable_simple_user,
@@ -2771,7 +2780,6 @@ INTERFACE zif_githubae PUBLIC.
            tool TYPE code_scanning_analysis_tool,
            deletable TYPE abap_bool,
            warning TYPE string,
-           tool_name TYPE string,
          END OF code_scanning_analysis.
 
 * Component schema: code-scanning-analysis-sarif-file, string
@@ -3239,58 +3247,6 @@ INTERFACE zif_githubae PUBLIC.
            avatar_url TYPE string,
          END OF actor.
 
-* Component schema: label, object
-  TYPES: BEGIN OF label,
-           id TYPE i,
-           node_id TYPE string,
-           url TYPE string,
-           name TYPE string,
-           description TYPE string,
-           color TYPE string,
-           default TYPE abap_bool,
-         END OF label.
-
-* Component schema: issue-simple, object
-  TYPES: BEGIN OF subissue_simple_pull_request,
-           merged_at TYPE string,
-           diff_url TYPE string,
-           html_url TYPE string,
-           patch_url TYPE string,
-           url TYPE string,
-         END OF subissue_simple_pull_request.
-  TYPES: BEGIN OF issue_simple,
-           id TYPE i,
-           node_id TYPE string,
-           url TYPE string,
-           repository_url TYPE string,
-           labels_url TYPE string,
-           comments_url TYPE string,
-           events_url TYPE string,
-           html_url TYPE string,
-           number TYPE i,
-           state TYPE string,
-           title TYPE string,
-           body TYPE string,
-           user TYPE nullable_simple_user,
-           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           assignee TYPE nullable_simple_user,
-           assignees TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           milestone TYPE nullable_milestone,
-           locked TYPE abap_bool,
-           active_lock_reason TYPE string,
-           comments TYPE i,
-           pull_request TYPE subissue_simple_pull_request,
-           closed_at TYPE string,
-           created_at TYPE string,
-           updated_at TYPE string,
-           author_association TYPE author_association,
-           body_html TYPE string,
-           body_text TYPE string,
-           timeline_url TYPE string,
-           repository TYPE repository,
-           performed_via_github_app TYPE nullable_integration,
-         END OF issue_simple.
-
 * Component schema: issue-comment, object
   TYPES: BEGIN OF issue_comment,
            id TYPE i,
@@ -3312,7 +3268,7 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: event, object
   TYPES: BEGIN OF subevent_payload,
            action TYPE string,
-           issue TYPE issue_simple,
+           issue TYPE issue,
            comment TYPE issue_comment,
            pages TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subevent_payload.
@@ -3507,7 +3463,7 @@ INTERFACE zif_githubae PUBLIC.
            commit_id TYPE string,
            commit_url TYPE string,
            created_at TYPE string,
-           issue TYPE issue_simple,
+           issue TYPE issue,
            label TYPE issue_event_label,
            assignee TYPE nullable_simple_user,
            assigner TYPE nullable_simple_user,
@@ -3798,6 +3754,17 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: issue-event-for-issue, string
   TYPES issue_event_for_issue TYPE string.
 
+* Component schema: label, object
+  TYPES: BEGIN OF label,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           name TYPE string,
+           description TYPE string,
+           color TYPE string,
+           default TYPE abap_bool,
+         END OF label.
+
 * Component schema: timeline-comment-event, object
   TYPES: BEGIN OF timeline_comment_event,
            event TYPE string,
@@ -3821,7 +3788,7 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: timeline-cross-referenced-event, object
   TYPES: BEGIN OF subtimeline_cross_referenced_e,
            type TYPE string,
-           issue TYPE issue_simple,
+           issue TYPE issue,
          END OF subtimeline_cross_referenced_e.
   TYPES: BEGIN OF timeline_cross_referenced_even,
            event TYPE string,
@@ -4201,6 +4168,7 @@ INTERFACE zif_githubae PUBLIC.
            hooks_url TYPE string,
            html_url TYPE string,
            id TYPE i,
+           is_template TYPE abap_bool,
            node_id TYPE string,
            issue_comment_url TYPE string,
            issue_events_url TYPE string,
@@ -4239,6 +4207,7 @@ INTERFACE zif_githubae PUBLIC.
            master_branch TYPE string,
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
+           visibility TYPE string,
            mirror_url TYPE string,
            open_issues TYPE i,
            open_issues_count TYPE i,
@@ -4383,6 +4352,7 @@ INTERFACE zif_githubae PUBLIC.
            master_branch TYPE string,
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
+           visibility TYPE string,
            mirror_url TYPE string,
            open_issues TYPE i,
            open_issues_count TYPE i,
@@ -4403,6 +4373,7 @@ INTERFACE zif_githubae PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            allow_forking TYPE abap_bool,
+           is_template TYPE abap_bool,
          END OF subsubpull_request_head_repo.
   TYPES: BEGIN OF subpull_request_head,
            label TYPE string,
@@ -4761,6 +4732,7 @@ INTERFACE zif_githubae PUBLIC.
            body_text TYPE string,
            timeline_url TYPE string,
            performed_via_github_app TYPE nullable_integration,
+           reactions TYPE reaction_rollup,
          END OF issue_search_result_item.
 
 * Component schema: label-search-result-item, object
@@ -4860,6 +4832,7 @@ INTERFACE zif_githubae PUBLIC.
            has_downloads TYPE abap_bool,
            archived TYPE abap_bool,
            disabled TYPE abap_bool,
+           visibility TYPE string,
            license TYPE nullable_license_simple,
            permissions TYPE subrepo_search_result_item_per,
            text_matches TYPE search_result_text_matches,
@@ -4870,6 +4843,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
            allow_forking TYPE abap_bool,
+           is_template TYPE abap_bool,
          END OF repo_search_result_item.
 
 * Component schema: topic-search-result-item, object
@@ -6869,11 +6843,6 @@ INTERFACE zif_githubae PUBLIC.
            jobs TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_jobs_for.
 
-* Component schema: response_actions_retry_workflow, object
-  TYPES: BEGIN OF response_actions_retry_workflo,
-           dummy_workaround TYPE i,
-         END OF response_actions_retry_workflo.
-
 * Component schema: response_actions_list_repo_secrets, object
   TYPES: BEGIN OF response_actions_list_repo_sec,
            total_count TYPE i,
@@ -6956,6 +6925,11 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_checks_list_annotations, array
   TYPES response_checks_list_annotatio TYPE STANDARD TABLE OF check_annotation WITH DEFAULT KEY.
+
+* Component schema: response_checks_rerequest_run, object
+  TYPES: BEGIN OF response_checks_rerequest_run,
+           dummy_workaround TYPE i,
+         END OF response_checks_rerequest_run.
 
 * Component schema: response_checks_list_for_suite, object
   TYPES: BEGIN OF response_checks_list_for_suite,
@@ -7046,7 +7020,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES response_repos_list_invitation TYPE STANDARD TABLE OF repository_invitation WITH DEFAULT KEY.
 
 * Component schema: response_issues_list_for_repo, array
-  TYPES response_issues_list_for_repo TYPE STANDARD TABLE OF issue_simple WITH DEFAULT KEY.
+  TYPES response_issues_list_for_repo TYPE STANDARD TABLE OF issue WITH DEFAULT KEY.
 
 * Component schema: response_issues_list_comments_for_repo, array
   TYPES response_issues_list_comments_ TYPE STANDARD TABLE OF issue_comment WITH DEFAULT KEY.
@@ -8900,7 +8874,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/organization-full
 * Response: 409
-* Response: 415
 * Response: 422
 *     application/json, string
 * Body ref: #/components/schemas/bodyorgs_update
@@ -10895,6 +10868,39 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_actions_list_workfl01
     RAISING cx_static_check.
 
+* GET - "Get a workflow run attempt"
+* Operation id: actions/get-workflow-run-attempt
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Parameter: attempt_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/workflow-run
+  METHODS actions_get_workflow_run_attem
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+      attempt_number TYPE i
+    RETURNING
+      VALUE(return_data) TYPE workflow_run
+    RAISING cx_static_check.
+
+* GET - "Download workflow run attempt logs"
+* Operation id: actions/download-workflow-run-attempt-logs
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: run_id, required, path
+* Parameter: attempt_number, required, path
+* Response: 302
+  METHODS actions_download_workflow_run_
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      run_id TYPE i
+      attempt_number TYPE i
+    RAISING cx_static_check.
+
 * POST - "Cancel a workflow run"
 * Operation id: actions/cancel-workflow-run
 * Parameter: owner, required, path
@@ -10937,7 +10943,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 302
-  METHODS actions_download_workflow_run_
+  METHODS actions_download_workflow_ru01
     IMPORTING
       owner TYPE string
       repo TYPE string
@@ -10955,22 +10961,6 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       run_id TYPE i
-    RAISING cx_static_check.
-
-* POST - "Retry a workflow"
-* Operation id: actions/retry-workflow
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: run_id, required, path
-* Response: 201
-*     application/json, #/components/schemas/response_actions_retry_workflow
-  METHODS actions_retry_workflow
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      run_id TYPE i
-    RETURNING
-      VALUE(return_data) TYPE response_actions_retry_workflo
     RAISING cx_static_check.
 
 * GET - "Get workflow run usage"
@@ -11969,6 +11959,27 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_checks_list_annotatio
     RAISING cx_static_check.
 
+* POST - "Rerequest a check run"
+* Operation id: checks/rerequest-run
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: check_run_id, required, path
+* Response: 201
+*     application/json, #/components/schemas/response_checks_rerequest_run
+* Response: 403
+*     application/json, #/components/schemas/basic-error
+* Response: 404
+* Response: 422
+*     application/json, #/components/schemas/basic-error
+  METHODS checks_rerequest_run
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      check_run_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE response_checks_rerequest_run
+    RAISING cx_static_check.
+
 * POST - "Create a check suite"
 * Operation id: checks/create-suite
 * Parameter: owner, required, path
@@ -12411,7 +12422,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_reactions_list_for_commit_comm
 * Response: 404
-* Response: 415
   METHODS reactions_list_for_commit_comm
     IMPORTING
       content TYPE string OPTIONAL
@@ -12948,7 +12958,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/deployment-status
 * Response: 404
-* Response: 415
   METHODS repos_get_deployment_status
     IMPORTING
       status_id TYPE i
@@ -13679,7 +13688,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_reactions_list_for_issue_comme
 * Response: 404
-* Response: 415
   METHODS reactions_list_for_issue_comme
     IMPORTING
       content TYPE string OPTIONAL
@@ -13701,7 +13709,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyreactions_create_for_issue
   METHODS reactions_create_for_issue_com
@@ -13817,7 +13824,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 201
-*     application/json, #/components/schemas/issue-simple
+*     application/json, #/components/schemas/issue
 * Body ref: #/components/schemas/bodyissues_add_assignees
   METHODS issues_add_assignees
     IMPORTING
@@ -13826,7 +13833,7 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       body TYPE bodyissues_add_assignees
     RETURNING
-      VALUE(return_data) TYPE issue_simple
+      VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * DELETE - "Remove assignees from an issue"
@@ -13835,7 +13842,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: issue_number, required, path
 * Response: 200
-*     application/json, #/components/schemas/issue-simple
+*     application/json, #/components/schemas/issue
 * Body ref: #/components/schemas/bodyissues_remove_assignees
   METHODS issues_remove_assignees
     IMPORTING
@@ -13844,7 +13851,7 @@ INTERFACE zif_githubae PUBLIC.
       issue_number TYPE i
       body TYPE bodyissues_remove_assignees
     RETURNING
-      VALUE(return_data) TYPE issue_simple
+      VALUE(return_data) TYPE issue
     RAISING cx_static_check.
 
 * GET - "List issue comments"
@@ -14056,7 +14063,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/response_reactions_list_for_issue
 * Response: 404
 * Response: 410
-* Response: 415
   METHODS reactions_list_for_issue
     IMPORTING
       content TYPE string OPTIONAL
@@ -14078,7 +14084,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyreactions_create_for_iss01
   METHODS reactions_create_for_issue
@@ -14547,7 +14552,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 201
 *     application/json, #/components/schemas/page
 * Response: 409
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_create_pages_site
   METHODS repos_create_pages_site
@@ -14580,7 +14584,6 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Response: 204
 * Response: 404
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyrepos_delete_pages_site
   METHODS repos_delete_pages_site
@@ -14832,7 +14835,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_reactions_list_for_pull_reques
 * Response: 404
-* Response: 415
   METHODS reactions_list_for_pull_reques
     IMPORTING
       content TYPE string OPTIONAL
@@ -14854,7 +14856,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyreactions_create_for_pull_
   METHODS reactions_create_for_pull_requ
@@ -15572,7 +15573,6 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, #/components/schemas/reaction
 * Response: 201
 *     application/json, #/components/schemas/reaction
-* Response: 415
 * Response: 422
 * Body ref: #/components/schemas/bodyreactions_create_for_relea
   METHODS reactions_create_for_release
@@ -16021,7 +16021,6 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 200
 *     application/json, #/components/schemas/response_search_commits
 * Response: 304
-* Response: 415
   METHODS search_commits
     IMPORTING
       q TYPE string
@@ -16192,7 +16191,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "List the people the authenticated user follows"
-* Operation id: users/list-followed-by-authenticated
+* Operation id: users/list-followed-by-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
@@ -16249,7 +16248,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "List GPG keys for the authenticated user"
-* Operation id: users/list-gpg-keys-for-authenticated
+* Operation id: users/list-gpg-keys-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
@@ -16267,7 +16266,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * POST - "Create a GPG key for the authenticated user"
-* Operation id: users/create-gpg-key-for-authenticated
+* Operation id: users/create-gpg-key-for-authenticated-user
 * Response: 201
 *     application/json, #/components/schemas/gpg-key
 * Response: 304
@@ -16284,7 +16283,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get a GPG key for the authenticated user"
-* Operation id: users/get-gpg-key-for-authenticated
+* Operation id: users/get-gpg-key-for-authenticated-user
 * Parameter: gpg_key_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/gpg-key
@@ -16300,7 +16299,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * DELETE - "Delete a GPG key for the authenticated user"
-* Operation id: users/delete-gpg-key-for-authenticated
+* Operation id: users/delete-gpg-key-for-authenticated-user
 * Parameter: gpg_key_id, required, path
 * Response: 204
 * Response: 304
@@ -16351,21 +16350,21 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * PUT - "Add a repository to an app installation"
-* Operation id: apps/add-repo-to-installation
+* Operation id: apps/add-repo-to-installation-for-authenticated-user
 * Parameter: installation_id, required, path
 * Parameter: repository_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
-  METHODS apps_add_repo_to_installation
+  METHODS apps_add_repo_to_installation_
     IMPORTING
       installation_id TYPE i
       repository_id TYPE i
     RAISING cx_static_check.
 
 * DELETE - "Remove a repository from an app installation"
-* Operation id: apps/remove-repo-from-installation
+* Operation id: apps/remove-repo-from-installation-for-authenticated-user
 * Parameter: installation_id, required, path
 * Parameter: repository_id, required, path
 * Response: 204
@@ -16407,7 +16406,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "List public SSH keys for the authenticated user"
-* Operation id: users/list-public-ssh-keys-for-authenticated
+* Operation id: users/list-public-ssh-keys-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
@@ -16425,7 +16424,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * POST - "Create a public SSH key for the authenticated user"
-* Operation id: users/create-public-ssh-key-for-authenticated
+* Operation id: users/create-public-ssh-key-for-authenticated-user
 * Response: 201
 *     application/json, #/components/schemas/key
 * Response: 304
@@ -16442,7 +16441,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get a public SSH key for the authenticated user"
-* Operation id: users/get-public-ssh-key-for-authenticated
+* Operation id: users/get-public-ssh-key-for-authenticated-user
 * Parameter: key_id, required, path
 * Response: 200
 *     application/json, #/components/schemas/key
@@ -16458,7 +16457,7 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * DELETE - "Delete a public SSH key for the authenticated user"
-* Operation id: users/delete-public-ssh-key-for-authenticated
+* Operation id: users/delete-public-ssh-key-for-authenticated-user
 * Parameter: key_id, required, path
 * Response: 204
 * Response: 304
@@ -16624,27 +16623,27 @@ INTERFACE zif_githubae PUBLIC.
     RAISING cx_static_check.
 
 * PATCH - "Accept a repository invitation"
-* Operation id: repos/accept-invitation
+* Operation id: repos/accept-invitation-for-authenticated-user
 * Parameter: invitation_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
 * Response: 409
-  METHODS repos_accept_invitation
+  METHODS repos_accept_invitation_for_au
     IMPORTING
       invitation_id TYPE i
     RAISING cx_static_check.
 
 * DELETE - "Decline a repository invitation"
-* Operation id: repos/decline-invitation
+* Operation id: repos/decline-invitation-for-authenticated-user
 * Parameter: invitation_id, required, path
 * Response: 204
 * Response: 304
 * Response: 403
 * Response: 404
 * Response: 409
-  METHODS repos_decline_invitation
+  METHODS repos_decline_invitation_for_a
     IMPORTING
       invitation_id TYPE i
     RAISING cx_static_check.

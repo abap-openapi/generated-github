@@ -744,14 +744,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actor) TYPE zif_githubae=>actor
       RAISING cx_static_check.
-    METHODS parse_label
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(label) TYPE zif_githubae=>label
-      RAISING cx_static_check.
-    METHODS parse_issue_simple
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(issue_simple) TYPE zif_githubae=>issue_simple
-      RAISING cx_static_check.
     METHODS parse_issue_comment
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(issue_comment) TYPE zif_githubae=>issue_comment
@@ -879,6 +871,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_issue_event_for_issue
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(issue_event_for_issue) TYPE zif_githubae=>issue_event_for_issue
+      RAISING cx_static_check.
+    METHODS parse_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(label) TYPE zif_githubae=>label
       RAISING cx_static_check.
     METHODS parse_timeline_comment_event
       IMPORTING iv_prefix TYPE string
@@ -2120,10 +2116,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_jobs_for) TYPE zif_githubae=>response_actions_list_jobs_for
       RAISING cx_static_check.
-    METHODS parse_actions_retry_workflow
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_actions_retry_workflo) TYPE zif_githubae=>response_actions_retry_workflo
-      RAISING cx_static_check.
     METHODS parse_actions_list_repo_secret
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_repo_sec) TYPE zif_githubae=>response_actions_list_repo_sec
@@ -2219,6 +2211,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_checks_list_annotations
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_checks_list_annotatio) TYPE zif_githubae=>response_checks_list_annotatio
+      RAISING cx_static_check.
+    METHODS parse_checks_rerequest_run
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_checks_rerequest_run) TYPE zif_githubae=>response_checks_rerequest_run
       RAISING cx_static_check.
     METHODS parse_checks_list_for_suite
       IMPORTING iv_prefix TYPE string
@@ -4515,6 +4511,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     job-id = mo_json->value_string( iv_prefix && '/id' ).
     job-run_id = mo_json->value_string( iv_prefix && '/run_id' ).
     job-run_url = mo_json->value_string( iv_prefix && '/run_url' ).
+    job-run_attempt = mo_json->value_string( iv_prefix && '/run_attempt' ).
     job-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
     job-head_sha = mo_json->value_string( iv_prefix && '/head_sha' ).
     job-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -4526,6 +4523,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     job-name = mo_json->value_string( iv_prefix && '/name' ).
 * todo, array, steps
     job-check_run_url = mo_json->value_string( iv_prefix && '/check_run_url' ).
+* todo, array, labels
+    job-runner_id = mo_json->value_string( iv_prefix && '/runner_id' ).
+    job-runner_name = mo_json->value_string( iv_prefix && '/runner_name' ).
+    job-runner_group_id = mo_json->value_string( iv_prefix && '/runner_group_id' ).
+    job-runner_group_name = mo_json->value_string( iv_prefix && '/runner_group_name' ).
   ENDMETHOD.
 
   METHOD parse_actions_enabled.
@@ -4584,6 +4586,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, pull_requests
     workflow_run-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     workflow_run-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    workflow_run-run_started_at = mo_json->value_string( iv_prefix && '/run_started_at' ).
     workflow_run-jobs_url = mo_json->value_string( iv_prefix && '/jobs_url' ).
     workflow_run-logs_url = mo_json->value_string( iv_prefix && '/logs_url' ).
     workflow_run-check_suite_url = mo_json->value_string( iv_prefix && '/check_suite_url' ).
@@ -4601,10 +4604,13 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_workflow_run_usage.
     workflow_run_usage-billable-ubuntu-total_ms = mo_json->value_string( iv_prefix && '/billable/UBUNTU/total_ms' ).
     workflow_run_usage-billable-ubuntu-jobs = mo_json->value_string( iv_prefix && '/billable/UBUNTU/jobs' ).
+* todo, array, job_runs
     workflow_run_usage-billable-macos-total_ms = mo_json->value_string( iv_prefix && '/billable/MACOS/total_ms' ).
     workflow_run_usage-billable-macos-jobs = mo_json->value_string( iv_prefix && '/billable/MACOS/jobs' ).
+* todo, array, job_runs
     workflow_run_usage-billable-windows-total_ms = mo_json->value_string( iv_prefix && '/billable/WINDOWS/total_ms' ).
     workflow_run_usage-billable-windows-jobs = mo_json->value_string( iv_prefix && '/billable/WINDOWS/jobs' ).
+* todo, array, job_runs
     workflow_run_usage-run_duration_ms = mo_json->value_string( iv_prefix && '/run_duration_ms' ).
   ENDMETHOD.
 
@@ -4994,7 +5000,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
     code_scanning_alert-url = parse_alert_url( iv_prefix ).
     code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
-    code_scanning_alert-instances = mo_json->value_string( iv_prefix && '/instances' ).
     code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
     code_scanning_alert-dismissed_by = parse_nullable_simple_user( iv_prefix ).
@@ -5045,7 +5050,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_scanning_analysis-tool = parse_code_scanning_analysis03( iv_prefix ).
     code_scanning_analysis-deletable = mo_json->value_boolean( iv_prefix && '/deletable' ).
     code_scanning_analysis-warning = mo_json->value_string( iv_prefix && '/warning' ).
-    code_scanning_analysis-tool_name = mo_json->value_string( iv_prefix && '/tool_name' ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_analysis06.
@@ -5443,53 +5447,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     actor-avatar_url = mo_json->value_string( iv_prefix && '/avatar_url' ).
   ENDMETHOD.
 
-  METHOD parse_label.
-    label-id = mo_json->value_string( iv_prefix && '/id' ).
-    label-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    label-url = mo_json->value_string( iv_prefix && '/url' ).
-    label-name = mo_json->value_string( iv_prefix && '/name' ).
-    label-description = mo_json->value_string( iv_prefix && '/description' ).
-    label-color = mo_json->value_string( iv_prefix && '/color' ).
-    label-default = mo_json->value_boolean( iv_prefix && '/default' ).
-  ENDMETHOD.
-
-  METHOD parse_issue_simple.
-    issue_simple-id = mo_json->value_string( iv_prefix && '/id' ).
-    issue_simple-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    issue_simple-url = mo_json->value_string( iv_prefix && '/url' ).
-    issue_simple-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
-    issue_simple-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
-    issue_simple-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-    issue_simple-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
-    issue_simple-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    issue_simple-number = mo_json->value_string( iv_prefix && '/number' ).
-    issue_simple-state = mo_json->value_string( iv_prefix && '/state' ).
-    issue_simple-title = mo_json->value_string( iv_prefix && '/title' ).
-    issue_simple-body = mo_json->value_string( iv_prefix && '/body' ).
-    issue_simple-user = parse_nullable_simple_user( iv_prefix ).
-* todo, array, labels
-    issue_simple-assignee = parse_nullable_simple_user( iv_prefix ).
-* todo, array, assignees
-    issue_simple-milestone = parse_nullable_milestone( iv_prefix ).
-    issue_simple-locked = mo_json->value_boolean( iv_prefix && '/locked' ).
-    issue_simple-active_lock_reason = mo_json->value_string( iv_prefix && '/active_lock_reason' ).
-    issue_simple-comments = mo_json->value_string( iv_prefix && '/comments' ).
-    issue_simple-pull_request-merged_at = mo_json->value_string( iv_prefix && '/pull_request/merged_at' ).
-    issue_simple-pull_request-diff_url = mo_json->value_string( iv_prefix && '/pull_request/diff_url' ).
-    issue_simple-pull_request-html_url = mo_json->value_string( iv_prefix && '/pull_request/html_url' ).
-    issue_simple-pull_request-patch_url = mo_json->value_string( iv_prefix && '/pull_request/patch_url' ).
-    issue_simple-pull_request-url = mo_json->value_string( iv_prefix && '/pull_request/url' ).
-    issue_simple-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
-    issue_simple-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    issue_simple-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    issue_simple-author_association = parse_author_association( iv_prefix ).
-    issue_simple-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
-    issue_simple-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
-    issue_simple-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
-    issue_simple-repository = parse_repository( iv_prefix ).
-    issue_simple-performed_via_github_app = parse_nullable_integration( iv_prefix ).
-  ENDMETHOD.
-
   METHOD parse_issue_comment.
     issue_comment-id = mo_json->value_string( iv_prefix && '/id' ).
     issue_comment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
@@ -5516,7 +5473,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     event-repo-url = mo_json->value_string( iv_prefix && '/repo/url' ).
     event-org = parse_actor( iv_prefix ).
     event-payload-action = mo_json->value_string( iv_prefix && '/payload/action' ).
-    event-payload-issue = parse_issue_simple( iv_prefix ).
+    event-payload-issue = parse_issue( iv_prefix ).
     event-payload-comment = parse_issue_comment( iv_prefix ).
 * todo, array, pages
     event-public = mo_json->value_boolean( iv_prefix && '/public' ).
@@ -5660,7 +5617,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
     issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
     issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    issue_event-issue = parse_issue_simple( iv_prefix ).
+    issue_event-issue = parse_issue( iv_prefix ).
     issue_event-label = parse_issue_event_label( iv_prefix ).
     issue_event-assignee = parse_nullable_simple_user( iv_prefix ).
     issue_event-assigner = parse_nullable_simple_user( iv_prefix ).
@@ -5907,6 +5864,16 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
+  METHOD parse_label.
+    label-id = mo_json->value_string( iv_prefix && '/id' ).
+    label-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    label-url = mo_json->value_string( iv_prefix && '/url' ).
+    label-name = mo_json->value_string( iv_prefix && '/name' ).
+    label-description = mo_json->value_string( iv_prefix && '/description' ).
+    label-color = mo_json->value_string( iv_prefix && '/color' ).
+    label-default = mo_json->value_boolean( iv_prefix && '/default' ).
+  ENDMETHOD.
+
   METHOD parse_timeline_comment_event.
     timeline_comment_event-event = mo_json->value_string( iv_prefix && '/event' ).
     timeline_comment_event-actor = parse_simple_user( iv_prefix ).
@@ -5932,7 +5899,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     timeline_cross_referenced_even-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     timeline_cross_referenced_even-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     timeline_cross_referenced_even-source-type = mo_json->value_string( iv_prefix && '/source/type' ).
-    timeline_cross_referenced_even-source-issue = parse_issue_simple( iv_prefix ).
+    timeline_cross_referenced_even-source-issue = parse_issue( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_timeline_committed_event.
@@ -6274,6 +6241,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-head-repo-master_branch = mo_json->value_string( iv_prefix && '/head/repo/master_branch' ).
     pull_request-head-repo-archived = mo_json->value_boolean( iv_prefix && '/head/repo/archived' ).
     pull_request-head-repo-disabled = mo_json->value_boolean( iv_prefix && '/head/repo/disabled' ).
+    pull_request-head-repo-visibility = mo_json->value_string( iv_prefix && '/head/repo/visibility' ).
     pull_request-head-repo-mirror_url = mo_json->value_string( iv_prefix && '/head/repo/mirror_url' ).
     pull_request-head-repo-open_issues = mo_json->value_string( iv_prefix && '/head/repo/open_issues' ).
     pull_request-head-repo-open_issues_count = mo_json->value_string( iv_prefix && '/head/repo/open_issues_count' ).
@@ -6302,6 +6270,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-head-repo-created_at = mo_json->value_string( iv_prefix && '/head/repo/created_at' ).
     pull_request-head-repo-updated_at = mo_json->value_string( iv_prefix && '/head/repo/updated_at' ).
     pull_request-head-repo-allow_forking = mo_json->value_boolean( iv_prefix && '/head/repo/allow_forking' ).
+    pull_request-head-repo-is_template = mo_json->value_boolean( iv_prefix && '/head/repo/is_template' ).
     pull_request-head-sha = mo_json->value_string( iv_prefix && '/head/sha' ).
     pull_request-head-user-avatar_url = mo_json->value_string( iv_prefix && '/head/user/avatar_url' ).
     pull_request-head-user-events_url = mo_json->value_string( iv_prefix && '/head/user/events_url' ).
@@ -6346,6 +6315,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-base-repo-hooks_url = mo_json->value_string( iv_prefix && '/base/repo/hooks_url' ).
     pull_request-base-repo-html_url = mo_json->value_string( iv_prefix && '/base/repo/html_url' ).
     pull_request-base-repo-id = mo_json->value_string( iv_prefix && '/base/repo/id' ).
+    pull_request-base-repo-is_template = mo_json->value_boolean( iv_prefix && '/base/repo/is_template' ).
     pull_request-base-repo-node_id = mo_json->value_string( iv_prefix && '/base/repo/node_id' ).
     pull_request-base-repo-issue_comment_url = mo_json->value_string( iv_prefix && '/base/repo/issue_comment_url' ).
     pull_request-base-repo-issue_events_url = mo_json->value_string( iv_prefix && '/base/repo/issue_events_url' ).
@@ -6401,6 +6371,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     pull_request-base-repo-master_branch = mo_json->value_string( iv_prefix && '/base/repo/master_branch' ).
     pull_request-base-repo-archived = mo_json->value_boolean( iv_prefix && '/base/repo/archived' ).
     pull_request-base-repo-disabled = mo_json->value_boolean( iv_prefix && '/base/repo/disabled' ).
+    pull_request-base-repo-visibility = mo_json->value_string( iv_prefix && '/base/repo/visibility' ).
     pull_request-base-repo-mirror_url = mo_json->value_string( iv_prefix && '/base/repo/mirror_url' ).
     pull_request-base-repo-open_issues = mo_json->value_string( iv_prefix && '/base/repo/open_issues' ).
     pull_request-base-repo-open_issues_count = mo_json->value_string( iv_prefix && '/base/repo/open_issues_count' ).
@@ -6722,6 +6693,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     issue_search_result_item-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
     issue_search_result_item-timeline_url = mo_json->value_string( iv_prefix && '/timeline_url' ).
     issue_search_result_item-performed_via_github_app = parse_nullable_integration( iv_prefix ).
+    issue_search_result_item-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_label_search_result_item.
@@ -6812,6 +6784,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     repo_search_result_item-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
     repo_search_result_item-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
     repo_search_result_item-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
+    repo_search_result_item-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
     repo_search_result_item-license = parse_nullable_license_simple( iv_prefix ).
     repo_search_result_item-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
     repo_search_result_item-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
@@ -6826,6 +6799,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     repo_search_result_item-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/allow_auto_merge' ).
     repo_search_result_item-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
     repo_search_result_item-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
+    repo_search_result_item-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
   ENDMETHOD.
 
   METHOD parse_topic_search_result_item.
@@ -7598,9 +7572,6 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, jobs
   ENDMETHOD.
 
-  METHOD parse_actions_retry_workflow.
-  ENDMETHOD.
-
   METHOD parse_actions_list_repo_secret.
     response_actions_list_repo_sec-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, secrets
@@ -7825,6 +7796,9 @@ CLASS zcl_githubae IMPLEMENTATION.
       check_annotation = parse_check_annotation( iv_prefix && '/' && lv_member ).
       APPEND check_annotation TO response_checks_list_annotatio.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_checks_rerequest_run.
   ENDMETHOD.
 
   METHOD parse_checks_list_for_suite.
@@ -8092,12 +8066,12 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_issues_list_for_repo.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
-    DATA issue_simple TYPE zif_githubae=>issue_simple.
+    DATA issue TYPE zif_githubae=>issue.
     lt_members = mo_json->members( iv_prefix && '/' ).
     LOOP AT lt_members INTO lv_member.
-      CLEAR issue_simple.
-      issue_simple = parse_issue_simple( iv_prefix && '/' && lv_member ).
-      APPEND issue_simple TO response_issues_list_for_repo.
+      CLEAR issue.
+      issue = parse_issue( iv_prefix && '/' && lv_member ).
+      APPEND issue TO response_issues_list_for_repo.
     ENDLOOP.
   ENDMETHOD.
 
@@ -15226,6 +15200,46 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_actions_list_workflow_01( '' ).
   ENDMETHOD.
 
+  METHOD zif_githubae~actions_get_workflow_run_attem.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    lv_temp = attempt_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{attempt_number}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_workflow_run( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_download_workflow_run_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
+    lv_temp = attempt_number.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{attempt_number}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    WRITE / mi_client->response->get_cdata( ).
+* todo, handle more responses
+  ENDMETHOD.
+
   METHOD zif_githubae~actions_cancel_workflow_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -15273,7 +15287,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_actions_list_jobs_for_wo( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_download_workflow_run_.
+  METHOD zif_githubae~actions_download_workflow_ru01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
@@ -15305,23 +15319,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     WRITE / mi_client->response->get_cdata( ).
 * todo, handle more responses
-  ENDMETHOD.
-
-  METHOD zif_githubae~actions_retry_workflow.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runs/{run_id}/retry'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    lv_temp = run_id.
-    CONDENSE lv_temp.
-    REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_actions_retry_workflow( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~actions_get_workflow_run_usage.
@@ -16293,6 +16290,23 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_checks_list_annotations( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~checks_rerequest_run.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = check_run_id.
+    CONDENSE lv_temp.
+    REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_checks_rerequest_run( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~checks_create_suite.
@@ -18231,7 +18245,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_issue_simple( '' ).
+    return_data = parse_issue( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~issues_remove_assignees.
@@ -18249,7 +18263,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_issue_simple( '' ).
+    return_data = parse_issue( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~issues_list_comments.
@@ -20944,7 +20958,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_apps_list_installation_r( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~apps_add_repo_to_installation.
+  METHOD zif_githubae~apps_add_repo_to_installation_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '/v3/user/installations/{installation_id}/repositories/{repository_id}'.
@@ -21250,7 +21264,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     return_data = parse_repos_list_invitations_f( '' ).
   ENDMETHOD.
 
-  METHOD zif_githubae~repos_accept_invitation.
+  METHOD zif_githubae~repos_accept_invitation_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '/v3/user/repository_invitations/{invitation_id}'.
@@ -21265,7 +21279,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, handle more responses
   ENDMETHOD.
 
-  METHOD zif_githubae~repos_decline_invitation.
+  METHOD zif_githubae~repos_decline_invitation_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '/v3/user/repository_invitations/{invitation_id}'.
