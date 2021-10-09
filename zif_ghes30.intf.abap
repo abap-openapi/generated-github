@@ -11744,6 +11744,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Parameter: created, optional, query
+* Parameter: exclude_pull_requests, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_actions_list_workflow_runs_for
   METHODS actions_list_workflow_runs_for
@@ -11757,6 +11758,7 @@ INTERFACE zif_ghes30 PUBLIC.
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
       created TYPE string OPTIONAL
+      exclude_pull_requests TYPE abap_bool DEFAULT abap_false
     RETURNING
       VALUE(return_data) TYPE response_actions_list_workflow
     RAISING cx_static_check.
@@ -11766,6 +11768,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: owner, required, path
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
+* Parameter: exclude_pull_requests, optional, query
 * Response: 200
 *     application/json, #/components/schemas/workflow-run
   METHODS actions_get_workflow_run
@@ -11773,6 +11776,7 @@ INTERFACE zif_ghes30 PUBLIC.
       owner TYPE string
       repo TYPE string
       run_id TYPE i
+      exclude_pull_requests TYPE abap_bool DEFAULT abap_false
     RETURNING
       VALUE(return_data) TYPE workflow_run
     RAISING cx_static_check.
@@ -12041,6 +12045,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Parameter: created, optional, query
+* Parameter: exclude_pull_requests, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_actions_list_workflow_runs
   METHODS actions_list_workflow_runs
@@ -12055,6 +12060,7 @@ INTERFACE zif_ghes30 PUBLIC.
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
       created TYPE string OPTIONAL
+      exclude_pull_requests TYPE abap_bool DEFAULT abap_false
     RETURNING
       VALUE(return_data) TYPE response_actions_list_workfl02
     RAISING cx_static_check.
