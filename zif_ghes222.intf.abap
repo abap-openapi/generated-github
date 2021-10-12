@@ -15734,6 +15734,7 @@ INTERFACE zif_ghes222 PUBLIC.
 * Parameter: release_id, required, path
 * Response: 201
 *     application/json, #/components/schemas/release-asset
+* Response: 422
   METHODS repos_upload_release_asset
     IMPORTING
       name TYPE string
