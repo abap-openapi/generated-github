@@ -412,9 +412,9 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(project_column) TYPE zif_ghes30=>project_column
       RAISING cx_static_check.
-    METHODS parse_repository_collaborator_
+    METHODS parse_project_collaborator_per
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(repository_collaborator_permis) TYPE zif_ghes30=>repository_collaborator_permis
+      RETURNING VALUE(project_collaborator_permissio) TYPE zif_ghes30=>project_collaborator_permissio
       RAISING cx_static_check.
     METHODS parse_rate_limit
       IMPORTING iv_prefix TYPE string
@@ -671,6 +671,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_repository_invitation
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(repository_invitation) TYPE zif_ghes30=>repository_invitation
+      RAISING cx_static_check.
+    METHODS parse_repository_collaborator_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(repository_collaborator_permis) TYPE zif_ghes30=>repository_collaborator_permis
       RAISING cx_static_check.
     METHODS parse_commit_comment
       IMPORTING iv_prefix TYPE string
@@ -4613,9 +4617,9 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     project_column-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
   ENDMETHOD.
 
-  METHOD parse_repository_collaborator_.
-    repository_collaborator_permis-permission = mo_json->value_string( iv_prefix && '/permission' ).
-    repository_collaborator_permis-user = parse_nullable_simple_user( iv_prefix ).
+  METHOD parse_project_collaborator_per.
+    project_collaborator_permissio-permission = mo_json->value_string( iv_prefix && '/permission' ).
+    project_collaborator_permissio-user = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_rate_limit.
@@ -5319,6 +5323,11 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     repository_invitation-url = mo_json->value_string( iv_prefix && '/url' ).
     repository_invitation-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
     repository_invitation-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+  ENDMETHOD.
+
+  METHOD parse_repository_collaborator_.
+    repository_collaborator_permis-permission = mo_json->value_string( iv_prefix && '/permission' ).
+    repository_collaborator_permis-user = parse_nullable_simple_user( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_commit_comment.
@@ -16083,7 +16092,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-    return_data = parse_repository_collaborator_( '' ).
+    return_data = parse_project_collaborator_per( '' ).
   ENDMETHOD.
 
   METHOD zif_ghes30~projects_list_columns.

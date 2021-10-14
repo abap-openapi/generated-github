@@ -2057,11 +2057,11 @@ INTERFACE zif_ghes30 PUBLIC.
            updated_at TYPE string,
          END OF project_column.
 
-* Component schema: repository-collaborator-permission, object
-  TYPES: BEGIN OF repository_collaborator_permis,
+* Component schema: project-collaborator-permission, object
+  TYPES: BEGIN OF project_collaborator_permissio,
            permission TYPE string,
            user TYPE nullable_simple_user,
-         END OF repository_collaborator_permis.
+         END OF project_collaborator_permissio.
 
 * Component schema: rate-limit, object
   TYPES: BEGIN OF rate_limit,
@@ -2886,6 +2886,12 @@ INTERFACE zif_ghes30 PUBLIC.
            html_url TYPE string,
            node_id TYPE string,
          END OF repository_invitation.
+
+* Component schema: repository-collaborator-permission, object
+  TYPES: BEGIN OF repository_collaborator_permis,
+           permission TYPE string,
+           user TYPE nullable_simple_user,
+         END OF repository_collaborator_permis.
 
 * Component schema: commit-comment, object
   TYPES: BEGIN OF commit_comment,
@@ -11383,7 +11389,7 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: project_id, required, path
 * Parameter: username, required, path
 * Response: 200
-*     application/json, #/components/schemas/repository-collaborator-permission
+*     application/json, #/components/schemas/project-collaborator-permission
 * Response: 304
 * Response: 401
 * Response: 403
@@ -11394,7 +11400,7 @@ INTERFACE zif_ghes30 PUBLIC.
       project_id TYPE i
       username TYPE string
     RETURNING
-      VALUE(return_data) TYPE repository_collaborator_permis
+      VALUE(return_data) TYPE project_collaborator_permissio
     RAISING cx_static_check.
 
 * GET - "List project columns"
