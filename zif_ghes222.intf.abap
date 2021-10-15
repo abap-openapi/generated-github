@@ -17008,7 +17008,6 @@ INTERFACE zif_ghes222 PUBLIC.
 * Parameter: username, required, path
 * Response: 200
 *     application/json, string
-* Response: 202
 * Response: 404
   METHODS users_get_by_username
     IMPORTING
