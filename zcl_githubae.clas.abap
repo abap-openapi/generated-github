@@ -992,6 +992,18 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(release) TYPE zif_githubae=>release
       RAISING cx_static_check.
+    METHODS parse_secret_scanning_alert_st
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_alert_state) TYPE zif_githubae=>secret_scanning_alert_state
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_alert_re
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_alert_resoluti) TYPE zif_githubae=>secret_scanning_alert_resoluti
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_alert
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_alert) TYPE zif_githubae=>secret_scanning_alert
+      RAISING cx_static_check.
     METHODS parse_stargazer
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(stargazer) TYPE zif_githubae=>stargazer
@@ -1764,6 +1776,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyreactions_create_for_relea
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_secret_scanning_update_al
+      IMPORTING data TYPE zif_githubae=>bodysecret_scanning_update_ale
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_create_commit_statu
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_commit_status
       RETURNING VALUE(json) TYPE string
@@ -2455,6 +2471,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_release_asset
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_release_as) TYPE zif_githubae=>response_repos_list_release_as
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_list_ale
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_secret_scanning_list_) TYPE zif_githubae=>response_secret_scanning_list_
       RAISING cx_static_check.
     METHODS parse_repos_get_code_frequency
       IMPORTING iv_prefix TYPE string
@@ -6556,6 +6576,28 @@ CLASS zcl_githubae IMPLEMENTATION.
     release-reactions = parse_reaction_rollup( iv_prefix ).
   ENDMETHOD.
 
+  METHOD parse_secret_scanning_alert_st.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_alert_re.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_alert.
+    secret_scanning_alert-number = parse_alert_number( iv_prefix ).
+    secret_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
+    secret_scanning_alert-url = parse_alert_url( iv_prefix ).
+    secret_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
+    secret_scanning_alert-locations_url = mo_json->value_string( iv_prefix && '/locations_url' ).
+    secret_scanning_alert-state = parse_secret_scanning_alert_st( iv_prefix ).
+    secret_scanning_alert-resolution = parse_secret_scanning_alert_re( iv_prefix ).
+    secret_scanning_alert-resolved_at = mo_json->value_string( iv_prefix && '/resolved_at' ).
+    secret_scanning_alert-resolved_by = parse_nullable_simple_user( iv_prefix ).
+    secret_scanning_alert-secret_type = mo_json->value_string( iv_prefix && '/secret_type' ).
+    secret_scanning_alert-secret = mo_json->value_string( iv_prefix && '/secret' ).
+  ENDMETHOD.
+
   METHOD parse_stargazer.
     stargazer-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
     stargazer-user = parse_nullable_simple_user( iv_prefix ).
@@ -8446,6 +8488,18 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR release_asset.
       release_asset = parse_release_asset( iv_prefix && '/' && lv_member ).
       APPEND release_asset TO response_repos_list_release_as.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_list_ale.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA secret_scanning_alert TYPE zif_githubae=>secret_scanning_alert.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR secret_scanning_alert.
+      secret_scanning_alert = parse_secret_scanning_alert( iv_prefix && '/' && lv_member ).
+      APPEND secret_scanning_alert TO response_secret_scanning_list_.
     ENDLOOP.
   ENDMETHOD.
 
@@ -10811,6 +10865,14 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD json_reactions_create_for_rele.
     json = json && '{'.
     json = json && |"content": "{ data-content }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_secret_scanning_update_al.
+    json = json && '{'.
+*  json = json && '"state":' not simple
+*  json = json && '"resolution":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -20174,6 +20236,70 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
     return_data = parse_reaction( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~secret_scanning_list_alerts_fo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/secret-scanning/alerts'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    IF state IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'state' value = state ).
+    ENDIF.
+    IF secret_type IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'secret_type' value = secret_type ).
+    ENDIF.
+    IF resolution IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'resolution' value = resolution ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_secret_scanning_list_ale( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~secret_scanning_get_alert.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_secret_scanning_alert( '' ).
+  ENDMETHOD.
+
+  METHOD zif_githubae~secret_scanning_update_alert.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_secret_scanning_update_al( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+    return_data = parse_secret_scanning_alert( '' ).
   ENDMETHOD.
 
   METHOD zif_githubae~activity_list_stargazers_for_r.

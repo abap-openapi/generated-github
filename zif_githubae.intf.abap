@@ -4560,6 +4560,27 @@ INTERFACE zif_githubae PUBLIC.
            reactions TYPE reaction_rollup,
          END OF release.
 
+* Component schema: secret-scanning-alert-state, string
+  TYPES secret_scanning_alert_state TYPE string.
+
+* Component schema: secret-scanning-alert-resolution, string
+  TYPES secret_scanning_alert_resoluti TYPE string.
+
+* Component schema: secret-scanning-alert, object
+  TYPES: BEGIN OF secret_scanning_alert,
+           number TYPE alert_number,
+           created_at TYPE alert_created_at,
+           url TYPE alert_url,
+           html_url TYPE alert_html_url,
+           locations_url TYPE string,
+           state TYPE secret_scanning_alert_state,
+           resolution TYPE secret_scanning_alert_resoluti,
+           resolved_at TYPE string,
+           resolved_by TYPE nullable_simple_user,
+           secret_type TYPE string,
+           secret TYPE string,
+         END OF secret_scanning_alert.
+
 * Component schema: stargazer, object
   TYPES: BEGIN OF stargazer,
            starred_at TYPE string,
@@ -6366,6 +6387,12 @@ INTERFACE zif_githubae PUBLIC.
            content TYPE string,
          END OF bodyreactions_create_for_relea.
 
+* Component schema: bodysecret_scanning_update_ale, object
+  TYPES: BEGIN OF bodysecret_scanning_update_ale,
+           state TYPE secret_scanning_alert_state,
+           resolution TYPE secret_scanning_alert_resoluti,
+         END OF bodysecret_scanning_update_ale.
+
 * Component schema: bodyrepos_create_commit_status, object
   TYPES: BEGIN OF bodyrepos_create_commit_status,
            state TYPE string,
@@ -7141,6 +7168,9 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_release_assets, array
   TYPES response_repos_list_release_as TYPE STANDARD TABLE OF release_asset WITH DEFAULT KEY.
+
+* Component schema: response_secret_scanning_list_alerts_fo, array
+  TYPES response_secret_scanning_list_ TYPE STANDARD TABLE OF secret_scanning_alert WITH DEFAULT KEY.
 
 * Component schema: response_repos_get_code_frequency_stats, array
   TYPES response_repos_get_code_freque TYPE STANDARD TABLE OF code_frequency_stat WITH DEFAULT KEY.
@@ -15627,6 +15657,72 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyreactions_create_for_relea
     RETURNING
       VALUE(return_data) TYPE reaction
+    RAISING cx_static_check.
+
+* GET - "List secret scanning alerts for a repository"
+* Operation id: secret-scanning/list-alerts-for-repo
+* Parameter: state, optional, query
+* Parameter: secret_type, optional, query
+* Parameter: resolution, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_secret_scanning_list_alerts_fo
+* Response: 404
+* Response: 503
+  METHODS secret_scanning_list_alerts_fo
+    IMPORTING
+      state TYPE string OPTIONAL
+      secret_type TYPE string OPTIONAL
+      resolution TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_secret_scanning_list_
+    RAISING cx_static_check.
+
+* GET - "Get a secret scanning alert"
+* Operation id: secret-scanning/get-alert
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/secret-scanning-alert
+* Response: 304
+* Response: 404
+* Response: 503
+  METHODS secret_scanning_get_alert
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE string
+    RETURNING
+      VALUE(return_data) TYPE secret_scanning_alert
+    RAISING cx_static_check.
+
+* PATCH - "Update a secret scanning alert"
+* Operation id: secret-scanning/update-alert
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Response: 200
+*     application/json, #/components/schemas/secret-scanning-alert
+* Response: 404
+* Response: 422
+* Response: 503
+* Body ref: #/components/schemas/bodysecret_scanning_update_ale
+  METHODS secret_scanning_update_alert
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE string
+      body TYPE bodysecret_scanning_update_ale
+    RETURNING
+      VALUE(return_data) TYPE secret_scanning_alert
     RAISING cx_static_check.
 
 * GET - "List stargazers"
