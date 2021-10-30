@@ -2445,6 +2445,21 @@ INTERFACE zif_ghes30 PUBLIC.
            signature TYPE string,
          END OF verification.
 
+* Component schema: diff-entry, object
+  TYPES: BEGIN OF diff_entry,
+           sha TYPE string,
+           filename TYPE string,
+           status TYPE string,
+           additions TYPE i,
+           deletions TYPE i,
+           changes TYPE i,
+           blob_url TYPE string,
+           raw_url TYPE string,
+           contents_url TYPE string,
+           patch TYPE string,
+           previous_filename TYPE string,
+         END OF diff_entry.
+
 * Component schema: commit, object
   TYPES: BEGIN OF subcommit_stats,
            additions TYPE i,
@@ -3072,21 +3087,6 @@ INTERFACE zif_ghes30 PUBLIC.
            updated_at TYPE string,
            creator TYPE nullable_simple_user,
          END OF status.
-
-* Component schema: diff-entry, object
-  TYPES: BEGIN OF diff_entry,
-           sha TYPE string,
-           filename TYPE string,
-           status TYPE string,
-           additions TYPE i,
-           deletions TYPE i,
-           changes TYPE i,
-           blob_url TYPE string,
-           raw_url TYPE string,
-           contents_url TYPE string,
-           patch TYPE string,
-           previous_filename TYPE string,
-         END OF diff_entry.
 
 * Component schema: commit-comparison, object
   TYPES: BEGIN OF commit_comparison,
@@ -5452,18 +5452,21 @@ INTERFACE zif_ghes30 PUBLIC.
            visibility TYPE string,
            selected_organization_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           allows_public_repositories TYPE abap_bool,
          END OF bodyenterprise_admin_create_se.
 
 * Component schema: bodyenterprise_admin_update_se, object
   TYPES: BEGIN OF bodyenterprise_admin_update_se,
            name TYPE string,
            visibility TYPE string,
+           allows_public_repositories TYPE abap_bool,
          END OF bodyenterprise_admin_update_se.
 
 * Component schema: bodyenterprise_admin_delete_se, object
   TYPES: BEGIN OF bodyenterprise_admin_delete_se,
            name TYPE string,
            visibility TYPE string,
+           allows_public_repositories TYPE abap_bool,
          END OF bodyenterprise_admin_delete_se.
 
 * Component schema: bodyenterprise_admin_set_org_a, object
@@ -5580,18 +5583,21 @@ INTERFACE zif_ghes30 PUBLIC.
            visibility TYPE string,
            selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           allows_public_repositories TYPE abap_bool,
          END OF bodyactions_create_self_hosted.
 
 * Component schema: bodyactions_update_self_hosted, object
   TYPES: BEGIN OF bodyactions_update_self_hosted,
            name TYPE string,
            visibility TYPE string,
+           allows_public_repositories TYPE abap_bool,
          END OF bodyactions_update_self_hosted.
 
 * Component schema: bodyactions_delete_self_hosted, object
   TYPES: BEGIN OF bodyactions_delete_self_hosted,
            name TYPE string,
            visibility TYPE string,
+           allows_public_repositories TYPE abap_bool,
          END OF bodyactions_delete_self_hosted.
 
 * Component schema: bodyactions_set_repo_access_to, object
@@ -8431,10 +8437,10 @@ INTERFACE zif_ghes30 PUBLIC.
     RAISING cx_static_check.
 
 * GET - "Get gist statistics"
-* Operation id: enterprise-admin/get-all-stats
+* Operation id: enterprise-admin/get-gist-stats
 * Response: 200
 *     application/json, #/components/schemas/enterprise-gist-overview
-  METHODS enterprise_admin_get_all_sta01
+  METHODS enterprise_admin_get_gist_stat
     RETURNING
       VALUE(return_data) TYPE enterprise_gist_overview
     RAISING cx_static_check.
