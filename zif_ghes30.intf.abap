@@ -2610,7 +2610,7 @@ INTERFACE zif_ghes30 PUBLIC.
            name TYPE string,
            check_suite TYPE subcheck_run_check_suite,
            app TYPE nullable_integration,
-           pull_requests TYPE string,
+           pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            deployment TYPE deployment_simple,
          END OF check_run.
 

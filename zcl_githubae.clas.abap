@@ -4868,7 +4868,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     check_run-name = mo_json->value_string( iv_prefix && '/name' ).
     check_run-check_suite-id = mo_json->value_string( iv_prefix && '/check_suite/id' ).
     check_run-app = parse_nullable_integration( iv_prefix ).
-    check_run-pull_requests = mo_json->value_string( iv_prefix && '/pull_requests' ).
+* todo, array, pull_requests
     check_run-deployment = parse_deployment_simple( iv_prefix ).
   ENDMETHOD.
 
