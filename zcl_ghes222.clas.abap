@@ -11453,7 +11453,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_meta_root
+" application/json,#/components/schemas/response_meta_root
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_meta_root( '' ).
     ENDCASE.
@@ -11475,11 +11475,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_global_w
+" application/json,#/components/schemas/response_enterprise_admin_list_global_w
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_gl( '' ).
     ENDCASE.
@@ -11491,12 +11492,13 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     mi_client->request->set_cdata( json_enterprise_admin_create_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/global-hook
+" application/json,#/components/schemas/global-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_global_hook( '' ).
     ENDCASE.
@@ -11507,15 +11509,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/global-hook
+" application/json,#/components/schemas/global-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_global_hook( '' ).
     ENDCASE.
@@ -11526,16 +11529,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     mi_client->request->set_cdata( json_enterprise_admin_update_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/global-hook-2
+" application/json,#/components/schemas/global-hook-2
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_global_hook_2( '' ).
     ENDCASE.
@@ -11546,10 +11550,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}'.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     mi_client->request->set_cdata( json_enterprise_admin_delete_g( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
@@ -11563,10 +11568,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/hooks/{hook_id}/pings'.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_header_field( name = 'accept' value = accept ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
@@ -11603,7 +11609,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_public_k
+" application/json,#/components/schemas/response_enterprise_admin_list_public_k
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_pu( '' ).
     ENDCASE.
@@ -11613,7 +11619,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/keys/{key_ids}'.
-    REPLACE ALL OCCURRENCES OF '{key_ids}' IN lv_uri WITH key_ids.
+    lv_temp = key_ids.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{key_ids}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -11628,7 +11636,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/teams/{team_id}/mapping'.
     lv_temp = team_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11637,7 +11645,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/ldap-mapping-team
+" application/json,#/components/schemas/ldap-mapping-team
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_ldap_mapping_team( '' ).
     ENDCASE.
@@ -11648,7 +11656,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/teams/{team_id}/sync'.
     lv_temp = team_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{team_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11656,7 +11664,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_enterprise_admin_sync_ldap_map
+" application/json,#/components/schemas/response_enterprise_admin_sync_ldap_map
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_sync_ld( '' ).
     ENDCASE.
@@ -11666,7 +11674,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/users/{username}/mapping'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_update01( body ) ).
@@ -11674,7 +11684,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/ldap-mapping-user
+" application/json,#/components/schemas/ldap-mapping-user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_ldap_mapping_user( '' ).
     ENDCASE.
@@ -11684,14 +11694,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/ldap/users/{username}/sync'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_enterprise_admin_sync_ldap_m01
+" application/json,#/components/schemas/response_enterprise_admin_sync_ldap_m01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_sync_01( '' ).
     ENDCASE.
@@ -11708,7 +11720,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/organization-simple
+" application/json,#/components/schemas/organization-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_simple( '' ).
     ENDCASE.
@@ -11718,7 +11730,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/organizations/{org}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_update_o( body ) ).
@@ -11726,7 +11740,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_enterprise_admin_update_org_na
+" application/json,#/components/schemas/response_enterprise_admin_update_org_na
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_enterprise_admin_update_( '' ).
 " todo, raise
@@ -11759,7 +11773,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_pre_rece
+" application/json,#/components/schemas/response_enterprise_admin_list_pre_rece
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_pr( '' ).
     ENDCASE.
@@ -11776,7 +11790,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pre-receive-environment
+" application/json,#/components/schemas/pre-receive-environment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_environment( '' ).
     ENDCASE.
@@ -11787,7 +11801,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11795,7 +11809,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pre-receive-environment
+" application/json,#/components/schemas/pre-receive-environment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_environment( '' ).
     ENDCASE.
@@ -11806,7 +11820,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11815,11 +11829,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pre-receive-environment
+" application/json,#/components/schemas/pre-receive-environment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_environment( '' ).
       WHEN 422. " Client Errors
-" application/json, #/components/schemas/response_enterprise_admin_update_pre_re
+" application/json,#/components/schemas/response_enterprise_admin_update_pre_re
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_enterprise_admin_updat01( '' ).
 " todo, raise
@@ -11831,7 +11845,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}'.
     lv_temp = pre_receive_environment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11841,7 +11855,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CASE lv_code.
       WHEN 204. " Response
       WHEN 422. " Client Errors
-" application/json, #/components/schemas/response_enterprise_admin_delete_pre_re
+" application/json,#/components/schemas/response_enterprise_admin_delete_pre_re
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_enterprise_admin_delete_( '' ).
 " todo, raise
@@ -11853,7 +11867,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}/downloads'.
     lv_temp = pre_receive_environment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11861,12 +11875,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/pre-receive-environment-download-status
+" application/json,#/components/schemas/pre-receive-environment-download-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pre_receive_environment_( '' ).
 " todo, raise
       WHEN 422. " Client Errors
-" application/json, #/components/schemas/response_enterprise_admin_start_pre_rec
+" application/json,#/components/schemas/response_enterprise_admin_start_pre_rec
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_enterprise_admin_start_p( '' ).
 " todo, raise
@@ -11878,7 +11892,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest'.
     lv_temp = pre_receive_environment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_environment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11886,7 +11900,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pre-receive-environment-download-status
+" application/json,#/components/schemas/pre-receive-environment-download-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_environment_( '' ).
     ENDCASE.
@@ -11918,7 +11932,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_pre_re01
+" application/json,#/components/schemas/response_enterprise_admin_list_pre_re01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_01( '' ).
     ENDCASE.
@@ -11935,7 +11949,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pre-receive-hook
+" application/json,#/components/schemas/pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_hook( '' ).
     ENDCASE.
@@ -11946,7 +11960,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11954,7 +11968,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pre-receive-hook
+" application/json,#/components/schemas/pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_hook( '' ).
     ENDCASE.
@@ -11965,7 +11979,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -11974,7 +11988,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pre-receive-hook
+" application/json,#/components/schemas/pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pre_receive_hook( '' ).
     ENDCASE.
@@ -11985,7 +11999,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/pre-receive-hooks/{pre_receive_hook_id}'.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12017,7 +12031,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_personal
+" application/json,#/components/schemas/response_enterprise_admin_list_personal
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_pe( '' ).
     ENDCASE.
@@ -12028,7 +12042,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/tokens/{token_id}'.
     lv_temp = token_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{token_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12050,7 +12064,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/simple-user
+" application/json,#/components/schemas/simple-user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_simple_user( '' ).
     ENDCASE.
@@ -12060,7 +12074,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_update_u( body ) ).
@@ -12068,7 +12084,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_enterprise_admin_update_userna
+" application/json,#/components/schemas/response_enterprise_admin_update_userna
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_enterprise_admin_updat02( '' ).
 " todo, raise
@@ -12079,7 +12095,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_delete_u( body ) ).
@@ -12094,7 +12112,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}/authorizations'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_i( body ) ).
@@ -12102,7 +12122,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authorization
+" application/json,#/components/schemas/authorization
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authorization( '' ).
     ENDCASE.
@@ -12112,7 +12132,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/admin/users/{username}/authorizations'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_delete_i( body ) ).
@@ -12133,7 +12155,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/integration
+" application/json,#/components/schemas/integration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_integration( '' ).
     ENDCASE.
@@ -12143,7 +12165,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app-manifests/{code}/conversions'.
-    REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH code.
+    lv_temp = code.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_create_from_manifest( body ) ).
@@ -12151,7 +12175,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, 
+" application/json,
       WHEN 404. " 
 " todo, raise
       WHEN 422. " 
@@ -12185,7 +12209,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " The permissions the installation has are included under the `permissions` key.
-" application/json, #/components/schemas/response_apps_list_installations
+" application/json,#/components/schemas/response_apps_list_installations
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_installations( '' ).
     ENDCASE.
@@ -12196,7 +12220,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12204,7 +12228,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/installation-ghes-2
+" application/json,#/components/schemas/installation-ghes-2
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_ghes_2( '' ).
       WHEN 404. " 
@@ -12219,7 +12243,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12237,7 +12261,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}/access_tokens'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12246,7 +12270,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/installation-token
+" application/json,#/components/schemas/installation-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_token( '' ).
       WHEN 401. " 
@@ -12267,7 +12291,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}/suspended'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12285,7 +12309,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/app/installations/{installation_id}/suspended'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12302,7 +12326,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/grant'.
-    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    lv_temp = client_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_delete_authorization( body ) ).
@@ -12319,7 +12345,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
-    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    lv_temp = client_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_check_token( body ) ).
@@ -12327,7 +12355,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/authorization
+" application/json,#/components/schemas/authorization
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authorization( '' ).
       WHEN 404. " 
@@ -12341,7 +12369,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
-    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    lv_temp = client_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_reset_token( body ) ).
@@ -12349,7 +12379,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/authorization
+" application/json,#/components/schemas/authorization
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authorization( '' ).
       WHEN 422. " 
@@ -12361,7 +12391,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/applications/{client_id}/token'.
-    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH client_id.
+    lv_temp = client_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_delete_token( body ) ).
@@ -12378,14 +12410,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/apps/{app_slug}'.
-    REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH app_slug.
+    lv_temp = app_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/integration
+" application/json,#/components/schemas/integration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_integration( '' ).
       WHEN 403. " 
@@ -12407,7 +12441,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_codes_of_conduct_get_all_codes
+" application/json,#/components/schemas/response_codes_of_conduct_get_all_codes
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_codes_of_conduct_get_all( '' ).
       WHEN 304. " 
@@ -12419,14 +12453,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/codes_of_conduct/{key}'.
-    REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH key.
+    lv_temp = key.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/code-of-conduct
+" application/json,#/components/schemas/code-of-conduct
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_of_conduct( '' ).
       WHEN 304. " 
@@ -12446,7 +12482,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_emojis_get
+" application/json,#/components/schemas/response_emojis_get
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_emojis_get( '' ).
       WHEN 304. " 
@@ -12464,7 +12500,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/license-info
+" application/json,#/components/schemas/license-info
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_license_info( '' ).
     ENDCASE.
@@ -12480,7 +12516,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-overview
+" application/json,#/components/schemas/enterprise-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_overview( '' ).
     ENDCASE.
@@ -12496,7 +12532,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-comment-overview
+" application/json,#/components/schemas/enterprise-comment-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_comment_overv( '' ).
     ENDCASE.
@@ -12512,7 +12548,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-gist-overview
+" application/json,#/components/schemas/enterprise-gist-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_gist_overview( '' ).
     ENDCASE.
@@ -12528,7 +12564,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-hook-overview
+" application/json,#/components/schemas/enterprise-hook-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_hook_overview( '' ).
     ENDCASE.
@@ -12544,7 +12580,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-issue-overview
+" application/json,#/components/schemas/enterprise-issue-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_issue_overvie( '' ).
     ENDCASE.
@@ -12560,7 +12596,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-milestone-overview
+" application/json,#/components/schemas/enterprise-milestone-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_milestone_ove( '' ).
     ENDCASE.
@@ -12576,7 +12612,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-organization-overview
+" application/json,#/components/schemas/enterprise-organization-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_organization_( '' ).
     ENDCASE.
@@ -12592,7 +12628,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-page-overview
+" application/json,#/components/schemas/enterprise-page-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_page_overview( '' ).
     ENDCASE.
@@ -12608,7 +12644,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-pull-request-overview
+" application/json,#/components/schemas/enterprise-pull-request-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_pull_request_( '' ).
     ENDCASE.
@@ -12624,7 +12660,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-repository-overview
+" application/json,#/components/schemas/enterprise-repository-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_repository_ov( '' ).
     ENDCASE.
@@ -12640,7 +12676,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-user-overview
+" application/json,#/components/schemas/enterprise-user-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_user_overview( '' ).
     ENDCASE.
@@ -12650,7 +12686,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -12667,7 +12705,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_self_hos
+" application/json,#/components/schemas/response_enterprise_admin_list_self_hos
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_se( '' ).
     ENDCASE.
@@ -12677,7 +12715,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_create_s( body ) ).
@@ -12685,7 +12725,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/runner-groups-enterprise
+" application/json,#/components/schemas/runner-groups-enterprise
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_enterprise( '' ).
     ENDCASE.
@@ -12695,9 +12735,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12705,7 +12747,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-groups-enterprise
+" application/json,#/components/schemas/runner-groups-enterprise
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_enterprise( '' ).
     ENDCASE.
@@ -12715,9 +12757,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12726,7 +12770,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-groups-enterprise
+" application/json,#/components/schemas/runner-groups-enterprise
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_enterprise( '' ).
     ENDCASE.
@@ -12736,9 +12780,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12754,9 +12800,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -12774,7 +12822,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_org_acce
+" application/json,#/components/schemas/response_enterprise_admin_list_org_acce
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_or( '' ).
     ENDCASE.
@@ -12784,9 +12832,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12802,12 +12852,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = org_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12822,12 +12874,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = org_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12842,9 +12896,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -12862,7 +12918,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_self_h01
+" application/json,#/components/schemas/response_enterprise_admin_list_self_h01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_02( '' ).
     ENDCASE.
@@ -12872,9 +12928,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12890,12 +12948,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12910,12 +12970,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -12930,7 +12992,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -12947,7 +13011,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_self_h02
+" application/json,#/components/schemas/response_enterprise_admin_list_self_h02
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_03( '' ).
     ENDCASE.
@@ -12957,14 +13021,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners/downloads'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_runner_a
+" application/json,#/components/schemas/response_enterprise_admin_list_runner_a
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_ru( '' ).
     ENDCASE.
@@ -12974,14 +13040,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners/registration-token'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -12991,14 +13059,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners/remove-token'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -13008,9 +13078,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13018,7 +13090,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-no-labels
+" application/json,#/components/schemas/runner-no-labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_no_labels( '' ).
     ENDCASE.
@@ -13028,9 +13100,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/enterprises/{enterprise}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH enterprise.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13061,7 +13135,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_public_events
+" application/json,#/components/schemas/response_activity_list_public_events
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_public_eve( '' ).
       WHEN 304. " 
@@ -13083,7 +13157,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/feed
+" application/json,#/components/schemas/feed
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_feed( '' ).
     ENDCASE.
@@ -13112,7 +13186,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list
+" application/json,#/components/schemas/response_gists_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list( '' ).
       WHEN 304. " 
@@ -13133,7 +13207,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/gist-simple
+" application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
       WHEN 304. " 
@@ -13170,7 +13244,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_public
+" application/json,#/components/schemas/response_gists_list_public
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_public( '' ).
       WHEN 304. " 
@@ -13205,7 +13279,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_starred
+" application/json,#/components/schemas/response_gists_list_starred
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_starred( '' ).
       WHEN 304. " 
@@ -13221,14 +13295,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gist-simple
+" application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
       WHEN 304. " 
@@ -13244,7 +13320,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_gists_update( body ) ).
@@ -13252,7 +13330,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gist-simple
+" application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
       WHEN 404. " 
@@ -13266,7 +13344,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_gists_delete( body ) ).
@@ -13287,7 +13367,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13304,7 +13386,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_comments
+" application/json,#/components/schemas/response_gists_list_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_comments( '' ).
       WHEN 304. " 
@@ -13320,7 +13402,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_gists_create_comment( body ) ).
@@ -13328,7 +13412,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/gist-comment
+" application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
       WHEN 304. " 
@@ -13344,9 +13428,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13354,7 +13440,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gist-comment
+" application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
       WHEN 304. " 
@@ -13370,9 +13456,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13381,7 +13469,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gist-comment
+" application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
       WHEN 404. " 
@@ -13393,9 +13481,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13417,7 +13507,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/commits'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13434,7 +13526,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_commits
+" application/json,#/components/schemas/response_gists_list_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_commits( '' ).
       WHEN 304. " 
@@ -13450,7 +13542,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/forks'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13467,7 +13561,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_forks
+" application/json,#/components/schemas/response_gists_list_forks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_forks( '' ).
       WHEN 304. " 
@@ -13483,14 +13577,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/forks'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/base-gist
+" application/json,#/components/schemas/base-gist
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_base_gist( '' ).
       WHEN 304. " 
@@ -13508,7 +13604,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13520,7 +13618,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 403. " 
 " todo, raise
       WHEN 404. " Not Found if gist is not starred
-" application/json, #/components/schemas/response_gists_check_is_starred
+" application/json,#/components/schemas/response_gists_check_is_starred
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_gists_check_is_starred( '' ).
 " todo, raise
@@ -13531,7 +13629,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13551,7 +13651,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/star'.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13571,15 +13673,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gists/{gist_id}/{sha}'.
-    REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
-    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH gist_id.
+    lv_temp = sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH lv_temp.
+    lv_temp = gist_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gist-simple
+" application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
       WHEN 403. " 
@@ -13601,7 +13707,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gitignore_get_all_templates
+" application/json,#/components/schemas/response_gitignore_get_all_templates
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gitignore_get_all_templa( '' ).
       WHEN 304. " 
@@ -13613,14 +13719,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/gitignore/templates/{name}'.
-    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gitignore-template
+" application/json,#/components/schemas/gitignore-template
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gitignore_template( '' ).
       WHEN 304. " 
@@ -13648,7 +13756,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_apps_list_repos_accessible_to_
+" application/json,#/components/schemas/response_apps_list_repos_accessible_to_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_repos_accessib( '' ).
       WHEN 304. " 
@@ -13731,7 +13839,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list
+" application/json,#/components/schemas/response_issues_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list( '' ).
       WHEN 304. " 
@@ -13768,7 +13876,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_licenses_get_all_commonly_used
+" application/json,#/components/schemas/response_licenses_get_all_commonly_used
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_licenses_get_all_commonl( '' ).
       WHEN 304. " 
@@ -13780,14 +13888,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/licenses/{license}'.
-    REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH license.
+    lv_temp = license.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/license
+" application/json,#/components/schemas/license
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_license( '' ).
       WHEN 304. " 
@@ -13840,7 +13950,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/api-overview
+" application/json,#/components/schemas/api-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_api_overview( '' ).
       WHEN 304. " 
@@ -13852,8 +13962,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/networks/{owner}/{repo}/events'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13870,7 +13984,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_public_events_fo
+" application/json,#/components/schemas/response_activity_list_public_events_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_public_e01( '' ).
       WHEN 301. " 
@@ -13920,7 +14034,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_notifications_fo
+" application/json,#/components/schemas/response_activity_list_notifications_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_notificati( '' ).
       WHEN 304. " 
@@ -13945,7 +14059,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_activity_mark_notifications_as
+" application/json,#/components/schemas/response_activity_mark_notifications_as
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_activity_mark_notificati( '' ).
 " todo, raise
@@ -13965,7 +14079,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -13973,7 +14087,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/thread
+" application/json,#/components/schemas/thread
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread( '' ).
       WHEN 304. " 
@@ -13990,7 +14104,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14011,7 +14125,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14019,7 +14133,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/thread-subscription
+" application/json,#/components/schemas/thread-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread_subscription( '' ).
       WHEN 304. " 
@@ -14036,7 +14150,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14045,7 +14159,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/thread-subscription
+" application/json,#/components/schemas/thread-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread_subscription( '' ).
       WHEN 304. " 
@@ -14062,7 +14176,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14116,7 +14230,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list
+" application/json,#/components/schemas/response_orgs_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list( '' ).
       WHEN 304. " 
@@ -14128,14 +14242,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/organization-full
+" application/json,#/components/schemas/organization-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_full( '' ).
       WHEN 404. " 
@@ -14147,7 +14263,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_orgs_update( body ) ).
@@ -14155,13 +14273,13 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/organization-full
+" application/json,#/components/schemas/organization-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_full( '' ).
       WHEN 409. " 
 " todo, raise
       WHEN 422. " Validation failed
-" application/json, 
+" application/json,
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14170,7 +14288,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14187,7 +14307,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_self_hosted_runne
+" application/json,#/components/schemas/response_actions_list_self_hosted_runne
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_self_hosted( '' ).
     ENDCASE.
@@ -14197,7 +14317,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_create_self_hoste( body ) ).
@@ -14205,7 +14327,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/runner-groups-org
+" application/json,#/components/schemas/runner-groups-org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_org( '' ).
     ENDCASE.
@@ -14215,9 +14337,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14225,7 +14349,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-groups-org
+" application/json,#/components/schemas/runner-groups-org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_org( '' ).
     ENDCASE.
@@ -14235,9 +14359,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14246,7 +14372,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-groups-org
+" application/json,#/components/schemas/runner-groups-org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_org( '' ).
     ENDCASE.
@@ -14256,9 +14382,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14274,9 +14402,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = page.
     CONDENSE lv_temp.
@@ -14294,7 +14424,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_repo_access_to_se
+" application/json,#/components/schemas/response_actions_list_repo_access_to_se
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_repo_access( '' ).
     ENDCASE.
@@ -14304,9 +14434,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14322,12 +14454,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14342,12 +14476,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14362,9 +14498,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -14382,7 +14520,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_self_hosted_run01
+" application/json,#/components/schemas/response_actions_list_self_hosted_run01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_self_host01( '' ).
     ENDCASE.
@@ -14392,9 +14530,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14410,12 +14550,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14430,12 +14572,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_group_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14450,7 +14594,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14467,7 +14613,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_self_hosted_run02
+" application/json,#/components/schemas/response_actions_list_self_hosted_run02
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_self_host02( '' ).
     ENDCASE.
@@ -14477,14 +14623,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners/downloads'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_runner_applicatio
+" application/json,#/components/schemas/response_actions_list_runner_applicatio
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_runner_appl( '' ).
     ENDCASE.
@@ -14494,14 +14642,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners/registration-token'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -14511,14 +14661,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners/remove-token'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -14528,9 +14680,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14538,7 +14692,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-no-labels
+" application/json,#/components/schemas/runner-no-labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_no_labels( '' ).
     ENDCASE.
@@ -14548,9 +14702,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14565,7 +14721,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14582,7 +14740,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_org_secrets
+" application/json,#/components/schemas/response_actions_list_org_secrets
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_org_secrets( '' ).
     ENDCASE.
@@ -14592,14 +14750,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/public-key'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/actions-public-key
+" application/json,#/components/schemas/actions-public-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_public_key( '' ).
     ENDCASE.
@@ -14609,15 +14769,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/organization-actions-secret
+" application/json,#/components/schemas/organization-actions-secret
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_actions_sec( '' ).
     ENDCASE.
@@ -14627,8 +14791,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_create_or_update_( body ) ).
@@ -14636,7 +14804,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response when creating a secret
-" application/json, #/components/schemas/empty-object
+" application/json,#/components/schemas/empty-object
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_empty_object( '' ).
       WHEN 204. " Response when updating a secret
@@ -14647,8 +14815,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_delete_org_secret( body ) ).
@@ -14663,8 +14835,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}/repositories'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     lv_temp = page.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
@@ -14681,7 +14857,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_selected_repos_fo
+" application/json,#/components/schemas/response_actions_list_selected_repos_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_selected_re( '' ).
     ENDCASE.
@@ -14691,8 +14867,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}/repositories'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_set_selected_repo( body ) ).
@@ -14708,10 +14888,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -14728,10 +14912,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -14747,7 +14935,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/events'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14764,7 +14954,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_public_org_event
+" application/json,#/components/schemas/response_activity_list_public_org_event
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_public_org( '' ).
     ENDCASE.
@@ -14774,7 +14964,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14791,7 +14983,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_webhooks
+" application/json,#/components/schemas/response_orgs_list_webhooks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_webhooks( '' ).
       WHEN 404. " 
@@ -14803,7 +14995,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_orgs_create_webhook( body ) ).
@@ -14811,7 +15005,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/org-hook
+" application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
       WHEN 404. " 
@@ -14825,9 +15019,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14835,7 +15031,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-hook
+" application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
       WHEN 404. " 
@@ -14847,9 +15043,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14858,7 +15056,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-hook
+" application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
       WHEN 404. " 
@@ -14872,9 +15070,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14892,9 +15092,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/hooks/{hook_id}/pings'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -14911,14 +15113,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/installation'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/installation-ghes-2
+" application/json,#/components/schemas/installation-ghes-2
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_ghes_2( '' ).
     ENDCASE.
@@ -14928,7 +15132,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/installations'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14945,7 +15151,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_app_installations
+" application/json,#/components/schemas/response_orgs_list_app_installations
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_app_installati( '' ).
     ENDCASE.
@@ -14955,7 +15161,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/issues'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -14990,7 +15198,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_for_org
+" application/json,#/components/schemas/response_issues_list_for_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_org( '' ).
       WHEN 404. " 
@@ -15002,7 +15210,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -15025,7 +15235,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_members
+" application/json,#/components/schemas/response_orgs_list_members
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_members( '' ).
       WHEN 302. " Response if requester is not an organization member
@@ -15039,8 +15249,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15058,8 +15272,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/members/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15075,15 +15293,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-membership
+" application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
       WHEN 403. " 
@@ -15097,8 +15319,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_orgs_set_membership_for_u( body ) ).
@@ -15106,7 +15332,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-membership
+" application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
       WHEN 403. " 
@@ -15120,8 +15346,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_orgs_remove_membership_fo( body ) ).
@@ -15140,7 +15370,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -15160,7 +15392,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_outside_collaborator
+" application/json,#/components/schemas/response_orgs_list_outside_collaborator
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_outside_collab( '' ).
     ENDCASE.
@@ -15170,15 +15402,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " User is getting converted asynchronously
-" application/json, #/components/schemas/response_orgs_convert_member_to_outside
+" application/json,#/components/schemas/response_orgs_convert_member_to_outside
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_orgs_convert_member_to_o( '' ).
 " todo, raise
@@ -15194,8 +15430,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/outside_collaborators/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15203,7 +15443,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CASE lv_code.
       WHEN 204. " Response
       WHEN 422. " Unprocessable Entity if user is a member of the organization
-" application/json, #/components/schemas/response_orgs_remove_outside_collaborat
+" application/json,#/components/schemas/response_orgs_remove_outside_collaborat
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_orgs_remove_outside_coll( '' ).
 " todo, raise
@@ -15214,7 +15454,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -15237,7 +15479,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_pre_re02
+" application/json,#/components/schemas/response_enterprise_admin_list_pre_re02
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_04( '' ).
     ENDCASE.
@@ -15247,9 +15489,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15257,7 +15501,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-pre-receive-hook
+" application/json,#/components/schemas/org-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_pre_receive_hook( '' ).
     ENDCASE.
@@ -15267,9 +15511,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15278,7 +15524,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-pre-receive-hook
+" application/json,#/components/schemas/org-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_pre_receive_hook( '' ).
     ENDCASE.
@@ -15288,9 +15534,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15299,7 +15547,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-pre-receive-hook
+" application/json,#/components/schemas/org-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_pre_receive_hook( '' ).
     ENDCASE.
@@ -15309,7 +15557,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/projects'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -15329,7 +15579,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_for_org
+" application/json,#/components/schemas/response_projects_list_for_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_org( '' ).
       WHEN 422. " 
@@ -15341,7 +15591,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/projects'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_create_for_org( body ) ).
@@ -15349,7 +15601,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/project
+" application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
       WHEN 401. " 
@@ -15369,7 +15621,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -15386,7 +15640,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_public_members
+" application/json,#/components/schemas/response_orgs_list_public_members
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_public_members( '' ).
     ENDCASE.
@@ -15396,8 +15650,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15413,8 +15671,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15430,8 +15692,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/public_members/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15445,7 +15711,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/repos'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     IF type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'type' value = type ).
     ENDIF.
@@ -15471,7 +15739,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_for_org
+" application/json,#/components/schemas/response_repos_list_for_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_for_org( '' ).
     ENDCASE.
@@ -15481,7 +15749,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/repos'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_in_org( body ) ).
@@ -15489,7 +15759,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/repository
+" application/json,#/components/schemas/repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository( '' ).
       WHEN 403. " 
@@ -15503,7 +15773,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -15520,7 +15792,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list
+" application/json,#/components/schemas/response_teams_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list( '' ).
       WHEN 403. " 
@@ -15532,7 +15804,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_create( body ) ).
@@ -15540,7 +15814,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/team-full
+" application/json,#/components/schemas/team-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_full( '' ).
       WHEN 403. " 
@@ -15554,15 +15828,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-full
+" application/json,#/components/schemas/team-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_full( '' ).
       WHEN 404. " 
@@ -15574,8 +15852,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_update_in_org( body ) ).
@@ -15583,7 +15865,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/team-full
+" application/json,#/components/schemas/team-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_full( '' ).
     ENDCASE.
@@ -15593,8 +15875,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_delete_in_org( body ) ).
@@ -15609,8 +15895,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     IF pinned IS SUPPLIED.
       mi_client->request->set_form_field( name = 'pinned' value = pinned ).
     ENDIF.
@@ -15633,7 +15923,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_discussions_in_org
+" application/json,#/components/schemas/response_teams_list_discussions_in_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_discussions_i( '' ).
     ENDCASE.
@@ -15643,8 +15933,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_create_discussion_i( body ) ).
@@ -15652,7 +15946,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/team-discussion
+" application/json,#/components/schemas/team-discussion
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion( '' ).
     ENDCASE.
@@ -15662,10 +15956,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15673,7 +15971,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-discussion
+" application/json,#/components/schemas/team-discussion
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion( '' ).
     ENDCASE.
@@ -15683,10 +15981,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15695,7 +15997,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-discussion
+" application/json,#/components/schemas/team-discussion
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion( '' ).
     ENDCASE.
@@ -15705,10 +16007,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15724,10 +16030,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
@@ -15748,7 +16058,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_discussion_comments
+" application/json,#/components/schemas/response_teams_list_discussion_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_discussion_co( '' ).
     ENDCASE.
@@ -15758,10 +16068,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15770,7 +16084,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/team-discussion-comment
+" application/json,#/components/schemas/team-discussion-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion_comment( '' ).
     ENDCASE.
@@ -15780,13 +16094,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15794,7 +16112,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-discussion-comment
+" application/json,#/components/schemas/team-discussion-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion_comment( '' ).
     ENDCASE.
@@ -15804,13 +16122,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15819,7 +16141,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-discussion-comment
+" application/json,#/components/schemas/team-discussion-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_discussion_comment( '' ).
     ENDCASE.
@@ -15829,13 +16151,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15851,13 +16177,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -15878,7 +16208,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_team_discus
+" application/json,#/components/schemas/response_reactions_list_for_team_discus
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_team_( '' ).
     ENDCASE.
@@ -15888,13 +16218,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15903,11 +16237,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
     ENDCASE.
@@ -15917,16 +16251,20 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_number}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15941,10 +16279,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -15965,7 +16307,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_team_disc01
+" application/json,#/components/schemas/response_reactions_list_for_team_disc01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_tea01( '' ).
     ENDCASE.
@@ -15975,10 +16317,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -15987,11 +16333,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
     ENDCASE.
@@ -16001,13 +16347,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = discussion_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{discussion_number}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16022,8 +16372,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/members'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     IF role IS SUPPLIED.
       mi_client->request->set_form_field( name = 'role' value = role ).
     ENDIF.
@@ -16043,7 +16397,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_members_in_org
+" application/json,#/components/schemas/response_teams_list_members_in_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_members_in_or( '' ).
     ENDCASE.
@@ -16053,16 +16407,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-membership
+" application/json,#/components/schemas/team-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_membership( '' ).
       WHEN 404. " if user has no team membership
@@ -16074,9 +16434,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_add_or_update_membe( body ) ).
@@ -16084,7 +16450,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-membership
+" application/json,#/components/schemas/team-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_membership( '' ).
       WHEN 403. " Forbidden if team synchronization is set up
@@ -16098,9 +16464,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/memberships/{username}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_remove_membership_f( body ) ).
@@ -16117,8 +16489,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -16135,7 +16511,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_projects_in_org
+" application/json,#/components/schemas/response_teams_list_projects_in_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_projects_in_o( '' ).
     ENDCASE.
@@ -16145,10 +16521,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16156,7 +16536,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/team-project
+" application/json,#/components/schemas/team-project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_project( '' ).
       WHEN 404. " Not Found if project is not managed by this team
@@ -16168,10 +16548,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16181,7 +16565,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CASE lv_code.
       WHEN 204. " Response
       WHEN 403. " Forbidden if the project is not owned by the organization
-" application/json, #/components/schemas/response_teams_add_or_update_project_pe
+" application/json,#/components/schemas/response_teams_add_or_update_project_pe
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_teams_add_or_update_proj( '' ).
 " todo, raise
@@ -16192,10 +16576,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16211,8 +16599,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -16229,7 +16621,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_repos_in_org
+" application/json,#/components/schemas/response_teams_list_repos_in_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_repos_in_org( '' ).
     ENDCASE.
@@ -16239,17 +16631,25 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Alternative response with repository permissions
-" application/json, #/components/schemas/team-repository
+" application/json,#/components/schemas/team-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_repository( '' ).
       WHEN 204. " Response if team has permission for the repository. This is the response when the repository media type hasn't been provded in the Accept header.
@@ -16262,10 +16662,18 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_add_or_update_repo_( body ) ).
@@ -16280,10 +16688,18 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_teams_remove_repo_in_org( body ) ).
@@ -16298,8 +16714,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/orgs/{org}/teams/{team_slug}/teams'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH team_slug.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -16316,7 +16736,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " if child teams exist
-" application/json, #/components/schemas/response_teams_list_child_in_org
+" application/json,#/components/schemas/response_teams_list_child_in_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_child_in_org( '' ).
     ENDCASE.
@@ -16327,7 +16747,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16335,7 +16755,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project-card
+" application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
       WHEN 304. " 
@@ -16354,7 +16774,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16363,7 +16783,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project-card
+" application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
       WHEN 304. " 
@@ -16384,7 +16804,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16398,7 +16818,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 401. " 
 " todo, raise
       WHEN 403. " Forbidden
-" application/json, #/components/schemas/response_projects_delete_card
+" application/json,#/components/schemas/response_projects_delete_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_delete_card( '' ).
 " todo, raise
@@ -16412,7 +16832,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/cards/{card_id}/moves'.
     lv_temp = card_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16421,7 +16841,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_projects_move_card
+" application/json,#/components/schemas/response_projects_move_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_card( '' ).
       WHEN 304. " 
@@ -16429,14 +16849,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 401. " 
 " todo, raise
       WHEN 403. " Forbidden
-" application/json, #/components/schemas/response_projects_move_card
+" application/json,#/components/schemas/response_projects_move_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_card( '' ).
 " todo, raise
       WHEN 422. " 
 " todo, raise
       WHEN 503. " Response
-" application/json, #/components/schemas/response_projects_move_card
+" application/json,#/components/schemas/response_projects_move_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_card( '' ).
 " todo, raise
@@ -16448,7 +16868,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16456,7 +16876,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project-column
+" application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
       WHEN 304. " 
@@ -16475,7 +16895,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16484,7 +16904,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project-column
+" application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
       WHEN 304. " 
@@ -16501,7 +16921,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16524,7 +16944,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     IF archived_state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'archived_state' value = archived_state ).
@@ -16545,7 +16965,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_cards
+" application/json,#/components/schemas/response_projects_list_cards
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_cards( '' ).
       WHEN 304. " 
@@ -16562,7 +16982,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16571,7 +16991,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/project-card
+" application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
       WHEN 304. " 
@@ -16581,10 +17001,10 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 403. " 
 " todo, raise
       WHEN 422. " Validation failed
-" application/json, 
+" application/json,
 " todo, raise
       WHEN 503. " Response
-" application/json, #/components/schemas/response_projects_create_card
+" application/json,#/components/schemas/response_projects_create_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_create_card( '' ).
 " todo, raise
@@ -16596,7 +17016,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/columns/{column_id}/moves'.
     lv_temp = column_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16605,7 +17025,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_projects_move_column
+" application/json,#/components/schemas/response_projects_move_column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_column( '' ).
       WHEN 304. " 
@@ -16624,7 +17044,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16632,7 +17052,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project
+" application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
       WHEN 304. " 
@@ -16649,7 +17069,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16658,7 +17078,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project
+" application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
       WHEN 304. " 
@@ -16666,7 +17086,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 401. " 
 " todo, raise
       WHEN 403. " Forbidden
-" application/json, #/components/schemas/response_projects_update
+" application/json,#/components/schemas/response_projects_update
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_update( '' ).
 " todo, raise
@@ -16684,7 +17104,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16698,7 +17118,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 401. " 
 " todo, raise
       WHEN 403. " Forbidden
-" application/json, #/components/schemas/response_projects_delete
+" application/json,#/components/schemas/response_projects_delete
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_delete( '' ).
 " todo, raise
@@ -16714,7 +17134,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     IF affiliation IS SUPPLIED.
       mi_client->request->set_form_field( name = 'affiliation' value = affiliation ).
@@ -16735,7 +17155,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_collaborators
+" application/json,#/components/schemas/response_projects_list_collaborators
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_collaborat( '' ).
       WHEN 304. " 
@@ -16756,9 +17176,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_add_collaborator( body ) ).
@@ -16784,9 +17206,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_remove_collabora( body ) ).
@@ -16812,16 +17236,18 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/collaborators/{username}/permission'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/project-collaborator-permission
+" application/json,#/components/schemas/project-collaborator-permission
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_collaborator_per( '' ).
       WHEN 304. " 
@@ -16842,7 +17268,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/columns'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -16860,7 +17286,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_columns
+" application/json,#/components/schemas/response_projects_list_columns
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_columns( '' ).
       WHEN 304. " 
@@ -16877,7 +17303,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/projects/{project_id}/columns'.
     lv_temp = project_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -16886,7 +17312,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/project-column
+" application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
       WHEN 304. " 
@@ -16910,7 +17336,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/rate-limit-overview
+" application/json,#/components/schemas/rate-limit-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_rate_limit_overview( '' ).
       WHEN 304. " 
@@ -16924,15 +17350,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/full-repository
+" application/json,#/components/schemas/full-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_full_repository( '' ).
       WHEN 301. " 
@@ -16948,8 +17378,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_update( body ) ).
@@ -16957,7 +17391,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/full-repository
+" application/json,#/components/schemas/full-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_full_repository( '' ).
       WHEN 307. " 
@@ -16975,8 +17409,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_delete( body ) ).
@@ -16987,7 +17425,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 307. " 
 " todo, raise
       WHEN 403. " If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, a member will get this response:
-" application/json, #/components/schemas/response_repos_delete
+" application/json,#/components/schemas/response_repos_delete
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_repos_delete( '' ).
 " todo, raise
@@ -17000,8 +17438,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/artifacts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17018,7 +17460,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_artifacts_for_rep
+" application/json,#/components/schemas/response_actions_list_artifacts_for_rep
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_artifacts_f( '' ).
     ENDCASE.
@@ -17028,10 +17470,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = artifact_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17039,7 +17485,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/artifact
+" application/json,#/components/schemas/artifact
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_artifact( '' ).
     ENDCASE.
@@ -17049,10 +17495,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = artifact_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17067,11 +17517,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}'.
-    REPLACE ALL OCCURRENCES OF '{archive_format}' IN lv_uri WITH archive_format.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = archive_format.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{archive_format}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = artifact_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{artifact_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17087,10 +17543,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/jobs/{job_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = job_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17098,7 +17558,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/job
+" application/json,#/components/schemas/job
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_job( '' ).
     ENDCASE.
@@ -17108,10 +17568,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/jobs/{job_id}/logs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = job_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{job_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17127,8 +17591,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17145,7 +17613,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_self_hosted_run03
+" application/json,#/components/schemas/response_actions_list_self_hosted_run03
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_self_host03( '' ).
     ENDCASE.
@@ -17155,15 +17623,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners/downloads'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_runner_applicat01
+" application/json,#/components/schemas/response_actions_list_runner_applicat01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_runner_ap01( '' ).
     ENDCASE.
@@ -17173,15 +17645,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners/registration-token'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -17191,15 +17667,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners/remove-token'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/authentication-token
+" application/json,#/components/schemas/authentication-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authentication_token( '' ).
     ENDCASE.
@@ -17209,10 +17689,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17220,7 +17704,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/runner-no-labels
+" application/json,#/components/schemas/runner-no-labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_no_labels( '' ).
     ENDCASE.
@@ -17230,10 +17714,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runners/{runner_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = runner_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17248,8 +17736,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF actor IS SUPPLIED.
       mi_client->request->set_form_field( name = 'actor' value = actor ).
     ENDIF.
@@ -17286,7 +17778,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_workflow_runs_for
+" application/json,#/components/schemas/response_actions_list_workflow_runs_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_workflow_ru( '' ).
     ENDCASE.
@@ -17296,10 +17788,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     lv_temp = exclude_pull_requests.
     CONDENSE lv_temp.
@@ -17312,7 +17808,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/workflow-run
+" application/json,#/components/schemas/workflow-run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_workflow_run( '' ).
     ENDCASE.
@@ -17322,10 +17818,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17340,10 +17840,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -17361,7 +17865,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_workflow_run_arti
+" application/json,#/components/schemas/response_actions_list_workflow_run_arti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_workflow_01( '' ).
     ENDCASE.
@@ -17371,10 +17875,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}/cancel'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17382,7 +17890,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_actions_cancel_workflow_run
+" application/json,#/components/schemas/response_actions_cancel_workflow_run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_actions_cancel_workflow_( '' ).
 " todo, raise
@@ -17393,10 +17901,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}/jobs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -17417,7 +17929,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_jobs_for_workflow
+" application/json,#/components/schemas/response_actions_list_jobs_for_workflow
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_jobs_for_wo( '' ).
     ENDCASE.
@@ -17427,10 +17939,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17446,10 +17962,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -17464,8 +17984,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/secrets'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17482,7 +18006,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_repo_secrets
+" application/json,#/components/schemas/response_actions_list_repo_secrets
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_repo_secret( '' ).
     ENDCASE.
@@ -17492,15 +18016,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/secrets/public-key'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/actions-public-key
+" application/json,#/components/schemas/actions-public-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_public_key( '' ).
     ENDCASE.
@@ -17510,16 +18038,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/actions-secret
+" application/json,#/components/schemas/actions-secret
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_secret( '' ).
     ENDCASE.
@@ -17529,9 +18063,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_create_or_updat01( body ) ).
@@ -17539,7 +18079,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response when creating a secret
-" application/json, #/components/schemas/response_actions_create_or_update_repo_
+" application/json,#/components/schemas/response_actions_create_or_update_repo_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_create_or_update( '' ).
       WHEN 204. " Response when updating a secret
@@ -17550,9 +18090,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH secret_name.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_delete_repo_secre( body ) ).
@@ -17567,8 +18113,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/workflows'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17585,7 +18135,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_repo_workflows
+" application/json,#/components/schemas/response_actions_list_repo_workflows
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_repo_workfl( '' ).
     ENDCASE.
@@ -17595,16 +18145,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/workflows/{workflow_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = workflow_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/workflow
+" application/json,#/components/schemas/workflow
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_workflow( '' ).
     ENDCASE.
@@ -17614,9 +18170,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = workflow_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_actions_create_workflow_d( body ) ).
@@ -17631,9 +18193,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH workflow_id.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = workflow_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{workflow_id}' IN lv_uri WITH lv_temp.
     IF actor IS SUPPLIED.
       mi_client->request->set_form_field( name = 'actor' value = actor ).
     ENDIF.
@@ -17670,7 +18238,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_actions_list_workflow_runs
+" application/json,#/components/schemas/response_actions_list_workflow_runs
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_workflow_02( '' ).
     ENDCASE.
@@ -17680,8 +18248,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/assignees'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -17698,7 +18270,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_assignees
+" application/json,#/components/schemas/response_issues_list_assignees
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_assignees( '' ).
       WHEN 404. " 
@@ -17710,9 +18282,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/assignees/{assignee}'.
-    REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH assignee.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = assignee.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17720,7 +18298,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     CASE lv_code.
       WHEN 204. " If the `assignee` can be assigned to issues in the repository, a `204` header with no content is returned.
       WHEN 404. " Otherwise a `404` status code is returned.
-" application/json, #/components/schemas/basic-error
+" application/json,#/components/schemas/basic-error
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_basic_error( '' ).
 " todo, raise
@@ -17731,8 +18309,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = protected.
     CONDENSE lv_temp.
     IF protected IS SUPPLIED.
@@ -17754,7 +18336,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_branches
+" application/json,#/components/schemas/response_repos_list_branches
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_branches( '' ).
       WHEN 404. " 
@@ -17766,16 +18348,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/branch-with-protection
+" application/json,#/components/schemas/branch-with-protection
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_with_protection( '' ).
       WHEN 301. " 
@@ -17791,16 +18379,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/branch-protection
+" application/json,#/components/schemas/branch-protection
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_protection( '' ).
       WHEN 404. " 
@@ -17812,9 +18406,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_update_branch_prote( body ) ).
@@ -17822,7 +18422,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch
+" application/json,#/components/schemas/protected-branch
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch( '' ).
       WHEN 403. " 
@@ -17838,9 +18438,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_delete_branch_prote( body ) ).
@@ -17857,16 +18463,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-admin-enforced
+" application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
     ENDCASE.
@@ -17876,16 +18488,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-admin-enforced
+" application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
     ENDCASE.
@@ -17895,9 +18513,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -17913,16 +18537,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-pull-request-review
+" application/json,#/components/schemas/protected-branch-pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_pull_re( '' ).
     ENDCASE.
@@ -17932,9 +18562,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_update_pull_request( body ) ).
@@ -17942,7 +18578,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-pull-request-review
+" application/json,#/components/schemas/protected-branch-pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_pull_re( '' ).
       WHEN 422. " 
@@ -17954,9 +18590,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_delete_pull_request( body ) ).
@@ -17973,16 +18615,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-admin-enforced
+" application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
       WHEN 404. " 
@@ -17994,16 +18642,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/protected-branch-admin-enforced
+" application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
       WHEN 404. " 
@@ -18015,9 +18669,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -18033,16 +18693,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/status-check-policy
+" application/json,#/components/schemas/status-check-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_status_check_policy( '' ).
       WHEN 404. " 
@@ -18054,9 +18720,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_update_status_check( body ) ).
@@ -18064,7 +18736,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/status-check-policy
+" application/json,#/components/schemas/status-check-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_status_check_policy( '' ).
       WHEN 404. " 
@@ -18078,9 +18750,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_remove_status_check( body ) ).
@@ -18095,16 +18773,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_get_all_status_check_con
+" application/json,#/components/schemas/response_repos_get_all_status_check_con
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_all_status_che( '' ).
       WHEN 404. " 
@@ -18116,9 +18800,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18126,7 +18816,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_add_status_check_context
+" application/json,#/components/schemas/response_repos_add_status_check_context
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_status_check_c( '' ).
       WHEN 403. " 
@@ -18142,9 +18832,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18152,7 +18848,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_set_status_check_context
+" application/json,#/components/schemas/response_repos_set_status_check_context
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_status_check_c( '' ).
       WHEN 404. " 
@@ -18166,9 +18862,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18176,7 +18878,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_remove_status_check_cont
+" application/json,#/components/schemas/response_repos_remove_status_check_cont
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_status_chec( '' ).
       WHEN 404. " 
@@ -18190,16 +18892,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/branch-restriction-policy
+" application/json,#/components/schemas/branch-restriction-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_restriction_polic( '' ).
       WHEN 404. " 
@@ -18211,9 +18919,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -18227,16 +18941,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_get_apps_with_access_to_
+" application/json,#/components/schemas/response_repos_get_apps_with_access_to_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_apps_with_acce( '' ).
       WHEN 404. " 
@@ -18248,9 +18968,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18258,7 +18984,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_add_app_access_restricti
+" application/json,#/components/schemas/response_repos_add_app_access_restricti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_app_access_res( '' ).
       WHEN 422. " 
@@ -18270,9 +18996,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18280,7 +19012,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_set_app_access_restricti
+" application/json,#/components/schemas/response_repos_set_app_access_restricti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_app_access_res( '' ).
       WHEN 422. " 
@@ -18292,9 +19024,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18302,7 +19040,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_remove_app_access_restri
+" application/json,#/components/schemas/response_repos_remove_app_access_restri
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_app_access_( '' ).
       WHEN 422. " 
@@ -18314,16 +19052,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_get_teams_with_access_to
+" application/json,#/components/schemas/response_repos_get_teams_with_access_to
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_teams_with_acc( '' ).
       WHEN 404. " 
@@ -18335,9 +19079,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18345,7 +19095,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_add_team_access_restrict
+" application/json,#/components/schemas/response_repos_add_team_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_team_access_re( '' ).
       WHEN 422. " 
@@ -18357,9 +19107,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18367,7 +19123,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_set_team_access_restrict
+" application/json,#/components/schemas/response_repos_set_team_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_team_access_re( '' ).
       WHEN 422. " 
@@ -18379,9 +19135,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18389,7 +19151,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_remove_team_access_restr
+" application/json,#/components/schemas/response_repos_remove_team_access_restr
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_team_access( '' ).
       WHEN 422. " 
@@ -18401,16 +19163,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_get_users_with_access_to
+" application/json,#/components/schemas/response_repos_get_users_with_access_to
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_users_with_acc( '' ).
       WHEN 404. " 
@@ -18422,9 +19190,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18432,7 +19206,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_add_user_access_restrict
+" application/json,#/components/schemas/response_repos_add_user_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_user_access_re( '' ).
       WHEN 422. " 
@@ -18444,9 +19218,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18454,7 +19234,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_set_user_access_restrict
+" application/json,#/components/schemas/response_repos_set_user_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_user_access_re( '' ).
       WHEN 422. " 
@@ -18466,9 +19246,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH branch.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = branch.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{branch}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -18476,7 +19262,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_remove_user_access_restr
+" application/json,#/components/schemas/response_repos_remove_user_access_restr
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_user_access( '' ).
       WHEN 422. " 
@@ -18488,8 +19274,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_checks_create( body ) ).
@@ -18497,7 +19287,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/check-run
+" application/json,#/components/schemas/check-run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_run( '' ).
     ENDCASE.
@@ -18507,10 +19297,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18518,7 +19312,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/check-run
+" application/json,#/components/schemas/check-run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_run( '' ).
     ENDCASE.
@@ -18528,10 +19322,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18540,7 +19338,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/check-run
+" application/json,#/components/schemas/check-run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_run( '' ).
     ENDCASE.
@@ -18550,10 +19348,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_run_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_run_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -18571,7 +19373,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_checks_list_annotations
+" application/json,#/components/schemas/response_checks_list_annotations
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_checks_list_annotations( '' ).
     ENDCASE.
@@ -18581,8 +19383,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_checks_create_suite( body ) ).
@@ -18590,11 +19396,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " when the suite already existed
-" application/json, #/components/schemas/check-suite
+" application/json,#/components/schemas/check-suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_suite( '' ).
       WHEN 201. " Response when the suite was created
-" application/json, #/components/schemas/check-suite
+" application/json,#/components/schemas/check-suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_suite( '' ).
     ENDCASE.
@@ -18604,8 +19410,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/preferences'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_checks_set_suites_prefere( body ) ).
@@ -18613,7 +19423,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/check-suite-preference
+" application/json,#/components/schemas/check-suite-preference
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_suite_preference( '' ).
     ENDCASE.
@@ -18623,10 +19433,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_suite_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18634,7 +19448,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/check-suite
+" application/json,#/components/schemas/check-suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_suite( '' ).
     ENDCASE.
@@ -18644,10 +19458,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_suite_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
@@ -18674,7 +19492,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_checks_list_for_suite
+" application/json,#/components/schemas/response_checks_list_for_suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_checks_list_for_suite( '' ).
     ENDCASE.
@@ -18684,10 +19502,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = check_suite_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{check_suite_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -18695,7 +19517,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_checks_rerequest_suite
+" application/json,#/components/schemas/response_checks_rerequest_suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_checks_rerequest_suite( '' ).
     ENDCASE.
@@ -18705,8 +19527,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/code-scanning/alerts'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -18735,7 +19561,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_code_scanning_list_alerts_for_
+" application/json,#/components/schemas/response_code_scanning_list_alerts_for_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_alert( '' ).
       WHEN 403. " 
@@ -18751,16 +19577,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = alert_number.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/code-scanning-alert
+" application/json,#/components/schemas/code-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_alert( '' ).
       WHEN 403. " 
@@ -18776,9 +19608,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH alert_number.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = alert_number.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_code_scanning_update_aler( body ) ).
@@ -18786,7 +19624,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/code-scanning-alert
+" application/json,#/components/schemas/code-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_alert( '' ).
       WHEN 403. " 
@@ -18802,8 +19640,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/code-scanning/analyses'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
@@ -18832,7 +19674,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_code_scanning_list_recent_anal
+" application/json,#/components/schemas/response_code_scanning_list_recent_anal
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_recen( '' ).
       WHEN 403. " 
@@ -18848,8 +19690,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/code-scanning/sarifs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_code_scanning_upload_sari( body ) ).
@@ -18857,7 +19703,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/code-scanning-sarifs-receipt
+" application/json,#/components/schemas/code-scanning-sarifs-receipt
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_code_scanning_sarifs_rec( '' ).
 " todo, raise
@@ -18878,8 +19724,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF affiliation IS SUPPLIED.
       mi_client->request->set_form_field( name = 'affiliation' value = affiliation ).
     ENDIF.
@@ -18899,7 +19749,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_collaborators
+" application/json,#/components/schemas/response_repos_list_collaborators
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_collaborators( '' ).
       WHEN 404. " 
@@ -18911,9 +19761,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -18929,9 +19785,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_add_collaborator( body ) ).
@@ -18939,7 +19801,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response when a new invitation is created
-" application/json, #/components/schemas/repository-invitation
+" application/json,#/components/schemas/repository-invitation
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_invitation( '' ).
       WHEN 204. " Response when person is already a collaborator
@@ -18954,9 +19816,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_remove_collaborator( body ) ).
@@ -18971,16 +19839,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/collaborators/{username}/permission'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " if user has admin permissions
-" application/json, #/components/schemas/repository-collaborator-permission
+" application/json,#/components/schemas/repository-collaborator-permission
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_collaborator_( '' ).
       WHEN 404. " 
@@ -18992,8 +19866,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19010,7 +19888,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_commit_comments_for
+" application/json,#/components/schemas/response_repos_list_commit_comments_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_commit_commen( '' ).
     ENDCASE.
@@ -19020,10 +19898,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19031,7 +19913,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/commit-comment
+" application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
       WHEN 404. " 
@@ -19043,10 +19925,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19055,7 +19941,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/commit-comment
+" application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
       WHEN 404. " 
@@ -19067,10 +19953,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19088,10 +19978,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -19112,7 +20006,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_commit_comm
+" application/json,#/components/schemas/response_reactions_list_for_commit_comm
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_commi( '' ).
       WHEN 404. " 
@@ -19124,10 +20018,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19136,11 +20034,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Reaction exists
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Reaction created
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 415. " 
@@ -19154,13 +20052,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19175,8 +20077,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF sha IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sha' value = sha ).
     ENDIF.
@@ -19208,7 +20114,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_commits
+" application/json,#/components/schemas/response_repos_list_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_commits( '' ).
       WHEN 400. " 
@@ -19226,16 +20132,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = commit_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_branches_for_head_c
+" application/json,#/components/schemas/response_repos_list_branches_for_head_c
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_branches_for_( '' ).
       WHEN 422. " 
@@ -19247,9 +20159,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = commit_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19266,7 +20184,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_comments_for_commit
+" application/json,#/components/schemas/response_repos_list_comments_for_commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_comments_for_( '' ).
     ENDCASE.
@@ -19276,9 +20194,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = commit_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_commit_comme( body ) ).
@@ -19286,7 +20210,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/commit-comment
+" application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
       WHEN 403. " 
@@ -19300,9 +20224,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = commit_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19319,7 +20249,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_pull_requests_assoc
+" application/json,#/components/schemas/response_repos_list_pull_requests_assoc
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_pull_requests( '' ).
     ENDCASE.
@@ -19329,9 +20259,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = page.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
@@ -19348,7 +20284,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/commit
+" application/json,#/components/schemas/commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit( '' ).
       WHEN 404. " 
@@ -19364,9 +20300,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/check-runs'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -19397,7 +20339,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_checks_list_for_ref
+" application/json,#/components/schemas/response_checks_list_for_ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_checks_list_for_ref( '' ).
     ENDCASE.
@@ -19407,9 +20349,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/check-suites'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = app_id.
     CONDENSE lv_temp.
     IF app_id IS SUPPLIED.
@@ -19434,7 +20382,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_checks_list_suites_for_ref
+" application/json,#/components/schemas/response_checks_list_suites_for_ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_checks_list_suites_for_r( '' ).
     ENDCASE.
@@ -19444,9 +20392,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/status'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19463,7 +20417,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/combined-commit-status
+" application/json,#/components/schemas/combined-commit-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_combined_commit_status( '' ).
       WHEN 404. " 
@@ -19475,9 +20429,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/commits/{ref}/statuses'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19494,7 +20454,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_commit_statuses_for
+" application/json,#/components/schemas/response_repos_list_commit_statuses_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_commit_status( '' ).
       WHEN 301. " 
@@ -19506,16 +20466,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/compare/{basehead}'.
-    REPLACE ALL OCCURRENCES OF '{basehead}' IN lv_uri WITH basehead.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = basehead.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{basehead}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/commit-comparison
+" application/json,#/components/schemas/commit-comparison
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comparison( '' ).
       WHEN 404. " 
@@ -19529,10 +20495,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = content_reference_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19541,7 +20511,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/content-reference-attachment
+" application/json,#/components/schemas/content-reference-attachment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_content_reference_attach( '' ).
       WHEN 304. " 
@@ -19563,9 +20533,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
-    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = path.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
@@ -19575,7 +20551,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, 
+" application/json,
       WHEN 302. " 
 " todo, raise
       WHEN 403. " 
@@ -19589,9 +20565,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
-    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = path.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_or_update_fi( body ) ).
@@ -19599,11 +20581,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/file-commit
+" application/json,#/components/schemas/file-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_file_commit( '' ).
       WHEN 201. " Response
-" application/json, #/components/schemas/file-commit
+" application/json,#/components/schemas/file-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_file_commit( '' ).
       WHEN 404. " 
@@ -19619,9 +20601,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contents/{path}'.
-    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH path.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = path.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_delete_file( body ) ).
@@ -19629,7 +20617,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/file-commit
+" application/json,#/components/schemas/file-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_file_commit( '' ).
       WHEN 404. " 
@@ -19647,8 +20635,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/contributors'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF anon IS SUPPLIED.
       mi_client->request->set_form_field( name = 'anon' value = anon ).
     ENDIF.
@@ -19668,7 +20660,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " if repository contains content
-" application/json, #/components/schemas/response_repos_list_contributors
+" application/json,#/components/schemas/response_repos_list_contributors
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_contributors( '' ).
       WHEN 204. " Response if repository is empty
@@ -19683,8 +20675,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF sha IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sha' value = sha ).
     ENDIF.
@@ -19713,7 +20709,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_deployments
+" application/json,#/components/schemas/response_repos_list_deployments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_deployments( '' ).
     ENDCASE.
@@ -19723,8 +20719,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_deployment( body ) ).
@@ -19732,11 +20732,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/deployment
+" application/json,#/components/schemas/deployment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment( '' ).
       WHEN 202. " Merged branch response
-" application/json, #/components/schemas/response_repos_create_deployment
+" application/json,#/components/schemas/response_repos_create_deployment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_repos_create_deployment( '' ).
 " todo, raise
@@ -19751,10 +20751,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = deployment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19762,7 +20766,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/deployment
+" application/json,#/components/schemas/deployment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment( '' ).
       WHEN 404. " 
@@ -19774,10 +20778,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = deployment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19796,10 +20804,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = deployment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -19817,7 +20829,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_deployment_statuses
+" application/json,#/components/schemas/response_repos_list_deployment_statuses
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_deployment_st( '' ).
       WHEN 404. " 
@@ -19829,10 +20841,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = deployment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19841,7 +20857,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/deployment-status
+" application/json,#/components/schemas/deployment-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment_status( '' ).
       WHEN 422. " 
@@ -19854,12 +20870,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
     lv_temp = status_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = deployment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{deployment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -19867,7 +20887,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/deployment-status
+" application/json,#/components/schemas/deployment-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment_status( '' ).
       WHEN 404. " 
@@ -19879,8 +20899,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/dispatches'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_dispatch_eve( body ) ).
@@ -19897,8 +20921,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/events'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -19915,7 +20943,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_repo_events
+" application/json,#/components/schemas/response_activity_list_repo_events
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_repo_event( '' ).
     ENDCASE.
@@ -19925,8 +20953,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/forks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -19946,7 +20978,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_forks
+" application/json,#/components/schemas/response_repos_list_forks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_forks( '' ).
       WHEN 400. " 
@@ -19958,8 +20990,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/forks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_fork( body ) ).
@@ -19967,7 +21003,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/full-repository
+" application/json,#/components/schemas/full-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_full_repository( '' ).
 " todo, raise
@@ -19986,8 +21022,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/blobs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_create_blob( body ) ).
@@ -19995,7 +21035,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/short-blob
+" application/json,#/components/schemas/short-blob
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_short_blob( '' ).
       WHEN 403. " 
@@ -20013,16 +21053,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/blobs/{file_sha}'.
-    REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH file_sha.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = file_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/blob
+" application/json,#/components/schemas/blob
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_blob( '' ).
       WHEN 403. " 
@@ -20038,8 +21084,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/commits'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_create_commit( body ) ).
@@ -20047,7 +21097,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/git-commit
+" application/json,#/components/schemas/git-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_commit( '' ).
       WHEN 404. " 
@@ -20061,16 +21111,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/commits/{commit_sha}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
-    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH commit_sha.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = commit_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{commit_sha}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/git-commit
+" application/json,#/components/schemas/git-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_commit( '' ).
       WHEN 404. " 
@@ -20082,9 +21138,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/matching-refs/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -20101,7 +21163,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_git_list_matching_refs
+" application/json,#/components/schemas/response_git_list_matching_refs
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_list_matching_refs( '' ).
     ENDCASE.
@@ -20111,16 +21173,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/ref/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/git-ref
+" application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
       WHEN 404. " 
@@ -20132,8 +21200,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_create_ref( body ) ).
@@ -20141,7 +21213,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/git-ref
+" application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
       WHEN 422. " 
@@ -20153,9 +21225,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_update_ref( body ) ).
@@ -20163,7 +21241,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/git-ref
+" application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
       WHEN 422. " 
@@ -20175,9 +21253,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/refs/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_delete_ref( body ) ).
@@ -20194,8 +21278,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/tags'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_create_tag( body ) ).
@@ -20203,7 +21291,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/git-tag
+" application/json,#/components/schemas/git-tag
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tag( '' ).
       WHEN 422. " 
@@ -20215,16 +21303,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/tags/{tag_sha}'.
-    REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH tag_sha.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = tag_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/git-tag
+" application/json,#/components/schemas/git-tag
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tag( '' ).
       WHEN 404. " 
@@ -20236,8 +21330,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/trees'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_git_create_tree( body ) ).
@@ -20245,7 +21343,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/git-tree
+" application/json,#/components/schemas/git-tree
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tree( '' ).
       WHEN 403. " 
@@ -20261,9 +21359,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/git/trees/{tree_sha}'.
-    REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH tree_sha.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = tree_sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF recursive IS SUPPLIED.
       mi_client->request->set_form_field( name = 'recursive' value = recursive ).
     ENDIF.
@@ -20273,7 +21377,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/git-tree
+" application/json,#/components/schemas/git-tree
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tree( '' ).
       WHEN 404. " 
@@ -20287,8 +21391,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -20305,7 +21413,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_webhooks
+" application/json,#/components/schemas/response_repos_list_webhooks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_webhooks( '' ).
       WHEN 404. " 
@@ -20317,8 +21425,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_webhook( body ) ).
@@ -20326,7 +21438,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/hook
+" application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
       WHEN 403. " 
@@ -20342,10 +21454,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20353,7 +21469,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/hook
+" application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
       WHEN 404. " 
@@ -20365,10 +21481,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20377,7 +21497,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/hook
+" application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
       WHEN 404. " 
@@ -20391,10 +21511,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20412,10 +21536,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20432,10 +21560,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20452,15 +21584,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/installation'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/installation-ghes-2
+" application/json,#/components/schemas/installation-ghes-2
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_ghes_2( '' ).
       WHEN 301. " 
@@ -20474,8 +21610,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -20492,7 +21632,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_invitations
+" application/json,#/components/schemas/response_repos_list_invitations
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_invitations( '' ).
     ENDCASE.
@@ -20502,10 +21642,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations/{invitation_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = invitation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20514,7 +21658,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/repository-invitation
+" application/json,#/components/schemas/repository-invitation
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_invitation( '' ).
     ENDCASE.
@@ -20524,10 +21668,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/invitations/{invitation_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = invitation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20543,8 +21691,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF milestone IS SUPPLIED.
       mi_client->request->set_form_field( name = 'milestone' value = milestone ).
     ENDIF.
@@ -20588,7 +21740,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_for_repo
+" application/json,#/components/schemas/response_issues_list_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_repo( '' ).
       WHEN 301. " 
@@ -20604,8 +21756,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_issues_create( body ) ).
@@ -20613,7 +21769,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/issue
+" application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
       WHEN 403. " 
@@ -20633,8 +21789,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
@@ -20660,7 +21820,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_comments_for_repo
+" application/json,#/components/schemas/response_issues_list_comments_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_comments_for( '' ).
       WHEN 404. " 
@@ -20674,10 +21834,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20685,7 +21849,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue-comment
+" application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
       WHEN 404. " 
@@ -20697,10 +21861,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20709,7 +21877,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue-comment
+" application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
       WHEN 422. " 
@@ -20721,10 +21889,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20740,10 +21912,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -20764,7 +21940,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_issue_comme
+" application/json,#/components/schemas/response_reactions_list_for_issue_comme
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_issue( '' ).
       WHEN 404. " 
@@ -20776,10 +21952,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20788,11 +21968,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Reaction exists
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Reaction created
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 422. " 
@@ -20804,13 +21984,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20825,8 +22009,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/events'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -20843,7 +22031,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_events_for_repo
+" application/json,#/components/schemas/response_issues_list_events_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events_for_r( '' ).
       WHEN 422. " 
@@ -20856,17 +22044,21 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/events/{event_id}'.
     lv_temp = event_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue-event
+" application/json,#/components/schemas/issue-event
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_event( '' ).
       WHEN 403. " 
@@ -20882,10 +22074,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20893,7 +22089,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue
+" application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
       WHEN 301. " 
@@ -20911,10 +22107,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20923,7 +22123,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue
+" application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
       WHEN 301. " 
@@ -20945,10 +22145,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20957,7 +22161,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/issue
+" application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
     ENDCASE.
@@ -20967,10 +22171,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -20979,7 +22187,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/issue
+" application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
     ENDCASE.
@@ -20989,10 +22197,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
@@ -21013,7 +22225,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_comments
+" application/json,#/components/schemas/response_issues_list_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_comments( '' ).
       WHEN 404. " 
@@ -21027,10 +22239,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21039,7 +22255,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/issue-comment
+" application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
       WHEN 403. " 
@@ -21057,10 +22273,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/events'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -21078,7 +22298,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_events
+" application/json,#/components/schemas/response_issues_list_events
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events( '' ).
       WHEN 410. " 
@@ -21090,10 +22310,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -21111,7 +22335,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_labels_on_issue
+" application/json,#/components/schemas/response_issues_list_labels_on_issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_labels_on_is( '' ).
       WHEN 410. " 
@@ -21123,10 +22347,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21135,7 +22363,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_add_labels
+" application/json,#/components/schemas/response_issues_add_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_add_labels( '' ).
       WHEN 410. " 
@@ -21149,10 +22377,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21161,7 +22393,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_set_labels
+" application/json,#/components/schemas/response_issues_set_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_set_labels( '' ).
       WHEN 410. " 
@@ -21175,10 +22407,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21196,11 +22432,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
-    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21208,7 +22450,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_remove_label
+" application/json,#/components/schemas/response_issues_remove_label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_remove_label( '' ).
       WHEN 404. " 
@@ -21222,10 +22464,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/lock'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21249,10 +22495,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/lock'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21272,10 +22522,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -21296,7 +22550,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_issue
+" application/json,#/components/schemas/response_reactions_list_for_issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_iss01( '' ).
       WHEN 404. " 
@@ -21310,10 +22564,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21322,11 +22580,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Response
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 422. " 
@@ -21338,13 +22596,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21359,10 +22621,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = issue_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{issue_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -21380,7 +22646,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_events_for_timelin
+" application/json,#/components/schemas/response_issues_list_events_for_timelin
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events_for_t( '' ).
       WHEN 404. " 
@@ -21394,8 +22660,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -21412,7 +22682,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_deploy_keys
+" application/json,#/components/schemas/response_repos_list_deploy_keys
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_deploy_keys( '' ).
     ENDCASE.
@@ -21422,8 +22692,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_deploy_key( body ) ).
@@ -21431,7 +22705,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/deploy-key
+" application/json,#/components/schemas/deploy-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deploy_key( '' ).
       WHEN 422. " 
@@ -21443,10 +22717,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys/{key_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21454,7 +22732,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/deploy-key
+" application/json,#/components/schemas/deploy-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deploy_key( '' ).
       WHEN 404. " 
@@ -21466,10 +22744,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/keys/{key_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21484,8 +22766,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -21502,7 +22788,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_labels_for_repo
+" application/json,#/components/schemas/response_issues_list_labels_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_labels_for_r( '' ).
       WHEN 404. " 
@@ -21514,8 +22800,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_issues_create_label( body ) ).
@@ -21523,7 +22813,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/label
+" application/json,#/components/schemas/label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_label( '' ).
       WHEN 404. " 
@@ -21537,16 +22827,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
-    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/label
+" application/json,#/components/schemas/label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_label( '' ).
       WHEN 404. " 
@@ -21558,9 +22854,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
-    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_issues_update_label( body ) ).
@@ -21568,7 +22870,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/label
+" application/json,#/components/schemas/label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_label( '' ).
     ENDCASE.
@@ -21578,9 +22880,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/labels/{name}'.
-    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH name.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_issues_delete_label( body ) ).
@@ -21595,15 +22903,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/languages'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/language
+" application/json,#/components/schemas/language
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_language( '' ).
     ENDCASE.
@@ -21613,15 +22925,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/license'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/license-content
+" application/json,#/components/schemas/license-content
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_license_content( '' ).
     ENDCASE.
@@ -21631,8 +22947,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/merges'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_merge( body ) ).
@@ -21640,7 +22960,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Successful Response (The resulting merge commit)
-" application/json, #/components/schemas/commit
+" application/json,#/components/schemas/commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit( '' ).
       WHEN 204. " Response when already merged
@@ -21659,8 +22979,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -21686,7 +23010,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_milestones
+" application/json,#/components/schemas/response_issues_list_milestones
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_milestones( '' ).
       WHEN 404. " 
@@ -21698,8 +23022,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_issues_create_milestone( body ) ).
@@ -21707,7 +23035,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/milestone
+" application/json,#/components/schemas/milestone
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_milestone( '' ).
       WHEN 404. " 
@@ -21721,10 +23049,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = milestone_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21732,7 +23064,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/milestone
+" application/json,#/components/schemas/milestone
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_milestone( '' ).
       WHEN 404. " 
@@ -21744,10 +23076,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = milestone_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21756,7 +23092,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/milestone
+" application/json,#/components/schemas/milestone
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_milestone( '' ).
     ENDCASE.
@@ -21766,10 +23102,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = milestone_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -21787,10 +23127,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = milestone_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{milestone_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -21808,7 +23152,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_labels_for_milesto
+" application/json,#/components/schemas/response_issues_list_labels_for_milesto
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_labels_for_m( '' ).
     ENDCASE.
@@ -21818,8 +23162,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/notifications'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = all.
     CONDENSE lv_temp.
     IF all IS SUPPLIED.
@@ -21852,7 +23200,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_repo_notificatio
+" application/json,#/components/schemas/response_activity_list_repo_notificatio
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_repo_notif( '' ).
     ENDCASE.
@@ -21862,8 +23210,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/notifications'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_activity_mark_repo_notifi( body ) ).
@@ -21871,7 +23223,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_activity_mark_repo_notificatio
+" application/json,#/components/schemas/response_activity_mark_repo_notificatio
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_activity_mark_repo_notif( '' ).
 " todo, raise
@@ -21884,15 +23236,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/page
+" application/json,#/components/schemas/page
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page( '' ).
       WHEN 404. " 
@@ -21904,8 +23260,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_pages_site( body ) ).
@@ -21913,7 +23273,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/page
+" application/json,#/components/schemas/page
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page( '' ).
       WHEN 409. " 
@@ -21927,8 +23287,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_update_information_( body ) ).
@@ -21947,8 +23311,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_delete_pages_site( body ) ).
@@ -21967,8 +23335,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -21985,7 +23357,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_pages_builds
+" application/json,#/components/schemas/response_repos_list_pages_builds
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_pages_builds( '' ).
     ENDCASE.
@@ -21995,15 +23367,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/page-build-status
+" application/json,#/components/schemas/page-build-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page_build_status( '' ).
     ENDCASE.
@@ -22013,15 +23389,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds/latest'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/page-build
+" application/json,#/components/schemas/page-build
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page_build( '' ).
     ENDCASE.
@@ -22032,17 +23412,21 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pages/builds/{build_id}'.
     lv_temp = build_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH lv_temp.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/page-build
+" application/json,#/components/schemas/page-build
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page_build( '' ).
     ENDCASE.
@@ -22052,8 +23436,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -22076,7 +23464,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_list_pre_re03
+" application/json,#/components/schemas/response_enterprise_admin_list_pre_re03
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_list_05( '' ).
     ENDCASE.
@@ -22086,10 +23474,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22097,7 +23489,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/repository-pre-receive-hook
+" application/json,#/components/schemas/repository-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_pre_receive_h( '' ).
     ENDCASE.
@@ -22107,10 +23499,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22119,7 +23515,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/repository-pre-receive-hook
+" application/json,#/components/schemas/repository-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_pre_receive_h( '' ).
     ENDCASE.
@@ -22129,10 +23525,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pre_receive_hook_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pre_receive_hook_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22141,7 +23541,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Responds with effective values inherited from owner and/or global level.
-" application/json, #/components/schemas/repository-pre-receive-hook
+" application/json,#/components/schemas/repository-pre-receive-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_pre_receive_h( '' ).
     ENDCASE.
@@ -22151,8 +23551,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/projects'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -22172,7 +23576,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_for_repo
+" application/json,#/components/schemas/response_projects_list_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_repo( '' ).
       WHEN 401. " 
@@ -22192,8 +23596,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/projects'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_create_for_repo( body ) ).
@@ -22201,7 +23609,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/project
+" application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
       WHEN 401. " 
@@ -22221,8 +23629,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -22254,7 +23666,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list
+" application/json,#/components/schemas/response_pulls_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list( '' ).
       WHEN 304. " 
@@ -22268,8 +23680,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_pulls_create( body ) ).
@@ -22277,7 +23693,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pull-request
+" application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
       WHEN 403. " 
@@ -22291,8 +23707,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -22318,7 +23738,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list_review_comments_for
+" application/json,#/components/schemas/response_pulls_list_review_comments_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_review_commen( '' ).
     ENDCASE.
@@ -22328,10 +23748,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22339,7 +23763,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review-comment
+" application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
       WHEN 404. " 
@@ -22351,10 +23775,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22363,7 +23791,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review-comment
+" application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
     ENDCASE.
@@ -22373,10 +23801,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22394,10 +23826,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     IF content IS SUPPLIED.
       mi_client->request->set_form_field( name = 'content' value = content ).
@@ -22418,7 +23854,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_reactions_list_for_pull_reques
+" application/json,#/components/schemas/response_reactions_list_for_pull_reques
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_pull_( '' ).
       WHEN 404. " 
@@ -22430,10 +23866,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22442,11 +23882,11 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Reaction exists
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 201. " Reaction created
-" application/json, #/components/schemas/reaction
+" application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
       WHEN 422. " 
@@ -22458,13 +23898,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     lv_temp = reaction_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22479,10 +23923,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22490,7 +23938,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Pass the appropriate [media type](https://docs.github.com/enterprise-server@2.22/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
-" application/json, #/components/schemas/pull-request
+" application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
       WHEN 304. " 
@@ -22506,10 +23954,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22518,7 +23970,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request
+" application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
       WHEN 403. " 
@@ -22532,10 +23984,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     IF direction IS SUPPLIED.
       mi_client->request->set_form_field( name = 'direction' value = direction ).
@@ -22562,7 +24018,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list_review_comments
+" application/json,#/components/schemas/response_pulls_list_review_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_review_comm01( '' ).
     ENDCASE.
@@ -22572,10 +24028,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22584,7 +24044,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pull-request-review-comment
+" application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
       WHEN 403. " 
@@ -22598,13 +24058,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = comment_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{comment_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22613,7 +24077,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pull-request-review-comment
+" application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
       WHEN 404. " 
@@ -22625,10 +24089,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -22646,7 +24114,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list_commits
+" application/json,#/components/schemas/response_pulls_list_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_commits( '' ).
     ENDCASE.
@@ -22656,10 +24124,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/files'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -22677,7 +24149,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list_files
+" application/json,#/components/schemas/response_pulls_list_files
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_files( '' ).
       WHEN 422. " 
@@ -22691,10 +24163,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22711,10 +24187,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22723,7 +24203,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " if merge was successful
-" application/json, #/components/schemas/pull-request-merge-result
+" application/json,#/components/schemas/pull-request-merge-result
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_merge_resul( '' ).
       WHEN 403. " 
@@ -22731,12 +24211,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 404. " 
 " todo, raise
       WHEN 405. " Method Not Allowed if merge cannot be performed
-" application/json, #/components/schemas/response_pulls_merge
+" application/json,#/components/schemas/response_pulls_merge
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pulls_merge( '' ).
 " todo, raise
       WHEN 409. " Conflict if sha was provided and pull request head did not match
-" application/json, #/components/schemas/response_pulls_merge
+" application/json,#/components/schemas/response_pulls_merge
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pulls_merge( '' ).
 " todo, raise
@@ -22749,10 +24229,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -22770,7 +24254,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review-request
+" application/json,#/components/schemas/pull-request-review-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_requ( '' ).
     ENDCASE.
@@ -22780,10 +24264,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22792,7 +24280,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/pull-request-simple
+" application/json,#/components/schemas/pull-request-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_simple( '' ).
       WHEN 403. " 
@@ -22806,10 +24294,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22818,7 +24310,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-simple
+" application/json,#/components/schemas/pull-request-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_simple( '' ).
       WHEN 422. " 
@@ -22830,10 +24322,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -22851,7 +24347,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " The list of reviews returns in chronological order.
-" application/json, #/components/schemas/response_pulls_list_reviews
+" application/json,#/components/schemas/response_pulls_list_reviews
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_reviews( '' ).
     ENDCASE.
@@ -22861,10 +24357,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22873,7 +24373,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 403. " 
@@ -22887,13 +24387,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22901,7 +24405,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 404. " 
@@ -22913,13 +24417,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22928,7 +24436,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 422. " 
@@ -22940,13 +24448,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -22955,7 +24467,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 404. " 
@@ -22969,13 +24481,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -22993,7 +24509,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_pulls_list_comments_for_review
+" application/json,#/components/schemas/response_pulls_list_comments_for_review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_comments_for_( '' ).
       WHEN 404. " 
@@ -23005,13 +24521,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23020,7 +24540,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 404. " 
@@ -23034,13 +24554,17 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     lv_temp = review_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{review_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23049,7 +24573,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/pull-request-review
+" application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
       WHEN 403. " 
@@ -23065,10 +24589,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = pull_number.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{pull_number}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23077,7 +24605,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/response_pulls_update_branch
+" application/json,#/components/schemas/response_pulls_update_branch
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pulls_update_branch( '' ).
 " todo, raise
@@ -23092,8 +24620,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/readme'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
@@ -23103,7 +24635,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/content-file
+" application/json,#/components/schemas/content-file
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_content_file( '' ).
       WHEN 404. " 
@@ -23117,9 +24649,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/readme/{dir}'.
-    REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH dir.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = dir.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
     ENDIF.
@@ -23129,7 +24667,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/content-file
+" application/json,#/components/schemas/content-file
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_content_file( '' ).
       WHEN 404. " 
@@ -23143,8 +24681,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -23161,7 +24703,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_releases
+" application/json,#/components/schemas/response_repos_list_releases
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_releases( '' ).
       WHEN 404. " 
@@ -23173,8 +24715,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_release( body ) ).
@@ -23182,7 +24728,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/release
+" application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
       WHEN 422. " 
@@ -23194,10 +24740,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = asset_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23205,7 +24755,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " To download the asset's binary content, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/enterprise-server@2.22/rest/overview/media-types). The API will either redirect the client to the location, or stream it directly if possible. API clients should handle both a `200` or `302` response.
-" application/json, #/components/schemas/release-asset
+" application/json,#/components/schemas/release-asset
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release_asset( '' ).
       WHEN 302. " 
@@ -23221,10 +24771,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = asset_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23233,7 +24787,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/release-asset
+" application/json,#/components/schemas/release-asset
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release_asset( '' ).
     ENDCASE.
@@ -23243,10 +24797,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/assets/{asset_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = asset_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{asset_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23262,15 +24820,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/latest'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/release
+" application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
     ENDCASE.
@@ -23280,16 +24842,22 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/tags/{tag}'.
-    REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH tag.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = tag.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/release
+" application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
       WHEN 404. " 
@@ -23301,10 +24869,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = release_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23312,7 +24884,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/enterprise-server@2.22/rest/overview/resources-in-the-rest-api#hypermedia).
-" application/json, #/components/schemas/release
+" application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
       WHEN 404. " 
@@ -23324,10 +24896,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = release_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23336,7 +24912,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/release
+" application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
     ENDCASE.
@@ -23346,10 +24922,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = release_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -23365,10 +24945,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}/assets'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = release_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -23386,7 +24970,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_release_assets
+" application/json,#/components/schemas/response_repos_list_release_assets
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_release_asset( '' ).
     ENDCASE.
@@ -23396,10 +24980,14 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/releases/{release_id}/assets'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = release_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_form_field( name = 'name' value = name ).
     IF label IS SUPPLIED.
@@ -23411,7 +24999,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response for successful upload
-" application/json, #/components/schemas/release-asset
+" application/json,#/components/schemas/release-asset
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release_asset( '' ).
       WHEN 422. " Response if you upload an asset with the same filename as another uploaded asset
@@ -23423,8 +25011,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stargazers'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -23441,7 +25033,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, 
+" application/json,
       WHEN 422. " 
 " todo, raise
     ENDCASE.
@@ -23451,15 +25043,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/code_frequency'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Returns a weekly aggregate of the number of additions and deletions pushed to a repository.
-" application/json, #/components/schemas/response_repos_get_code_frequency_stats
+" application/json,#/components/schemas/response_repos_get_code_frequency_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_code_frequency( '' ).
       WHEN 202. " 
@@ -23472,15 +25068,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/commit_activity'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_get_commit_activity_stat
+" application/json,#/components/schemas/response_repos_get_commit_activity_stat
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_commit_activit( '' ).
       WHEN 202. " 
@@ -23493,15 +25093,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/contributors'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " *   `w` - Start of the week, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time).\n*   `a` - Number of additions\n*   `d` - Number of deletions\n*   `c` - Number of commits
-" application/json, #/components/schemas/response_repos_get_contributors_stats
+" application/json,#/components/schemas/response_repos_get_contributors_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_contributors_s( '' ).
       WHEN 202. " 
@@ -23514,15 +25118,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/participation'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " The array order is oldest week (index 0) to most recent week.
-" application/json, #/components/schemas/participation-stats
+" application/json,#/components/schemas/participation-stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_participation_stats( '' ).
       WHEN 404. " 
@@ -23534,15 +25142,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/stats/punch_card'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " For example, `[2, 14, 25]` indicates that there were 25 total commits, during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
-" application/json, #/components/schemas/response_repos_get_punch_card_stats
+" application/json,#/components/schemas/response_repos_get_punch_card_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_punch_card_sta( '' ).
       WHEN 204. " 
@@ -23553,9 +25165,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/statuses/{sha}'.
-    REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH sha.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = sha.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_commit_statu( body ) ).
@@ -23563,7 +25181,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/status
+" application/json,#/components/schemas/status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_status( '' ).
     ENDCASE.
@@ -23573,8 +25191,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscribers'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -23591,7 +25213,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_watchers_for_rep
+" application/json,#/components/schemas/response_activity_list_watchers_for_rep
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_watchers_f( '' ).
     ENDCASE.
@@ -23601,15 +25223,19 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " if you subscribe to the repository
-" application/json, #/components/schemas/repository-subscription
+" application/json,#/components/schemas/repository-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_subscription( '' ).
       WHEN 403. " 
@@ -23623,8 +25249,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_activity_set_repo_subscri( body ) ).
@@ -23632,7 +25262,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/repository-subscription
+" application/json,#/components/schemas/repository-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_subscription( '' ).
     ENDCASE.
@@ -23642,8 +25272,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/subscription'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_activity_delete_repo_subs( body ) ).
@@ -23658,8 +25292,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/tags'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -23676,7 +25314,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_tags
+" application/json,#/components/schemas/response_repos_list_tags
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_tags( '' ).
     ENDCASE.
@@ -23686,9 +25324,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/tarball/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -23703,8 +25347,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/teams'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -23721,7 +25369,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_teams
+" application/json,#/components/schemas/response_repos_list_teams
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_teams( '' ).
     ENDCASE.
@@ -23731,8 +25379,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/topics'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     lv_temp = page.
     CONDENSE lv_temp.
     IF page IS SUPPLIED.
@@ -23749,7 +25401,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/topic
+" application/json,#/components/schemas/topic
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_topic( '' ).
       WHEN 404. " 
@@ -23763,8 +25415,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/topics'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_replace_all_topics( body ) ).
@@ -23772,7 +25428,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/topic
+" application/json,#/components/schemas/topic
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_topic( '' ).
       WHEN 404. " 
@@ -23788,8 +25444,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/transfer'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_transfer( body ) ).
@@ -23797,7 +25457,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 202. " Response
-" application/json, #/components/schemas/minimal-repository
+" application/json,#/components/schemas/minimal-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_minimal_repository( '' ).
 " todo, raise
@@ -23808,9 +25468,15 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{owner}/{repo}/zipball/{ref}'.
-    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH ref.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = ref.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -23825,8 +25491,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/repos/{template_owner}/{template_repo}/generate'.
-    REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH template_owner.
-    REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH template_repo.
+    lv_temp = template_owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH lv_temp.
+    lv_temp = template_repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{template_repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_using_templa( body ) ).
@@ -23834,7 +25504,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/repository
+" application/json,#/components/schemas/repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository( '' ).
     ENDCASE.
@@ -23858,7 +25528,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_public
+" application/json,#/components/schemas/response_repos_list_public
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_public( '' ).
       WHEN 304. " 
@@ -23895,7 +25565,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_code
+" application/json,#/components/schemas/response_search_code
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_code( '' ).
       WHEN 304. " 
@@ -23936,7 +25606,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_commits
+" application/json,#/components/schemas/response_search_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_commits( '' ).
       WHEN 304. " 
@@ -23971,7 +25641,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_issues_and_pull_request
+" application/json,#/components/schemas/response_search_issues_and_pull_request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_issues_and_pull_r( '' ).
       WHEN 304. " 
@@ -24015,7 +25685,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_labels
+" application/json,#/components/schemas/response_search_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_labels( '' ).
       WHEN 304. " 
@@ -24056,7 +25726,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_repos
+" application/json,#/components/schemas/response_search_repos
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_repos( '' ).
       WHEN 304. " 
@@ -24089,7 +25759,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_topics
+" application/json,#/components/schemas/response_search_topics
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_topics( '' ).
       WHEN 304. " 
@@ -24126,7 +25796,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_search_users
+" application/json,#/components/schemas/response_search_users
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_users( '' ).
       WHEN 304. " 
@@ -24148,7 +25818,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/configuration-status
+" application/json,#/components/schemas/configuration-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_configuration_status( '' ).
     ENDCASE.
@@ -24178,7 +25848,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/maintenance-status
+" application/json,#/components/schemas/maintenance-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_maintenance_status( '' ).
     ENDCASE.
@@ -24194,7 +25864,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/maintenance-status
+" application/json,#/components/schemas/maintenance-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_maintenance_status( '' ).
     ENDCASE.
@@ -24210,7 +25880,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/enterprise-settings
+" application/json,#/components/schemas/enterprise-settings
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_settings( '' ).
     ENDCASE.
@@ -24239,7 +25909,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_get_all_autho
+" application/json,#/components/schemas/response_enterprise_admin_get_all_autho
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_get_all( '' ).
     ENDCASE.
@@ -24255,7 +25925,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_enterprise_admin_add_authorize
+" application/json,#/components/schemas/response_enterprise_admin_add_authorize
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_add_aut( '' ).
     ENDCASE.
@@ -24271,7 +25941,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_enterprise_admin_remove_author
+" application/json,#/components/schemas/response_enterprise_admin_remove_author
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_enterprise_admin_remove_( '' ).
     ENDCASE.
@@ -24315,7 +25985,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, 
+" application/json,
       WHEN 304. " 
 " todo, raise
       WHEN 401. " 
@@ -24336,7 +26006,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/private-user
+" application/json,#/components/schemas/private-user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_private_user( '' ).
       WHEN 304. " 
@@ -24372,7 +26042,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_emails_for_authenti
+" application/json,#/components/schemas/response_users_list_emails_for_authenti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_emails_for_au( '' ).
       WHEN 304. " 
@@ -24397,7 +26067,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/response_users_add_email_for_authentica
+" application/json,#/components/schemas/response_users_add_email_for_authentica
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_add_email_for_auth( '' ).
       WHEN 304. " 
@@ -24457,7 +26127,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_followers_for_authe
+" application/json,#/components/schemas/response_users_list_followers_for_authe
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_followers_for( '' ).
       WHEN 304. " 
@@ -24489,7 +26159,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_followed_by_authent
+" application/json,#/components/schemas/response_users_list_followed_by_authent
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_followed_by_a( '' ).
       WHEN 304. " 
@@ -24505,7 +26175,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -24519,7 +26191,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 403. " 
 " todo, raise
       WHEN 404. " if the person is not followed by the authenticated user
-" application/json, #/components/schemas/basic-error
+" application/json,#/components/schemas/basic-error
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_basic_error( '' ).
 " todo, raise
@@ -24530,7 +26202,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -24552,7 +26226,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/following/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -24590,7 +26266,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_gpg_keys_for_authen
+" application/json,#/components/schemas/response_users_list_gpg_keys_for_authen
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_gpg_keys_for_( '' ).
       WHEN 304. " 
@@ -24615,7 +26291,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/gpg-key
+" application/json,#/components/schemas/gpg-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gpg_key( '' ).
       WHEN 304. " 
@@ -24636,7 +26312,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24644,7 +26320,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/gpg-key
+" application/json,#/components/schemas/gpg-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gpg_key( '' ).
       WHEN 304. " 
@@ -24663,7 +26339,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24704,7 +26380,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " You can find the permissions for the installation under the `permissions` key.
-" application/json, #/components/schemas/response_apps_list_installations_for_au
+" application/json,#/components/schemas/response_apps_list_installations_for_au
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_installations_( '' ).
       WHEN 304. " 
@@ -24723,7 +26399,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -24741,7 +26417,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " The access the user has to each repository is included in the hash under the `permissions` key.
-" application/json, #/components/schemas/response_apps_list_installation_repos_f
+" application/json,#/components/schemas/response_apps_list_installation_repos_f
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_installation_r( '' ).
       WHEN 304. " 
@@ -24758,10 +26434,10 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24783,10 +26459,10 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
     lv_temp = repository_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24841,7 +26517,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_issues_list_for_authenticated_
+" application/json,#/components/schemas/response_issues_list_for_authenticated_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_authenti( '' ).
       WHEN 304. " 
@@ -24871,7 +26547,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_public_ssh_keys_for
+" application/json,#/components/schemas/response_users_list_public_ssh_keys_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_public_ssh_ke( '' ).
       WHEN 304. " 
@@ -24896,7 +26572,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/key
+" application/json,#/components/schemas/key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_key( '' ).
       WHEN 304. " 
@@ -24917,7 +26593,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys/{key_id}'.
     lv_temp = key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24925,7 +26601,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/key
+" application/json,#/components/schemas/key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_key( '' ).
       WHEN 304. " 
@@ -24944,7 +26620,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/keys/{key_id}'.
     lv_temp = key_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -24986,7 +26662,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_memberships_for_auth
+" application/json,#/components/schemas/response_orgs_list_memberships_for_auth
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_memberships_fo( '' ).
       WHEN 304. " 
@@ -25004,14 +26680,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/memberships/orgs/{org}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-membership
+" application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
       WHEN 403. " 
@@ -25025,7 +26703,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/memberships/orgs/{org}'.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_orgs_update_membership_fo( body ) ).
@@ -25033,7 +26713,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/org-membership
+" application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
       WHEN 403. " 
@@ -25065,7 +26745,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_for_authenticated_us
+" application/json,#/components/schemas/response_orgs_list_for_authenticated_us
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_for_authentica( '' ).
       WHEN 304. " 
@@ -25088,7 +26768,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/project
+" application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
       WHEN 304. " 
@@ -25124,7 +26804,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_public_emails_for_a
+" application/json,#/components/schemas/response_users_list_public_emails_for_a
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_public_emails( '' ).
       WHEN 304. " 
@@ -25179,7 +26859,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_for_authenticated_u
+" application/json,#/components/schemas/response_repos_list_for_authenticated_u
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_for_authentic( '' ).
       WHEN 304. " 
@@ -25204,7 +26884,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
-" application/json, #/components/schemas/repository
+" application/json,#/components/schemas/repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository( '' ).
       WHEN 304. " 
@@ -25242,7 +26922,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_invitations_for_aut
+" application/json,#/components/schemas/response_repos_list_invitations_for_aut
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_invitations_f( '' ).
       WHEN 304. " 
@@ -25261,7 +26941,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -25285,7 +26965,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
-    CONDENSE lv_temp.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
@@ -25330,7 +27010,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_repos_starred_by
+" application/json,#/components/schemas/response_activity_list_repos_starred_by
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_repos_star( '' ).
       WHEN 304. " 
@@ -25346,8 +27026,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25361,7 +27045,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
       WHEN 403. " 
 " todo, raise
       WHEN 404. " Not Found if this repository is not starred by you
-" application/json, #/components/schemas/basic-error
+" application/json,#/components/schemas/basic-error
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_basic_error( '' ).
 " todo, raise
@@ -25372,8 +27056,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25395,8 +27083,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/user/starred/{owner}/{repo}'.
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH owner.
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH repo.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25434,7 +27126,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_watched_repos_fo
+" application/json,#/components/schemas/response_activity_list_watched_repos_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_watched_re( '' ).
       WHEN 304. " 
@@ -25466,7 +27158,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_teams_list_for_authenticated_u
+" application/json,#/components/schemas/response_teams_list_for_authenticated_u
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_for_authentic( '' ).
       WHEN 304. " 
@@ -25498,7 +27190,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list
+" application/json,#/components/schemas/response_users_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list( '' ).
       WHEN 304. " 
@@ -25510,14 +27202,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, 
+" application/json,
       WHEN 404. " 
 " todo, raise
     ENDCASE.
@@ -25527,7 +27221,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25544,7 +27240,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_events_for_authe
+" application/json,#/components/schemas/response_activity_list_events_for_authe
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_events_for( '' ).
     ENDCASE.
@@ -25554,8 +27250,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events/orgs/{org}'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH org.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25572,7 +27272,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_org_events_for_a
+" application/json,#/components/schemas/response_activity_list_org_events_for_a
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_org_events( '' ).
     ENDCASE.
@@ -25582,7 +27282,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/events/public'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25599,7 +27301,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_public_events_01
+" application/json,#/components/schemas/response_activity_list_public_events_01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_public_e02( '' ).
     ENDCASE.
@@ -25609,7 +27311,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/followers'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25626,7 +27330,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_followers_for_user
+" application/json,#/components/schemas/response_users_list_followers_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_followers_f01( '' ).
     ENDCASE.
@@ -25636,7 +27340,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/following'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25653,7 +27359,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_following_for_user
+" application/json,#/components/schemas/response_users_list_following_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_following_for( '' ).
     ENDCASE.
@@ -25663,8 +27369,12 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/following/{target_user}'.
-    REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH target_user.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = target_user.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH lv_temp.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25680,7 +27390,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/gists'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -25700,7 +27412,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_gists_list_for_user
+" application/json,#/components/schemas/response_gists_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_for_user( '' ).
       WHEN 422. " 
@@ -25712,7 +27424,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/gpg_keys'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25729,7 +27443,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_gpg_keys_for_user
+" application/json,#/components/schemas/response_users_list_gpg_keys_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_gpg_keys_fo01( '' ).
     ENDCASE.
@@ -25739,7 +27453,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/hovercard'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     IF subject_type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'subject_type' value = subject_type ).
     ENDIF.
@@ -25752,7 +27468,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/hovercard
+" application/json,#/components/schemas/hovercard
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hovercard( '' ).
       WHEN 404. " 
@@ -25766,14 +27482,16 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/installation'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/installation-ghes-2
+" application/json,#/components/schemas/installation-ghes-2
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_ghes_2( '' ).
     ENDCASE.
@@ -25783,7 +27501,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/keys'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25800,7 +27520,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_users_list_public_keys_for_use
+" application/json,#/components/schemas/response_users_list_public_keys_for_use
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_public_keys_f( '' ).
     ENDCASE.
@@ -25810,7 +27530,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/orgs'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25827,7 +27549,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_orgs_list_for_user
+" application/json,#/components/schemas/response_orgs_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_for_user( '' ).
     ENDCASE.
@@ -25837,7 +27559,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/projects'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -25857,7 +27581,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_projects_list_for_user
+" application/json,#/components/schemas/response_projects_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_user( '' ).
       WHEN 422. " 
@@ -25869,7 +27593,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/received_events'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25886,7 +27612,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_received_events_
+" application/json,#/components/schemas/response_activity_list_received_events_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_received_e( '' ).
     ENDCASE.
@@ -25896,7 +27622,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/received_events/public'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -25913,7 +27641,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_received_public_
+" application/json,#/components/schemas/response_activity_list_received_public_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_received_p( '' ).
     ENDCASE.
@@ -25923,7 +27651,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/repos'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     IF type IS SUPPLIED.
       mi_client->request->set_form_field( name = 'type' value = type ).
     ENDIF.
@@ -25949,7 +27679,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_repos_list_for_user
+" application/json,#/components/schemas/response_repos_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_for_user( '' ).
     ENDCASE.
@@ -25959,7 +27689,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/site_admin'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25973,7 +27705,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/site_admin'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -25987,7 +27721,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/starred'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -26010,7 +27746,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, 
+" application/json,
     ENDCASE.
   ENDMETHOD.
 
@@ -26018,7 +27754,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/subscriptions'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -26035,7 +27773,7 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json, #/components/schemas/response_activity_list_repos_watched_by
+" application/json,#/components/schemas/response_activity_list_repos_watched_by
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_repos_watc( '' ).
     ENDCASE.
@@ -26045,7 +27783,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/suspended'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_suspend_( body ) ).
@@ -26060,7 +27800,9 @@ CLASS zcl_ghes222 IMPLEMENTATION.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '{protocol}://{hostname}/api/v3/users/{username}/suspended'.
-    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH username.
+    lv_temp = username.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_enterprise_admin_unsuspen( body ) ).
