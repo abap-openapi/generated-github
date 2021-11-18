@@ -3554,6 +3554,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     repository-template_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_squash_merge' ).
     repository-template_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_auto_merge' ).
     repository-template_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/template_repository/delete_branch_on_merge' ).
+    repository-template_repository-allow_update_branch = mo_json->value_boolean( iv_prefix && '/template_repository/allow_update_branch' ).
     repository-template_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/template_repository/allow_merge_commit' ).
     repository-template_repository-subscribers_count = mo_json->value_string( iv_prefix && '/template_repository/subscribers_count' ).
     repository-template_repository-network_count = mo_json->value_string( iv_prefix && '/template_repository/network_count' ).
@@ -3885,6 +3886,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     issue-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     issue-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    issue-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
     issue-closed_by = parse_nullable_simple_user( iv_prefix ).
     issue-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     issue-body_text = mo_json->value_string( iv_prefix && '/body_text' ).
@@ -4357,6 +4359,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     nullable_repository-template_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_squash_merge' ).
     nullable_repository-template_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_auto_merge' ).
     nullable_repository-template_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/template_repository/delete_branch_on_merge' ).
+    nullable_repository-template_repository-allow_update_branch = mo_json->value_boolean( iv_prefix && '/template_repository/allow_update_branch' ).
     nullable_repository-template_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/template_repository/allow_merge_commit' ).
     nullable_repository-template_repository-subscribers_count = mo_json->value_string( iv_prefix && '/template_repository/subscribers_count' ).
     nullable_repository-template_repository-network_count = mo_json->value_string( iv_prefix && '/template_repository/network_count' ).
@@ -5161,6 +5164,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     rate_limit_overview-resources-integration_manifest = parse_rate_limit( iv_prefix ).
     rate_limit_overview-resources-code_scanning_upload = parse_rate_limit( iv_prefix ).
     rate_limit_overview-resources-actions_runner_registration = parse_rate_limit( iv_prefix ).
+    rate_limit_overview-resources-scim = parse_rate_limit( iv_prefix ).
     rate_limit_overview-rate = parse_rate_limit( iv_prefix ).
   ENDMETHOD.
 
@@ -5890,6 +5894,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_code_scanning_sarifs_sta.
     code_scanning_sarifs_status-processing_status = mo_json->value_string( iv_prefix && '/processing_status' ).
     code_scanning_sarifs_status-analyses_url = mo_json->value_string( iv_prefix && '/analyses_url' ).
+* todo, array, errors
   ENDMETHOD.
 
   METHOD parse_nullable_codespace_machi.
@@ -6532,6 +6537,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     nullable_issue-closed_at = mo_json->value_string( iv_prefix && '/closed_at' ).
     nullable_issue-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     nullable_issue-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_issue-draft = mo_json->value_boolean( iv_prefix && '/draft' ).
     nullable_issue-closed_by = parse_nullable_simple_user( iv_prefix ).
     nullable_issue-body_html = mo_json->value_string( iv_prefix && '/body_html' ).
     nullable_issue-body_text = mo_json->value_string( iv_prefix && '/body_text' ).

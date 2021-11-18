@@ -372,6 +372,7 @@ INTERFACE zif_githubcom PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
+           allow_update_branch TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
@@ -836,6 +837,7 @@ INTERFACE zif_githubcom PUBLIC.
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
+           draft TYPE abap_bool,
            closed_by TYPE nullable_simple_user,
            body_html TYPE string,
            body_text TYPE string,
@@ -1292,6 +1294,7 @@ INTERFACE zif_githubcom PUBLIC.
            allow_squash_merge TYPE abap_bool,
            allow_auto_merge TYPE abap_bool,
            delete_branch_on_merge TYPE abap_bool,
+           allow_update_branch TYPE abap_bool,
            allow_merge_commit TYPE abap_bool,
            subscribers_count TYPE i,
            network_count TYPE i,
@@ -2256,6 +2259,7 @@ INTERFACE zif_githubcom PUBLIC.
            integration_manifest TYPE rate_limit,
            code_scanning_upload TYPE rate_limit,
            actions_runner_registration TYPE rate_limit,
+           scim TYPE rate_limit,
          END OF subrate_limit_overview_resourc.
   TYPES: BEGIN OF rate_limit_overview,
            resources TYPE subrate_limit_overview_resourc,
@@ -3147,6 +3151,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF code_scanning_sarifs_status,
            processing_status TYPE string,
            analyses_url TYPE string,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF code_scanning_sarifs_status.
 
 * Component schema: nullable-codespace-machine, object
@@ -3912,6 +3917,7 @@ INTERFACE zif_githubcom PUBLIC.
            closed_at TYPE string,
            created_at TYPE string,
            updated_at TYPE string,
+           draft TYPE abap_bool,
            closed_by TYPE nullable_simple_user,
            body_html TYPE string,
            body_text TYPE string,
@@ -14566,7 +14572,7 @@ INTERFACE zif_githubcom PUBLIC.
       VALUE(return_data) TYPE code_scanning_sarifs_status
     RAISING cx_static_check.
 
-* GET - "List codespaces in a Repository for the authenticated user"
+* GET - "List codespaces in a repository for the authenticated user"
 * Operation id: codespaces/list-in-repository-for-authenticated-user
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
