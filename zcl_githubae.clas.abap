@@ -212,6 +212,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner_groups_enterprise) TYPE zif_githubae=>runner_groups_enterprise
       RAISING cx_static_check.
+    METHODS parse_runner_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_label) TYPE zif_githubae=>runner_label
+      RAISING cx_static_check.
     METHODS parse_runner
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner) TYPE zif_githubae=>runner
@@ -327,6 +331,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_empty_object
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(empty_object) TYPE zif_githubae=>empty_object
+      RAISING cx_static_check.
+    METHODS parse_external_group
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(external_group) TYPE zif_githubae=>external_group
+      RAISING cx_static_check.
+    METHODS parse_external_groups
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(external_groups) TYPE zif_githubae=>external_groups
       RAISING cx_static_check.
     METHODS parse_org_hook
       IMPORTING iv_prefix TYPE string
@@ -451,6 +463,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_autolink
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(autolink) TYPE zif_githubae=>autolink
+      RAISING cx_static_check.
+    METHODS parse_protected_branch_require
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch_required_stat) TYPE zif_githubae=>protected_branch_required_stat
       RAISING cx_static_check.
     METHODS parse_protected_branch_admin_e
       IMPORTING iv_prefix TYPE string
@@ -707,10 +723,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_commit_comparison
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(commit_comparison) TYPE zif_githubae=>commit_comparison
-      RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_githubae=>content_reference_attachment
       RAISING cx_static_check.
     METHODS parse_content_tree
       IMPORTING iv_prefix TYPE string
@@ -1352,6 +1364,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyreactions_create_for_tea01
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_teams_link_external_idp_g
+      IMPORTING data TYPE zif_githubae=>bodyteams_link_external_idp_gr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_teams_unlink_external_idp
+      IMPORTING data TYPE zif_githubae=>bodyteams_unlink_external_idp_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_teams_add_or_update_membe
       IMPORTING data TYPE zif_githubae=>bodyteams_add_or_update_member
       RETURNING VALUE(json) TYPE string
@@ -1518,10 +1538,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_commit_comme
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_commit_commen
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_githubae=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_or_update_fi
@@ -3372,6 +3388,12 @@ CLASS zcl_githubae IMPLEMENTATION.
     runner_groups_enterprise-allows_public_repositories = mo_json->value_boolean( iv_prefix && '/allows_public_repositories' ).
   ENDMETHOD.
 
+  METHOD parse_runner_label.
+    runner_label-id = mo_json->value_string( iv_prefix && '/id' ).
+    runner_label-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner_label-type = mo_json->value_string( iv_prefix && '/type' ).
+  ENDMETHOD.
+
   METHOD parse_runner.
     runner-id = mo_json->value_string( iv_prefix && '/id' ).
     runner-name = mo_json->value_string( iv_prefix && '/name' ).
@@ -4106,6 +4128,18 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_empty_object.
   ENDMETHOD.
 
+  METHOD parse_external_group.
+    external_group-group_id = mo_json->value_string( iv_prefix && '/group_id' ).
+    external_group-group_name = mo_json->value_string( iv_prefix && '/group_name' ).
+    external_group-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+* todo, array, teams
+* todo, array, members
+  ENDMETHOD.
+
+  METHOD parse_external_groups.
+* todo, array, groups
+  ENDMETHOD.
+
   METHOD parse_org_hook.
     org_hook-id = mo_json->value_string( iv_prefix && '/id' ).
     org_hook-url = mo_json->value_string( iv_prefix && '/url' ).
@@ -4686,6 +4720,15 @@ CLASS zcl_githubae IMPLEMENTATION.
     autolink-url_template = mo_json->value_string( iv_prefix && '/url_template' ).
   ENDMETHOD.
 
+  METHOD parse_protected_branch_require.
+    protected_branch_required_stat-url = mo_json->value_string( iv_prefix && '/url' ).
+    protected_branch_required_stat-enforcement_level = mo_json->value_string( iv_prefix && '/enforcement_level' ).
+* todo, array, contexts
+* todo, array, checks
+    protected_branch_required_stat-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
+    protected_branch_required_stat-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
+  ENDMETHOD.
+
   METHOD parse_protected_branch_admin_e.
     protected_branch_admin_enforce-url = mo_json->value_string( iv_prefix && '/url' ).
     protected_branch_admin_enforce-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
@@ -4716,11 +4759,7 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_branch_protection.
     branch_protection-url = mo_json->value_string( iv_prefix && '/url' ).
     branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
-    branch_protection-required_status_checks-url = mo_json->value_string( iv_prefix && '/required_status_checks/url' ).
-    branch_protection-required_status_checks-enforcement_level = mo_json->value_string( iv_prefix && '/required_status_checks/enforcement_level' ).
-* todo, array, contexts
-    branch_protection-required_status_checks-contexts_url = mo_json->value_string( iv_prefix && '/required_status_checks/contexts_url' ).
-    branch_protection-required_status_checks-strict = mo_json->value_boolean( iv_prefix && '/required_status_checks/strict' ).
+    branch_protection-required_status_checks = parse_protected_branch_require( iv_prefix ).
     branch_protection-enforce_admins = parse_protected_branch_admin_e( iv_prefix ).
     branch_protection-required_pull_request_reviews = parse_protected_branch_pull_re( iv_prefix ).
     branch_protection-restrictions = parse_branch_restriction_polic( iv_prefix ).
@@ -4918,6 +4957,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     check_suite-head_commit = parse_simple_commit( iv_prefix ).
     check_suite-latest_check_runs_count = mo_json->value_string( iv_prefix && '/latest_check_runs_count' ).
     check_suite-check_runs_url = mo_json->value_string( iv_prefix && '/check_runs_url' ).
+    check_suite-rerequestable = mo_json->value_boolean( iv_prefix && '/rerequestable' ).
+    check_suite-runs_rerequestable = mo_json->value_boolean( iv_prefix && '/runs_rerequestable' ).
   ENDMETHOD.
 
   METHOD parse_check_suite_preference.
@@ -5336,13 +5377,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     commit_comparison-total_commits = mo_json->value_string( iv_prefix && '/total_commits' ).
 * todo, array, commits
 * todo, array, files
-  ENDMETHOD.
-
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_content_tree.
@@ -9701,6 +9735,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_teams_link_external_idp_g.
+    json = json && '{'.
+    IF data-group_id <> cl_abap_math=>max_int4.
+      json = json && |"group_id": { data-group_id },|.
+    ENDIF.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_teams_unlink_external_idp.
+    json = json && '{'.
+    IF data-group_id <> cl_abap_math=>max_int4.
+      json = json && |"group_id": { data-group_id },|.
+    ENDIF.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_teams_add_or_update_membe.
     json = json && '{'.
     json = json && |"role": "{ data-role }",|.
@@ -10061,6 +10113,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
+*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10095,6 +10148,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
+*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10275,14 +10329,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF data-line <> cl_abap_math=>max_int4.
       json = json && |"line": { data-line },|.
     ENDIF.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -14384,6 +14430,60 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~teams_external_idp_group_info_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/external-group/{group_id}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = group_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/external-group
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_external_group( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~teams_list_external_idp_groups.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/external-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    IF display_name IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'display_name' value = display_name ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/external-groups
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_external_groups( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~orgs_list_webhooks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -15693,6 +15793,49 @@ CLASS zcl_githubae IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~teams_link_external_idp_group_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/teams/{team_slug}/external-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PATCH' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_link_external_idp_g( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/external-group
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_external_group( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~teams_unlink_external_idp_grou.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/teams/{team_slug}/external-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_teams_unlink_external_idp( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
@@ -20261,44 +20404,6 @@ CLASS zcl_githubae IMPLEMENTATION.
       WHEN 404. " 
 " todo, raise
       WHEN 500. " 
-" todo, raise
-    ENDCASE.
-  ENDMETHOD.
-
-  METHOD zif_githubae~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
-    lv_temp = owner.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
-    lv_temp = repo.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
-    lv_temp = content_reference_id.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CASE lv_code.
-      WHEN 200. " Response
-" application/json,#/components/schemas/content-reference-attachment
-        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_content_reference_attach( '' ).
-      WHEN 304. " 
-" todo, raise
-      WHEN 403. " 
-" todo, raise
-      WHEN 404. " 
-" todo, raise
-      WHEN 410. " 
-" todo, raise
-      WHEN 415. " 
-" todo, raise
-      WHEN 422. " 
 " todo, raise
     ENDCASE.
   ENDMETHOD.

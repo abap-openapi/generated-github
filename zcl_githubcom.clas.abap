@@ -132,6 +132,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner_groups_enterprise) TYPE zif_githubcom=>runner_groups_enterprise
       RAISING cx_static_check.
+    METHODS parse_runner_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_label) TYPE zif_githubcom=>runner_label
+      RAISING cx_static_check.
     METHODS parse_runner
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner) TYPE zif_githubcom=>runner
@@ -528,6 +532,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(autolink) TYPE zif_githubcom=>autolink
       RAISING cx_static_check.
+    METHODS parse_protected_branch_require
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch_required_stat) TYPE zif_githubcom=>protected_branch_required_stat
+      RAISING cx_static_check.
     METHODS parse_protected_branch_admin_e
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(protected_branch_admin_enforce) TYPE zif_githubcom=>protected_branch_admin_enforce
@@ -795,10 +803,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_commit_comparison
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(commit_comparison) TYPE zif_githubcom=>commit_comparison
-      RAISING cx_static_check.
-    METHODS parse_content_reference_attach
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(content_reference_attachment) TYPE zif_githubcom=>content_reference_attachment
       RAISING cx_static_check.
     METHODS parse_content_tree
       IMPORTING iv_prefix TYPE string
@@ -1108,6 +1112,14 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(secret_scanning_alert) TYPE zif_githubcom=>secret_scanning_alert
       RAISING cx_static_check.
+    METHODS parse_secret_scanning_location
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_location_commi) TYPE zif_githubcom=>secret_scanning_location_commi
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_locati01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_location) TYPE zif_githubcom=>secret_scanning_location
+      RAISING cx_static_check.
     METHODS parse_stargazer
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(stargazer) TYPE zif_githubcom=>stargazer
@@ -1320,6 +1332,18 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubcom=>bodyenterprise_admin_set_self_
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_enterprise_admin_add_cust
+      IMPORTING data TYPE zif_githubcom=>bodyenterprise_admin_add_custo
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_set_cust
+      IMPORTING data TYPE zif_githubcom=>bodyenterprise_admin_set_custo
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_enterprise_admin_remove_a
+      IMPORTING data TYPE zif_githubcom=>bodyenterprise_admin_remove_al
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_gists_create
       IMPORTING data TYPE zif_githubcom=>bodygists_create
       RETURNING VALUE(json) TYPE string
@@ -1390,6 +1414,18 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_actions_set_self_hosted_r
       IMPORTING data TYPE zif_githubcom=>bodyactions_set_self_hosted_ru
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_add_custom_labels
+      IMPORTING data TYPE zif_githubcom=>bodyactions_add_custom_labels_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_custom_labels
+      IMPORTING data TYPE zif_githubcom=>bodyactions_set_custom_labels_
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_remove_all_custom
+      IMPORTING data TYPE zif_githubcom=>bodyactions_remove_all_custom_
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_actions_create_or_update_
@@ -1580,6 +1616,18 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubcom=>bodyactions_set_github_actio01
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_actions_add_custom_labe01
+      IMPORTING data TYPE zif_githubcom=>bodyactions_add_custom_label01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_set_custom_labe01
+      IMPORTING data TYPE zif_githubcom=>bodyactions_set_custom_label01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_actions_remove_all_cust01
+      IMPORTING data TYPE zif_githubcom=>bodyactions_remove_all_custo01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_actions_review_pending_de
       IMPORTING data TYPE zif_githubcom=>bodyactions_review_pending_dep
       RETURNING VALUE(json) TYPE string
@@ -1678,10 +1726,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_commit_comme
       IMPORTING data TYPE zif_githubcom=>bodyrepos_create_commit_commen
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
-    METHODS json_apps_create_content_attac
-      IMPORTING data TYPE zif_githubcom=>bodyapps_create_content_attach
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_or_update_fi
@@ -2868,6 +2912,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_secret_scanning_lis01) TYPE zif_githubcom=>response_secret_scanning_lis01
       RAISING cx_static_check.
+    METHODS parse_secret_scanning_list_loc
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_secret_scanning_lis02) TYPE zif_githubcom=>response_secret_scanning_lis02
+      RAISING cx_static_check.
     METHODS parse_repos_get_code_frequency
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_get_code_freque) TYPE zif_githubcom=>response_repos_get_code_freque
@@ -3681,6 +3729,12 @@ CLASS zcl_githubcom IMPLEMENTATION.
     runner_groups_enterprise-selected_organizations_url = mo_json->value_string( iv_prefix && '/selected_organizations_url' ).
     runner_groups_enterprise-runners_url = mo_json->value_string( iv_prefix && '/runners_url' ).
     runner_groups_enterprise-allows_public_repositories = mo_json->value_boolean( iv_prefix && '/allows_public_repositories' ).
+  ENDMETHOD.
+
+  METHOD parse_runner_label.
+    runner_label-id = mo_json->value_string( iv_prefix && '/id' ).
+    runner_label-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner_label-type = mo_json->value_string( iv_prefix && '/type' ).
   ENDMETHOD.
 
   METHOD parse_runner.
@@ -5473,6 +5527,15 @@ CLASS zcl_githubcom IMPLEMENTATION.
     autolink-url_template = mo_json->value_string( iv_prefix && '/url_template' ).
   ENDMETHOD.
 
+  METHOD parse_protected_branch_require.
+    protected_branch_required_stat-url = mo_json->value_string( iv_prefix && '/url' ).
+    protected_branch_required_stat-enforcement_level = mo_json->value_string( iv_prefix && '/enforcement_level' ).
+* todo, array, contexts
+* todo, array, checks
+    protected_branch_required_stat-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
+    protected_branch_required_stat-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
+  ENDMETHOD.
+
   METHOD parse_protected_branch_admin_e.
     protected_branch_admin_enforce-url = mo_json->value_string( iv_prefix && '/url' ).
     protected_branch_admin_enforce-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
@@ -5503,11 +5566,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_branch_protection.
     branch_protection-url = mo_json->value_string( iv_prefix && '/url' ).
     branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
-    branch_protection-required_status_checks-url = mo_json->value_string( iv_prefix && '/required_status_checks/url' ).
-    branch_protection-required_status_checks-enforcement_level = mo_json->value_string( iv_prefix && '/required_status_checks/enforcement_level' ).
-* todo, array, contexts
-    branch_protection-required_status_checks-contexts_url = mo_json->value_string( iv_prefix && '/required_status_checks/contexts_url' ).
-    branch_protection-required_status_checks-strict = mo_json->value_boolean( iv_prefix && '/required_status_checks/strict' ).
+    branch_protection-required_status_checks = parse_protected_branch_require( iv_prefix ).
     branch_protection-enforce_admins = parse_protected_branch_admin_e( iv_prefix ).
     branch_protection-required_pull_request_reviews = parse_protected_branch_pull_re( iv_prefix ).
     branch_protection-restrictions = parse_branch_restriction_polic( iv_prefix ).
@@ -5596,6 +5655,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     status_check_policy-url = mo_json->value_string( iv_prefix && '/url' ).
     status_check_policy-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
 * todo, array, contexts
+* todo, array, checks
     status_check_policy-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
   ENDMETHOD.
 
@@ -5705,6 +5765,8 @@ CLASS zcl_githubcom IMPLEMENTATION.
     check_suite-head_commit = parse_simple_commit( iv_prefix ).
     check_suite-latest_check_runs_count = mo_json->value_string( iv_prefix && '/latest_check_runs_count' ).
     check_suite-check_runs_url = mo_json->value_string( iv_prefix && '/check_runs_url' ).
+    check_suite-rerequestable = mo_json->value_boolean( iv_prefix && '/rerequestable' ).
+    check_suite-runs_rerequestable = mo_json->value_boolean( iv_prefix && '/runs_rerequestable' ).
   ENDMETHOD.
 
   METHOD parse_check_suite_preference.
@@ -6191,13 +6253,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     commit_comparison-total_commits = mo_json->value_string( iv_prefix && '/total_commits' ).
 * todo, array, commits
 * todo, array, files
-  ENDMETHOD.
-
-  METHOD parse_content_reference_attach.
-    content_reference_attachment-id = mo_json->value_string( iv_prefix && '/id' ).
-    content_reference_attachment-title = mo_json->value_string( iv_prefix && '/title' ).
-    content_reference_attachment-body = mo_json->value_string( iv_prefix && '/body' ).
-    content_reference_attachment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
   ENDMETHOD.
 
   METHOD parse_content_tree.
@@ -7589,6 +7644,23 @@ CLASS zcl_githubcom IMPLEMENTATION.
     secret_scanning_alert-resolved_by = parse_nullable_simple_user( iv_prefix ).
     secret_scanning_alert-secret_type = mo_json->value_string( iv_prefix && '/secret_type' ).
     secret_scanning_alert-secret = mo_json->value_string( iv_prefix && '/secret' ).
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_location.
+    secret_scanning_location_commi-path = mo_json->value_string( iv_prefix && '/path' ).
+* todo, number, start_line
+* todo, number, end_line
+* todo, number, start_column
+* todo, number, end_column
+    secret_scanning_location_commi-blob_sha = mo_json->value_string( iv_prefix && '/blob_sha' ).
+    secret_scanning_location_commi-blob_url = mo_json->value_string( iv_prefix && '/blob_url' ).
+    secret_scanning_location_commi-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
+    secret_scanning_location_commi-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_locati01.
+    secret_scanning_location-type = mo_json->value_string( iv_prefix && '/type' ).
+    secret_scanning_location-details = mo_json->value_string( iv_prefix && '/details' ).
   ENDMETHOD.
 
   METHOD parse_stargazer.
@@ -9957,6 +10029,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_secret_scanning_list_loc.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA secret_scanning_location TYPE zif_githubcom=>secret_scanning_location.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR secret_scanning_location.
+      secret_scanning_location = parse_secret_scanning_locati01( iv_prefix && '/' && lv_member ).
+      APPEND secret_scanning_location TO response_secret_scanning_lis02.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_repos_get_code_frequency.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -10775,6 +10859,27 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_enterprise_admin_add_cust.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_set_cust.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_enterprise_admin_remove_a.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_gists_create.
     json = json && '{'.
     json = json && |"description": "{ data-description }",|.
@@ -10991,6 +11096,27 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD json_actions_set_self_hosted_r.
     json = json && '{'.
 *  json = json && '"runners":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_add_custom_labels.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_set_custom_labels.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_remove_all_custom.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -11636,6 +11762,27 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_actions_add_custom_labe01.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_set_custom_labe01.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_actions_remove_all_cust01.
+    json = json && '{'.
+*  json = json && '"labels":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_actions_review_pending_de.
     json = json && '{'.
 *  json = json && '"environment_ids":' not simple
@@ -11793,6 +11940,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
+*  json = json && '"checks":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -11805,6 +11953,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
+*  json = json && '"checks":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -11938,14 +12087,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     IF data-line <> cl_abap_math=>max_int4.
       json = json && |"line": { data-line },|.
     ENDIF.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
-  METHOD json_apps_create_content_attac.
-    json = json && '{'.
-    json = json && |"title": "{ data-title }",|.
-    json = json && |"body": "{ data-body }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -14245,6 +14386,125 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubcom~enterprise_admin_list_labels_f.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~enterprise_admin_add_custom_la.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_add_cust( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~enterprise_admin_set_custom_la.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_set_cust( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~enterprise_admin_remove_all_cu.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_enterprise_admin_remove_a( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~enterprise_admin_remove_custom.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubcom~enterprise_admin_get_audit_log.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -16336,6 +16596,123 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_list_labels_for_self_h.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_add_custom_labels_to_s.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_add_custom_labels( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_set_custom_labels_for_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_custom_labels( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_remove_all_custom_labe.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_remove_all_custom( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_remove_custom_label_fr.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels/{name}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
     ENDCASE.
   ENDMETHOD.
 
@@ -20596,6 +20973,138 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubcom~actions_list_labels_for_self01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_add_custom_labels_to01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_add_custom_labe01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_set_custom_labels_fo01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_set_custom_labe01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_remove_all_custom_la01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_actions_remove_all_cust01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_remove_custom_label_01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    lv_temp = name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " 
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubcom~actions_list_workflow_runs_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -24140,44 +24649,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
       WHEN 404. " 
 " todo, raise
       WHEN 500. " 
-" todo, raise
-    ENDCASE.
-  ENDMETHOD.
-
-  METHOD zif_githubcom~apps_create_content_attachment.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/content_references/{content_reference_id}/attachments'.
-    lv_temp = owner.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
-    lv_temp = repo.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
-    lv_temp = content_reference_id.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{content_reference_id}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'POST' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_content_attac( body ) ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CASE lv_code.
-      WHEN 200. " Response
-" application/json,#/components/schemas/content-reference-attachment
-        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_content_reference_attach( '' ).
-      WHEN 304. " 
-" todo, raise
-      WHEN 403. " 
-" todo, raise
-      WHEN 404. " 
-" todo, raise
-      WHEN 410. " 
-" todo, raise
-      WHEN 415. " 
-" todo, raise
-      WHEN 422. " 
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -29369,6 +29840,45 @@ CLASS zcl_githubcom IMPLEMENTATION.
       WHEN 404. " Repository is public, or secret scanning is disabled for the repository, or the resource is not found
 " todo, raise
       WHEN 422. " State does not match the resolution
+" todo, raise
+      WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~secret_scanning_list_locations.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = alert_number.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{alert_number}' IN lv_uri WITH lv_temp.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_secret_scanning_list_locations
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_secret_scanning_list_loc( '' ).
+      WHEN 404. " Repository is public, or secret scanning is disabled for the repository, or the resource is not found
 " todo, raise
       WHEN 503. " 
 " todo, raise

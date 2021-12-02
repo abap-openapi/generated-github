@@ -216,6 +216,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner_groups_enterprise) TYPE zif_ghes30=>runner_groups_enterprise
       RAISING cx_static_check.
+    METHODS parse_runner_label
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_label) TYPE zif_ghes30=>runner_label
+      RAISING cx_static_check.
     METHODS parse_runner
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner) TYPE zif_ghes30=>runner
@@ -467,6 +471,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
     METHODS parse_workflow
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(workflow) TYPE zif_ghes30=>workflow
+      RAISING cx_static_check.
+    METHODS parse_protected_branch_require
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(protected_branch_required_stat) TYPE zif_ghes30=>protected_branch_required_stat
       RAISING cx_static_check.
     METHODS parse_protected_branch_admin_e
       IMPORTING iv_prefix TYPE string
@@ -3548,6 +3556,12 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     runner_groups_enterprise-allows_public_repositories = mo_json->value_boolean( iv_prefix && '/allows_public_repositories' ).
   ENDMETHOD.
 
+  METHOD parse_runner_label.
+    runner_label-id = mo_json->value_string( iv_prefix && '/id' ).
+    runner_label-name = mo_json->value_string( iv_prefix && '/name' ).
+    runner_label-type = mo_json->value_string( iv_prefix && '/type' ).
+  ENDMETHOD.
+
   METHOD parse_runner.
     runner-id = mo_json->value_string( iv_prefix && '/id' ).
     runner-name = mo_json->value_string( iv_prefix && '/name' ).
@@ -4880,6 +4894,14 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     workflow-deleted_at = mo_json->value_string( iv_prefix && '/deleted_at' ).
   ENDMETHOD.
 
+  METHOD parse_protected_branch_require.
+    protected_branch_required_stat-url = mo_json->value_string( iv_prefix && '/url' ).
+    protected_branch_required_stat-enforcement_level = mo_json->value_string( iv_prefix && '/enforcement_level' ).
+* todo, array, contexts
+    protected_branch_required_stat-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
+    protected_branch_required_stat-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
+  ENDMETHOD.
+
   METHOD parse_protected_branch_admin_e.
     protected_branch_admin_enforce-url = mo_json->value_string( iv_prefix && '/url' ).
     protected_branch_admin_enforce-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
@@ -4910,11 +4932,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
   METHOD parse_branch_protection.
     branch_protection-url = mo_json->value_string( iv_prefix && '/url' ).
     branch_protection-enabled = mo_json->value_boolean( iv_prefix && '/enabled' ).
-    branch_protection-required_status_checks-url = mo_json->value_string( iv_prefix && '/required_status_checks/url' ).
-    branch_protection-required_status_checks-enforcement_level = mo_json->value_string( iv_prefix && '/required_status_checks/enforcement_level' ).
-* todo, array, contexts
-    branch_protection-required_status_checks-contexts_url = mo_json->value_string( iv_prefix && '/required_status_checks/contexts_url' ).
-    branch_protection-required_status_checks-strict = mo_json->value_boolean( iv_prefix && '/required_status_checks/strict' ).
+    branch_protection-required_status_checks = parse_protected_branch_require( iv_prefix ).
     branch_protection-enforce_admins = parse_protected_branch_admin_e( iv_prefix ).
     branch_protection-required_pull_request_reviews = parse_protected_branch_pull_re( iv_prefix ).
     branch_protection-restrictions = parse_branch_restriction_polic( iv_prefix ).
@@ -5112,6 +5130,8 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     check_suite-head_commit = parse_simple_commit( iv_prefix ).
     check_suite-latest_check_runs_count = mo_json->value_string( iv_prefix && '/latest_check_runs_count' ).
     check_suite-check_runs_url = mo_json->value_string( iv_prefix && '/check_runs_url' ).
+    check_suite-rerequestable = mo_json->value_boolean( iv_prefix && '/rerequestable' ).
+    check_suite-runs_rerequestable = mo_json->value_boolean( iv_prefix && '/runs_rerequestable' ).
   ENDMETHOD.
 
   METHOD parse_check_suite_preference.
@@ -10608,6 +10628,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
+*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10642,6 +10663,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
+*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.

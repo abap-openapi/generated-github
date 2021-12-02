@@ -798,6 +798,13 @@ INTERFACE zif_githubae PUBLIC.
            allows_public_repositories TYPE abap_bool,
          END OF runner_groups_enterprise.
 
+* Component schema: runner-label, object
+  TYPES: BEGIN OF runner_label,
+           id TYPE i,
+           name TYPE string,
+           type TYPE string,
+         END OF runner_label.
+
 * Component schema: runner, object
   TYPES: BEGIN OF runner,
            id TYPE i,
@@ -1618,6 +1625,20 @@ INTERFACE zif_githubae PUBLIC.
            dummy_workaround TYPE i,
          END OF empty_object.
 
+* Component schema: external-group, object
+  TYPES: BEGIN OF external_group,
+           group_id TYPE i,
+           group_name TYPE string,
+           updated_at TYPE string,
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF external_group.
+
+* Component schema: external-groups, object
+  TYPES: BEGIN OF external_groups,
+           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF external_groups.
+
 * Component schema: org-hook, object
   TYPES: BEGIN OF suborg_hook_config,
            url TYPE string,
@@ -2299,6 +2320,16 @@ INTERFACE zif_githubae PUBLIC.
            url_template TYPE string,
          END OF autolink.
 
+* Component schema: protected-branch-required-status-check, object
+  TYPES: BEGIN OF protected_branch_required_stat,
+           url TYPE string,
+           enforcement_level TYPE string,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           contexts_url TYPE string,
+           strict TYPE abap_bool,
+         END OF protected_branch_required_stat.
+
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
            url TYPE string,
@@ -2333,43 +2364,36 @@ INTERFACE zif_githubae PUBLIC.
          END OF branch_restriction_policy.
 
 * Component schema: branch-protection, object
-  TYPES: BEGIN OF subbranch_protection_require03,
+  TYPES: BEGIN OF subbranch_protection_require02,
            url TYPE string,
            enabled TYPE abap_bool,
-         END OF subbranch_protection_require03.
-  TYPES: BEGIN OF subbranch_protection_require02,
-           enabled TYPE abap_bool,
          END OF subbranch_protection_require02.
+  TYPES: BEGIN OF subbranch_protection_require01,
+           enabled TYPE abap_bool,
+         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_allow_del,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_del.
   TYPES: BEGIN OF subbranch_protection_allow_for,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_for.
-  TYPES: BEGIN OF subbranch_protection_require01,
-           enabled TYPE abap_bool,
-         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_required_,
-           url TYPE string,
-           enforcement_level TYPE string,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           contexts_url TYPE string,
-           strict TYPE abap_bool,
+           enabled TYPE abap_bool,
          END OF subbranch_protection_required_.
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
            enabled TYPE abap_bool,
-           required_status_checks TYPE subbranch_protection_required_,
+           required_status_checks TYPE protected_branch_required_stat,
            enforce_admins TYPE protected_branch_admin_enforce,
            required_pull_request_reviews TYPE protected_branch_pull_request_,
            restrictions TYPE branch_restriction_policy,
-           required_linear_history TYPE subbranch_protection_require01,
+           required_linear_history TYPE subbranch_protection_required_,
            allow_force_pushes TYPE subbranch_protection_allow_for,
            allow_deletions TYPE subbranch_protection_allow_del,
-           required_conversation_resoluti TYPE subbranch_protection_require02,
+           required_conversation_resoluti TYPE subbranch_protection_require01,
            name TYPE string,
            protection_url TYPE string,
-           required_signatures TYPE subbranch_protection_require03,
+           required_signatures TYPE subbranch_protection_require02,
          END OF branch_protection.
 
 * Component schema: short-branch, object
@@ -2620,6 +2644,8 @@ INTERFACE zif_githubae PUBLIC.
            head_commit TYPE simple_commit,
            latest_check_runs_count TYPE i,
            check_runs_url TYPE string,
+           rerequestable TYPE abap_bool,
+           runs_rerequestable TYPE abap_bool,
          END OF check_suite.
 
 * Component schema: check-suite-preference, object
@@ -3064,14 +3090,6 @@ INTERFACE zif_githubae PUBLIC.
            commits TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF commit_comparison.
-
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
 
 * Component schema: content-tree, object
   TYPES: BEGIN OF subcontent_tree__links,
@@ -5575,6 +5593,16 @@ INTERFACE zif_githubae PUBLIC.
            content TYPE string,
          END OF bodyreactions_create_for_tea01.
 
+* Component schema: bodyteams_link_external_idp_gr, object
+  TYPES: BEGIN OF bodyteams_link_external_idp_gr,
+           group_id TYPE i,
+         END OF bodyteams_link_external_idp_gr.
+
+* Component schema: bodyteams_unlink_external_idp_, object
+  TYPES: BEGIN OF bodyteams_unlink_external_idp_,
+           group_id TYPE i,
+         END OF bodyteams_unlink_external_idp_.
+
 * Component schema: bodyteams_add_or_update_member, object
   TYPES: BEGIN OF bodyteams_add_or_update_member,
            role TYPE string,
@@ -5765,6 +5793,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subbodyrepos_update_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_update_branch_pro.
   TYPES: BEGIN OF bodyrepos_update_branch_protec,
            required_status_checks TYPE subbodyrepos_update_branch_pro,
@@ -5775,6 +5804,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_update_branch_protec.
 
 * Component schema: bodyrepos_delete_branch_protec, object
@@ -5796,6 +5826,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subbodyrepos_delete_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_delete_branch_pro.
   TYPES: BEGIN OF bodyrepos_delete_branch_protec,
            required_status_checks TYPE subbodyrepos_delete_branch_pro,
@@ -5806,6 +5837,7 @@ INTERFACE zif_githubae PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object
@@ -5945,12 +5977,6 @@ INTERFACE zif_githubae PUBLIC.
            position TYPE i,
            line TYPE i,
          END OF bodyrepos_create_commit_commen.
-
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
 
 * Component schema: bodyrepos_create_or_update_fil, object
   TYPES: BEGIN OF subbodyrepos_create_or_updat01,
@@ -9288,6 +9314,38 @@ INTERFACE zif_githubae PUBLIC.
       secret_name TYPE string
     RAISING cx_static_check.
 
+* GET - "Get an external group"
+* Operation id: teams/external-idp-group-info-for-org
+* Parameter: org, required, path
+* Parameter: group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/external-group
+  METHODS teams_external_idp_group_info_
+    IMPORTING
+      org TYPE string
+      group_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE external_group
+    RAISING cx_static_check.
+
+* GET - "List external groups in an organization"
+* Operation id: teams/list-external-idp-groups-for-org
+* Parameter: page, optional, query
+* Parameter: display_name, optional, query
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/external-groups
+  METHODS teams_list_external_idp_groups
+    IMPORTING
+      page TYPE i OPTIONAL
+      display_name TYPE string OPTIONAL
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE external_groups
+    RAISING cx_static_check.
+
 * GET - "List organization webhooks"
 * Operation id: orgs/list-webhooks
 * Parameter: org, required, path
@@ -10095,6 +10153,35 @@ INTERFACE zif_githubae PUBLIC.
       team_slug TYPE string
       discussion_number TYPE i
       reaction_id TYPE i
+    RAISING cx_static_check.
+
+* PATCH - "Update the connection between an external group and a team"
+* Operation id: teams/link-external-idp-group-to-team-for-org
+* Parameter: org, required, path
+* Parameter: team_slug, required, path
+* Response: 200
+*     application/json, #/components/schemas/external-group
+* Body ref: #/components/schemas/bodyteams_link_external_idp_gr
+  METHODS teams_link_external_idp_group_
+    IMPORTING
+      org TYPE string
+      team_slug TYPE string
+      body TYPE bodyteams_link_external_idp_gr
+    RETURNING
+      VALUE(return_data) TYPE external_group
+    RAISING cx_static_check.
+
+* DELETE - "Remove the connection between an external group and a team"
+* Operation id: teams/unlink-external-idp-group-from-team-for-org
+* Parameter: org, required, path
+* Parameter: team_slug, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyteams_unlink_external_idp_
+  METHODS teams_unlink_external_idp_grou
+    IMPORTING
+      org TYPE string
+      team_slug TYPE string
+      body TYPE bodyteams_unlink_external_idp_
     RAISING cx_static_check.
 
 * GET - "List team members"
@@ -12884,30 +12971,6 @@ INTERFACE zif_githubae PUBLIC.
       per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit_comparison
-    RAISING cx_static_check.
-
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 * GET - "Get repository content"

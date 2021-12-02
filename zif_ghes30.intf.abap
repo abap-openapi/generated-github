@@ -852,6 +852,13 @@ INTERFACE zif_ghes30 PUBLIC.
            allows_public_repositories TYPE abap_bool,
          END OF runner_groups_enterprise.
 
+* Component schema: runner-label, object
+  TYPES: BEGIN OF runner_label,
+           id TYPE i,
+           name TYPE string,
+           type TYPE string,
+         END OF runner_label.
+
 * Component schema: runner, object
   TYPES: BEGIN OF runner,
            id TYPE i,
@@ -2348,6 +2355,15 @@ INTERFACE zif_ghes30 PUBLIC.
            deleted_at TYPE string,
          END OF workflow.
 
+* Component schema: protected-branch-required-status-check, object
+  TYPES: BEGIN OF protected_branch_required_stat,
+           url TYPE string,
+           enforcement_level TYPE string,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           contexts_url TYPE string,
+           strict TYPE abap_bool,
+         END OF protected_branch_required_stat.
+
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
            url TYPE string,
@@ -2382,43 +2398,36 @@ INTERFACE zif_ghes30 PUBLIC.
          END OF branch_restriction_policy.
 
 * Component schema: branch-protection, object
-  TYPES: BEGIN OF subbranch_protection_require03,
+  TYPES: BEGIN OF subbranch_protection_require02,
            url TYPE string,
            enabled TYPE abap_bool,
-         END OF subbranch_protection_require03.
-  TYPES: BEGIN OF subbranch_protection_require02,
-           enabled TYPE abap_bool,
          END OF subbranch_protection_require02.
+  TYPES: BEGIN OF subbranch_protection_require01,
+           enabled TYPE abap_bool,
+         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_allow_del,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_del.
   TYPES: BEGIN OF subbranch_protection_allow_for,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_for.
-  TYPES: BEGIN OF subbranch_protection_require01,
-           enabled TYPE abap_bool,
-         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_required_,
-           url TYPE string,
-           enforcement_level TYPE string,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           contexts_url TYPE string,
-           strict TYPE abap_bool,
+           enabled TYPE abap_bool,
          END OF subbranch_protection_required_.
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
            enabled TYPE abap_bool,
-           required_status_checks TYPE subbranch_protection_required_,
+           required_status_checks TYPE protected_branch_required_stat,
            enforce_admins TYPE protected_branch_admin_enforce,
            required_pull_request_reviews TYPE protected_branch_pull_request_,
            restrictions TYPE branch_restriction_policy,
-           required_linear_history TYPE subbranch_protection_require01,
+           required_linear_history TYPE subbranch_protection_required_,
            allow_force_pushes TYPE subbranch_protection_allow_for,
            allow_deletions TYPE subbranch_protection_allow_del,
-           required_conversation_resoluti TYPE subbranch_protection_require02,
+           required_conversation_resoluti TYPE subbranch_protection_require01,
            name TYPE string,
            protection_url TYPE string,
-           required_signatures TYPE subbranch_protection_require03,
+           required_signatures TYPE subbranch_protection_require02,
          END OF branch_protection.
 
 * Component schema: short-branch, object
@@ -2669,6 +2678,8 @@ INTERFACE zif_ghes30 PUBLIC.
            head_commit TYPE simple_commit,
            latest_check_runs_count TYPE i,
            check_runs_url TYPE string,
+           rerequestable TYPE abap_bool,
+           runs_rerequestable TYPE abap_bool,
          END OF check_suite.
 
 * Component schema: check-suite-preference, object
@@ -5992,6 +6003,7 @@ INTERFACE zif_ghes30 PUBLIC.
   TYPES: BEGIN OF subbodyrepos_update_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_update_branch_pro.
   TYPES: BEGIN OF bodyrepos_update_branch_protec,
            required_status_checks TYPE subbodyrepos_update_branch_pro,
@@ -6002,6 +6014,7 @@ INTERFACE zif_ghes30 PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_update_branch_protec.
 
 * Component schema: bodyrepos_delete_branch_protec, object
@@ -6023,6 +6036,7 @@ INTERFACE zif_ghes30 PUBLIC.
   TYPES: BEGIN OF subbodyrepos_delete_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_delete_branch_pro.
   TYPES: BEGIN OF bodyrepos_delete_branch_protec,
            required_status_checks TYPE subbodyrepos_delete_branch_pro,
@@ -6033,6 +6047,7 @@ INTERFACE zif_ghes30 PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object

@@ -600,6 +600,13 @@ INTERFACE zif_githubcom PUBLIC.
            allows_public_repositories TYPE abap_bool,
          END OF runner_groups_enterprise.
 
+* Component schema: runner-label, object
+  TYPES: BEGIN OF runner_label,
+           id TYPE i,
+           name TYPE string,
+           type TYPE string,
+         END OF runner_label.
+
 * Component schema: runner, object
   TYPES: BEGIN OF runner,
            id TYPE i,
@@ -2642,6 +2649,16 @@ INTERFACE zif_githubcom PUBLIC.
            url_template TYPE string,
          END OF autolink.
 
+* Component schema: protected-branch-required-status-check, object
+  TYPES: BEGIN OF protected_branch_required_stat,
+           url TYPE string,
+           enforcement_level TYPE string,
+           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           contexts_url TYPE string,
+           strict TYPE abap_bool,
+         END OF protected_branch_required_stat.
+
 * Component schema: protected-branch-admin-enforced, object
   TYPES: BEGIN OF protected_branch_admin_enforce,
            url TYPE string,
@@ -2676,43 +2693,36 @@ INTERFACE zif_githubcom PUBLIC.
          END OF branch_restriction_policy.
 
 * Component schema: branch-protection, object
-  TYPES: BEGIN OF subbranch_protection_require03,
+  TYPES: BEGIN OF subbranch_protection_require02,
            url TYPE string,
            enabled TYPE abap_bool,
-         END OF subbranch_protection_require03.
-  TYPES: BEGIN OF subbranch_protection_require02,
-           enabled TYPE abap_bool,
          END OF subbranch_protection_require02.
+  TYPES: BEGIN OF subbranch_protection_require01,
+           enabled TYPE abap_bool,
+         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_allow_del,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_del.
   TYPES: BEGIN OF subbranch_protection_allow_for,
            enabled TYPE abap_bool,
          END OF subbranch_protection_allow_for.
-  TYPES: BEGIN OF subbranch_protection_require01,
-           enabled TYPE abap_bool,
-         END OF subbranch_protection_require01.
   TYPES: BEGIN OF subbranch_protection_required_,
-           url TYPE string,
-           enforcement_level TYPE string,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           contexts_url TYPE string,
-           strict TYPE abap_bool,
+           enabled TYPE abap_bool,
          END OF subbranch_protection_required_.
   TYPES: BEGIN OF branch_protection,
            url TYPE string,
            enabled TYPE abap_bool,
-           required_status_checks TYPE subbranch_protection_required_,
+           required_status_checks TYPE protected_branch_required_stat,
            enforce_admins TYPE protected_branch_admin_enforce,
            required_pull_request_reviews TYPE protected_branch_pull_request_,
            restrictions TYPE branch_restriction_policy,
-           required_linear_history TYPE subbranch_protection_require01,
+           required_linear_history TYPE subbranch_protection_required_,
            allow_force_pushes TYPE subbranch_protection_allow_for,
            allow_deletions TYPE subbranch_protection_allow_del,
-           required_conversation_resoluti TYPE subbranch_protection_require02,
+           required_conversation_resoluti TYPE subbranch_protection_require01,
            name TYPE string,
            protection_url TYPE string,
-           required_signatures TYPE subbranch_protection_require03,
+           required_signatures TYPE subbranch_protection_require02,
          END OF branch_protection.
 
 * Component schema: short-branch, object
@@ -2812,6 +2822,7 @@ INTERFACE zif_githubcom PUBLIC.
            url TYPE string,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            contexts_url TYPE string,
          END OF status_check_policy.
 
@@ -2963,6 +2974,8 @@ INTERFACE zif_githubcom PUBLIC.
            head_commit TYPE simple_commit,
            latest_check_runs_count TYPE i,
            check_runs_url TYPE string,
+           rerequestable TYPE abap_bool,
+           runs_rerequestable TYPE abap_bool,
          END OF check_suite.
 
 * Component schema: check-suite-preference, object
@@ -3492,14 +3505,6 @@ INTERFACE zif_githubcom PUBLIC.
            commits TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            files TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF commit_comparison.
-
-* Component schema: content-reference-attachment, object
-  TYPES: BEGIN OF content_reference_attachment,
-           id TYPE i,
-           title TYPE string,
-           body TYPE string,
-           node_id TYPE string,
-         END OF content_reference_attachment.
 
 * Component schema: content-tree, object
   TYPES: BEGIN OF subcontent_tree__links,
@@ -5151,6 +5156,25 @@ INTERFACE zif_githubcom PUBLIC.
            secret TYPE string,
          END OF secret_scanning_alert.
 
+* Component schema: secret-scanning-location-commit, object
+  TYPES: BEGIN OF secret_scanning_location_commi,
+           path TYPE string,
+           start_line TYPE f,
+           end_line TYPE f,
+           start_column TYPE f,
+           end_column TYPE f,
+           blob_sha TYPE string,
+           blob_url TYPE string,
+           commit_sha TYPE string,
+           commit_url TYPE string,
+         END OF secret_scanning_location_commi.
+
+* Component schema: secret-scanning-location, object
+  TYPES: BEGIN OF secret_scanning_location,
+           type TYPE string,
+           details TYPE string,
+         END OF secret_scanning_location.
+
 * Component schema: stargazer, object
   TYPES: BEGIN OF stargazer,
            starred_at TYPE string,
@@ -5842,6 +5866,21 @@ INTERFACE zif_githubcom PUBLIC.
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyenterprise_admin_set_self_.
 
+* Component schema: bodyenterprise_admin_add_custo, object
+  TYPES: BEGIN OF bodyenterprise_admin_add_custo,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_add_custo.
+
+* Component schema: bodyenterprise_admin_set_custo, object
+  TYPES: BEGIN OF bodyenterprise_admin_set_custo,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_set_custo.
+
+* Component schema: bodyenterprise_admin_remove_al, object
+  TYPES: BEGIN OF bodyenterprise_admin_remove_al,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyenterprise_admin_remove_al.
+
 * Component schema: bodygists_create, object
   TYPES: BEGIN OF subbodygists_create_files,
            dummy_workaround TYPE i,
@@ -5974,6 +6013,21 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF bodyactions_set_self_hosted_ru,
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyactions_set_self_hosted_ru.
+
+* Component schema: bodyactions_add_custom_labels_, object
+  TYPES: BEGIN OF bodyactions_add_custom_labels_,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_add_custom_labels_.
+
+* Component schema: bodyactions_set_custom_labels_, object
+  TYPES: BEGIN OF bodyactions_set_custom_labels_,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_set_custom_labels_.
+
+* Component schema: bodyactions_remove_all_custom_, object
+  TYPES: BEGIN OF bodyactions_remove_all_custom_,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_remove_all_custom_.
 
 * Component schema: bodyactions_create_or_update_o, object
   TYPES: BEGIN OF bodyactions_create_or_update_o,
@@ -6358,6 +6412,21 @@ INTERFACE zif_githubcom PUBLIC.
            allowed_actions TYPE allowed_actions,
          END OF bodyactions_set_github_actio01.
 
+* Component schema: bodyactions_add_custom_label01, object
+  TYPES: BEGIN OF bodyactions_add_custom_label01,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_add_custom_label01.
+
+* Component schema: bodyactions_set_custom_label01, object
+  TYPES: BEGIN OF bodyactions_set_custom_label01,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_set_custom_label01.
+
+* Component schema: bodyactions_remove_all_custo01, object
+  TYPES: BEGIN OF bodyactions_remove_all_custo01,
+           labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodyactions_remove_all_custo01.
+
 * Component schema: bodyactions_review_pending_dep, object
   TYPES: BEGIN OF bodyactions_review_pending_dep,
            environment_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -6411,6 +6480,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF subbodyrepos_update_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_update_branch_pro.
   TYPES: BEGIN OF bodyrepos_update_branch_protec,
            required_status_checks TYPE subbodyrepos_update_branch_pro,
@@ -6442,6 +6512,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF subbodyrepos_delete_branch_pro,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_delete_branch_pro.
   TYPES: BEGIN OF bodyrepos_delete_branch_protec,
            required_status_checks TYPE subbodyrepos_delete_branch_pro,
@@ -6482,12 +6553,14 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF bodyrepos_update_status_check_,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_update_status_check_.
 
 * Component schema: bodyrepos_remove_status_check_, object
   TYPES: BEGIN OF bodyrepos_remove_status_check_,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_remove_status_check_.
 
 * Component schema: bodyrepos_rename_branch, object
@@ -6604,12 +6677,6 @@ INTERFACE zif_githubcom PUBLIC.
            position TYPE i,
            line TYPE i,
          END OF bodyrepos_create_commit_commen.
-
-* Component schema: bodyapps_create_content_attach, object
-  TYPES: BEGIN OF bodyapps_create_content_attach,
-           title TYPE string,
-           body TYPE string,
-         END OF bodyapps_create_content_attach.
 
 * Component schema: bodyrepos_create_or_update_fil, object
   TYPES: BEGIN OF subbodyrepos_create_or_updat01,
@@ -8234,6 +8301,9 @@ INTERFACE zif_githubcom PUBLIC.
 * Component schema: response_secret_scanning_list_alerts_01, array
   TYPES response_secret_scanning_lis01 TYPE STANDARD TABLE OF secret_scanning_alert WITH DEFAULT KEY.
 
+* Component schema: response_secret_scanning_list_locations, array
+  TYPES response_secret_scanning_lis02 TYPE STANDARD TABLE OF secret_scanning_location WITH DEFAULT KEY.
+
 * Component schema: response_repos_get_code_frequency_stats, array
   TYPES response_repos_get_code_freque TYPE STANDARD TABLE OF code_frequency_stat WITH DEFAULT KEY.
 
@@ -9135,6 +9205,78 @@ INTERFACE zif_githubcom PUBLIC.
     IMPORTING
       enterprise TYPE string
       runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List labels for a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/list-labels-for-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+  METHODS enterprise_admin_list_labels_f
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* POST - "Add custom labels to a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/add-custom-labels-to-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyenterprise_admin_add_custo
+  METHODS enterprise_admin_add_custom_la
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+      body TYPE bodyenterprise_admin_add_custo
+    RAISING cx_static_check.
+
+* PUT - "Set custom labels for a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/set-custom-labels-for-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyenterprise_admin_set_custo
+  METHODS enterprise_admin_set_custom_la
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+      body TYPE bodyenterprise_admin_set_custo
+    RAISING cx_static_check.
+
+* DELETE - "Remove all custom labels from a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/remove-all-custom-labels-from-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyenterprise_admin_remove_al
+  METHODS enterprise_admin_remove_all_cu
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+      body TYPE bodyenterprise_admin_remove_al
+    RAISING cx_static_check.
+
+* DELETE - "Remove a custom label from a self-hosted runner for an enterprise"
+* Operation id: enterprise-admin/remove-custom-label-from-self-hosted-runner-for-enterprise
+* Parameter: enterprise, required, path
+* Parameter: runner_id, required, path
+* Parameter: name, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+  METHODS enterprise_admin_remove_custom
+    IMPORTING
+      enterprise TYPE string
+      runner_id TYPE i
+      name TYPE string
     RAISING cx_static_check.
 
 * GET - "Get the audit log for an enterprise"
@@ -10359,6 +10501,77 @@ INTERFACE zif_githubcom PUBLIC.
     IMPORTING
       org TYPE string
       runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List labels for a self-hosted runner for an organization"
+* Operation id: actions/list-labels-for-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+  METHODS actions_list_labels_for_self_h
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* POST - "Add custom labels to a self-hosted runner for an organization"
+* Operation id: actions/add-custom-labels-to-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyactions_add_custom_labels_
+  METHODS actions_add_custom_labels_to_s
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_add_custom_labels_
+    RAISING cx_static_check.
+
+* PUT - "Set custom labels for a self-hosted runner for an organization"
+* Operation id: actions/set-custom-labels-for-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyactions_set_custom_labels_
+  METHODS actions_set_custom_labels_for_
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_set_custom_labels_
+    RAISING cx_static_check.
+
+* DELETE - "Remove all custom labels from a self-hosted runner for an organization"
+* Operation id: actions/remove-all-custom-labels-from-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Body ref: #/components/schemas/bodyactions_remove_all_custom_
+  METHODS actions_remove_all_custom_labe
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_remove_all_custom_
+    RAISING cx_static_check.
+
+* DELETE - "Remove a custom label from a self-hosted runner for an organization"
+* Operation id: actions/remove-custom-label-from-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Parameter: name, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+  METHODS actions_remove_custom_label_fr
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+      name TYPE string
     RAISING cx_static_check.
 
 * GET - "List organization secrets"
@@ -12934,6 +13147,87 @@ INTERFACE zif_githubcom PUBLIC.
       runner_id TYPE i
     RAISING cx_static_check.
 
+* GET - "List labels for a self-hosted runner for a repository"
+* Operation id: actions/list-labels-for-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+  METHODS actions_list_labels_for_self01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* POST - "Add custom labels to a self-hosted runner for a repository"
+* Operation id: actions/add-custom-labels-to-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyactions_add_custom_label01
+  METHODS actions_add_custom_labels_to01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_add_custom_label01
+    RAISING cx_static_check.
+
+* PUT - "Set custom labels for a self-hosted runner for a repository"
+* Operation id: actions/set-custom-labels-for-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodyactions_set_custom_label01
+  METHODS actions_set_custom_labels_fo01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_set_custom_label01
+    RAISING cx_static_check.
+
+* DELETE - "Remove all custom labels from a self-hosted runner for a repository"
+* Operation id: actions/remove-all-custom-labels-from-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+* Response: 404
+* Body ref: #/components/schemas/bodyactions_remove_all_custo01
+  METHODS actions_remove_all_custom_la01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+      body TYPE bodyactions_remove_all_custo01
+    RAISING cx_static_check.
+
+* DELETE - "Remove a custom label from a self-hosted runner for a repository"
+* Operation id: actions/remove-custom-label-from-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Parameter: name, required, path
+* Response: 200
+* Response: 404
+* Response: 422
+  METHODS actions_remove_custom_label_01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+      name TYPE string
+    RAISING cx_static_check.
+
 * GET - "List workflow runs for a repository"
 * Operation id: actions/list-workflow-runs-for-repo
 * Parameter: owner, required, path
@@ -15114,30 +15408,6 @@ INTERFACE zif_githubcom PUBLIC.
       per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE commit_comparison
-    RAISING cx_static_check.
-
-* POST - "Create a content attachment"
-* Operation id: apps/create-content-attachment
-* Parameter: owner, required, path
-* Parameter: repo, required, path
-* Parameter: content_reference_id, required, path
-* Response: 200
-*     application/json, #/components/schemas/content-reference-attachment
-* Response: 304
-* Response: 403
-* Response: 404
-* Response: 410
-* Response: 415
-* Response: 422
-* Body ref: #/components/schemas/bodyapps_create_content_attach
-  METHODS apps_create_content_attachment
-    IMPORTING
-      owner TYPE string
-      repo TYPE string
-      content_reference_id TYPE i
-      body TYPE bodyapps_create_content_attach
-    RETURNING
-      VALUE(return_data) TYPE content_reference_attachment
     RAISING cx_static_check.
 
 * GET - "Get repository content"
@@ -18363,6 +18633,28 @@ INTERFACE zif_githubcom PUBLIC.
       body TYPE bodysecret_scanning_update_ale
     RETURNING
       VALUE(return_data) TYPE secret_scanning_alert
+    RAISING cx_static_check.
+
+* GET - "List locations for a secret scanning alert"
+* Operation id: secret-scanning/list-locations-for-alert
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: alert_number, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_secret_scanning_list_locations
+* Response: 404
+* Response: 503
+  METHODS secret_scanning_list_locations
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      alert_number TYPE alert_number
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_secret_scanning_lis02
     RAISING cx_static_check.
 
 * GET - "List stargazers"
