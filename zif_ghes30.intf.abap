@@ -231,7 +231,6 @@ INTERFACE zif_ghes30 PUBLIC.
            actions TYPE string,
            administration TYPE string,
            checks TYPE string,
-           content_references TYPE string,
            contents TYPE string,
            deployments TYPE string,
            environments TYPE string,
@@ -259,6 +258,7 @@ INTERFACE zif_ghes30 PUBLIC.
            organization_self_hosted_runne TYPE string,
            organization_user_blocking TYPE string,
            team_discussions TYPE string,
+           content_references TYPE string,
          END OF app_permissions.
 
 * Component schema: simple-user, object

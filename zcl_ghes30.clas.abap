@@ -2982,7 +2982,6 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     app_permissions-actions = mo_json->value_string( iv_prefix && '/actions' ).
     app_permissions-administration = mo_json->value_string( iv_prefix && '/administration' ).
     app_permissions-checks = mo_json->value_string( iv_prefix && '/checks' ).
-    app_permissions-content_references = mo_json->value_string( iv_prefix && '/content_references' ).
     app_permissions-contents = mo_json->value_string( iv_prefix && '/contents' ).
     app_permissions-deployments = mo_json->value_string( iv_prefix && '/deployments' ).
     app_permissions-environments = mo_json->value_string( iv_prefix && '/environments' ).
@@ -3010,6 +3009,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     app_permissions-organization_self_hosted_runne = mo_json->value_string( iv_prefix && '/organization_self_hosted_runners' ).
     app_permissions-organization_user_blocking = mo_json->value_string( iv_prefix && '/organization_user_blocking' ).
     app_permissions-team_discussions = mo_json->value_string( iv_prefix && '/team_discussions' ).
+    app_permissions-content_references = mo_json->value_string( iv_prefix && '/content_references' ).
   ENDMETHOD.
 
   METHOD parse_simple_user.

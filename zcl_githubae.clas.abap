@@ -2782,7 +2782,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     app_permissions-actions = mo_json->value_string( iv_prefix && '/actions' ).
     app_permissions-administration = mo_json->value_string( iv_prefix && '/administration' ).
     app_permissions-checks = mo_json->value_string( iv_prefix && '/checks' ).
-    app_permissions-content_references = mo_json->value_string( iv_prefix && '/content_references' ).
     app_permissions-contents = mo_json->value_string( iv_prefix && '/contents' ).
     app_permissions-deployments = mo_json->value_string( iv_prefix && '/deployments' ).
     app_permissions-environments = mo_json->value_string( iv_prefix && '/environments' ).

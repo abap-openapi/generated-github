@@ -201,7 +201,6 @@ INTERFACE zif_githubcom PUBLIC.
            actions TYPE string,
            administration TYPE string,
            checks TYPE string,
-           content_references TYPE string,
            contents TYPE string,
            deployments TYPE string,
            environments TYPE string,
@@ -14675,6 +14674,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: ref, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_code_scanning_list_alerts_for_
+* Response: 304
 * Response: 403
 * Response: 404
 * Response: 503
@@ -14699,6 +14699,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: alert_number, required, path
 * Response: 200
 *     application/json, #/components/schemas/code-scanning-alert
+* Response: 304
 * Response: 403
 * Response: 404
 * Response: 503

@@ -128,7 +128,6 @@ INTERFACE zif_githubae PUBLIC.
            actions TYPE string,
            administration TYPE string,
            checks TYPE string,
-           content_references TYPE string,
            contents TYPE string,
            deployments TYPE string,
            environments TYPE string,

@@ -3359,7 +3359,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     app_permissions-actions = mo_json->value_string( iv_prefix && '/actions' ).
     app_permissions-administration = mo_json->value_string( iv_prefix && '/administration' ).
     app_permissions-checks = mo_json->value_string( iv_prefix && '/checks' ).
-    app_permissions-content_references = mo_json->value_string( iv_prefix && '/content_references' ).
     app_permissions-contents = mo_json->value_string( iv_prefix && '/contents' ).
     app_permissions-deployments = mo_json->value_string( iv_prefix && '/deployments' ).
     app_permissions-environments = mo_json->value_string( iv_prefix && '/environments' ).
@@ -23445,6 +23444,8 @@ CLASS zcl_githubcom IMPLEMENTATION.
 " application/json,#/components/schemas/response_code_scanning_list_alerts_for_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_alert( '' ).
+      WHEN 304. " 
+" todo, raise
       WHEN 403. " 
 " todo, raise
       WHEN 404. " 
@@ -23476,6 +23477,8 @@ CLASS zcl_githubcom IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_alert( '' ).
+      WHEN 304. " 
+" todo, raise
       WHEN 403. " 
 " todo, raise
       WHEN 404. " 
