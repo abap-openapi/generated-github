@@ -2492,6 +2492,7 @@ INTERFACE zif_githubae PUBLIC.
            url TYPE string,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            contexts_url TYPE string,
          END OF status_check_policy.
 
@@ -2825,6 +2826,12 @@ INTERFACE zif_githubae PUBLIC.
            deletable TYPE abap_bool,
            warning TYPE string,
          END OF code_scanning_analysis.
+
+* Component schema: code-scanning-analysis-deletion, object
+  TYPES: BEGIN OF code_scanning_analysis_deletio,
+           next_analysis_url TYPE string,
+           confirm_delete_url TYPE string,
+         END OF code_scanning_analysis_deletio.
 
 * Component schema: code-scanning-analysis-sarif-file, string
   TYPES code_scanning_analysis_sarif_f TYPE string.
@@ -5699,12 +5706,23 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyprojects_create_column.
 
 * Component schema: bodyrepos_update, object
+  TYPES: BEGIN OF subsubbodyrepos_update_secur01,
+           status TYPE string,
+         END OF subsubbodyrepos_update_secur01.
+  TYPES: BEGIN OF subsubbodyrepos_update_securit,
+           status TYPE string,
+         END OF subsubbodyrepos_update_securit.
+  TYPES: BEGIN OF subbodyrepos_update_security_a,
+           advanced_security TYPE subsubbodyrepos_update_securit,
+           secret_scanning TYPE subsubbodyrepos_update_secur01,
+         END OF subbodyrepos_update_security_a.
   TYPES: BEGIN OF bodyrepos_update,
            name TYPE string,
            description TYPE string,
            homepage TYPE string,
            private TYPE abap_bool,
            visibility TYPE string,
+           security_and_analysis TYPE subbodyrepos_update_security_a,
            has_issues TYPE abap_bool,
            has_projects TYPE abap_bool,
            has_wiki TYPE abap_bool,
@@ -5720,12 +5738,23 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_update.
 
 * Component schema: bodyrepos_delete, object
+  TYPES: BEGIN OF subsubbodyrepos_delete_secur01,
+           status TYPE string,
+         END OF subsubbodyrepos_delete_secur01.
+  TYPES: BEGIN OF subsubbodyrepos_delete_securit,
+           status TYPE string,
+         END OF subsubbodyrepos_delete_securit.
+  TYPES: BEGIN OF subbodyrepos_delete_security_a,
+           advanced_security TYPE subsubbodyrepos_delete_securit,
+           secret_scanning TYPE subsubbodyrepos_delete_secur01,
+         END OF subbodyrepos_delete_security_a.
   TYPES: BEGIN OF bodyrepos_delete,
            name TYPE string,
            description TYPE string,
            homepage TYPE string,
            private TYPE abap_bool,
            visibility TYPE string,
+           security_and_analysis TYPE subbodyrepos_delete_security_a,
            has_issues TYPE abap_bool,
            has_projects TYPE abap_bool,
            has_wiki TYPE abap_bool,
@@ -5803,7 +5832,6 @@ INTERFACE zif_githubae PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_update_branch_protec.
 
 * Component schema: bodyrepos_delete_branch_protec, object
@@ -5836,7 +5864,6 @@ INTERFACE zif_githubae PUBLIC.
            allow_force_pushes TYPE abap_bool,
            allow_deletions TYPE abap_bool,
            required_conversation_resoluti TYPE abap_bool,
-           contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object
@@ -5867,12 +5894,14 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF bodyrepos_update_status_check_,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_update_status_check_.
 
 * Component schema: bodyrepos_remove_status_check_, object
   TYPES: BEGIN OF bodyrepos_remove_status_check_,
            strict TYPE abap_bool,
            contexts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           checks TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyrepos_remove_status_check_.
 
 * Component schema: bodychecks_create, object
@@ -12466,6 +12495,28 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
     RETURNING
       VALUE(return_data) TYPE code_scanning_analysis
+    RAISING cx_static_check.
+
+* DELETE - "Delete a code scanning analysis from a repository"
+* Operation id: code-scanning/delete-analysis
+* Parameter: analysis_id, required, path
+* Parameter: confirm_delete, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/code-scanning-analysis-deletion
+* Response: 400
+* Response: 403
+* Response: 404
+* Response: 503
+  METHODS code_scanning_delete_analysis
+    IMPORTING
+      analysis_id TYPE i
+      confirm_delete TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE code_scanning_analysis_deletio
     RAISING cx_static_check.
 
 * POST - "Upload an analysis as SARIF data"

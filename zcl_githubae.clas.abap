@@ -660,6 +660,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis) TYPE zif_githubae=>code_scanning_analysis
       RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_d
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_deletio) TYPE zif_githubae=>code_scanning_analysis_deletio
+      RAISING cx_static_check.
     METHODS parse_code_scanning_analysis06
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_analysis_sarif_f) TYPE zif_githubae=>code_scanning_analysis_sarif_f
@@ -4847,6 +4851,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     status_check_policy-url = mo_json->value_string( iv_prefix && '/url' ).
     status_check_policy-strict = mo_json->value_boolean( iv_prefix && '/strict' ).
 * todo, array, contexts
+* todo, array, checks
     status_check_policy-contexts_url = mo_json->value_string( iv_prefix && '/contexts_url' ).
   ENDMETHOD.
 
@@ -5144,6 +5149,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     code_scanning_analysis-tool = parse_code_scanning_analysis03( iv_prefix ).
     code_scanning_analysis-deletable = mo_json->value_boolean( iv_prefix && '/deletable' ).
     code_scanning_analysis-warning = mo_json->value_string( iv_prefix && '/warning' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_d.
+    code_scanning_analysis_deletio-next_analysis_url = mo_json->value_string( iv_prefix && '/next_analysis_url' ).
+    code_scanning_analysis_deletio-confirm_delete_url = mo_json->value_string( iv_prefix && '/confirm_delete_url' ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_analysis06.
@@ -9911,6 +9921,7 @@ CLASS zcl_githubae IMPLEMENTATION.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"security_and_analysis":' not simple
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
     ELSEIF data-has_issues = abap_false.
@@ -9982,6 +9993,7 @@ CLASS zcl_githubae IMPLEMENTATION.
       json = json && |"private": false,|.
     ENDIF.
     json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"security_and_analysis":' not simple
     IF data-has_issues = abap_true.
       json = json && |"has_issues": true,|.
     ELSEIF data-has_issues = abap_false.
@@ -10112,7 +10124,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
-*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10147,7 +10158,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-required_conversation_resoluti = abap_false.
       json = json && |"required_conversation_resolution": false,|.
     ENDIF.
-*  json = json && '"contexts":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10200,6 +10210,7 @@ CLASS zcl_githubae IMPLEMENTATION.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
+*  json = json && '"checks":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10212,6 +10223,7 @@ CLASS zcl_githubae IMPLEMENTATION.
       json = json && |"strict": false,|.
     ENDIF.
 *  json = json && '"contexts":' not simple
+*  json = json && '"checks":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -19552,6 +19564,42 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-analysis
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_analysis( '' ).
+      WHEN 403. " 
+" todo, raise
+      WHEN 404. " 
+" todo, raise
+      WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~code_scanning_delete_analysis.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
+    lv_temp = analysis_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{analysis_id}' IN lv_uri WITH lv_temp.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    IF confirm_delete IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'confirm_delete' value = confirm_delete ).
+    ENDIF.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/code-scanning-analysis-deletion
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_code_scanning_analysis_d( '' ).
+      WHEN 400. " 
+" todo, raise
       WHEN 403. " 
 " todo, raise
       WHEN 404. " 

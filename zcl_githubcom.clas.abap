@@ -12035,6 +12035,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && |"location": "{ data-location }",|.
     json = json && |"machine": "{ data-machine }",|.
     json = json && |"working_directory": "{ data-working_directory }",|.
+    IF data-idle_timeout_minutes <> cl_abap_math=>max_int4.
+      json = json && |"idle_timeout_minutes": { data-idle_timeout_minutes },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -12672,6 +12675,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && |"location": "{ data-location }",|.
     json = json && |"machine": "{ data-machine }",|.
     json = json && |"working_directory": "{ data-working_directory }",|.
+    IF data-idle_timeout_minutes <> cl_abap_math=>max_int4.
+      json = json && |"idle_timeout_minutes": { data-idle_timeout_minutes },|.
+    ENDIF.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.

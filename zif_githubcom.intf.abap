@@ -6640,6 +6640,7 @@ INTERFACE zif_githubcom PUBLIC.
            location TYPE string,
            machine TYPE string,
            working_directory TYPE string,
+           idle_timeout_minutes TYPE i,
          END OF bodycodespaces_create_with_rep.
 
 * Component schema: bodyrepos_add_collaborator, object
@@ -7141,6 +7142,7 @@ INTERFACE zif_githubcom PUBLIC.
            location TYPE string,
            machine TYPE string,
            working_directory TYPE string,
+           idle_timeout_minutes TYPE i,
          END OF bodycodespaces_create_with_pr_.
 
 * Component schema: bodypulls_create_review_commen, object
