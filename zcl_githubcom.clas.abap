@@ -624,9 +624,17 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_state) TYPE zif_githubcom=>code_scanning_alert_state
       RAISING cx_static_check.
+    METHODS parse_alert_updated_at
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_updated_at) TYPE zif_githubcom=>alert_updated_at
+      RAISING cx_static_check.
     METHODS parse_alert_instances_url
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(alert_instances_url) TYPE zif_githubcom=>alert_instances_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_fixe
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_fixed_at) TYPE zif_githubcom=>code_scanning_alert_fixed_at
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert_dism
       IMPORTING iv_prefix TYPE string
@@ -5789,7 +5797,15 @@ CLASS zcl_githubcom IMPLEMENTATION.
 * todo, handle type string
   ENDMETHOD.
 
+  METHOD parse_alert_updated_at.
+* todo, handle type string
+  ENDMETHOD.
+
   METHOD parse_alert_instances_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_fixe.
 * todo, handle type string
   ENDMETHOD.
 
@@ -5858,10 +5874,12 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_code_scanning_alert_item.
     code_scanning_alert_items-number = parse_alert_number( iv_prefix ).
     code_scanning_alert_items-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert_items-updated_at = parse_alert_updated_at( iv_prefix ).
     code_scanning_alert_items-url = parse_alert_url( iv_prefix ).
     code_scanning_alert_items-html_url = parse_alert_html_url( iv_prefix ).
     code_scanning_alert_items-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert_items-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert_items-fixed_at = parse_code_scanning_alert_fixe( iv_prefix ).
     code_scanning_alert_items-dismissed_by = parse_nullable_simple_user( iv_prefix ).
     code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
@@ -5884,10 +5902,12 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_code_scanning_alert.
     code_scanning_alert-number = parse_alert_number( iv_prefix ).
     code_scanning_alert-created_at = parse_alert_created_at( iv_prefix ).
+    code_scanning_alert-updated_at = parse_alert_updated_at( iv_prefix ).
     code_scanning_alert-url = parse_alert_url( iv_prefix ).
     code_scanning_alert-html_url = parse_alert_html_url( iv_prefix ).
     code_scanning_alert-instances_url = parse_alert_instances_url( iv_prefix ).
     code_scanning_alert-state = parse_code_scanning_alert_stat( iv_prefix ).
+    code_scanning_alert-fixed_at = parse_code_scanning_alert_fixe( iv_prefix ).
     code_scanning_alert-dismissed_by = parse_nullable_simple_user( iv_prefix ).
     code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix ).
     code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix ).
@@ -23419,6 +23439,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     lv_temp = repo.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -23440,6 +23463,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDIF.
     IF ref IS SUPPLIED.
       mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).

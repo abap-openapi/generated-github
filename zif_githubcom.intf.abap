@@ -2998,8 +2998,14 @@ INTERFACE zif_githubcom PUBLIC.
 * Component schema: code-scanning-alert-state, string
   TYPES code_scanning_alert_state TYPE string.
 
+* Component schema: alert-updated-at, string
+  TYPES alert_updated_at TYPE string.
+
 * Component schema: alert-instances-url, string
   TYPES alert_instances_url TYPE string.
+
+* Component schema: code-scanning-alert-fixed-at, string
+  TYPES code_scanning_alert_fixed_at TYPE string.
 
 * Component schema: code-scanning-alert-dismissed-at, string
   TYPES code_scanning_alert_dismissed_ TYPE string.
@@ -3067,10 +3073,12 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF code_scanning_alert_items,
            number TYPE alert_number,
            created_at TYPE alert_created_at,
+           updated_at TYPE alert_updated_at,
            url TYPE alert_url,
            html_url TYPE alert_html_url,
            instances_url TYPE alert_instances_url,
            state TYPE code_scanning_alert_state,
+           fixed_at TYPE code_scanning_alert_fixed_at,
            dismissed_by TYPE nullable_simple_user,
            dismissed_at TYPE code_scanning_alert_dismissed_,
            dismissed_reason TYPE code_scanning_alert_dismisse01,
@@ -3095,10 +3103,12 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF code_scanning_alert,
            number TYPE alert_number,
            created_at TYPE alert_created_at,
+           updated_at TYPE alert_updated_at,
            url TYPE alert_url,
            html_url TYPE alert_html_url,
            instances_url TYPE alert_instances_url,
            state TYPE code_scanning_alert_state,
+           fixed_at TYPE code_scanning_alert_fixed_at,
            dismissed_by TYPE nullable_simple_user,
            dismissed_at TYPE code_scanning_alert_dismissed_,
            dismissed_reason TYPE code_scanning_alert_dismisse01,
@@ -14666,6 +14676,7 @@ INTERFACE zif_githubcom PUBLIC.
 
 * GET - "List code scanning alerts for a repository"
 * Operation id: code-scanning/list-alerts-for-repo
+* Parameter: sort, optional, query
 * Parameter: state, optional, query
 * Parameter: owner, required, path
 * Parameter: repo, required, path
@@ -14674,6 +14685,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: page, optional, query
 * Parameter: per_page, optional, query
 * Parameter: ref, optional, query
+* Parameter: direction, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_code_scanning_list_alerts_for_
 * Response: 304
@@ -14682,6 +14694,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Response: 503
   METHODS code_scanning_list_alerts_for_
     IMPORTING
+      sort TYPE string DEFAULT 'number'
       state TYPE code_scanning_alert_state OPTIONAL
       owner TYPE string
       repo TYPE string
@@ -14690,6 +14703,7 @@ INTERFACE zif_githubcom PUBLIC.
       page TYPE i DEFAULT 1
       per_page TYPE i DEFAULT 30
       ref TYPE code_scanning_ref OPTIONAL
+      direction TYPE string DEFAULT 'desc'
     RETURNING
       VALUE(return_data) TYPE response_code_scanning_list_al
     RAISING cx_static_check.
