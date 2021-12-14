@@ -120,10 +120,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(installation_token) TYPE zif_githubae=>installation_token
       RAISING cx_static_check.
-    METHODS parse_nullable_authorization
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(nullable_authorization) TYPE zif_githubae=>nullable_authorization
-      RAISING cx_static_check.
     METHODS parse_code_of_conduct
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_of_conduct) TYPE zif_githubae=>code_of_conduct
@@ -3227,26 +3223,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     installation_token-single_file = mo_json->value_string( iv_prefix && '/single_file' ).
     installation_token-has_multiple_single_files = mo_json->value_boolean( iv_prefix && '/has_multiple_single_files' ).
 * todo, array, single_file_paths
-  ENDMETHOD.
-
-  METHOD parse_nullable_authorization.
-    nullable_authorization-id = mo_json->value_string( iv_prefix && '/id' ).
-    nullable_authorization-url = mo_json->value_string( iv_prefix && '/url' ).
-* todo, array, scopes
-    nullable_authorization-token = mo_json->value_string( iv_prefix && '/token' ).
-    nullable_authorization-token_last_eight = mo_json->value_string( iv_prefix && '/token_last_eight' ).
-    nullable_authorization-hashed_token = mo_json->value_string( iv_prefix && '/hashed_token' ).
-    nullable_authorization-app-client_id = mo_json->value_string( iv_prefix && '/app/client_id' ).
-    nullable_authorization-app-name = mo_json->value_string( iv_prefix && '/app/name' ).
-    nullable_authorization-app-url = mo_json->value_string( iv_prefix && '/app/url' ).
-    nullable_authorization-note = mo_json->value_string( iv_prefix && '/note' ).
-    nullable_authorization-note_url = mo_json->value_string( iv_prefix && '/note_url' ).
-    nullable_authorization-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    nullable_authorization-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    nullable_authorization-fingerprint = mo_json->value_string( iv_prefix && '/fingerprint' ).
-    nullable_authorization-user = parse_nullable_simple_user( iv_prefix ).
-    nullable_authorization-installation = parse_nullable_scoped_installa( iv_prefix ).
-    nullable_authorization-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
   ENDMETHOD.
 
   METHOD parse_code_of_conduct.

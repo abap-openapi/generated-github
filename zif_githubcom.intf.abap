@@ -11733,12 +11733,12 @@ INTERFACE zif_githubcom PUBLIC.
       VALUE(return_data) TYPE repository
     RAISING cx_static_check.
 
-* GET - "List secret scanning alerts by organization"
+* GET - "List secret scanning alerts for an organization"
 * Operation id: secret-scanning/list-alerts-for-org
+* Parameter: org, required, path
 * Parameter: state, optional, query
 * Parameter: secret_type, optional, query
 * Parameter: resolution, optional, query
-* Parameter: org, required, path
 * Parameter: page, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
@@ -11747,10 +11747,10 @@ INTERFACE zif_githubcom PUBLIC.
 * Response: 503
   METHODS secret_scanning_list_alerts_fo
     IMPORTING
+      org TYPE string
       state TYPE string OPTIONAL
       secret_type TYPE string OPTIONAL
       resolution TYPE string OPTIONAL
-      org TYPE string
       page TYPE i DEFAULT 1
       per_page TYPE i DEFAULT 30
     RETURNING
@@ -18588,11 +18588,11 @@ INTERFACE zif_githubcom PUBLIC.
 
 * GET - "List secret scanning alerts for a repository"
 * Operation id: secret-scanning/list-alerts-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
 * Parameter: state, optional, query
 * Parameter: secret_type, optional, query
 * Parameter: resolution, optional, query
-* Parameter: owner, required, path
-* Parameter: repo, required, path
 * Parameter: page, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
@@ -18601,11 +18601,11 @@ INTERFACE zif_githubcom PUBLIC.
 * Response: 503
   METHODS secret_scanning_list_alerts_01
     IMPORTING
+      owner TYPE string
+      repo TYPE string
       state TYPE string OPTIONAL
       secret_type TYPE string OPTIONAL
       resolution TYPE string OPTIONAL
-      owner TYPE string
-      repo TYPE string
       page TYPE i DEFAULT 1
       per_page TYPE i DEFAULT 30
     RETURNING

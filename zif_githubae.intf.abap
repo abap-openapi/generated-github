@@ -619,30 +619,6 @@ INTERFACE zif_githubae PUBLIC.
            single_file_paths TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF installation_token.
 
-* Component schema: nullable-authorization, object
-  TYPES: BEGIN OF subnullable_authorization_app,
-           client_id TYPE string,
-           name TYPE string,
-           url TYPE string,
-         END OF subnullable_authorization_app.
-  TYPES: BEGIN OF nullable_authorization,
-           id TYPE i,
-           url TYPE string,
-           scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-           token TYPE string,
-           token_last_eight TYPE string,
-           hashed_token TYPE string,
-           app TYPE subnullable_authorization_app,
-           note TYPE string,
-           note_url TYPE string,
-           updated_at TYPE string,
-           created_at TYPE string,
-           fingerprint TYPE string,
-           user TYPE nullable_simple_user,
-           installation TYPE nullable_scoped_installation,
-           expires_at TYPE string,
-         END OF nullable_authorization.
-
 * Component schema: code-of-conduct, object
   TYPES: BEGIN OF code_of_conduct,
            key TYPE string,
@@ -15871,11 +15847,11 @@ INTERFACE zif_githubae PUBLIC.
 
 * GET - "List secret scanning alerts for a repository"
 * Operation id: secret-scanning/list-alerts-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
 * Parameter: state, optional, query
 * Parameter: secret_type, optional, query
 * Parameter: resolution, optional, query
-* Parameter: owner, required, path
-* Parameter: repo, required, path
 * Parameter: page, optional, query
 * Parameter: per_page, optional, query
 * Response: 200
@@ -15884,11 +15860,11 @@ INTERFACE zif_githubae PUBLIC.
 * Response: 503
   METHODS secret_scanning_list_alerts_fo
     IMPORTING
+      owner TYPE string
+      repo TYPE string
       state TYPE string OPTIONAL
       secret_type TYPE string OPTIONAL
       resolution TYPE string OPTIONAL
-      owner TYPE string
-      repo TYPE string
       page TYPE i DEFAULT 1
       per_page TYPE i DEFAULT 30
     RETURNING
