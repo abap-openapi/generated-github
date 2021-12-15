@@ -3188,6 +3188,9 @@ INTERFACE zif_githubcom PUBLIC.
          END OF nullable_codespace_machine.
 
 * Component schema: codespace, object
+  TYPES: BEGIN OF subcodespace_runtime_constrain,
+           allowed_port_privacy_settings TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subcodespace_runtime_constrain.
   TYPES: BEGIN OF subcodespace_git_status,
            ahead TYPE i,
            behind TYPE i,
@@ -3218,6 +3221,7 @@ INTERFACE zif_githubcom PUBLIC.
            stop_url TYPE string,
            pulls_url TYPE string,
            recent_folders TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           runtime_constraints TYPE subcodespace_runtime_constrain,
          END OF codespace.
 
 * Component schema: codespace-machine, object

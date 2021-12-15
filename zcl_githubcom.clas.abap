@@ -6015,6 +6015,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     codespace-stop_url = mo_json->value_string( iv_prefix && '/stop_url' ).
     codespace-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
 * todo, array, recent_folders
+* todo, array, allowed_port_privacy_settings
   ENDMETHOD.
 
   METHOD parse_codespace_machine.
