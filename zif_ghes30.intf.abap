@@ -1685,6 +1685,7 @@ INTERFACE zif_ghes30 PUBLIC.
            members_can_create_pages TYPE abap_bool,
            members_can_create_public_page TYPE abap_bool,
            members_can_create_private_pag TYPE abap_bool,
+           members_can_fork_private_repos TYPE abap_bool,
            updated_at TYPE string,
          END OF organization_full.
 
@@ -5579,6 +5580,7 @@ INTERFACE zif_ghes30 PUBLIC.
            members_can_create_public_repo TYPE abap_bool,
            members_allowed_repository_cre TYPE string,
            members_can_create_pages TYPE abap_bool,
+           members_can_fork_private_repos TYPE abap_bool,
            blog TYPE string,
          END OF bodyorgs_update.
 

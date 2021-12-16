@@ -4295,6 +4295,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     organization_full-members_can_create_pages = mo_json->value_boolean( iv_prefix && '/members_can_create_pages' ).
     organization_full-members_can_create_public_page = mo_json->value_boolean( iv_prefix && '/members_can_create_public_pages' ).
     organization_full-members_can_create_private_pag = mo_json->value_boolean( iv_prefix && '/members_can_create_private_pages' ).
+    organization_full-members_can_fork_private_repos = mo_json->value_boolean( iv_prefix && '/members_can_fork_private_repositories' ).
     organization_full-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
   ENDMETHOD.
 
@@ -9915,6 +9916,11 @@ CLASS zcl_ghes30 IMPLEMENTATION.
       json = json && |"members_can_create_pages": true,|.
     ELSEIF data-members_can_create_pages = abap_false.
       json = json && |"members_can_create_pages": false,|.
+    ENDIF.
+    IF data-members_can_fork_private_repos = abap_true.
+      json = json && |"members_can_fork_private_repositories": true,|.
+    ELSEIF data-members_can_fork_private_repos = abap_false.
+      json = json && |"members_can_fork_private_repositories": false,|.
     ENDIF.
     json = json && |"blog": "{ data-blog }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
