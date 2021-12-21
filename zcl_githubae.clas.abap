@@ -4721,6 +4721,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     protected_branch_pull_request_-dismissal_restrictions-url = mo_json->value_string( iv_prefix && '/dismissal_restrictions/url' ).
     protected_branch_pull_request_-dismissal_restrictions-users_url = mo_json->value_string( iv_prefix && '/dismissal_restrictions/users_url' ).
     protected_branch_pull_request_-dismissal_restrictions-teams_url = mo_json->value_string( iv_prefix && '/dismissal_restrictions/teams_url' ).
+* todo, array, users
+* todo, array, teams
     protected_branch_pull_request_-dismiss_stale_reviews = mo_json->value_boolean( iv_prefix && '/dismiss_stale_reviews' ).
     protected_branch_pull_request_-require_code_owner_reviews = mo_json->value_boolean( iv_prefix && '/require_code_owner_reviews' ).
     protected_branch_pull_request_-required_approving_review_coun = mo_json->value_string( iv_prefix && '/required_approving_review_count' ).
@@ -4842,6 +4844,8 @@ CLASS zcl_githubae IMPLEMENTATION.
     protected_branch-required_pull_request_reviews-dismissal_restrictions-url = mo_json->value_string( iv_prefix && '/required_pull_request_reviews/dismissal_restrictions/url' ).
     protected_branch-required_pull_request_reviews-dismissal_restrictions-users_url = mo_json->value_string( iv_prefix && '/required_pull_request_reviews/dismissal_restrictions/users_url' ).
     protected_branch-required_pull_request_reviews-dismissal_restrictions-teams_url = mo_json->value_string( iv_prefix && '/required_pull_request_reviews/dismissal_restrictions/teams_url' ).
+* todo, array, users
+* todo, array, teams
 * todo, array, users
 * todo, array, teams
     protected_branch-required_signatures-url = mo_json->value_string( iv_prefix && '/required_signatures/url' ).
@@ -10160,6 +10164,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
       json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
     ENDIF.
+*  json = json && '"bypass_pull_request_allowances":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -10180,6 +10185,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     IF data-required_approving_review_coun <> cl_abap_math=>max_int4.
       json = json && |"required_approving_review_count": { data-required_approving_review_coun },|.
     ENDIF.
+*  json = json && '"bypass_pull_request_allowances":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.

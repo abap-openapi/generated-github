@@ -2313,6 +2313,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF protected_branch_admin_enforce.
 
 * Component schema: protected-branch-pull-request-review, object
+  TYPES: BEGIN OF subprotected_branch_pull_req01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subprotected_branch_pull_req01.
   TYPES: BEGIN OF subprotected_branch_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -2323,6 +2327,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF protected_branch_pull_request_,
            url TYPE string,
            dismissal_restrictions TYPE subprotected_branch_pull_reque,
+           bypass_pull_request_allowances TYPE subprotected_branch_pull_req01,
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
@@ -2494,6 +2499,10 @@ INTERFACE zif_githubae PUBLIC.
            url TYPE string,
            enabled TYPE abap_bool,
          END OF subprotected_branch_required_s.
+  TYPES: BEGIN OF subsubprotected_branch_requi01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subsubprotected_branch_requi01.
   TYPES: BEGIN OF subsubprotected_branch_require,
            url TYPE string,
            users_url TYPE string,
@@ -2507,6 +2516,7 @@ INTERFACE zif_githubae PUBLIC.
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
            dismissal_restrictions TYPE subsubprotected_branch_require,
+           bypass_pull_request_allowances TYPE subsubprotected_branch_requi01,
          END OF subprotected_branch_required_p.
   TYPES: BEGIN OF protected_branch,
            url TYPE string,
@@ -5786,6 +5796,10 @@ INTERFACE zif_githubae PUBLIC.
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_update_branch_p02.
+  TYPES: BEGIN OF subsubbodyrepos_update_branc01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subsubbodyrepos_update_branc01.
   TYPES: BEGIN OF subsubbodyrepos_update_branch_,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -5795,6 +5809,7 @@ INTERFACE zif_githubae PUBLIC.
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
+           bypass_pull_request_allowances TYPE subsubbodyrepos_update_branc01,
          END OF subbodyrepos_update_branch_p01.
   TYPES: BEGIN OF subbodyrepos_update_branch_pro,
            strict TYPE abap_bool,
@@ -5818,6 +5833,10 @@ INTERFACE zif_githubae PUBLIC.
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            apps TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF subbodyrepos_delete_branch_p02.
+  TYPES: BEGIN OF subsubbodyrepos_delete_branc01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subsubbodyrepos_delete_branc01.
   TYPES: BEGIN OF subsubbodyrepos_delete_branch_,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -5827,6 +5846,7 @@ INTERFACE zif_githubae PUBLIC.
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
+           bypass_pull_request_allowances TYPE subsubbodyrepos_delete_branc01,
          END OF subbodyrepos_delete_branch_p01.
   TYPES: BEGIN OF subbodyrepos_delete_branch_pro,
            strict TYPE abap_bool,
@@ -5845,6 +5865,10 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_delete_branch_protec.
 
 * Component schema: bodyrepos_update_pull_request_, object
+  TYPES: BEGIN OF subbodyrepos_update_pull_req01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subbodyrepos_update_pull_req01.
   TYPES: BEGIN OF subbodyrepos_update_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -5854,9 +5878,14 @@ INTERFACE zif_githubae PUBLIC.
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
+           bypass_pull_request_allowances TYPE subbodyrepos_update_pull_req01,
          END OF bodyrepos_update_pull_request_.
 
 * Component schema: bodyrepos_delete_pull_request_, object
+  TYPES: BEGIN OF subbodyrepos_delete_pull_req01,
+           users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF subbodyrepos_delete_pull_req01.
   TYPES: BEGIN OF subbodyrepos_delete_pull_reque,
            users TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
@@ -5866,6 +5895,7 @@ INTERFACE zif_githubae PUBLIC.
            dismiss_stale_reviews TYPE abap_bool,
            require_code_owner_reviews TYPE abap_bool,
            required_approving_review_coun TYPE i,
+           bypass_pull_request_allowances TYPE subbodyrepos_delete_pull_req01,
          END OF bodyrepos_delete_pull_request_.
 
 * Component schema: bodyrepos_update_status_check_, object
