@@ -13344,7 +13344,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~meta_root.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13360,7 +13360,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13376,7 +13376,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_create_from_manifest.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app-manifests/{code}/conversions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app-manifests/{code}/conversions'.
     lv_temp = code.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH lv_temp.
@@ -13398,7 +13398,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_webhook_config_for_ap.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/hook/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/hook/config'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13414,7 +13414,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_update_webhook_config_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/hook/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/hook/config'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_apps_update_webhook_confi( body ) ).
@@ -13431,7 +13431,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_webhook_deliveries.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/hook/deliveries'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/hook/deliveries'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -13459,7 +13459,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_webhook_delivery.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/hook/deliveries/{delivery_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/hook/deliveries/{delivery_id}'.
     lv_temp = delivery_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
@@ -13482,7 +13482,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_redeliver_webhook_deliver.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/hook/deliveries/{delivery_id}/attempts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/hook/deliveries/{delivery_id}/attempts'.
     lv_temp = delivery_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{delivery_id}' IN lv_uri WITH lv_temp.
@@ -13503,7 +13503,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_installations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations'.
     IF outdated IS SUPPLIED.
       mi_client->request->set_form_field( name = 'outdated' value = outdated ).
     ENDIF.
@@ -13535,7 +13535,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations/{installation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations/{installation_id}'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -13558,7 +13558,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_delete_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations/{installation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations/{installation_id}'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -13576,7 +13576,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_create_installation_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations/{installation_id}/access_tokens'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations/{installation_id}/access_tokens'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -13606,7 +13606,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_suspend_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations/{installation_id}/suspended'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations/{installation_id}/suspended'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -13624,7 +13624,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_unsuspend_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/app/installations/{installation_id}/suspended'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/app/installations/{installation_id}/suspended'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -13642,7 +13642,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_delete_authorization.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/applications/{client_id}/grant'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/applications/{client_id}/grant'.
     lv_temp = client_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
@@ -13661,7 +13661,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_check_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/applications/{client_id}/token'.
     lv_temp = client_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
@@ -13685,7 +13685,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_reset_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/applications/{client_id}/token'.
     lv_temp = client_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
@@ -13707,7 +13707,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_delete_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/applications/{client_id}/token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/applications/{client_id}/token'.
     lv_temp = client_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
@@ -13726,7 +13726,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_scope_token.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/applications/{client_id}/token/scoped'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/applications/{client_id}/token/scoped'.
     lv_temp = client_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{client_id}' IN lv_uri WITH lv_temp.
@@ -13754,7 +13754,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_by_slug.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/apps/{app_slug}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/apps/{app_slug}'.
     lv_temp = app_slug.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{app_slug}' IN lv_uri WITH lv_temp.
@@ -13779,7 +13779,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codes_of_conduct_get_all_codes.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/codes_of_conduct'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/codes_of_conduct'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13797,7 +13797,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codes_of_conduct_get_conduct_c.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/codes_of_conduct/{key}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/codes_of_conduct/{key}'.
     lv_temp = key.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key}' IN lv_uri WITH lv_temp.
@@ -13820,7 +13820,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~emojis_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/emojis'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/emojis'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -13838,7 +13838,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_github_ac.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13857,7 +13857,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_github_ac.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13874,7 +13874,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_selected.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/organizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/organizations'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13903,7 +13903,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_selected_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/organizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/organizations'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13920,7 +13920,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_enable_select.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13939,7 +13939,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_disable_selec.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/organizations/{org_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13958,7 +13958,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_allowed_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/selected-actions'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13977,7 +13977,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_allowed_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/permissions/selected-actions'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -13994,7 +13994,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_self_hos.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14023,7 +14023,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_create_self_h.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14043,7 +14043,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_self_host.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14065,7 +14065,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_update_self_h.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14088,7 +14088,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_delete_self_h.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14108,7 +14108,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_org_acce.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14140,7 +14140,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_org_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14160,7 +14160,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_add_org_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14182,7 +14182,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_remove_org_ac.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14204,7 +14204,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_self_h01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14236,7 +14236,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_self_host.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14256,7 +14256,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_add_self_host.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14278,7 +14278,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_remove_self_h.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14300,7 +14300,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_self_h02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14329,7 +14329,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_runner_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/downloads'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/downloads'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14348,7 +14348,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_create_regist.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/registration-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/registration-token'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14367,7 +14367,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_create_remove.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/remove-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/remove-token'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14386,7 +14386,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_self_ho01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14408,7 +14408,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_delete_self01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14427,7 +14427,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_labels_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14448,7 +14448,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_add_custom_la.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14472,7 +14472,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_custom_la.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14496,7 +14496,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_remove_all_cu.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}/labels'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14520,7 +14520,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_remove_custom.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/actions/runners/{runner_id}/labels/{name}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14546,7 +14546,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_audit_log.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/audit-log'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/audit-log'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14590,7 +14590,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_actions_bil.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/settings/billing/actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/settings/billing/actions'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14609,7 +14609,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_advanced_se.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/settings/billing/advanced-security'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/settings/billing/advanced-security'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14640,7 +14640,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_packages_bi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/settings/billing/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/settings/billing/packages'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14659,7 +14659,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_shared_storage_bil.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/enterprises/{enterprise}/settings/billing/shared-storage'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/settings/billing/shared-storage'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -14678,7 +14678,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_public_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/events'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -14710,7 +14710,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_get_feeds.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/feeds'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/feeds'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -14726,7 +14726,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -14759,7 +14759,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_gists_create( body ) ).
@@ -14784,7 +14784,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/public'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/public'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -14819,7 +14819,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/starred'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/starred'.
     IF since IS SUPPLIED.
       mi_client->request->set_form_field( name = 'since' value = since ).
     ENDIF.
@@ -14854,7 +14854,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -14879,7 +14879,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -14903,7 +14903,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -14926,7 +14926,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/comments'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -14961,7 +14961,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_create_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/comments'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -14987,7 +14987,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_get_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/comments/{comment_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15015,7 +15015,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_update_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/comments/{comment_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15040,7 +15040,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_delete_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/comments/{comment_id}'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15066,7 +15066,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/commits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/commits'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15101,7 +15101,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_forks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/forks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/forks'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15136,7 +15136,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_fork.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/forks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/forks'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15163,7 +15163,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_check_is_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/star'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15188,7 +15188,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_star.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/star'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15210,7 +15210,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_unstar.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/star'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/star'.
     lv_temp = gist_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gist_id}' IN lv_uri WITH lv_temp.
@@ -15232,7 +15232,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_get_revision.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gists/{gist_id}/{sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gists/{gist_id}/{sha}'.
     lv_temp = sha.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH lv_temp.
@@ -15260,7 +15260,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gitignore_get_all_templates.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gitignore/templates'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gitignore/templates'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15278,7 +15278,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gitignore_get_template.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/gitignore/templates/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/gitignore/templates/{name}'.
     lv_temp = name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
@@ -15299,7 +15299,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_repos_accessible_to_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/installation/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/installation/repositories'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -15331,7 +15331,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_revoke_installation_acces.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/installation/token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/installation/token'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15344,7 +15344,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -15414,7 +15414,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~licenses_get_all_commonly_used.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/licenses'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/licenses'.
     lv_temp = featured.
     CONDENSE lv_temp.
     IF featured IS SUPPLIED.
@@ -15447,7 +15447,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~licenses_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/licenses/{license}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/licenses/{license}'.
     lv_temp = license.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{license}' IN lv_uri WITH lv_temp.
@@ -15472,7 +15472,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~markdown_render.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/markdown'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/markdown'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_markdown_render( body ) ).
@@ -15488,7 +15488,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~markdown_render_raw.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/markdown/raw'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/markdown/raw'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15503,7 +15503,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_subscription_plan_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/accounts/{account_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/accounts/{account_id}'.
     lv_temp = account_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{account_id}' IN lv_uri WITH lv_temp.
@@ -15529,7 +15529,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_plans.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/plans'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/plans'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -15559,7 +15559,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_accounts_for_plan.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/plans/{plan_id}/accounts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/plans/{plan_id}/accounts'.
     lv_temp = plan_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{plan_id}' IN lv_uri WITH lv_temp.
@@ -15600,7 +15600,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_subscription_plan_f01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/stubbed/accounts/{account_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/stubbed/accounts/{account_id}'.
     lv_temp = account_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{account_id}' IN lv_uri WITH lv_temp.
@@ -15623,7 +15623,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_plans_stubbed.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/stubbed/plans'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/stubbed/plans'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -15651,7 +15651,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_accounts_for_plan_st.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/marketplace_listing/stubbed/plans/{plan_id}/accounts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/marketplace_listing/stubbed/plans/{plan_id}/accounts'.
     lv_temp = plan_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{plan_id}' IN lv_uri WITH lv_temp.
@@ -15688,7 +15688,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~meta_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/meta'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/meta'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -15706,7 +15706,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_public_events_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/networks/{owner}/{repo}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/networks/{owner}/{repo}/events'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -15746,7 +15746,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_notifications_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications'.
     lv_temp = all.
     CONDENSE lv_temp.
     IF all IS SUPPLIED.
@@ -15796,7 +15796,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_mark_notifications_as.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_activity_mark_notificatio( body ) ).
@@ -15822,7 +15822,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_get_thread.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications/threads/{thread_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -15847,7 +15847,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_mark_thread_as_read.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications/threads/{thread_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications/threads/{thread_id}'.
     lv_temp = thread_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -15868,7 +15868,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_get_thread_subscripti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -15893,7 +15893,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_set_thread_subscripti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -15919,7 +15919,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_delete_thread_subscri.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/notifications/threads/{thread_id}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/notifications/threads/{thread_id}/subscription'.
     lv_temp = thread_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{thread_id}' IN lv_uri WITH lv_temp.
@@ -15942,7 +15942,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~meta_get_octocat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/octocat'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/octocat'.
     IF s IS SUPPLIED.
       mi_client->request->set_form_field( name = 's' value = s ).
     ENDIF.
@@ -15958,7 +15958,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/organizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/organizations'.
     lv_temp = since.
     CONDENSE lv_temp.
     IF since IS SUPPLIED.
@@ -15986,7 +15986,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_custom_roles.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/organizations/{organization_id}/custom_roles'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/organizations/{organization_id}/custom_roles'.
     lv_temp = organization_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{organization_id}' IN lv_uri WITH lv_temp.
@@ -16005,7 +16005,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16026,7 +16026,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16051,7 +16051,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_github_actions_per.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16070,7 +16070,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_github_actions_per.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16087,7 +16087,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_selected_reposito.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16116,7 +16116,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_selected_repositor.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16133,7 +16133,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_enable_selected_reposi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/repositories/{repository_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16152,7 +16152,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_disable_selected_repos.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/repositories/{repository_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16171,7 +16171,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_allowed_actions_or.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/selected-actions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16190,7 +16190,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_allowed_actions_or.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/selected-actions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16207,7 +16207,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_self_hosted_runne.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16236,7 +16236,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_self_hosted_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16256,7 +16256,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_self_hosted_runner.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16278,7 +16278,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_update_self_hosted_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16301,7 +16301,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_self_hosted_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16321,7 +16321,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_repo_access_to_se.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16353,7 +16353,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_repo_access_to_sel.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16373,7 +16373,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_add_repo_access_to_sel.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16395,7 +16395,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_repo_access_to_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16417,7 +16417,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_self_hosted_run01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16449,7 +16449,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_self_hosted_runner.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/runners'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16469,7 +16469,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_add_self_hosted_runner.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16491,7 +16491,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_self_hosted_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16513,7 +16513,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_self_hosted_run02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16542,7 +16542,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_runner_applicatio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/downloads'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/downloads'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16561,7 +16561,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_registration_to.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/registration-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/registration-token'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16580,7 +16580,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_remove_token_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/remove-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/remove-token'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16599,7 +16599,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_self_hosted_runn01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16621,7 +16621,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_self_hosted_r01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16640,7 +16640,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_labels_for_self_h.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}/labels'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16661,7 +16661,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_add_custom_labels_to_s.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}/labels'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16685,7 +16685,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_custom_labels_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}/labels'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16709,7 +16709,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_all_custom_labe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}/labels'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16731,7 +16731,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_custom_label_fr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/runners/{runner_id}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/runners/{runner_id}/labels/{name}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16757,7 +16757,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_org_secrets.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16786,7 +16786,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_org_public_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/public-key'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/public-key'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16805,7 +16805,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_org_secret.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16827,7 +16827,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_or_update_org_s.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16851,7 +16851,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_org_secret.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16871,7 +16871,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_selected_repos_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16903,7 +16903,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_selected_repos_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -16923,7 +16923,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_add_selected_repo_to_o.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -16947,7 +16947,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_selected_repo_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -16971,7 +16971,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_audit_log.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/audit-log'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/audit-log'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17010,7 +17010,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_blocked_users.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/blocks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/blocks'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17031,7 +17031,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_check_blocked_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/blocks/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17055,7 +17055,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_block_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/blocks/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17076,7 +17076,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_unblock_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/blocks/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17095,7 +17095,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_saml_sso_authorizati.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/credential-authorizations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/credential-authorizations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17114,7 +17114,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_remove_saml_sso_authoriza.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/credential-authorizations/{credential_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/credential-authorizations/{credential_id}'.
     lv_temp = credential_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{credential_id}' IN lv_uri WITH lv_temp.
@@ -17135,7 +17135,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_public_org_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/events'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17164,7 +17164,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_external_idp_group_info_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/external-group/{group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/external-group/{group_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17186,7 +17186,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_external_idp_groups.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/external-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/external-groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17218,7 +17218,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_failed_invitations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/failed_invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/failed_invitations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17249,7 +17249,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_webhooks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17280,7 +17280,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_create_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17304,7 +17304,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17328,7 +17328,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_update_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17355,7 +17355,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_delete_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17377,7 +17377,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_webhook_config_for_or.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/config'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17399,7 +17399,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_update_webhook_config_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/config'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17422,7 +17422,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_webhook_deliveries.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/deliveries'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17456,7 +17456,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_webhook_delivery.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17485,7 +17485,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_redeliver_webhook_deliver.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17512,7 +17512,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_ping_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/hooks/{hook_id}/pings'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/hooks/{hook_id}/pings'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17533,7 +17533,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_org_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/installation'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/installation'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17552,7 +17552,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_app_installations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/installations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/installations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17581,7 +17581,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_get_restrictions_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/interaction-limits'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17598,7 +17598,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_set_restrictions_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/interaction-limits'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17620,7 +17620,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_remove_restrictio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/interaction-limits'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17636,7 +17636,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_pending_invitations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/invitations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17667,7 +17667,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_create_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/invitations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17691,7 +17691,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_cancel_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/invitations/{invitation_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17714,7 +17714,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_invitation_teams.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/invitations/{invitation_id}/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/invitations/{invitation_id}/teams'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17748,7 +17748,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/issues'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17797,7 +17797,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_members.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/members'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/members'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17836,7 +17836,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_check_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/members/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/members/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17859,7 +17859,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_remove_member.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/members/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/members/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17880,7 +17880,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17906,7 +17906,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_set_membership_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17933,7 +17933,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_remove_membership_for_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17957,7 +17957,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -17991,7 +17991,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_start_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18015,7 +18015,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_status_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations/{migration_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations/{migration_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18044,7 +18044,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_download_archive_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations/{migration_id}/archive'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations/{migration_id}/archive'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18066,7 +18066,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_delete_archive_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations/{migration_id}/archive'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations/{migration_id}/archive'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18087,7 +18087,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_unlock_repo_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18111,7 +18111,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_list_repos_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/migrations/{migration_id}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/migrations/{migration_id}/repositories'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18145,7 +18145,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_outside_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/outside_collaborators'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/outside_collaborators'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18177,7 +18177,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_convert_member_to_outside.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/outside_collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/outside_collaborators/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18205,7 +18205,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_remove_outside_collaborat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/outside_collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/outside_collaborators/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18229,7 +18229,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_list_packages_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18256,7 +18256,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_for_organ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18281,7 +18281,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_for_or.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18309,7 +18309,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_for_o.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18340,7 +18340,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_all_package_versi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}/versions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}/versions'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18384,7 +18384,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_version_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18412,7 +18412,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_versio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18443,7 +18443,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_versi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -18474,7 +18474,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/projects'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18508,7 +18508,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_create_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/projects'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18538,7 +18538,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_public_members.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/public_members'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/public_members'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18567,7 +18567,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_check_public_membership_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/public_members/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18588,7 +18588,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_set_public_membership_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/public_members/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18609,7 +18609,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_remove_public_membership_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/public_members/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/public_members/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18628,7 +18628,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/repos'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18666,7 +18666,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/repos'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18690,7 +18690,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~secret_scanning_list_alerts_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/secret-scanning/alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/secret-scanning/alerts'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18732,7 +18732,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_actions_b01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/settings/billing/actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/settings/billing/actions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18751,7 +18751,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_advanced_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/settings/billing/advanced-security'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/settings/billing/advanced-security'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18782,7 +18782,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_packages_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/settings/billing/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/settings/billing/packages'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18801,7 +18801,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_shared_storage_b01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/settings/billing/shared-storage'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/settings/billing/shared-storage'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18820,7 +18820,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_idp_groups_for_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/team-sync/groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/team-sync/groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18847,7 +18847,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18878,7 +18878,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18902,7 +18902,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_get_by_name.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18926,7 +18926,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_update_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18949,7 +18949,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_delete_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -18969,7 +18969,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_discussions_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19007,7 +19007,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_create_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19030,7 +19030,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_get_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19055,7 +19055,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_update_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19081,7 +19081,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_delete_discussion_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19104,7 +19104,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_discussion_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19142,7 +19142,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_create_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19168,7 +19168,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_get_discussion_comment_i.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19196,7 +19196,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_update_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19225,7 +19225,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_delete_discussion_commen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19251,7 +19251,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_team_discus.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19292,7 +19292,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_team_disc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19325,7 +19325,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_team_disc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19353,7 +19353,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_team_disc01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19391,7 +19391,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_team_di01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19421,7 +19421,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_team_di01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19446,7 +19446,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_link_external_idp_group_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/external-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/external-groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19469,7 +19469,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_unlink_external_idp_grou.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/external-groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/external-groups'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19489,7 +19489,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_pending_invitations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/invitations'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19521,7 +19521,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_members_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/members'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/members'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19556,7 +19556,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_get_membership_for_user_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19583,7 +19583,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_add_or_update_membership.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19613,7 +19613,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_remove_membership_for_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/memberships/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/memberships/{username}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19638,7 +19638,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_projects_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/projects'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19670,7 +19670,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_check_permissions_for_pr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19697,7 +19697,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_add_or_update_project_pe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19725,7 +19725,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_remove_project_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/projects/{project_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19748,7 +19748,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_repos_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/repos'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19780,7 +19780,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_check_permissions_for_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19811,7 +19811,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_add_or_update_repo_permi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19837,7 +19837,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_remove_repo_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19863,7 +19863,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_idp_groups_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/team-sync/group-mappings'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/team-sync/group-mappings'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19885,7 +19885,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_create_or_update_idp_gro.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/team-sync/group-mappings'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/team-sync/group-mappings'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19908,7 +19908,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_child_in_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/orgs/{org}/teams/{team_slug}/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/teams/{team_slug}/teams'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -19940,7 +19940,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_get_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -19967,7 +19967,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_update_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -19997,7 +19997,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_delete_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/cards/{card_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/cards/{card_id}'.
     lv_temp = card_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -20025,7 +20025,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_move_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/cards/{card_id}/moves'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/cards/{card_id}/moves'.
     lv_temp = card_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{card_id}' IN lv_uri WITH lv_temp.
@@ -20061,7 +20061,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_get_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20088,7 +20088,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_update_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20114,7 +20114,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_delete_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20137,7 +20137,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_cards.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}/cards'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20175,7 +20175,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_create_card.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}/cards'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}/cards'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20209,7 +20209,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_move_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/columns/{column_id}/moves'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/columns/{column_id}/moves'.
     lv_temp = column_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{column_id}' IN lv_uri WITH lv_temp.
@@ -20237,7 +20237,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20262,7 +20262,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20297,7 +20297,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20327,7 +20327,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_collaborators.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/collaborators'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/collaborators'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20369,7 +20369,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_add_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20399,7 +20399,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_remove_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/collaborators/{username}'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20429,7 +20429,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_get_permission_for_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/collaborators/{username}/permission'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/collaborators/{username}/permission'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20461,7 +20461,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_columns.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/columns'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/columns'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20496,7 +20496,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_create_column.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/projects/{project_id}/columns'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/projects/{project_id}/columns'.
     lv_temp = project_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{project_id}' IN lv_uri WITH lv_temp.
@@ -20524,7 +20524,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~rate_limit_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/rate_limit'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/rate_limit'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -20544,7 +20544,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20572,7 +20572,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20603,7 +20603,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20632,7 +20632,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_artifacts_for_rep.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/artifacts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/artifacts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20664,7 +20664,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_artifact.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20689,7 +20689,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_artifact.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/artifacts/{artifact_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20711,7 +20711,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_download_artifact.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}'.
     lv_temp = archive_format.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{archive_format}' IN lv_uri WITH lv_temp.
@@ -20737,7 +20737,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_job_for_workflow_r.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/jobs/{job_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/jobs/{job_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20762,7 +20762,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_download_job_logs_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/jobs/{job_id}/logs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/jobs/{job_id}/logs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20785,7 +20785,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_github_actions_p01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/permissions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20807,7 +20807,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_github_actions_p01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/permissions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/permissions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20827,7 +20827,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_allowed_actions_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/permissions/selected-actions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20849,7 +20849,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_allowed_actions_re.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/permissions/selected-actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/permissions/selected-actions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20869,7 +20869,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_self_hosted_run03.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20901,7 +20901,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_runner_applicat01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/downloads'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/downloads'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20923,7 +20923,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_registration_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/registration-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/registration-token'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20945,7 +20945,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_remove_token_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/remove-token'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/remove-token'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20967,7 +20967,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_self_hosted_runn02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -20992,7 +20992,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_self_hosted_r02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21014,7 +21014,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_labels_for_self01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21038,7 +21038,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_add_custom_labels_to01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21065,7 +21065,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_set_custom_labels_fo01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21092,7 +21092,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_all_custom_la01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21117,7 +21117,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_remove_custom_label_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21146,7 +21146,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_workflow_runs_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21198,7 +21198,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_workflow_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21228,7 +21228,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_workflow_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21250,7 +21250,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_reviews_for_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/approvals'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/approvals'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21275,7 +21275,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_approve_workflow_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/approve'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/approve'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21304,7 +21304,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_workflow_run_arti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21339,7 +21339,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_workflow_run_attem.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21372,7 +21372,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_jobs_for_workflow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21412,7 +21412,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_download_workflow_run_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21438,7 +21438,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_cancel_workflow_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/cancel'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/cancel'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21464,7 +21464,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_jobs_for_workfl01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/jobs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/jobs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21502,7 +21502,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_download_workflow_ru01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21525,7 +21525,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_workflow_run_lo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/logs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21547,7 +21547,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_pending_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21572,7 +21572,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_review_pending_deploym.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21598,7 +21598,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_workflow_run_usage.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/runs/{run_id}/timing'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/timing'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21623,7 +21623,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_repo_secrets.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/secrets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/secrets'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21655,7 +21655,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_repo_public_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/secrets/public-key'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/secrets/public-key'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21677,7 +21677,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_repo_secret.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21702,7 +21702,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_or_update_repo_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21729,7 +21729,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_repo_secret.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/secrets/{secret_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21752,7 +21752,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_repo_workflows.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21784,7 +21784,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_workflow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21809,7 +21809,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_disable_workflow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21831,7 +21831,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_workflow_dispat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21854,7 +21854,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_enable_workflow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21876,7 +21876,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_workflow_runs.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21931,7 +21931,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_workflow_usage.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21956,7 +21956,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/assignees'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/assignees'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -21990,7 +21990,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_check_user_can_be_assig.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/assignees/{assignee}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/assignees/{assignee}'.
     lv_temp = assignee.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{assignee}' IN lv_uri WITH lv_temp.
@@ -22017,7 +22017,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_autolinks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/autolinks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/autolinks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22044,7 +22044,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_autolink.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/autolinks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/autolinks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22069,7 +22069,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_autolink.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/autolinks/{autolink_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/autolinks/{autolink_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22096,7 +22096,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_autolink.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/autolinks/{autolink_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/autolinks/{autolink_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22120,7 +22120,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_enable_automated_securit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/automated-security-fixes'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/automated-security-fixes'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22139,7 +22139,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_disable_automated_securi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/automated-security-fixes'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/automated-security-fixes'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22158,7 +22158,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_branches.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22197,7 +22197,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_branch.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22228,7 +22228,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22255,7 +22255,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22287,7 +22287,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_branch_protection.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22312,7 +22312,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_admin_branch_protect.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22337,7 +22337,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_set_admin_branch_protect.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22362,7 +22362,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_admin_branch_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22386,7 +22386,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_pull_request_review_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22411,7 +22411,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_pull_request_revi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22439,7 +22439,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_pull_request_revi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22464,7 +22464,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_commit_signature_pro.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22491,7 +22491,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_commit_signature_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22518,7 +22518,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_commit_signature_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22542,7 +22542,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_status_checks_protec.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22569,7 +22569,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_status_check_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22599,7 +22599,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_status_check_prot.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22622,7 +22622,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_all_status_check_con.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22649,7 +22649,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_add_status_check_context.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22681,7 +22681,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_set_status_check_context.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22711,7 +22711,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_status_check_cont.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22741,7 +22741,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_access_restrictions.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22768,7 +22768,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_access_restrictio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22790,7 +22790,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_apps_with_access_to_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22817,7 +22817,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_add_app_access_restricti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22845,7 +22845,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_set_app_access_restricti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22873,7 +22873,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_app_access_restri.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22901,7 +22901,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_teams_with_access_to.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22928,7 +22928,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_add_team_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22956,7 +22956,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_set_team_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -22984,7 +22984,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_team_access_restr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23012,7 +23012,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_users_with_access_to.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23039,7 +23039,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_add_user_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23067,7 +23067,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_set_user_access_restrict.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23095,7 +23095,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_user_access_restr.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23123,7 +23123,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_rename_branch.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/branches/{branch}/rename'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/branches/{branch}/rename'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23155,7 +23155,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-runs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-runs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23178,7 +23178,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-runs/{check_run_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23203,7 +23203,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-runs/{check_run_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-runs/{check_run_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23229,7 +23229,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_list_annotations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23264,7 +23264,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_rerequest_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23301,7 +23301,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_create_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-suites'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-suites'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23328,7 +23328,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_set_suites_preferences.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-suites/preferences'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-suites/preferences'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23351,7 +23351,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_get_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-suites/{check_suite_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23376,7 +23376,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_list_for_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23420,7 +23420,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_rerequest_suite.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23445,7 +23445,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_list_alerts_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/alerts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23503,7 +23503,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_get_alert.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23536,7 +23536,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_update_alert.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23568,7 +23568,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_list_alert_insta.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23612,7 +23612,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_list_recent_anal.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/analyses'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/analyses'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23662,7 +23662,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_get_analysis.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
     lv_temp = analysis_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{analysis_id}' IN lv_uri WITH lv_temp.
@@ -23693,7 +23693,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_delete_analysis.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}'.
     lv_temp = analysis_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{analysis_id}' IN lv_uri WITH lv_temp.
@@ -23729,7 +23729,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_upload_sarif.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/sarifs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/sarifs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23763,7 +23763,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~code_scanning_get_sarif.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}'.
     lv_temp = sarif_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{sarif_id}' IN lv_uri WITH lv_temp.
@@ -23794,7 +23794,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_list_in_repository_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/codespaces'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/codespaces'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23834,7 +23834,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_create_with_repo_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/codespaces'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/codespaces'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23868,7 +23868,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_repo_machines_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/codespaces/machines'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/codespaces/machines'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23901,7 +23901,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_collaborators.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/collaborators'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/collaborators'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23938,7 +23938,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_check_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/collaborators/{username}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23962,7 +23962,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_add_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/collaborators/{username}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -23993,7 +23993,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_remove_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/collaborators/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/collaborators/{username}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24016,7 +24016,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_collaborator_permiss.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/collaborators/{username}/permission'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/collaborators/{username}/permission'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24043,7 +24043,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_commit_comments_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24075,7 +24075,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24102,7 +24102,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24130,7 +24130,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24155,7 +24155,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_commit_comm.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24195,7 +24195,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_commit_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24229,7 +24229,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_commit_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24254,7 +24254,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24309,7 +24309,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_branches_for_head_c.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24336,7 +24336,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_comments_for_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24371,7 +24371,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_commit_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{commit_sha}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24401,7 +24401,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_pull_requests_assoc.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{commit_sha}/pulls'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24436,7 +24436,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -24477,7 +24477,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_list_for_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{ref}/check-runs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{ref}/check-runs'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -24526,7 +24526,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~checks_list_suites_for_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{ref}/check-suites'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{ref}/check-suites'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -24569,7 +24569,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_combined_status_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{ref}/status'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{ref}/status'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -24606,7 +24606,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_commit_statuses_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/commits/{ref}/statuses'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/commits/{ref}/statuses'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -24643,7 +24643,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_community_profile_me.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/community/profile'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/community/profile'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24665,7 +24665,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_compare_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/compare/{basehead}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/compare/{basehead}'.
     lv_temp = basehead.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{basehead}' IN lv_uri WITH lv_temp.
@@ -24704,7 +24704,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_content.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/contents/{path}'.
     lv_temp = path.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
@@ -24736,7 +24736,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_or_update_file_co.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/contents/{path}'.
     lv_temp = path.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
@@ -24772,7 +24772,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_file.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/contents/{path}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/contents/{path}'.
     lv_temp = path.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{path}' IN lv_uri WITH lv_temp.
@@ -24806,7 +24806,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_contributors.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/contributors'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/contributors'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24846,7 +24846,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_deployments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24890,7 +24890,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24922,7 +24922,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments/{deployment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments/{deployment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24949,7 +24949,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_deployment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments/{deployment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments/{deployment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -24975,7 +24975,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_deployment_statuses.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25012,7 +25012,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_deployment_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments/{deployment_id}/statuses'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25040,7 +25040,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_deployment_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}'.
     lv_temp = status_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{status_id}' IN lv_uri WITH lv_temp.
@@ -25070,7 +25070,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_dispatch_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/dispatches'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dispatches'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25092,7 +25092,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_all_environments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/environments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/environments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25114,7 +25114,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_environment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/environments/{environment_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/environments/{environment_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25139,7 +25139,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_or_update_environ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/environments/{environment_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/environments/{environment_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25170,7 +25170,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_an_environment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/environments/{environment_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/environments/{environment_name}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25193,7 +25193,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_repo_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/events'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25225,7 +25225,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_forks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/forks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/forks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25262,7 +25262,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_fork.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/forks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/forks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25294,7 +25294,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_create_blob.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/blobs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/blobs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25325,7 +25325,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_get_blob.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/blobs/{file_sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/blobs/{file_sha}'.
     lv_temp = file_sha.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{file_sha}' IN lv_uri WITH lv_temp.
@@ -25356,7 +25356,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_create_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/commits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/commits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25383,7 +25383,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_get_commit.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/commits/{commit_sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/commits/{commit_sha}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25410,7 +25410,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_list_matching_refs.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/matching-refs/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/matching-refs/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -25445,7 +25445,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_get_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/ref/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/ref/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -25472,7 +25472,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_create_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/refs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/refs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25497,7 +25497,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_update_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/refs/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/refs/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -25525,7 +25525,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_delete_ref.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/refs/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/refs/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -25550,7 +25550,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_create_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/tags'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/tags'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25575,7 +25575,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_get_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/tags/{tag_sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/tags/{tag_sha}'.
     lv_temp = tag_sha.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{tag_sha}' IN lv_uri WITH lv_temp.
@@ -25602,7 +25602,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_create_tree.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/trees'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/trees'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25631,7 +25631,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~git_get_tree.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/git/trees/{tree_sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/git/trees/{tree_sha}'.
     lv_temp = tree_sha.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{tree_sha}' IN lv_uri WITH lv_temp.
@@ -25663,7 +25663,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_webhooks.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25697,7 +25697,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25726,7 +25726,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25753,7 +25753,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25783,7 +25783,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25808,7 +25808,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_webhook_config_for_r.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/config'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25833,7 +25833,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_webhook_config_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/config'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/config'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25859,7 +25859,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_webhook_deliveries.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/deliveries'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25896,7 +25896,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_webhook_delivery.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25928,7 +25928,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_redeliver_webhook_delive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25958,7 +25958,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_ping_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/pings'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -25982,7 +25982,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_test_push_webhook.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/hooks/{hook_id}/tests'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26006,7 +26006,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_import_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26030,7 +26030,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_start_import.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26057,7 +26057,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_update_import.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26080,7 +26080,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_cancel_import.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26100,7 +26100,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_commit_authors.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import/authors'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import/authors'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26129,7 +26129,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_map_commit_author.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import/authors/{author_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import/authors/{author_id}'.
     lv_temp = author_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{author_id}' IN lv_uri WITH lv_temp.
@@ -26159,7 +26159,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_large_files.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import/large_files'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import/large_files'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26181,7 +26181,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_set_lfs_preference.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/import/lfs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/import/lfs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26206,7 +26206,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_repo_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/installation'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/installation'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26232,7 +26232,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_get_restriction01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/interaction-limits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26252,7 +26252,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_set_restriction01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/interaction-limits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26277,7 +26277,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_remove_restrict01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/interaction-limits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26298,7 +26298,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_invitations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/invitations'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26330,7 +26330,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/invitations/{invitation_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26356,7 +26356,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_invitation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/invitations/{invitation_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26379,7 +26379,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26444,7 +26444,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26477,7 +26477,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_comments_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26522,7 +26522,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_get_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26549,7 +26549,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_update_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26577,7 +26577,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_delete_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26600,7 +26600,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_issue_comme.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26640,7 +26640,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_issue_com.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26672,7 +26672,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_issue_com.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26697,7 +26697,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_events_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/events'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26731,7 +26731,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_get_event.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/events/{event_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/events/{event_id}'.
     lv_temp = event_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{event_id}' IN lv_uri WITH lv_temp.
@@ -26762,7 +26762,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26795,7 +26795,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26833,7 +26833,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_add_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26859,7 +26859,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_remove_assignees.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/assignees'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26885,7 +26885,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26927,7 +26927,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_create_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26961,7 +26961,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_events.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/events'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -26998,7 +26998,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_labels_on_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27035,7 +27035,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_add_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27065,7 +27065,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_set_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27095,7 +27095,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_remove_all_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27120,7 +27120,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_remove_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}'.
     lv_temp = name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
@@ -27152,7 +27152,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_lock.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/lock'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27183,7 +27183,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_unlock.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/lock'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/lock'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27210,7 +27210,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27252,7 +27252,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27284,7 +27284,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_issue.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27309,7 +27309,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_events_for_timelin.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/timeline'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27348,7 +27348,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_deploy_keys.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/keys'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27380,7 +27380,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/keys'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27405,7 +27405,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/keys/{key_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27432,7 +27432,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_deploy_key.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/keys/{key_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27454,7 +27454,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_labels_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27488,7 +27488,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_create_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27515,7 +27515,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_get_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/labels/{name}'.
     lv_temp = name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
@@ -27542,7 +27542,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_update_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/labels/{name}'.
     lv_temp = name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
@@ -27568,7 +27568,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_delete_label.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/labels/{name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/labels/{name}'.
     lv_temp = name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{name}' IN lv_uri WITH lv_temp.
@@ -27591,7 +27591,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_languages.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/languages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/languages'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27613,7 +27613,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_enable_lfs_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/lfs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/lfs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27635,7 +27635,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_disable_lfs_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/lfs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/lfs'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27654,7 +27654,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~licenses_get_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/license'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/license'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27676,7 +27676,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_merge_upstream.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/merge-upstream'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/merge-upstream'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27703,7 +27703,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_merge.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/merges'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/merges'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27735,7 +27735,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_milestones.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27778,7 +27778,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_create_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27805,7 +27805,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_get_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones/{milestone_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27832,7 +27832,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_update_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones/{milestone_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27858,7 +27858,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_delete_milestone.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones/{milestone_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones/{milestone_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27883,7 +27883,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_labels_for_milesto.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/milestones/{milestone_number}/labels'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27918,7 +27918,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_repo_notificatio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/notifications'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/notifications'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27966,7 +27966,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_mark_repo_notificatio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/notifications'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/notifications'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -27992,7 +27992,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_pages.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28016,7 +28016,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_pages_site.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28043,7 +28043,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_information_about.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28067,7 +28067,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_pages_site.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28091,7 +28091,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_pages_builds.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages/builds'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages/builds'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28123,7 +28123,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_request_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages/builds'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages/builds'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28145,7 +28145,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_latest_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages/builds/latest'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages/builds/latest'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28167,7 +28167,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_pages_build.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages/builds/{build_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages/builds/{build_id}'.
     lv_temp = build_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{build_id}' IN lv_uri WITH lv_temp.
@@ -28192,7 +28192,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_pages_health_check.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pages/health'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pages/health'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28225,7 +28225,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/projects'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28270,7 +28270,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_create_for_repo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/projects'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28303,7 +28303,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28354,7 +28354,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_create.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28381,7 +28381,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_review_comments_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28422,7 +28422,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_get_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28449,7 +28449,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_update_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28475,7 +28475,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_delete_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28500,7 +28500,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_list_for_pull_reques.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28540,7 +28540,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_pull_requ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28572,7 +28572,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_delete_for_pull_requ.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28597,7 +28597,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28628,7 +28628,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_update.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28658,7 +28658,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_create_with_pr_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/codespaces'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/codespaces'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28695,7 +28695,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_review_comments.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28739,7 +28739,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_create_review_comment.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28769,7 +28769,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_create_reply_for_review_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28800,7 +28800,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/commits'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28835,7 +28835,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_files.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/files'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/files'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28874,7 +28874,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_check_if_merged.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28898,7 +28898,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_merge.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/merge'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28940,7 +28940,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_requested_reviewers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -28975,7 +28975,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_request_reviewers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29005,7 +29005,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_remove_requested_reviewe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29033,7 +29033,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_reviews.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29068,7 +29068,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_create_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29098,7 +29098,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_get_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29128,7 +29128,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_update_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29159,7 +29159,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_delete_pending_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29192,7 +29192,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_list_comments_for_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29232,7 +29232,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_dismiss_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29265,7 +29265,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_submit_review.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29300,7 +29300,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~pulls_update_branch.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/update-branch'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29331,7 +29331,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_readme.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/readme'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/readme'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29360,7 +29360,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_readme_in_directory.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/readme/{dir}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/readme/{dir}'.
     lv_temp = dir.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{dir}' IN lv_uri WITH lv_temp.
@@ -29392,7 +29392,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_releases.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29426,7 +29426,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29456,7 +29456,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29487,7 +29487,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29513,7 +29513,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/assets/{asset_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/assets/{asset_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29536,7 +29536,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_generate_release_notes.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/generate-notes'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/generate-notes'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29561,7 +29561,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_latest_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/latest'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/latest'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29583,7 +29583,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_release_by_tag.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/tags/{tag}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/tags/{tag}'.
     lv_temp = tag.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{tag}' IN lv_uri WITH lv_temp.
@@ -29610,7 +29610,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29637,7 +29637,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_update_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29668,7 +29668,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_delete_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29691,7 +29691,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_release_assets.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}/assets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}/assets'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29726,7 +29726,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_upload_release_asset.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}/assets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}/assets'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29757,7 +29757,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~reactions_create_for_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/releases/{release_id}/reactions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/releases/{release_id}/reactions'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29789,7 +29789,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~secret_scanning_list_alerts_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/secret-scanning/alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/secret-scanning/alerts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29834,7 +29834,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~secret_scanning_get_alert.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29865,7 +29865,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~secret_scanning_update_alert.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29897,7 +29897,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~secret_scanning_list_locations.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29936,7 +29936,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_stargazers_for_r.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stargazers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stargazers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29968,7 +29968,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_code_frequency_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stats/code_frequency'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stats/code_frequency'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -29993,7 +29993,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_commit_activity_stat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stats/commit_activity'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stats/commit_activity'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30018,7 +30018,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_contributors_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stats/contributors'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stats/contributors'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30043,7 +30043,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_participation_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stats/participation'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stats/participation'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30067,7 +30067,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_punch_card_stats.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/stats/punch_card'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/stats/punch_card'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30090,7 +30090,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_commit_status.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/statuses/{sha}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/statuses/{sha}'.
     lv_temp = sha.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{sha}' IN lv_uri WITH lv_temp.
@@ -30116,7 +30116,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_watchers_for_rep.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/subscribers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/subscribers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30148,7 +30148,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_get_repo_subscription.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/subscription'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30174,7 +30174,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_set_repo_subscription.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/subscription'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30197,7 +30197,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_delete_repo_subscript.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/subscription'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/subscription'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30217,7 +30217,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_tags.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/tags'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/tags'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30249,7 +30249,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_download_tarball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/tarball/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/tarball/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -30272,7 +30272,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_teams.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/teams'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30304,7 +30304,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_all_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/topics'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/topics'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30338,7 +30338,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_replace_all_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/topics'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/topics'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30365,7 +30365,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_clones.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/traffic/clones'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/traffic/clones'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30392,7 +30392,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_top_paths.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/traffic/popular/paths'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/traffic/popular/paths'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30416,7 +30416,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_top_referrers.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/traffic/popular/referrers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/traffic/popular/referrers'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30440,7 +30440,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_get_views.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/traffic/views'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/traffic/views'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30467,7 +30467,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_transfer.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/transfer'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/transfer'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30491,7 +30491,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_check_vulnerability_aler.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/vulnerability-alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/vulnerability-alerts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30512,7 +30512,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_enable_vulnerability_ale.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/vulnerability-alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/vulnerability-alerts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30531,7 +30531,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_disable_vulnerability_al.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/vulnerability-alerts'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/vulnerability-alerts'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -30550,7 +30550,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_download_zipball_archive.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{owner}/{repo}/zipball/{ref}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/zipball/{ref}'.
     lv_temp = ref.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{ref}' IN lv_uri WITH lv_temp.
@@ -30573,7 +30573,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_using_template.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repos/{template_owner}/{template_repo}/generate'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{template_owner}/{template_repo}/generate'.
     lv_temp = template_owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{template_owner}' IN lv_uri WITH lv_temp.
@@ -30596,7 +30596,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories'.
     lv_temp = since.
     CONDENSE lv_temp.
     IF since IS SUPPLIED.
@@ -30621,7 +30621,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_list_environment_secre.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories/{repository_id}/environments/{environment_name}/secrets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories/{repository_id}/environments/{environment_name}/secrets'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -30653,7 +30653,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_environment_public.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories/{repository_id}/environments/{environment_name}/secrets/public-key'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories/{repository_id}/environments/{environment_name}/secrets/public-key'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -30675,7 +30675,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_get_environment_secret.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -30700,7 +30700,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_create_or_update_envir.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -30727,7 +30727,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~actions_delete_environment_sec.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -30750,7 +30750,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_provisio.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30785,7 +30785,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_provision_and.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30805,7 +30805,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_provision.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30830,7 +30830,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_informati.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30853,7 +30853,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_update_attrib.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30876,7 +30876,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_delete_scim_g.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30896,7 +30896,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_list_provis01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30928,7 +30928,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_provision_a01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30948,7 +30948,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_get_provisi01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30970,7 +30970,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_set_informa01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -30993,7 +30993,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_update_attr01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -31016,7 +31016,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~enterprise_admin_delete_user_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}'.
     lv_temp = enterprise.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
@@ -31036,7 +31036,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_list_provisioned_identiti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31073,7 +31073,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_provision_and_invite_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31102,7 +31102,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_get_provisioning_informat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users/{scim_user_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31127,7 +31127,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_set_information_for_provi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users/{scim_user_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31153,7 +31153,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_update_attribute_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users/{scim_user_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31186,7 +31186,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~scim_delete_user_from_org.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/scim/v2/organizations/{org}/Users/{scim_user_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/scim/v2/organizations/{org}/Users/{scim_user_id}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -31212,7 +31212,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_code.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/code'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/code'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -31253,7 +31253,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_commits.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/commits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/commits'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -31288,7 +31288,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_issues_and_pull_request.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/issues'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -31329,7 +31329,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_labels.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/labels'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/labels'.
     lv_temp = repository_id.
     CONDENSE lv_temp.
     mi_client->request->set_form_field( name = 'repository_id' value = lv_temp ).
@@ -31373,7 +31373,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_repos.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/repositories'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -31412,7 +31412,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_topics.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/topics'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/topics'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     lv_temp = per_page.
     CONDENSE lv_temp.
@@ -31441,7 +31441,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~search_users.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/search/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/search/users'.
     mi_client->request->set_form_field( name = 'q' value = q ).
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
@@ -31480,7 +31480,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_get_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -31500,7 +31500,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_update_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_update_authenticate( body ) ).
@@ -31527,7 +31527,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_blocked_by_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/blocks'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/blocks'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -31553,7 +31553,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_check_blocked.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/blocks/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -31580,7 +31580,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_block.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/blocks/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -31606,7 +31606,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_unblock.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/blocks/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/blocks/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -31630,7 +31630,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_list_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -31671,7 +31671,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_create_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -31699,7 +31699,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_list_secrets_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -31725,7 +31725,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_get_public_key_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/public-key'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/public-key'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -31741,7 +31741,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_get_secret_for_auth.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}'.
     lv_temp = secret_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
@@ -31760,7 +31760,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_create_or_update_se.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}'.
     lv_temp = secret_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
@@ -31785,7 +31785,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_delete_secret_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}'.
     lv_temp = secret_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
@@ -31802,7 +31802,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_list_repositories_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}/repositories'.
     lv_temp = secret_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
@@ -31829,7 +31829,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_set_repositories_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}/repositories'.
     lv_temp = secret_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
@@ -31854,7 +31854,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_add_repository_for_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -31881,7 +31881,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_remove_repository_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/secrets/{secret_name}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/secrets/{secret_name}/repositories/{repository_id}'.
     lv_temp = repository_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
@@ -31908,7 +31908,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_get_for_authenticat.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -31937,7 +31937,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_update_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -31963,7 +31963,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_delete_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -31991,7 +31991,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_codespace_machines_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}/machines'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}/machines'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -32020,7 +32020,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_start_for_authentic.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}/start'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}/start'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -32058,7 +32058,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~codespaces_stop_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/codespaces/{codespace_name}/stop'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}/stop'.
     lv_temp = codespace_name.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
@@ -32085,7 +32085,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_set_primary_email_visibi.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/email/visibility'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/email/visibility'.
     mi_client->request->set_method( 'PATCH' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_set_primary_email_v( body ) ).
@@ -32112,7 +32112,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_emails_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/emails'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/emails'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32146,7 +32146,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_add_email_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/emails'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/emails'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -32173,7 +32173,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_delete_email_for_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/emails'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/emails'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( body ).
@@ -32197,7 +32197,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_followers_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/followers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/followers'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32229,7 +32229,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_followed_by_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/following'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/following'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32261,7 +32261,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_check_person_is_followed.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/following/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -32288,7 +32288,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_follow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/following/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -32312,7 +32312,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_unfollow.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/following/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/following/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -32336,7 +32336,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_gpg_keys_for_authen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/gpg_keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/gpg_keys'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32370,7 +32370,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_create_gpg_key_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/gpg_keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/gpg_keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_create_gpg_key_for_( body ) ).
@@ -32397,7 +32397,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_get_gpg_key_for_authenti.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/gpg_keys/{gpg_key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
@@ -32424,7 +32424,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_delete_gpg_key_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/gpg_keys/{gpg_key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/gpg_keys/{gpg_key_id}'.
     lv_temp = gpg_key_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{gpg_key_id}' IN lv_uri WITH lv_temp.
@@ -32450,7 +32450,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_installations_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/installations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/installations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32484,7 +32484,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_installation_repos_f.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/installations/{installation_id}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/installations/{installation_id}/repositories'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -32519,7 +32519,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_add_repo_to_installation_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/installations/{installation_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -32544,7 +32544,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_remove_repo_from_installa.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/installations/{installation_id}/repositories/{repository_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/installations/{installation_id}/repositories/{repository_id}'.
     lv_temp = installation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{installation_id}' IN lv_uri WITH lv_temp.
@@ -32569,7 +32569,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_get_restriction02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/interaction-limits'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -32584,7 +32584,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_set_restriction02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/interaction-limits'.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
 * todo, set body, #/components/schemas/interaction-limit
@@ -32603,7 +32603,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~interactions_remove_restrict02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/interaction-limits'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/interaction-limits'.
     mi_client->request->set_method( 'DELETE' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -32616,7 +32616,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~issues_list_for_authenticated_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/issues'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/issues'.
     IF filter IS SUPPLIED.
       mi_client->request->set_form_field( name = 'filter' value = filter ).
     ENDIF.
@@ -32664,7 +32664,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_public_ssh_keys_for.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/keys'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32698,7 +32698,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_create_public_ssh_key_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/keys'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_users_create_public_ssh_k( body ) ).
@@ -32725,7 +32725,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_get_public_ssh_key_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/keys/{key_id}'.
     lv_temp = key_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
@@ -32752,7 +32752,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_delete_public_ssh_key_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/keys/{key_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/keys/{key_id}'.
     lv_temp = key_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{key_id}' IN lv_uri WITH lv_temp.
@@ -32776,7 +32776,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_subscriptions_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/marketplace_purchases'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/marketplace_purchases'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32808,7 +32808,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_list_subscriptions_for_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/marketplace_purchases/stubbed'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/marketplace_purchases/stubbed'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32838,7 +32838,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_memberships_for_auth.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/memberships/orgs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/memberships/orgs'.
     IF state IS SUPPLIED.
       mi_client->request->set_form_field( name = 'state' value = state ).
     ENDIF.
@@ -32875,7 +32875,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_get_membership_for_authen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/memberships/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/memberships/orgs/{org}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -32898,7 +32898,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_update_membership_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/memberships/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/memberships/orgs/{org}'.
     lv_temp = org.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
@@ -32924,7 +32924,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_list_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -32956,7 +32956,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_start_for_authentic.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_migrations_start_for_auth( body ) ).
@@ -32981,7 +32981,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_status_for_auth.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations/{migration_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations/{migration_id}'.
     lv_temp = migration_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
@@ -33013,7 +33013,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_get_archive_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations/{migration_id}/archive'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations/{migration_id}/archive'.
     lv_temp = migration_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
@@ -33036,7 +33036,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_delete_archive_fo01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations/{migration_id}/archive'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations/{migration_id}/archive'.
     lv_temp = migration_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
@@ -33060,7 +33060,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_unlock_repo_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations/{migration_id}/repos/{repo_name}/lock'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations/{migration_id}/repos/{repo_name}/lock'.
     lv_temp = migration_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
@@ -33087,7 +33087,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~migrations_list_repos_for_auth.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/migrations/{migration_id}/repositories'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/migrations/{migration_id}/repositories'.
     lv_temp = migration_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
@@ -33118,7 +33118,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_for_authenticated_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/orgs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/orgs'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -33150,7 +33150,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_list_packages_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages'.
     mi_client->request->set_form_field( name = 'package_type' value = package_type ).
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
@@ -33170,7 +33170,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33192,7 +33192,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33217,7 +33217,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33245,7 +33245,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_all_package_ver01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}/versions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}/versions'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33286,7 +33286,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_version01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33311,7 +33311,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_vers01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33339,7 +33339,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_ver01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -33367,7 +33367,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_create_for_authentica.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/projects'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_projects_create_for_authe( body ) ).
@@ -33394,7 +33394,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_public_emails_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/public_emails'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/public_emails'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -33428,7 +33428,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_for_authenticated_u.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/repos'.
     IF visibility IS SUPPLIED.
       mi_client->request->set_form_field( name = 'visibility' value = visibility ).
     ENDIF.
@@ -33483,7 +33483,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_create_for_authenticated.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/repos'.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     mi_client->request->set_cdata( json_repos_create_for_authenti( body ) ).
@@ -33512,7 +33512,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_invitations_for_aut.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/repository_invitations'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/repository_invitations'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -33546,7 +33546,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_accept_invitation_for_au.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/repository_invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
@@ -33570,7 +33570,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_decline_invitation_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/repository_invitations/{invitation_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/repository_invitations/{invitation_id}'.
     lv_temp = invitation_id.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{invitation_id}' IN lv_uri WITH lv_temp.
@@ -33594,7 +33594,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_repos_starred_by.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/starred'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/starred'.
     IF sort IS SUPPLIED.
       mi_client->request->set_form_field( name = 'sort' value = sort ).
     ENDIF.
@@ -33632,7 +33632,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_check_repo_is_starred.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/starred/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -33662,7 +33662,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_star_repo_for_authent.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/starred/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -33689,7 +33689,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_unstar_repo_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/starred/{owner}/{repo}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/starred/{owner}/{repo}'.
     lv_temp = owner.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
@@ -33716,7 +33716,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_watched_repos_fo.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/subscriptions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/subscriptions'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -33748,7 +33748,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~teams_list_for_authenticated_u.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/user/teams'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/teams'.
     lv_temp = per_page.
     CONDENSE lv_temp.
     IF per_page IS SUPPLIED.
@@ -33780,7 +33780,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users'.
     lv_temp = since.
     CONDENSE lv_temp.
     IF since IS SUPPLIED.
@@ -33808,7 +33808,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_get_by_username.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33827,7 +33827,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_events_for_authe.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/events'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33856,7 +33856,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_org_events_for_a.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/events/orgs/{org}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/events/orgs/{org}'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33888,7 +33888,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_public_events_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/events/public'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/events/public'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33917,7 +33917,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_followers_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/followers'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/followers'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33946,7 +33946,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_following_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/following'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/following'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -33975,7 +33975,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_check_following_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/following/{target_user}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/following/{target_user}'.
     lv_temp = target_user.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{target_user}' IN lv_uri WITH lv_temp.
@@ -33996,7 +33996,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~gists_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/gists'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/gists'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34030,7 +34030,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_gpg_keys_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/gpg_keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/gpg_keys'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34059,7 +34059,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_get_context_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/hovercard'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/hovercard'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34088,7 +34088,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~apps_get_user_installation.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/installation'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/installation'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34107,7 +34107,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~users_list_public_keys_for_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/keys'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/keys'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34136,7 +34136,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~orgs_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/orgs'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/orgs'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34165,7 +34165,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_list_packages_for_use.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34192,7 +34192,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34217,7 +34217,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_for_us.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34245,7 +34245,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_for_u.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34276,7 +34276,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_all_package_ver02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}/versions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}/versions'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34307,7 +34307,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_get_package_version02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34335,7 +34335,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_delete_package_vers02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34366,7 +34366,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~packages_restore_package_ver02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore'.
     lv_temp = package_type.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{package_type}' IN lv_uri WITH lv_temp.
@@ -34397,7 +34397,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~projects_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/projects'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/projects'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34431,7 +34431,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_received_events_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/received_events'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/received_events'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34460,7 +34460,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_received_public_.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/received_events/public'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/received_events/public'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34489,7 +34489,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~repos_list_for_user.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/repos'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/repos'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34527,7 +34527,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_actions_b02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/settings/billing/actions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/settings/billing/actions'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34546,7 +34546,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_github_packages_02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/settings/billing/packages'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/settings/billing/packages'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34565,7 +34565,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~billing_get_shared_storage_b02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/settings/billing/shared-storage'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/settings/billing/shared-storage'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34584,7 +34584,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_repos_starred_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/starred'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/starred'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34617,7 +34617,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~activity_list_repos_watched_by.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/users/{username}/subscriptions'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/users/{username}/subscriptions'.
     lv_temp = username.
     lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
     REPLACE ALL OCCURRENCES OF '{username}' IN lv_uri WITH lv_temp.
@@ -34646,7 +34646,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD zif_githubcom~meta_get_zen.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/zen'.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/zen'.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
