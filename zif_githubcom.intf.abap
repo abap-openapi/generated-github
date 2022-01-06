@@ -3028,6 +3028,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF code_scanning_alert_rule_summa,
            id TYPE string,
            name TYPE string,
+           tags TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            severity TYPE string,
            description TYPE string,
          END OF code_scanning_alert_rule_summa.

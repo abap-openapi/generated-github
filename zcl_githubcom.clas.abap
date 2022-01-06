@@ -5825,6 +5825,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_code_scanning_alert_rule.
     code_scanning_alert_rule_summa-id = mo_json->value_string( iv_prefix && '/id' ).
     code_scanning_alert_rule_summa-name = mo_json->value_string( iv_prefix && '/name' ).
+* todo, array, tags
     code_scanning_alert_rule_summa-severity = mo_json->value_string( iv_prefix && '/severity' ).
     code_scanning_alert_rule_summa-description = mo_json->value_string( iv_prefix && '/description' ).
   ENDMETHOD.
