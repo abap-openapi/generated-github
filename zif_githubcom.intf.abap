@@ -1544,6 +1544,11 @@ INTERFACE zif_githubcom PUBLIC.
            name TYPE string,
          END OF organization_custom_repository.
 
+* Component schema: external-groups, object
+  TYPES: BEGIN OF external_groups,
+           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF external_groups.
+
 * Component schema: organization-full, object
   TYPES: BEGIN OF suborganization_full_plan,
            name TYPE string,
@@ -1666,6 +1671,21 @@ INTERFACE zif_githubcom PUBLIC.
            authorized_credential_expires_ TYPE string,
          END OF credential_authorization.
 
+* Component schema: organization-dependabot-secret, object
+  TYPES: BEGIN OF organization_dependabot_secret,
+           name TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           visibility TYPE string,
+           selected_repositories_url TYPE string,
+         END OF organization_dependabot_secret.
+
+* Component schema: dependabot-public-key, object
+  TYPES: BEGIN OF dependabot_public_key,
+           key_id TYPE string,
+           key TYPE string,
+         END OF dependabot_public_key.
+
 * Component schema: external-group, object
   TYPES: BEGIN OF external_group,
            group_id TYPE i,
@@ -1674,11 +1694,6 @@ INTERFACE zif_githubcom PUBLIC.
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF external_group.
-
-* Component schema: external-groups, object
-  TYPES: BEGIN OF external_groups,
-           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF external_groups.
 
 * Component schema: organization-invitation, object
   TYPES: BEGIN OF organization_invitation,
@@ -3696,6 +3711,13 @@ INTERFACE zif_githubcom PUBLIC.
            email TYPE string,
            name TYPE string,
          END OF contributor.
+
+* Component schema: dependabot-secret, object
+  TYPES: BEGIN OF dependabot_secret,
+           name TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+         END OF dependabot_secret.
 
 * Component schema: deployment-status, object
   TYPES: BEGIN OF deployment_status,
@@ -6076,6 +6098,27 @@ INTERFACE zif_githubcom PUBLIC.
            selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyactions_set_selected_rep01.
 
+* Component schema: bodydependabot_create_or_updat, object
+  TYPES: BEGIN OF bodydependabot_create_or_updat,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+           visibility TYPE string,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodydependabot_create_or_updat.
+
+* Component schema: bodydependabot_delete_org_secr, object
+  TYPES: BEGIN OF bodydependabot_delete_org_secr,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+           visibility TYPE string,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodydependabot_delete_org_secr.
+
+* Component schema: bodydependabot_set_selected_re, object
+  TYPES: BEGIN OF bodydependabot_set_selected_re,
+           selected_repository_ids TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodydependabot_set_selected_re.
+
 * Component schema: bodyorgs_create_webhook, object
   TYPES: BEGIN OF subbodyorgs_create_webhook_con,
            url TYPE webhook_config_url,
@@ -6761,6 +6804,18 @@ INTERFACE zif_githubcom PUBLIC.
            committer TYPE subbodyrepos_delete_file_commi,
            author TYPE subbodyrepos_delete_file_autho,
          END OF bodyrepos_delete_file.
+
+* Component schema: bodydependabot_create_or_upd01, object
+  TYPES: BEGIN OF bodydependabot_create_or_upd01,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodydependabot_create_or_upd01.
+
+* Component schema: bodydependabot_delete_repo_sec, object
+  TYPES: BEGIN OF bodydependabot_delete_repo_sec,
+           encrypted_value TYPE string,
+           key_id TYPE string,
+         END OF bodydependabot_delete_repo_sec.
 
 * Component schema: bodyrepos_create_deployment, object
   TYPES: BEGIN OF bodyrepos_create_deployment,
@@ -7809,6 +7864,18 @@ INTERFACE zif_githubcom PUBLIC.
 * Component schema: response_orgs_list_saml_sso_authorizati, array
   TYPES response_orgs_list_saml_sso_au TYPE STANDARD TABLE OF credential_authorization WITH DEFAULT KEY.
 
+* Component schema: response_dependabot_list_org_secrets, object
+  TYPES: BEGIN OF response_dependabot_list_org_s,
+           total_count TYPE i,
+           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_dependabot_list_org_s.
+
+* Component schema: response_dependabot_list_selected_repos, object
+  TYPES: BEGIN OF response_dependabot_list_selec,
+           total_count TYPE i,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_dependabot_list_selec.
+
 * Component schema: response_activity_list_public_org_event, array
   TYPES response_activity_list_publi02 TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
 
@@ -8193,6 +8260,17 @@ INTERFACE zif_githubcom PUBLIC.
 
 * Component schema: response_repos_list_contributors, array
   TYPES response_repos_list_contributo TYPE STANDARD TABLE OF contributor WITH DEFAULT KEY.
+
+* Component schema: response_dependabot_list_repo_secrets, object
+  TYPES: BEGIN OF response_dependabot_list_repo_,
+           total_count TYPE i,
+           secrets TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_dependabot_list_repo_.
+
+* Component schema: response_dependabot_create_or_update_re, object
+  TYPES: BEGIN OF response_dependabot_create_or_,
+           dummy_workaround TYPE i,
+         END OF response_dependabot_create_or_.
 
 * Component schema: response_repos_list_deployments, array
   TYPES response_repos_list_deployment TYPE STANDARD TABLE OF deployment WITH DEFAULT KEY.
@@ -10162,6 +10240,20 @@ INTERFACE zif_githubcom PUBLIC.
       VALUE(return_data) TYPE response_orgs_list_custom_role
     RAISING cx_static_check.
 
+* GET - "List a connection between an external group and a team"
+* Operation id: teams/list-linked-external-idp-groups-to-team-for-org
+* Parameter: org, required, path
+* Parameter: team_slug, required, path
+* Response: 200
+*     application/json, #/components/schemas/external-groups
+  METHODS teams_list_linked_external_idp
+    IMPORTING
+      org TYPE string
+      team_slug TYPE string
+    RETURNING
+      VALUE(return_data) TYPE external_groups
+    RAISING cx_static_check.
+
 * GET - "Get an organization"
 * Operation id: orgs/get
 * Parameter: org, required, path
@@ -10848,6 +10940,137 @@ INTERFACE zif_githubcom PUBLIC.
     IMPORTING
       credential_id TYPE i
       org TYPE string
+    RAISING cx_static_check.
+
+* GET - "List organization secrets"
+* Operation id: dependabot/list-org-secrets
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_dependabot_list_org_secrets
+  METHODS dependabot_list_org_secrets
+    IMPORTING
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_dependabot_list_org_s
+    RAISING cx_static_check.
+
+* GET - "Get an organization public key"
+* Operation id: dependabot/get-org-public-key
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/dependabot-public-key
+  METHODS dependabot_get_org_public_key
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE dependabot_public_key
+    RAISING cx_static_check.
+
+* GET - "Get an organization secret"
+* Operation id: dependabot/get-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/organization-dependabot-secret
+  METHODS dependabot_get_org_secret
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE organization_dependabot_secret
+    RAISING cx_static_check.
+
+* PUT - "Create or update an organization secret"
+* Operation id: dependabot/create-or-update-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 201
+*     application/json, #/components/schemas/empty-object
+* Response: 204
+* Body ref: #/components/schemas/bodydependabot_create_or_updat
+  METHODS dependabot_create_or_update_or
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodydependabot_create_or_updat
+    RETURNING
+      VALUE(return_data) TYPE empty_object
+    RAISING cx_static_check.
+
+* DELETE - "Delete an organization secret"
+* Operation id: dependabot/delete-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodydependabot_delete_org_secr
+  METHODS dependabot_delete_org_secret
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodydependabot_delete_org_secr
+    RAISING cx_static_check.
+
+* GET - "List selected repositories for an organization secret"
+* Operation id: dependabot/list-selected-repos-for-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Parameter: page, optional, query
+* Parameter: per_page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_dependabot_list_selected_repos
+  METHODS dependabot_list_selected_repos
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      page TYPE i DEFAULT 1
+      per_page TYPE i DEFAULT 30
+    RETURNING
+      VALUE(return_data) TYPE response_dependabot_list_selec
+    RAISING cx_static_check.
+
+* PUT - "Set selected repositories for an organization secret"
+* Operation id: dependabot/set-selected-repos-for-org-secret
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodydependabot_set_selected_re
+  METHODS dependabot_set_selected_repos_
+    IMPORTING
+      org TYPE string
+      secret_name TYPE string
+      body TYPE bodydependabot_set_selected_re
+    RAISING cx_static_check.
+
+* PUT - "Add selected repository to an organization secret"
+* Operation id: dependabot/add-selected-repo-to-org-secret
+* Parameter: repository_id, required, path
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Response: 409
+  METHODS dependabot_add_selected_repo_t
+    IMPORTING
+      repository_id TYPE i
+      org TYPE string
+      secret_name TYPE string
+    RAISING cx_static_check.
+
+* DELETE - "Remove selected repository from an organization secret"
+* Operation id: dependabot/remove-selected-repo-from-org-secret
+* Parameter: repository_id, required, path
+* Parameter: org, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Response: 409
+  METHODS dependabot_remove_selected_rep
+    IMPORTING
+      repository_id TYPE i
+      org TYPE string
+      secret_name TYPE string
     RAISING cx_static_check.
 
 * GET - "List public organization events"
@@ -15550,6 +15773,88 @@ INTERFACE zif_githubcom PUBLIC.
       page TYPE i DEFAULT 1
     RETURNING
       VALUE(return_data) TYPE response_repos_list_contributo
+    RAISING cx_static_check.
+
+* GET - "List repository secrets"
+* Operation id: dependabot/list-repo-secrets
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_dependabot_list_repo_secrets
+  METHODS dependabot_list_repo_secrets
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_dependabot_list_repo_
+    RAISING cx_static_check.
+
+* GET - "Get a repository public key"
+* Operation id: dependabot/get-repo-public-key
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/dependabot-public-key
+  METHODS dependabot_get_repo_public_key
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE dependabot_public_key
+    RAISING cx_static_check.
+
+* GET - "Get a repository secret"
+* Operation id: dependabot/get-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/dependabot-secret
+  METHODS dependabot_get_repo_secret
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE dependabot_secret
+    RAISING cx_static_check.
+
+* PUT - "Create or update a repository secret"
+* Operation id: dependabot/create-or-update-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 201
+*     application/json, #/components/schemas/response_dependabot_create_or_update_re
+* Response: 204
+* Body ref: #/components/schemas/bodydependabot_create_or_upd01
+  METHODS dependabot_create_or_update_re
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+      body TYPE bodydependabot_create_or_upd01
+    RETURNING
+      VALUE(return_data) TYPE response_dependabot_create_or_
+    RAISING cx_static_check.
+
+* DELETE - "Delete a repository secret"
+* Operation id: dependabot/delete-repo-secret
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: secret_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodydependabot_delete_repo_sec
+  METHODS dependabot_delete_repo_secret
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      secret_name TYPE string
+      body TYPE bodydependabot_delete_repo_sec
     RAISING cx_static_check.
 
 * GET - "List deployments"

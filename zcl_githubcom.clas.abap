@@ -284,6 +284,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(organization_custom_repository) TYPE zif_githubcom=>organization_custom_repository
       RAISING cx_static_check.
+    METHODS parse_external_groups
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(external_groups) TYPE zif_githubcom=>external_groups
+      RAISING cx_static_check.
     METHODS parse_organization_full
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(organization_full) TYPE zif_githubcom=>organization_full
@@ -316,13 +320,17 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(credential_authorization) TYPE zif_githubcom=>credential_authorization
       RAISING cx_static_check.
+    METHODS parse_organization_dependabot_
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_dependabot_secret) TYPE zif_githubcom=>organization_dependabot_secret
+      RAISING cx_static_check.
+    METHODS parse_dependabot_public_key
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(dependabot_public_key) TYPE zif_githubcom=>dependabot_public_key
+      RAISING cx_static_check.
     METHODS parse_external_group
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(external_group) TYPE zif_githubcom=>external_group
-      RAISING cx_static_check.
-    METHODS parse_external_groups
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(external_groups) TYPE zif_githubcom=>external_groups
       RAISING cx_static_check.
     METHODS parse_organization_invitation
       IMPORTING iv_prefix TYPE string
@@ -839,6 +847,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_contributor
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(contributor) TYPE zif_githubcom=>contributor
+      RAISING cx_static_check.
+    METHODS parse_dependabot_secret
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(dependabot_secret) TYPE zif_githubcom=>dependabot_secret
       RAISING cx_static_check.
     METHODS parse_deployment_status
       IMPORTING iv_prefix TYPE string
@@ -1448,6 +1460,18 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubcom=>bodyactions_set_selected_rep01
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_dependabot_create_or_upda
+      IMPORTING data TYPE zif_githubcom=>bodydependabot_create_or_updat
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_dependabot_delete_org_sec
+      IMPORTING data TYPE zif_githubcom=>bodydependabot_delete_org_secr
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_dependabot_set_selected_r
+      IMPORTING data TYPE zif_githubcom=>bodydependabot_set_selected_re
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_orgs_create_webhook
       IMPORTING data TYPE zif_githubcom=>bodyorgs_create_webhook
       RETURNING VALUE(json) TYPE string
@@ -1742,6 +1766,14 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_delete_file
       IMPORTING data TYPE zif_githubcom=>bodyrepos_delete_file
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_dependabot_create_or_up01
+      IMPORTING data TYPE zif_githubcom=>bodydependabot_create_or_upd01
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_dependabot_delete_repo_se
+      IMPORTING data TYPE zif_githubcom=>bodydependabot_delete_repo_sec
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_deployment
@@ -2348,6 +2380,14 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_saml_sso_au) TYPE zif_githubcom=>response_orgs_list_saml_sso_au
       RAISING cx_static_check.
+    METHODS parse_dependabot_list_org_secr
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_dependabot_list_org_s) TYPE zif_githubcom=>response_dependabot_list_org_s
+      RAISING cx_static_check.
+    METHODS parse_dependabot_list_selected
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_dependabot_list_selec) TYPE zif_githubcom=>response_dependabot_list_selec
+      RAISING cx_static_check.
     METHODS parse_activity_list_public_org
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_activity_list_publi02) TYPE zif_githubcom=>response_activity_list_publi02
@@ -2735,6 +2775,14 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_repos_list_contributors
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_contributo) TYPE zif_githubcom=>response_repos_list_contributo
+      RAISING cx_static_check.
+    METHODS parse_dependabot_list_repo_sec
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_dependabot_list_repo_) TYPE zif_githubcom=>response_dependabot_list_repo_
+      RAISING cx_static_check.
+    METHODS parse_dependabot_create_or_upd
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_dependabot_create_or_) TYPE zif_githubcom=>response_dependabot_create_or_
       RAISING cx_static_check.
     METHODS parse_repos_list_deployments
       IMPORTING iv_prefix TYPE string
@@ -4564,6 +4612,10 @@ CLASS zcl_githubcom IMPLEMENTATION.
     organization_custom_repository-name = mo_json->value_string( iv_prefix && '/name' ).
   ENDMETHOD.
 
+  METHOD parse_external_groups.
+* todo, array, groups
+  ENDMETHOD.
+
   METHOD parse_organization_full.
     organization_full-login = mo_json->value_string( iv_prefix && '/login' ).
     organization_full-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -4676,16 +4728,25 @@ CLASS zcl_githubcom IMPLEMENTATION.
     credential_authorization-authorized_credential_expires_ = mo_json->value_string( iv_prefix && '/authorized_credential_expires_at' ).
   ENDMETHOD.
 
+  METHOD parse_organization_dependabot_.
+    organization_dependabot_secret-name = mo_json->value_string( iv_prefix && '/name' ).
+    organization_dependabot_secret-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    organization_dependabot_secret-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    organization_dependabot_secret-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    organization_dependabot_secret-selected_repositories_url = mo_json->value_string( iv_prefix && '/selected_repositories_url' ).
+  ENDMETHOD.
+
+  METHOD parse_dependabot_public_key.
+    dependabot_public_key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
+    dependabot_public_key-key = mo_json->value_string( iv_prefix && '/key' ).
+  ENDMETHOD.
+
   METHOD parse_external_group.
     external_group-group_id = mo_json->value_string( iv_prefix && '/group_id' ).
     external_group-group_name = mo_json->value_string( iv_prefix && '/group_name' ).
     external_group-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
 * todo, array, teams
 * todo, array, members
-  ENDMETHOD.
-
-  METHOD parse_external_groups.
-* todo, array, groups
   ENDMETHOD.
 
   METHOD parse_organization_invitation.
@@ -6407,6 +6468,12 @@ CLASS zcl_githubcom IMPLEMENTATION.
     contributor-contributions = mo_json->value_string( iv_prefix && '/contributions' ).
     contributor-email = mo_json->value_string( iv_prefix && '/email' ).
     contributor-name = mo_json->value_string( iv_prefix && '/name' ).
+  ENDMETHOD.
+
+  METHOD parse_dependabot_secret.
+    dependabot_secret-name = mo_json->value_string( iv_prefix && '/name' ).
+    dependabot_secret-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    dependabot_secret-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
   ENDMETHOD.
 
   METHOD parse_deployment_status.
@@ -8637,6 +8704,16 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_dependabot_list_org_secr.
+    response_dependabot_list_org_s-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, secrets
+  ENDMETHOD.
+
+  METHOD parse_dependabot_list_selected.
+    response_dependabot_list_selec-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, repositories
+  ENDMETHOD.
+
   METHOD parse_activity_list_public_org.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -9544,6 +9621,14 @@ CLASS zcl_githubcom IMPLEMENTATION.
       contributor = parse_contributor( iv_prefix && '/' && lv_member ).
       APPEND contributor TO response_repos_list_contributo.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_dependabot_list_repo_sec.
+    response_dependabot_list_repo_-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, secrets
+  ENDMETHOD.
+
+  METHOD parse_dependabot_create_or_upd.
   ENDMETHOD.
 
   METHOD parse_repos_list_deployments.
@@ -11179,6 +11264,33 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
+  METHOD json_dependabot_create_or_upda.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_dependabot_delete_org_sec.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = json && |"visibility": "{ data-visibility }",|.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_dependabot_set_selected_r.
+    json = json && '{'.
+*  json = json && '"selected_repository_ids":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
   METHOD json_orgs_create_webhook.
     json = json && '{'.
     json = json && |"name": "{ data-name }",|.
@@ -12146,6 +12258,22 @@ CLASS zcl_githubcom IMPLEMENTATION.
     json = json && |"branch": "{ data-branch }",|.
 *  json = json && '"committer":' not simple
 *  json = json && '"author":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_dependabot_create_or_up01.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_dependabot_delete_repo_se.
+    json = json && '{'.
+    json = json && |"encrypted_value": "{ data-encrypted_value }",|.
+    json = json && |"key_id": "{ data-key_id }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -16003,6 +16131,28 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubcom~teams_list_linked_external_idp.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/organizations/{org}/team/{team_slug}/external-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/external-groups
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_external_groups( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubcom~orgs_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -17129,6 +17279,220 @@ CLASS zcl_githubcom IMPLEMENTATION.
     CASE lv_code.
       WHEN 204. " Response
       WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_list_org_secrets.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_dependabot_list_org_secrets
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_list_org_secr( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_get_org_public_key.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/public-key'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/dependabot-public-key
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_public_key( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_get_org_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/organization-dependabot-secret
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_organization_dependabot_( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_create_or_update_or.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_dependabot_create_or_upda( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response when creating a secret
+" application/json,#/components/schemas/empty-object
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_empty_object( '' ).
+      WHEN 204. " Response when updating a secret
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_delete_org_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_dependabot_delete_org_sec( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_list_selected_repos.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}/repositories'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_dependabot_list_selected_repos
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_list_selected( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_set_selected_repos_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}/repositories'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_dependabot_set_selected_r( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_add_selected_repo_t.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}'.
+    lv_temp = repository_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " No Content when repository was added to the selected list
+      WHEN 409. " Conflict when visibility type is not set to selected
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_remove_selected_rep.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}'.
+    lv_temp = repository_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repository_id}' IN lv_uri WITH lv_temp.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response when repository was removed from the selected list
+      WHEN 409. " Conflict when visibility type not set to selected
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24841,6 +25205,135 @@ CLASS zcl_githubcom IMPLEMENTATION.
 " todo, raise
       WHEN 404. " 
 " todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_list_repo_secrets.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dependabot/secrets'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_dependabot_list_repo_secrets
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_list_repo_sec( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_get_repo_public_key.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dependabot/secrets/public-key'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/dependabot-public-key
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_public_key( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_get_repo_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dependabot/secrets/{secret_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/dependabot-secret
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_secret( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_create_or_update_re.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dependabot/secrets/{secret_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_dependabot_create_or_up01( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response when creating a secret
+" application/json,#/components/schemas/response_dependabot_create_or_update_re
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_dependabot_create_or_upd( '' ).
+      WHEN 204. " Response when updating a secret
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~dependabot_delete_repo_secret.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/dependabot/secrets/{secret_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = secret_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{secret_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_dependabot_delete_repo_se( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
     ENDCASE.
   ENDMETHOD.
 

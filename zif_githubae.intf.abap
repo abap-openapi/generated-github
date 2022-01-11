@@ -1495,6 +1495,11 @@ INTERFACE zif_githubae PUBLIC.
            repository_url TYPE string,
          END OF thread_subscription.
 
+* Component schema: external-groups, object
+  TYPES: BEGIN OF external_groups,
+           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF external_groups.
+
 * Component schema: organization-full, object
   TYPES: BEGIN OF suborganization_full_plan,
            name TYPE string,
@@ -1609,11 +1614,6 @@ INTERFACE zif_githubae PUBLIC.
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF external_group.
-
-* Component schema: external-groups, object
-  TYPES: BEGIN OF external_groups,
-           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF external_groups.
 
 * Component schema: org-hook, object
   TYPES: BEGIN OF suborg_hook_config,
@@ -9038,6 +9038,20 @@ INTERFACE zif_githubae PUBLIC.
       per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE response_orgs_list
+    RAISING cx_static_check.
+
+* GET - "List a connection between an external group and a team"
+* Operation id: teams/list-linked-external-idp-groups-to-team-for-org
+* Parameter: org, required, path
+* Parameter: team_slug, required, path
+* Response: 200
+*     application/json, #/components/schemas/external-groups
+  METHODS teams_list_linked_external_idp
+    IMPORTING
+      org TYPE string
+      team_slug TYPE string
+    RETURNING
+      VALUE(return_data) TYPE external_groups
     RAISING cx_static_check.
 
 * GET - "Get an organization"

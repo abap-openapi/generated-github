@@ -300,6 +300,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(thread_subscription) TYPE zif_githubae=>thread_subscription
       RAISING cx_static_check.
+    METHODS parse_external_groups
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(external_groups) TYPE zif_githubae=>external_groups
+      RAISING cx_static_check.
     METHODS parse_organization_full
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(organization_full) TYPE zif_githubae=>organization_full
@@ -331,10 +335,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_external_group
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(external_group) TYPE zif_githubae=>external_group
-      RAISING cx_static_check.
-    METHODS parse_external_groups
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(external_groups) TYPE zif_githubae=>external_groups
       RAISING cx_static_check.
     METHODS parse_org_hook
       IMPORTING iv_prefix TYPE string
@@ -4011,6 +4011,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     thread_subscription-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
   ENDMETHOD.
 
+  METHOD parse_external_groups.
+* todo, array, groups
+  ENDMETHOD.
+
   METHOD parse_organization_full.
     organization_full-login = mo_json->value_string( iv_prefix && '/login' ).
     organization_full-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -4114,10 +4118,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     external_group-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
 * todo, array, teams
 * todo, array, members
-  ENDMETHOD.
-
-  METHOD parse_external_groups.
-* todo, array, groups
   ENDMETHOD.
 
   METHOD parse_org_hook.
@@ -13928,6 +13928,28 @@ CLASS zcl_githubae IMPLEMENTATION.
         return_data = parse_orgs_list( '' ).
       WHEN 304. " 
 " todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~teams_list_linked_external_idp.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/organizations/{org}/team/{team_slug}/external-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = team_slug.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/external-groups
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_external_groups( '' ).
     ENDCASE.
   ENDMETHOD.
 
