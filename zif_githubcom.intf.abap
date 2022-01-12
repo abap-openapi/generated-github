@@ -10920,12 +10920,18 @@ INTERFACE zif_githubcom PUBLIC.
 
 * GET - "List SAML SSO authorizations for an organization"
 * Operation id: orgs/list-saml-sso-authorizations
+* Parameter: page, optional, query
+* Parameter: login, optional, query
 * Parameter: org, required, path
+* Parameter: per_page, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_orgs_list_saml_sso_authorizati
   METHODS orgs_list_saml_sso_authorizati
     IMPORTING
+      page TYPE i OPTIONAL
+      login TYPE string OPTIONAL
       org TYPE string
+      per_page TYPE i DEFAULT 30
     RETURNING
       VALUE(return_data) TYPE response_orgs_list_saml_sso_au
     RAISING cx_static_check.
