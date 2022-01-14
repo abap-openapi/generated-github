@@ -21561,6 +21561,11 @@ CLASS zcl_githubcom IMPLEMENTATION.
     IF exclude_pull_requests IS SUPPLIED.
       mi_client->request->set_form_field( name = 'exclude_pull_requests' value = lv_temp ).
     ENDIF.
+    lv_temp = check_suite_id.
+    CONDENSE lv_temp.
+    IF check_suite_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'check_suite_id' value = lv_temp ).
+    ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
     lv_code = send_receive( ).
@@ -22293,6 +22298,11 @@ CLASS zcl_githubcom IMPLEMENTATION.
     CONDENSE lv_temp.
     IF exclude_pull_requests IS SUPPLIED.
       mi_client->request->set_form_field( name = 'exclude_pull_requests' value = lv_temp ).
+    ENDIF.
+    lv_temp = check_suite_id.
+    CONDENSE lv_temp.
+    IF check_suite_id IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'check_suite_id' value = lv_temp ).
     ENDIF.
     mi_client->request->set_method( 'GET' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).

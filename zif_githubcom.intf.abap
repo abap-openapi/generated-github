@@ -13517,6 +13517,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: page, optional, query
 * Parameter: created, optional, query
 * Parameter: exclude_pull_requests, optional, query
+* Parameter: check_suite_id, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_actions_list_workflow_runs_for
   METHODS actions_list_workflow_runs_for
@@ -13531,6 +13532,7 @@ INTERFACE zif_githubcom PUBLIC.
       page TYPE i DEFAULT 1
       created TYPE string OPTIONAL
       exclude_pull_requests TYPE abap_bool DEFAULT abap_false
+      check_suite_id TYPE i OPTIONAL
     RETURNING
       VALUE(return_data) TYPE response_actions_list_workflow
     RAISING cx_static_check.
@@ -13960,6 +13962,7 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: page, optional, query
 * Parameter: created, optional, query
 * Parameter: exclude_pull_requests, optional, query
+* Parameter: check_suite_id, optional, query
 * Response: 200
 *     application/json, #/components/schemas/response_actions_list_workflow_runs
   METHODS actions_list_workflow_runs
@@ -13975,6 +13978,7 @@ INTERFACE zif_githubcom PUBLIC.
       page TYPE i DEFAULT 1
       created TYPE string OPTIONAL
       exclude_pull_requests TYPE abap_bool DEFAULT abap_false
+      check_suite_id TYPE i OPTIONAL
     RETURNING
       VALUE(return_data) TYPE response_actions_list_workfl02
     RAISING cx_static_check.
