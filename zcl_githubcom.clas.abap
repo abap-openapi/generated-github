@@ -152,6 +152,42 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(audit_log_event) TYPE zif_githubcom=>audit_log_event
       RAISING cx_static_check.
+    METHODS parse_alert_number
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_number) TYPE zif_githubcom=>alert_number
+      RAISING cx_static_check.
+    METHODS parse_alert_created_at
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_created_at) TYPE zif_githubcom=>alert_created_at
+      RAISING cx_static_check.
+    METHODS parse_alert_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_url) TYPE zif_githubcom=>alert_url
+      RAISING cx_static_check.
+    METHODS parse_alert_html_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_html_url) TYPE zif_githubcom=>alert_html_url
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_alert_st
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_alert_state) TYPE zif_githubcom=>secret_scanning_alert_state
+      RAISING cx_static_check.
+    METHODS parse_secret_scanning_alert_re
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(secret_scanning_alert_resoluti) TYPE zif_githubcom=>secret_scanning_alert_resoluti
+      RAISING cx_static_check.
+    METHODS parse_nullable_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(nullable_repository) TYPE zif_githubcom=>nullable_repository
+      RAISING cx_static_check.
+    METHODS parse_minimal_repository
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(minimal_repository) TYPE zif_githubcom=>minimal_repository
+      RAISING cx_static_check.
+    METHODS parse_organization_secret_scan
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(organization_secret_scanning_a) TYPE zif_githubcom=>organization_secret_scanning_a
+      RAISING cx_static_check.
     METHODS parse_actions_billing_usage
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actions_billing_usage) TYPE zif_githubcom=>actions_billing_usage
@@ -263,14 +299,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_api_overview
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(api_overview) TYPE zif_githubcom=>api_overview
-      RAISING cx_static_check.
-    METHODS parse_nullable_repository
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(nullable_repository) TYPE zif_githubcom=>nullable_repository
-      RAISING cx_static_check.
-    METHODS parse_minimal_repository
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(minimal_repository) TYPE zif_githubcom=>minimal_repository
       RAISING cx_static_check.
     METHODS parse_thread
       IMPORTING iv_prefix TYPE string
@@ -387,34 +415,6 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
     METHODS parse_project
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(project) TYPE zif_githubcom=>project
-      RAISING cx_static_check.
-    METHODS parse_alert_number
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_number) TYPE zif_githubcom=>alert_number
-      RAISING cx_static_check.
-    METHODS parse_alert_created_at
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_created_at) TYPE zif_githubcom=>alert_created_at
-      RAISING cx_static_check.
-    METHODS parse_alert_url
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_url) TYPE zif_githubcom=>alert_url
-      RAISING cx_static_check.
-    METHODS parse_alert_html_url
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_html_url) TYPE zif_githubcom=>alert_html_url
-      RAISING cx_static_check.
-    METHODS parse_secret_scanning_alert_st
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(secret_scanning_alert_state) TYPE zif_githubcom=>secret_scanning_alert_state
-      RAISING cx_static_check.
-    METHODS parse_secret_scanning_alert_re
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(secret_scanning_alert_resoluti) TYPE zif_githubcom=>secret_scanning_alert_resoluti
-      RAISING cx_static_check.
-    METHODS parse_organization_secret_scan
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(organization_secret_scanning_a) TYPE zif_githubcom=>organization_secret_scanning_a
       RAISING cx_static_check.
     METHODS parse_group_mapping
       IMPORTING iv_prefix TYPE string
@@ -2252,6 +2252,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_enterprise_admin_get_) TYPE zif_githubcom=>response_enterprise_admin_get_
       RAISING cx_static_check.
+    METHODS parse_secret_scanning_list_ale
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_secret_scanning_list_) TYPE zif_githubcom=>response_secret_scanning_list_
+      RAISING cx_static_check.
     METHODS parse_activity_list_public_eve
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_activity_list_public_) TYPE zif_githubcom=>response_activity_list_public_
@@ -2464,9 +2468,9 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_for_org) TYPE zif_githubcom=>response_repos_list_for_org
       RAISING cx_static_check.
-    METHODS parse_secret_scanning_list_ale
+    METHODS parse_secret_scanning_list_a01
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_secret_scanning_list_) TYPE zif_githubcom=>response_secret_scanning_list_
+      RETURNING VALUE(response_secret_scanning_lis01) TYPE zif_githubcom=>response_secret_scanning_lis01
       RAISING cx_static_check.
     METHODS parse_teams_list
       IMPORTING iv_prefix TYPE string
@@ -2964,13 +2968,13 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_release_as) TYPE zif_githubcom=>response_repos_list_release_as
       RAISING cx_static_check.
-    METHODS parse_secret_scanning_list_a01
+    METHODS parse_secret_scanning_list_a02
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_secret_scanning_lis01) TYPE zif_githubcom=>response_secret_scanning_lis01
+      RETURNING VALUE(response_secret_scanning_lis02) TYPE zif_githubcom=>response_secret_scanning_lis02
       RAISING cx_static_check.
     METHODS parse_secret_scanning_list_loc
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_secret_scanning_lis02) TYPE zif_githubcom=>response_secret_scanning_lis02
+      RETURNING VALUE(response_secret_scanning_lis03) TYPE zif_githubcom=>response_secret_scanning_lis03
       RAISING cx_static_check.
     METHODS parse_repos_get_code_frequency
       IMPORTING iv_prefix TYPE string
@@ -3860,6 +3864,340 @@ CLASS zcl_githubcom IMPLEMENTATION.
     audit_log_event-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
   ENDMETHOD.
 
+  METHOD parse_alert_number.
+    alert_number = mo_json->value_integer( iv_prefix && '/' ).
+  ENDMETHOD.
+
+  METHOD parse_alert_created_at.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_html_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_alert_st.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_secret_scanning_alert_re.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_nullable_repository.
+    nullable_repository-id = mo_json->value_string( iv_prefix && '/id' ).
+    nullable_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    nullable_repository-name = mo_json->value_string( iv_prefix && '/name' ).
+    nullable_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
+    nullable_repository-license = parse_nullable_license_simple( iv_prefix ).
+    nullable_repository-organization = parse_nullable_simple_user( iv_prefix ).
+    nullable_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
+    nullable_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
+    nullable_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    nullable_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    nullable_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    nullable_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    nullable_repository-owner = parse_simple_user( iv_prefix ).
+    nullable_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
+    nullable_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    nullable_repository-description = mo_json->value_string( iv_prefix && '/description' ).
+    nullable_repository-fork = mo_json->value_boolean( iv_prefix && '/fork' ).
+    nullable_repository-url = mo_json->value_string( iv_prefix && '/url' ).
+    nullable_repository-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
+    nullable_repository-assignees_url = mo_json->value_string( iv_prefix && '/assignees_url' ).
+    nullable_repository-blobs_url = mo_json->value_string( iv_prefix && '/blobs_url' ).
+    nullable_repository-branches_url = mo_json->value_string( iv_prefix && '/branches_url' ).
+    nullable_repository-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
+    nullable_repository-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
+    nullable_repository-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
+    nullable_repository-compare_url = mo_json->value_string( iv_prefix && '/compare_url' ).
+    nullable_repository-contents_url = mo_json->value_string( iv_prefix && '/contents_url' ).
+    nullable_repository-contributors_url = mo_json->value_string( iv_prefix && '/contributors_url' ).
+    nullable_repository-deployments_url = mo_json->value_string( iv_prefix && '/deployments_url' ).
+    nullable_repository-downloads_url = mo_json->value_string( iv_prefix && '/downloads_url' ).
+    nullable_repository-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    nullable_repository-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
+    nullable_repository-git_commits_url = mo_json->value_string( iv_prefix && '/git_commits_url' ).
+    nullable_repository-git_refs_url = mo_json->value_string( iv_prefix && '/git_refs_url' ).
+    nullable_repository-git_tags_url = mo_json->value_string( iv_prefix && '/git_tags_url' ).
+    nullable_repository-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
+    nullable_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/issue_comment_url' ).
+    nullable_repository-issue_events_url = mo_json->value_string( iv_prefix && '/issue_events_url' ).
+    nullable_repository-issues_url = mo_json->value_string( iv_prefix && '/issues_url' ).
+    nullable_repository-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
+    nullable_repository-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
+    nullable_repository-languages_url = mo_json->value_string( iv_prefix && '/languages_url' ).
+    nullable_repository-merges_url = mo_json->value_string( iv_prefix && '/merges_url' ).
+    nullable_repository-milestones_url = mo_json->value_string( iv_prefix && '/milestones_url' ).
+    nullable_repository-notifications_url = mo_json->value_string( iv_prefix && '/notifications_url' ).
+    nullable_repository-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
+    nullable_repository-releases_url = mo_json->value_string( iv_prefix && '/releases_url' ).
+    nullable_repository-ssh_url = mo_json->value_string( iv_prefix && '/ssh_url' ).
+    nullable_repository-stargazers_url = mo_json->value_string( iv_prefix && '/stargazers_url' ).
+    nullable_repository-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
+    nullable_repository-subscribers_url = mo_json->value_string( iv_prefix && '/subscribers_url' ).
+    nullable_repository-subscription_url = mo_json->value_string( iv_prefix && '/subscription_url' ).
+    nullable_repository-tags_url = mo_json->value_string( iv_prefix && '/tags_url' ).
+    nullable_repository-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
+    nullable_repository-trees_url = mo_json->value_string( iv_prefix && '/trees_url' ).
+    nullable_repository-clone_url = mo_json->value_string( iv_prefix && '/clone_url' ).
+    nullable_repository-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
+    nullable_repository-hooks_url = mo_json->value_string( iv_prefix && '/hooks_url' ).
+    nullable_repository-svn_url = mo_json->value_string( iv_prefix && '/svn_url' ).
+    nullable_repository-homepage = mo_json->value_string( iv_prefix && '/homepage' ).
+    nullable_repository-language = mo_json->value_string( iv_prefix && '/language' ).
+    nullable_repository-forks_count = mo_json->value_string( iv_prefix && '/forks_count' ).
+    nullable_repository-stargazers_count = mo_json->value_string( iv_prefix && '/stargazers_count' ).
+    nullable_repository-watchers_count = mo_json->value_string( iv_prefix && '/watchers_count' ).
+    nullable_repository-size = mo_json->value_string( iv_prefix && '/size' ).
+    nullable_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
+    nullable_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
+    nullable_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
+* todo, array, topics
+    nullable_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
+    nullable_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
+    nullable_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
+    nullable_repository-has_pages = mo_json->value_boolean( iv_prefix && '/has_pages' ).
+    nullable_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
+    nullable_repository-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
+    nullable_repository-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
+    nullable_repository-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    nullable_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
+    nullable_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    nullable_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    nullable_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
+    nullable_repository-template_repository-id = mo_json->value_string( iv_prefix && '/template_repository/id' ).
+    nullable_repository-template_repository-node_id = mo_json->value_string( iv_prefix && '/template_repository/node_id' ).
+    nullable_repository-template_repository-name = mo_json->value_string( iv_prefix && '/template_repository/name' ).
+    nullable_repository-template_repository-full_name = mo_json->value_string( iv_prefix && '/template_repository/full_name' ).
+    nullable_repository-template_repository-owner-login = mo_json->value_string( iv_prefix && '/template_repository/owner/login' ).
+    nullable_repository-template_repository-owner-id = mo_json->value_string( iv_prefix && '/template_repository/owner/id' ).
+    nullable_repository-template_repository-owner-node_id = mo_json->value_string( iv_prefix && '/template_repository/owner/node_id' ).
+    nullable_repository-template_repository-owner-avatar_url = mo_json->value_string( iv_prefix && '/template_repository/owner/avatar_url' ).
+    nullable_repository-template_repository-owner-gravatar_id = mo_json->value_string( iv_prefix && '/template_repository/owner/gravatar_id' ).
+    nullable_repository-template_repository-owner-url = mo_json->value_string( iv_prefix && '/template_repository/owner/url' ).
+    nullable_repository-template_repository-owner-html_url = mo_json->value_string( iv_prefix && '/template_repository/owner/html_url' ).
+    nullable_repository-template_repository-owner-followers_url = mo_json->value_string( iv_prefix && '/template_repository/owner/followers_url' ).
+    nullable_repository-template_repository-owner-following_url = mo_json->value_string( iv_prefix && '/template_repository/owner/following_url' ).
+    nullable_repository-template_repository-owner-gists_url = mo_json->value_string( iv_prefix && '/template_repository/owner/gists_url' ).
+    nullable_repository-template_repository-owner-starred_url = mo_json->value_string( iv_prefix && '/template_repository/owner/starred_url' ).
+    nullable_repository-template_repository-owner-subscriptions_url = mo_json->value_string( iv_prefix && '/template_repository/owner/subscriptions_url' ).
+    nullable_repository-template_repository-owner-organizations_url = mo_json->value_string( iv_prefix && '/template_repository/owner/organizations_url' ).
+    nullable_repository-template_repository-owner-repos_url = mo_json->value_string( iv_prefix && '/template_repository/owner/repos_url' ).
+    nullable_repository-template_repository-owner-events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/events_url' ).
+    nullable_repository-template_repository-owner-received_events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/received_events_url' ).
+    nullable_repository-template_repository-owner-type = mo_json->value_string( iv_prefix && '/template_repository/owner/type' ).
+    nullable_repository-template_repository-owner-site_admin = mo_json->value_boolean( iv_prefix && '/template_repository/owner/site_admin' ).
+    nullable_repository-template_repository-private = mo_json->value_boolean( iv_prefix && '/template_repository/private' ).
+    nullable_repository-template_repository-html_url = mo_json->value_string( iv_prefix && '/template_repository/html_url' ).
+    nullable_repository-template_repository-description = mo_json->value_string( iv_prefix && '/template_repository/description' ).
+    nullable_repository-template_repository-fork = mo_json->value_boolean( iv_prefix && '/template_repository/fork' ).
+    nullable_repository-template_repository-url = mo_json->value_string( iv_prefix && '/template_repository/url' ).
+    nullable_repository-template_repository-archive_url = mo_json->value_string( iv_prefix && '/template_repository/archive_url' ).
+    nullable_repository-template_repository-assignees_url = mo_json->value_string( iv_prefix && '/template_repository/assignees_url' ).
+    nullable_repository-template_repository-blobs_url = mo_json->value_string( iv_prefix && '/template_repository/blobs_url' ).
+    nullable_repository-template_repository-branches_url = mo_json->value_string( iv_prefix && '/template_repository/branches_url' ).
+    nullable_repository-template_repository-collaborators_url = mo_json->value_string( iv_prefix && '/template_repository/collaborators_url' ).
+    nullable_repository-template_repository-comments_url = mo_json->value_string( iv_prefix && '/template_repository/comments_url' ).
+    nullable_repository-template_repository-commits_url = mo_json->value_string( iv_prefix && '/template_repository/commits_url' ).
+    nullable_repository-template_repository-compare_url = mo_json->value_string( iv_prefix && '/template_repository/compare_url' ).
+    nullable_repository-template_repository-contents_url = mo_json->value_string( iv_prefix && '/template_repository/contents_url' ).
+    nullable_repository-template_repository-contributors_url = mo_json->value_string( iv_prefix && '/template_repository/contributors_url' ).
+    nullable_repository-template_repository-deployments_url = mo_json->value_string( iv_prefix && '/template_repository/deployments_url' ).
+    nullable_repository-template_repository-downloads_url = mo_json->value_string( iv_prefix && '/template_repository/downloads_url' ).
+    nullable_repository-template_repository-events_url = mo_json->value_string( iv_prefix && '/template_repository/events_url' ).
+    nullable_repository-template_repository-forks_url = mo_json->value_string( iv_prefix && '/template_repository/forks_url' ).
+    nullable_repository-template_repository-git_commits_url = mo_json->value_string( iv_prefix && '/template_repository/git_commits_url' ).
+    nullable_repository-template_repository-git_refs_url = mo_json->value_string( iv_prefix && '/template_repository/git_refs_url' ).
+    nullable_repository-template_repository-git_tags_url = mo_json->value_string( iv_prefix && '/template_repository/git_tags_url' ).
+    nullable_repository-template_repository-git_url = mo_json->value_string( iv_prefix && '/template_repository/git_url' ).
+    nullable_repository-template_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/template_repository/issue_comment_url' ).
+    nullable_repository-template_repository-issue_events_url = mo_json->value_string( iv_prefix && '/template_repository/issue_events_url' ).
+    nullable_repository-template_repository-issues_url = mo_json->value_string( iv_prefix && '/template_repository/issues_url' ).
+    nullable_repository-template_repository-keys_url = mo_json->value_string( iv_prefix && '/template_repository/keys_url' ).
+    nullable_repository-template_repository-labels_url = mo_json->value_string( iv_prefix && '/template_repository/labels_url' ).
+    nullable_repository-template_repository-languages_url = mo_json->value_string( iv_prefix && '/template_repository/languages_url' ).
+    nullable_repository-template_repository-merges_url = mo_json->value_string( iv_prefix && '/template_repository/merges_url' ).
+    nullable_repository-template_repository-milestones_url = mo_json->value_string( iv_prefix && '/template_repository/milestones_url' ).
+    nullable_repository-template_repository-notifications_url = mo_json->value_string( iv_prefix && '/template_repository/notifications_url' ).
+    nullable_repository-template_repository-pulls_url = mo_json->value_string( iv_prefix && '/template_repository/pulls_url' ).
+    nullable_repository-template_repository-releases_url = mo_json->value_string( iv_prefix && '/template_repository/releases_url' ).
+    nullable_repository-template_repository-ssh_url = mo_json->value_string( iv_prefix && '/template_repository/ssh_url' ).
+    nullable_repository-template_repository-stargazers_url = mo_json->value_string( iv_prefix && '/template_repository/stargazers_url' ).
+    nullable_repository-template_repository-statuses_url = mo_json->value_string( iv_prefix && '/template_repository/statuses_url' ).
+    nullable_repository-template_repository-subscribers_url = mo_json->value_string( iv_prefix && '/template_repository/subscribers_url' ).
+    nullable_repository-template_repository-subscription_url = mo_json->value_string( iv_prefix && '/template_repository/subscription_url' ).
+    nullable_repository-template_repository-tags_url = mo_json->value_string( iv_prefix && '/template_repository/tags_url' ).
+    nullable_repository-template_repository-teams_url = mo_json->value_string( iv_prefix && '/template_repository/teams_url' ).
+    nullable_repository-template_repository-trees_url = mo_json->value_string( iv_prefix && '/template_repository/trees_url' ).
+    nullable_repository-template_repository-clone_url = mo_json->value_string( iv_prefix && '/template_repository/clone_url' ).
+    nullable_repository-template_repository-mirror_url = mo_json->value_string( iv_prefix && '/template_repository/mirror_url' ).
+    nullable_repository-template_repository-hooks_url = mo_json->value_string( iv_prefix && '/template_repository/hooks_url' ).
+    nullable_repository-template_repository-svn_url = mo_json->value_string( iv_prefix && '/template_repository/svn_url' ).
+    nullable_repository-template_repository-homepage = mo_json->value_string( iv_prefix && '/template_repository/homepage' ).
+    nullable_repository-template_repository-language = mo_json->value_string( iv_prefix && '/template_repository/language' ).
+    nullable_repository-template_repository-forks_count = mo_json->value_string( iv_prefix && '/template_repository/forks_count' ).
+    nullable_repository-template_repository-stargazers_count = mo_json->value_string( iv_prefix && '/template_repository/stargazers_count' ).
+    nullable_repository-template_repository-watchers_count = mo_json->value_string( iv_prefix && '/template_repository/watchers_count' ).
+    nullable_repository-template_repository-size = mo_json->value_string( iv_prefix && '/template_repository/size' ).
+    nullable_repository-template_repository-default_branch = mo_json->value_string( iv_prefix && '/template_repository/default_branch' ).
+    nullable_repository-template_repository-open_issues_count = mo_json->value_string( iv_prefix && '/template_repository/open_issues_count' ).
+    nullable_repository-template_repository-is_template = mo_json->value_boolean( iv_prefix && '/template_repository/is_template' ).
+* todo, array, topics
+    nullable_repository-template_repository-has_issues = mo_json->value_boolean( iv_prefix && '/template_repository/has_issues' ).
+    nullable_repository-template_repository-has_projects = mo_json->value_boolean( iv_prefix && '/template_repository/has_projects' ).
+    nullable_repository-template_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/template_repository/has_wiki' ).
+    nullable_repository-template_repository-has_pages = mo_json->value_boolean( iv_prefix && '/template_repository/has_pages' ).
+    nullable_repository-template_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/template_repository/has_downloads' ).
+    nullable_repository-template_repository-archived = mo_json->value_boolean( iv_prefix && '/template_repository/archived' ).
+    nullable_repository-template_repository-disabled = mo_json->value_boolean( iv_prefix && '/template_repository/disabled' ).
+    nullable_repository-template_repository-visibility = mo_json->value_string( iv_prefix && '/template_repository/visibility' ).
+    nullable_repository-template_repository-pushed_at = mo_json->value_string( iv_prefix && '/template_repository/pushed_at' ).
+    nullable_repository-template_repository-created_at = mo_json->value_string( iv_prefix && '/template_repository/created_at' ).
+    nullable_repository-template_repository-updated_at = mo_json->value_string( iv_prefix && '/template_repository/updated_at' ).
+    nullable_repository-template_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/admin' ).
+    nullable_repository-template_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/maintain' ).
+    nullable_repository-template_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/push' ).
+    nullable_repository-template_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/triage' ).
+    nullable_repository-template_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/pull' ).
+    nullable_repository-template_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_rebase_merge' ).
+    nullable_repository-template_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/template_repository/temp_clone_token' ).
+    nullable_repository-template_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_squash_merge' ).
+    nullable_repository-template_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_auto_merge' ).
+    nullable_repository-template_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/template_repository/delete_branch_on_merge' ).
+    nullable_repository-template_repository-allow_update_branch = mo_json->value_boolean( iv_prefix && '/template_repository/allow_update_branch' ).
+    nullable_repository-template_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/template_repository/allow_merge_commit' ).
+    nullable_repository-template_repository-subscribers_count = mo_json->value_string( iv_prefix && '/template_repository/subscribers_count' ).
+    nullable_repository-template_repository-network_count = mo_json->value_string( iv_prefix && '/template_repository/network_count' ).
+    nullable_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
+    nullable_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
+    nullable_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/allow_auto_merge' ).
+    nullable_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
+    nullable_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
+    nullable_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
+    nullable_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
+    nullable_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
+    nullable_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    nullable_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
+    nullable_repository-master_branch = mo_json->value_string( iv_prefix && '/master_branch' ).
+    nullable_repository-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
+  ENDMETHOD.
+
+  METHOD parse_minimal_repository.
+    minimal_repository-id = mo_json->value_string( iv_prefix && '/id' ).
+    minimal_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    minimal_repository-name = mo_json->value_string( iv_prefix && '/name' ).
+    minimal_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
+    minimal_repository-owner = parse_simple_user( iv_prefix ).
+    minimal_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
+    minimal_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    minimal_repository-description = mo_json->value_string( iv_prefix && '/description' ).
+    minimal_repository-fork = mo_json->value_boolean( iv_prefix && '/fork' ).
+    minimal_repository-url = mo_json->value_string( iv_prefix && '/url' ).
+    minimal_repository-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
+    minimal_repository-assignees_url = mo_json->value_string( iv_prefix && '/assignees_url' ).
+    minimal_repository-blobs_url = mo_json->value_string( iv_prefix && '/blobs_url' ).
+    minimal_repository-branches_url = mo_json->value_string( iv_prefix && '/branches_url' ).
+    minimal_repository-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
+    minimal_repository-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
+    minimal_repository-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
+    minimal_repository-compare_url = mo_json->value_string( iv_prefix && '/compare_url' ).
+    minimal_repository-contents_url = mo_json->value_string( iv_prefix && '/contents_url' ).
+    minimal_repository-contributors_url = mo_json->value_string( iv_prefix && '/contributors_url' ).
+    minimal_repository-deployments_url = mo_json->value_string( iv_prefix && '/deployments_url' ).
+    minimal_repository-downloads_url = mo_json->value_string( iv_prefix && '/downloads_url' ).
+    minimal_repository-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
+    minimal_repository-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
+    minimal_repository-git_commits_url = mo_json->value_string( iv_prefix && '/git_commits_url' ).
+    minimal_repository-git_refs_url = mo_json->value_string( iv_prefix && '/git_refs_url' ).
+    minimal_repository-git_tags_url = mo_json->value_string( iv_prefix && '/git_tags_url' ).
+    minimal_repository-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
+    minimal_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/issue_comment_url' ).
+    minimal_repository-issue_events_url = mo_json->value_string( iv_prefix && '/issue_events_url' ).
+    minimal_repository-issues_url = mo_json->value_string( iv_prefix && '/issues_url' ).
+    minimal_repository-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
+    minimal_repository-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
+    minimal_repository-languages_url = mo_json->value_string( iv_prefix && '/languages_url' ).
+    minimal_repository-merges_url = mo_json->value_string( iv_prefix && '/merges_url' ).
+    minimal_repository-milestones_url = mo_json->value_string( iv_prefix && '/milestones_url' ).
+    minimal_repository-notifications_url = mo_json->value_string( iv_prefix && '/notifications_url' ).
+    minimal_repository-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
+    minimal_repository-releases_url = mo_json->value_string( iv_prefix && '/releases_url' ).
+    minimal_repository-ssh_url = mo_json->value_string( iv_prefix && '/ssh_url' ).
+    minimal_repository-stargazers_url = mo_json->value_string( iv_prefix && '/stargazers_url' ).
+    minimal_repository-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
+    minimal_repository-subscribers_url = mo_json->value_string( iv_prefix && '/subscribers_url' ).
+    minimal_repository-subscription_url = mo_json->value_string( iv_prefix && '/subscription_url' ).
+    minimal_repository-tags_url = mo_json->value_string( iv_prefix && '/tags_url' ).
+    minimal_repository-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
+    minimal_repository-trees_url = mo_json->value_string( iv_prefix && '/trees_url' ).
+    minimal_repository-clone_url = mo_json->value_string( iv_prefix && '/clone_url' ).
+    minimal_repository-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
+    minimal_repository-hooks_url = mo_json->value_string( iv_prefix && '/hooks_url' ).
+    minimal_repository-svn_url = mo_json->value_string( iv_prefix && '/svn_url' ).
+    minimal_repository-homepage = mo_json->value_string( iv_prefix && '/homepage' ).
+    minimal_repository-language = mo_json->value_string( iv_prefix && '/language' ).
+    minimal_repository-forks_count = mo_json->value_string( iv_prefix && '/forks_count' ).
+    minimal_repository-stargazers_count = mo_json->value_string( iv_prefix && '/stargazers_count' ).
+    minimal_repository-watchers_count = mo_json->value_string( iv_prefix && '/watchers_count' ).
+    minimal_repository-size = mo_json->value_string( iv_prefix && '/size' ).
+    minimal_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
+    minimal_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
+    minimal_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
+* todo, array, topics
+    minimal_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
+    minimal_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
+    minimal_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
+    minimal_repository-has_pages = mo_json->value_boolean( iv_prefix && '/has_pages' ).
+    minimal_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
+    minimal_repository-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
+    minimal_repository-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
+    minimal_repository-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
+    minimal_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
+    minimal_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    minimal_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    minimal_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
+    minimal_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
+    minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
+    minimal_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
+    minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
+    minimal_repository-role_name = mo_json->value_string( iv_prefix && '/role_name' ).
+    minimal_repository-template_repository = parse_nullable_repository( iv_prefix ).
+    minimal_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
+    minimal_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
+    minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
+    minimal_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
+    minimal_repository-code_of_conduct = parse_code_of_conduct( iv_prefix ).
+    minimal_repository-license-key = mo_json->value_string( iv_prefix && '/license/key' ).
+    minimal_repository-license-name = mo_json->value_string( iv_prefix && '/license/name' ).
+    minimal_repository-license-spdx_id = mo_json->value_string( iv_prefix && '/license/spdx_id' ).
+    minimal_repository-license-url = mo_json->value_string( iv_prefix && '/license/url' ).
+    minimal_repository-license-node_id = mo_json->value_string( iv_prefix && '/license/node_id' ).
+    minimal_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
+    minimal_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
+    minimal_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
+    minimal_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
+  ENDMETHOD.
+
+  METHOD parse_organization_secret_scan.
+    organization_secret_scanning_a-number = parse_alert_number( iv_prefix ).
+    organization_secret_scanning_a-created_at = parse_alert_created_at( iv_prefix ).
+    organization_secret_scanning_a-url = parse_alert_url( iv_prefix ).
+    organization_secret_scanning_a-html_url = parse_alert_html_url( iv_prefix ).
+    organization_secret_scanning_a-locations_url = mo_json->value_string( iv_prefix && '/locations_url' ).
+    organization_secret_scanning_a-state = parse_secret_scanning_alert_st( iv_prefix ).
+    organization_secret_scanning_a-resolution = parse_secret_scanning_alert_re( iv_prefix ).
+    organization_secret_scanning_a-resolved_at = mo_json->value_string( iv_prefix && '/resolved_at' ).
+    organization_secret_scanning_a-resolved_by = parse_nullable_simple_user( iv_prefix ).
+    organization_secret_scanning_a-secret_type = mo_json->value_string( iv_prefix && '/secret_type' ).
+    organization_secret_scanning_a-secret = mo_json->value_string( iv_prefix && '/secret' ).
+    organization_secret_scanning_a-repository = parse_minimal_repository( iv_prefix ).
+  ENDMETHOD.
+
   METHOD parse_actions_billing_usage.
     actions_billing_usage-total_minutes_used = mo_json->value_string( iv_prefix && '/total_minutes_used' ).
     actions_billing_usage-total_paid_minutes_used = mo_json->value_string( iv_prefix && '/total_paid_minutes_used' ).
@@ -4276,6 +4614,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     api_overview-ssh_key_fingerprints-sha256_dsa = mo_json->value_string( iv_prefix && '/ssh_key_fingerprints/SHA256_DSA' ).
     api_overview-ssh_key_fingerprints-sha256_ecdsa = mo_json->value_string( iv_prefix && '/ssh_key_fingerprints/SHA256_ECDSA' ).
     api_overview-ssh_key_fingerprints-sha256_ed25519 = mo_json->value_string( iv_prefix && '/ssh_key_fingerprints/SHA256_ED25519' ).
+* todo, array, ssh_keys
 * todo, array, hooks
 * todo, array, web
 * todo, array, api
@@ -4285,301 +4624,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
 * todo, array, importer
 * todo, array, actions
 * todo, array, dependabot
-  ENDMETHOD.
-
-  METHOD parse_nullable_repository.
-    nullable_repository-id = mo_json->value_string( iv_prefix && '/id' ).
-    nullable_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    nullable_repository-name = mo_json->value_string( iv_prefix && '/name' ).
-    nullable_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    nullable_repository-license = parse_nullable_license_simple( iv_prefix ).
-    nullable_repository-organization = parse_nullable_simple_user( iv_prefix ).
-    nullable_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
-    nullable_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
-    nullable_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
-    nullable_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
-    nullable_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
-    nullable_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
-    nullable_repository-owner = parse_simple_user( iv_prefix ).
-    nullable_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
-    nullable_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    nullable_repository-description = mo_json->value_string( iv_prefix && '/description' ).
-    nullable_repository-fork = mo_json->value_boolean( iv_prefix && '/fork' ).
-    nullable_repository-url = mo_json->value_string( iv_prefix && '/url' ).
-    nullable_repository-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
-    nullable_repository-assignees_url = mo_json->value_string( iv_prefix && '/assignees_url' ).
-    nullable_repository-blobs_url = mo_json->value_string( iv_prefix && '/blobs_url' ).
-    nullable_repository-branches_url = mo_json->value_string( iv_prefix && '/branches_url' ).
-    nullable_repository-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
-    nullable_repository-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-    nullable_repository-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
-    nullable_repository-compare_url = mo_json->value_string( iv_prefix && '/compare_url' ).
-    nullable_repository-contents_url = mo_json->value_string( iv_prefix && '/contents_url' ).
-    nullable_repository-contributors_url = mo_json->value_string( iv_prefix && '/contributors_url' ).
-    nullable_repository-deployments_url = mo_json->value_string( iv_prefix && '/deployments_url' ).
-    nullable_repository-downloads_url = mo_json->value_string( iv_prefix && '/downloads_url' ).
-    nullable_repository-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
-    nullable_repository-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
-    nullable_repository-git_commits_url = mo_json->value_string( iv_prefix && '/git_commits_url' ).
-    nullable_repository-git_refs_url = mo_json->value_string( iv_prefix && '/git_refs_url' ).
-    nullable_repository-git_tags_url = mo_json->value_string( iv_prefix && '/git_tags_url' ).
-    nullable_repository-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
-    nullable_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/issue_comment_url' ).
-    nullable_repository-issue_events_url = mo_json->value_string( iv_prefix && '/issue_events_url' ).
-    nullable_repository-issues_url = mo_json->value_string( iv_prefix && '/issues_url' ).
-    nullable_repository-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
-    nullable_repository-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
-    nullable_repository-languages_url = mo_json->value_string( iv_prefix && '/languages_url' ).
-    nullable_repository-merges_url = mo_json->value_string( iv_prefix && '/merges_url' ).
-    nullable_repository-milestones_url = mo_json->value_string( iv_prefix && '/milestones_url' ).
-    nullable_repository-notifications_url = mo_json->value_string( iv_prefix && '/notifications_url' ).
-    nullable_repository-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
-    nullable_repository-releases_url = mo_json->value_string( iv_prefix && '/releases_url' ).
-    nullable_repository-ssh_url = mo_json->value_string( iv_prefix && '/ssh_url' ).
-    nullable_repository-stargazers_url = mo_json->value_string( iv_prefix && '/stargazers_url' ).
-    nullable_repository-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
-    nullable_repository-subscribers_url = mo_json->value_string( iv_prefix && '/subscribers_url' ).
-    nullable_repository-subscription_url = mo_json->value_string( iv_prefix && '/subscription_url' ).
-    nullable_repository-tags_url = mo_json->value_string( iv_prefix && '/tags_url' ).
-    nullable_repository-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
-    nullable_repository-trees_url = mo_json->value_string( iv_prefix && '/trees_url' ).
-    nullable_repository-clone_url = mo_json->value_string( iv_prefix && '/clone_url' ).
-    nullable_repository-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
-    nullable_repository-hooks_url = mo_json->value_string( iv_prefix && '/hooks_url' ).
-    nullable_repository-svn_url = mo_json->value_string( iv_prefix && '/svn_url' ).
-    nullable_repository-homepage = mo_json->value_string( iv_prefix && '/homepage' ).
-    nullable_repository-language = mo_json->value_string( iv_prefix && '/language' ).
-    nullable_repository-forks_count = mo_json->value_string( iv_prefix && '/forks_count' ).
-    nullable_repository-stargazers_count = mo_json->value_string( iv_prefix && '/stargazers_count' ).
-    nullable_repository-watchers_count = mo_json->value_string( iv_prefix && '/watchers_count' ).
-    nullable_repository-size = mo_json->value_string( iv_prefix && '/size' ).
-    nullable_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
-    nullable_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
-    nullable_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
-* todo, array, topics
-    nullable_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
-    nullable_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
-    nullable_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
-    nullable_repository-has_pages = mo_json->value_boolean( iv_prefix && '/has_pages' ).
-    nullable_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
-    nullable_repository-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
-    nullable_repository-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
-    nullable_repository-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
-    nullable_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
-    nullable_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    nullable_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    nullable_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/allow_rebase_merge' ).
-    nullable_repository-template_repository-id = mo_json->value_string( iv_prefix && '/template_repository/id' ).
-    nullable_repository-template_repository-node_id = mo_json->value_string( iv_prefix && '/template_repository/node_id' ).
-    nullable_repository-template_repository-name = mo_json->value_string( iv_prefix && '/template_repository/name' ).
-    nullable_repository-template_repository-full_name = mo_json->value_string( iv_prefix && '/template_repository/full_name' ).
-    nullable_repository-template_repository-owner-login = mo_json->value_string( iv_prefix && '/template_repository/owner/login' ).
-    nullable_repository-template_repository-owner-id = mo_json->value_string( iv_prefix && '/template_repository/owner/id' ).
-    nullable_repository-template_repository-owner-node_id = mo_json->value_string( iv_prefix && '/template_repository/owner/node_id' ).
-    nullable_repository-template_repository-owner-avatar_url = mo_json->value_string( iv_prefix && '/template_repository/owner/avatar_url' ).
-    nullable_repository-template_repository-owner-gravatar_id = mo_json->value_string( iv_prefix && '/template_repository/owner/gravatar_id' ).
-    nullable_repository-template_repository-owner-url = mo_json->value_string( iv_prefix && '/template_repository/owner/url' ).
-    nullable_repository-template_repository-owner-html_url = mo_json->value_string( iv_prefix && '/template_repository/owner/html_url' ).
-    nullable_repository-template_repository-owner-followers_url = mo_json->value_string( iv_prefix && '/template_repository/owner/followers_url' ).
-    nullable_repository-template_repository-owner-following_url = mo_json->value_string( iv_prefix && '/template_repository/owner/following_url' ).
-    nullable_repository-template_repository-owner-gists_url = mo_json->value_string( iv_prefix && '/template_repository/owner/gists_url' ).
-    nullable_repository-template_repository-owner-starred_url = mo_json->value_string( iv_prefix && '/template_repository/owner/starred_url' ).
-    nullable_repository-template_repository-owner-subscriptions_url = mo_json->value_string( iv_prefix && '/template_repository/owner/subscriptions_url' ).
-    nullable_repository-template_repository-owner-organizations_url = mo_json->value_string( iv_prefix && '/template_repository/owner/organizations_url' ).
-    nullable_repository-template_repository-owner-repos_url = mo_json->value_string( iv_prefix && '/template_repository/owner/repos_url' ).
-    nullable_repository-template_repository-owner-events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/events_url' ).
-    nullable_repository-template_repository-owner-received_events_url = mo_json->value_string( iv_prefix && '/template_repository/owner/received_events_url' ).
-    nullable_repository-template_repository-owner-type = mo_json->value_string( iv_prefix && '/template_repository/owner/type' ).
-    nullable_repository-template_repository-owner-site_admin = mo_json->value_boolean( iv_prefix && '/template_repository/owner/site_admin' ).
-    nullable_repository-template_repository-private = mo_json->value_boolean( iv_prefix && '/template_repository/private' ).
-    nullable_repository-template_repository-html_url = mo_json->value_string( iv_prefix && '/template_repository/html_url' ).
-    nullable_repository-template_repository-description = mo_json->value_string( iv_prefix && '/template_repository/description' ).
-    nullable_repository-template_repository-fork = mo_json->value_boolean( iv_prefix && '/template_repository/fork' ).
-    nullable_repository-template_repository-url = mo_json->value_string( iv_prefix && '/template_repository/url' ).
-    nullable_repository-template_repository-archive_url = mo_json->value_string( iv_prefix && '/template_repository/archive_url' ).
-    nullable_repository-template_repository-assignees_url = mo_json->value_string( iv_prefix && '/template_repository/assignees_url' ).
-    nullable_repository-template_repository-blobs_url = mo_json->value_string( iv_prefix && '/template_repository/blobs_url' ).
-    nullable_repository-template_repository-branches_url = mo_json->value_string( iv_prefix && '/template_repository/branches_url' ).
-    nullable_repository-template_repository-collaborators_url = mo_json->value_string( iv_prefix && '/template_repository/collaborators_url' ).
-    nullable_repository-template_repository-comments_url = mo_json->value_string( iv_prefix && '/template_repository/comments_url' ).
-    nullable_repository-template_repository-commits_url = mo_json->value_string( iv_prefix && '/template_repository/commits_url' ).
-    nullable_repository-template_repository-compare_url = mo_json->value_string( iv_prefix && '/template_repository/compare_url' ).
-    nullable_repository-template_repository-contents_url = mo_json->value_string( iv_prefix && '/template_repository/contents_url' ).
-    nullable_repository-template_repository-contributors_url = mo_json->value_string( iv_prefix && '/template_repository/contributors_url' ).
-    nullable_repository-template_repository-deployments_url = mo_json->value_string( iv_prefix && '/template_repository/deployments_url' ).
-    nullable_repository-template_repository-downloads_url = mo_json->value_string( iv_prefix && '/template_repository/downloads_url' ).
-    nullable_repository-template_repository-events_url = mo_json->value_string( iv_prefix && '/template_repository/events_url' ).
-    nullable_repository-template_repository-forks_url = mo_json->value_string( iv_prefix && '/template_repository/forks_url' ).
-    nullable_repository-template_repository-git_commits_url = mo_json->value_string( iv_prefix && '/template_repository/git_commits_url' ).
-    nullable_repository-template_repository-git_refs_url = mo_json->value_string( iv_prefix && '/template_repository/git_refs_url' ).
-    nullable_repository-template_repository-git_tags_url = mo_json->value_string( iv_prefix && '/template_repository/git_tags_url' ).
-    nullable_repository-template_repository-git_url = mo_json->value_string( iv_prefix && '/template_repository/git_url' ).
-    nullable_repository-template_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/template_repository/issue_comment_url' ).
-    nullable_repository-template_repository-issue_events_url = mo_json->value_string( iv_prefix && '/template_repository/issue_events_url' ).
-    nullable_repository-template_repository-issues_url = mo_json->value_string( iv_prefix && '/template_repository/issues_url' ).
-    nullable_repository-template_repository-keys_url = mo_json->value_string( iv_prefix && '/template_repository/keys_url' ).
-    nullable_repository-template_repository-labels_url = mo_json->value_string( iv_prefix && '/template_repository/labels_url' ).
-    nullable_repository-template_repository-languages_url = mo_json->value_string( iv_prefix && '/template_repository/languages_url' ).
-    nullable_repository-template_repository-merges_url = mo_json->value_string( iv_prefix && '/template_repository/merges_url' ).
-    nullable_repository-template_repository-milestones_url = mo_json->value_string( iv_prefix && '/template_repository/milestones_url' ).
-    nullable_repository-template_repository-notifications_url = mo_json->value_string( iv_prefix && '/template_repository/notifications_url' ).
-    nullable_repository-template_repository-pulls_url = mo_json->value_string( iv_prefix && '/template_repository/pulls_url' ).
-    nullable_repository-template_repository-releases_url = mo_json->value_string( iv_prefix && '/template_repository/releases_url' ).
-    nullable_repository-template_repository-ssh_url = mo_json->value_string( iv_prefix && '/template_repository/ssh_url' ).
-    nullable_repository-template_repository-stargazers_url = mo_json->value_string( iv_prefix && '/template_repository/stargazers_url' ).
-    nullable_repository-template_repository-statuses_url = mo_json->value_string( iv_prefix && '/template_repository/statuses_url' ).
-    nullable_repository-template_repository-subscribers_url = mo_json->value_string( iv_prefix && '/template_repository/subscribers_url' ).
-    nullable_repository-template_repository-subscription_url = mo_json->value_string( iv_prefix && '/template_repository/subscription_url' ).
-    nullable_repository-template_repository-tags_url = mo_json->value_string( iv_prefix && '/template_repository/tags_url' ).
-    nullable_repository-template_repository-teams_url = mo_json->value_string( iv_prefix && '/template_repository/teams_url' ).
-    nullable_repository-template_repository-trees_url = mo_json->value_string( iv_prefix && '/template_repository/trees_url' ).
-    nullable_repository-template_repository-clone_url = mo_json->value_string( iv_prefix && '/template_repository/clone_url' ).
-    nullable_repository-template_repository-mirror_url = mo_json->value_string( iv_prefix && '/template_repository/mirror_url' ).
-    nullable_repository-template_repository-hooks_url = mo_json->value_string( iv_prefix && '/template_repository/hooks_url' ).
-    nullable_repository-template_repository-svn_url = mo_json->value_string( iv_prefix && '/template_repository/svn_url' ).
-    nullable_repository-template_repository-homepage = mo_json->value_string( iv_prefix && '/template_repository/homepage' ).
-    nullable_repository-template_repository-language = mo_json->value_string( iv_prefix && '/template_repository/language' ).
-    nullable_repository-template_repository-forks_count = mo_json->value_string( iv_prefix && '/template_repository/forks_count' ).
-    nullable_repository-template_repository-stargazers_count = mo_json->value_string( iv_prefix && '/template_repository/stargazers_count' ).
-    nullable_repository-template_repository-watchers_count = mo_json->value_string( iv_prefix && '/template_repository/watchers_count' ).
-    nullable_repository-template_repository-size = mo_json->value_string( iv_prefix && '/template_repository/size' ).
-    nullable_repository-template_repository-default_branch = mo_json->value_string( iv_prefix && '/template_repository/default_branch' ).
-    nullable_repository-template_repository-open_issues_count = mo_json->value_string( iv_prefix && '/template_repository/open_issues_count' ).
-    nullable_repository-template_repository-is_template = mo_json->value_boolean( iv_prefix && '/template_repository/is_template' ).
-* todo, array, topics
-    nullable_repository-template_repository-has_issues = mo_json->value_boolean( iv_prefix && '/template_repository/has_issues' ).
-    nullable_repository-template_repository-has_projects = mo_json->value_boolean( iv_prefix && '/template_repository/has_projects' ).
-    nullable_repository-template_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/template_repository/has_wiki' ).
-    nullable_repository-template_repository-has_pages = mo_json->value_boolean( iv_prefix && '/template_repository/has_pages' ).
-    nullable_repository-template_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/template_repository/has_downloads' ).
-    nullable_repository-template_repository-archived = mo_json->value_boolean( iv_prefix && '/template_repository/archived' ).
-    nullable_repository-template_repository-disabled = mo_json->value_boolean( iv_prefix && '/template_repository/disabled' ).
-    nullable_repository-template_repository-visibility = mo_json->value_string( iv_prefix && '/template_repository/visibility' ).
-    nullable_repository-template_repository-pushed_at = mo_json->value_string( iv_prefix && '/template_repository/pushed_at' ).
-    nullable_repository-template_repository-created_at = mo_json->value_string( iv_prefix && '/template_repository/created_at' ).
-    nullable_repository-template_repository-updated_at = mo_json->value_string( iv_prefix && '/template_repository/updated_at' ).
-    nullable_repository-template_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/admin' ).
-    nullable_repository-template_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/maintain' ).
-    nullable_repository-template_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/push' ).
-    nullable_repository-template_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/triage' ).
-    nullable_repository-template_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/template_repository/permissions/pull' ).
-    nullable_repository-template_repository-allow_rebase_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_rebase_merge' ).
-    nullable_repository-template_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/template_repository/temp_clone_token' ).
-    nullable_repository-template_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_squash_merge' ).
-    nullable_repository-template_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/template_repository/allow_auto_merge' ).
-    nullable_repository-template_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/template_repository/delete_branch_on_merge' ).
-    nullable_repository-template_repository-allow_update_branch = mo_json->value_boolean( iv_prefix && '/template_repository/allow_update_branch' ).
-    nullable_repository-template_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/template_repository/allow_merge_commit' ).
-    nullable_repository-template_repository-subscribers_count = mo_json->value_string( iv_prefix && '/template_repository/subscribers_count' ).
-    nullable_repository-template_repository-network_count = mo_json->value_string( iv_prefix && '/template_repository/network_count' ).
-    nullable_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
-    nullable_repository-allow_squash_merge = mo_json->value_boolean( iv_prefix && '/allow_squash_merge' ).
-    nullable_repository-allow_auto_merge = mo_json->value_boolean( iv_prefix && '/allow_auto_merge' ).
-    nullable_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
-    nullable_repository-allow_merge_commit = mo_json->value_boolean( iv_prefix && '/allow_merge_commit' ).
-    nullable_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
-    nullable_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
-    nullable_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
-    nullable_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
-    nullable_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
-    nullable_repository-master_branch = mo_json->value_string( iv_prefix && '/master_branch' ).
-    nullable_repository-starred_at = mo_json->value_string( iv_prefix && '/starred_at' ).
-  ENDMETHOD.
-
-  METHOD parse_minimal_repository.
-    minimal_repository-id = mo_json->value_string( iv_prefix && '/id' ).
-    minimal_repository-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
-    minimal_repository-name = mo_json->value_string( iv_prefix && '/name' ).
-    minimal_repository-full_name = mo_json->value_string( iv_prefix && '/full_name' ).
-    minimal_repository-owner = parse_simple_user( iv_prefix ).
-    minimal_repository-private = mo_json->value_boolean( iv_prefix && '/private' ).
-    minimal_repository-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-    minimal_repository-description = mo_json->value_string( iv_prefix && '/description' ).
-    minimal_repository-fork = mo_json->value_boolean( iv_prefix && '/fork' ).
-    minimal_repository-url = mo_json->value_string( iv_prefix && '/url' ).
-    minimal_repository-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
-    minimal_repository-assignees_url = mo_json->value_string( iv_prefix && '/assignees_url' ).
-    minimal_repository-blobs_url = mo_json->value_string( iv_prefix && '/blobs_url' ).
-    minimal_repository-branches_url = mo_json->value_string( iv_prefix && '/branches_url' ).
-    minimal_repository-collaborators_url = mo_json->value_string( iv_prefix && '/collaborators_url' ).
-    minimal_repository-comments_url = mo_json->value_string( iv_prefix && '/comments_url' ).
-    minimal_repository-commits_url = mo_json->value_string( iv_prefix && '/commits_url' ).
-    minimal_repository-compare_url = mo_json->value_string( iv_prefix && '/compare_url' ).
-    minimal_repository-contents_url = mo_json->value_string( iv_prefix && '/contents_url' ).
-    minimal_repository-contributors_url = mo_json->value_string( iv_prefix && '/contributors_url' ).
-    minimal_repository-deployments_url = mo_json->value_string( iv_prefix && '/deployments_url' ).
-    minimal_repository-downloads_url = mo_json->value_string( iv_prefix && '/downloads_url' ).
-    minimal_repository-events_url = mo_json->value_string( iv_prefix && '/events_url' ).
-    minimal_repository-forks_url = mo_json->value_string( iv_prefix && '/forks_url' ).
-    minimal_repository-git_commits_url = mo_json->value_string( iv_prefix && '/git_commits_url' ).
-    minimal_repository-git_refs_url = mo_json->value_string( iv_prefix && '/git_refs_url' ).
-    minimal_repository-git_tags_url = mo_json->value_string( iv_prefix && '/git_tags_url' ).
-    minimal_repository-git_url = mo_json->value_string( iv_prefix && '/git_url' ).
-    minimal_repository-issue_comment_url = mo_json->value_string( iv_prefix && '/issue_comment_url' ).
-    minimal_repository-issue_events_url = mo_json->value_string( iv_prefix && '/issue_events_url' ).
-    minimal_repository-issues_url = mo_json->value_string( iv_prefix && '/issues_url' ).
-    minimal_repository-keys_url = mo_json->value_string( iv_prefix && '/keys_url' ).
-    minimal_repository-labels_url = mo_json->value_string( iv_prefix && '/labels_url' ).
-    minimal_repository-languages_url = mo_json->value_string( iv_prefix && '/languages_url' ).
-    minimal_repository-merges_url = mo_json->value_string( iv_prefix && '/merges_url' ).
-    minimal_repository-milestones_url = mo_json->value_string( iv_prefix && '/milestones_url' ).
-    minimal_repository-notifications_url = mo_json->value_string( iv_prefix && '/notifications_url' ).
-    minimal_repository-pulls_url = mo_json->value_string( iv_prefix && '/pulls_url' ).
-    minimal_repository-releases_url = mo_json->value_string( iv_prefix && '/releases_url' ).
-    minimal_repository-ssh_url = mo_json->value_string( iv_prefix && '/ssh_url' ).
-    minimal_repository-stargazers_url = mo_json->value_string( iv_prefix && '/stargazers_url' ).
-    minimal_repository-statuses_url = mo_json->value_string( iv_prefix && '/statuses_url' ).
-    minimal_repository-subscribers_url = mo_json->value_string( iv_prefix && '/subscribers_url' ).
-    minimal_repository-subscription_url = mo_json->value_string( iv_prefix && '/subscription_url' ).
-    minimal_repository-tags_url = mo_json->value_string( iv_prefix && '/tags_url' ).
-    minimal_repository-teams_url = mo_json->value_string( iv_prefix && '/teams_url' ).
-    minimal_repository-trees_url = mo_json->value_string( iv_prefix && '/trees_url' ).
-    minimal_repository-clone_url = mo_json->value_string( iv_prefix && '/clone_url' ).
-    minimal_repository-mirror_url = mo_json->value_string( iv_prefix && '/mirror_url' ).
-    minimal_repository-hooks_url = mo_json->value_string( iv_prefix && '/hooks_url' ).
-    minimal_repository-svn_url = mo_json->value_string( iv_prefix && '/svn_url' ).
-    minimal_repository-homepage = mo_json->value_string( iv_prefix && '/homepage' ).
-    minimal_repository-language = mo_json->value_string( iv_prefix && '/language' ).
-    minimal_repository-forks_count = mo_json->value_string( iv_prefix && '/forks_count' ).
-    minimal_repository-stargazers_count = mo_json->value_string( iv_prefix && '/stargazers_count' ).
-    minimal_repository-watchers_count = mo_json->value_string( iv_prefix && '/watchers_count' ).
-    minimal_repository-size = mo_json->value_string( iv_prefix && '/size' ).
-    minimal_repository-default_branch = mo_json->value_string( iv_prefix && '/default_branch' ).
-    minimal_repository-open_issues_count = mo_json->value_string( iv_prefix && '/open_issues_count' ).
-    minimal_repository-is_template = mo_json->value_boolean( iv_prefix && '/is_template' ).
-* todo, array, topics
-    minimal_repository-has_issues = mo_json->value_boolean( iv_prefix && '/has_issues' ).
-    minimal_repository-has_projects = mo_json->value_boolean( iv_prefix && '/has_projects' ).
-    minimal_repository-has_wiki = mo_json->value_boolean( iv_prefix && '/has_wiki' ).
-    minimal_repository-has_pages = mo_json->value_boolean( iv_prefix && '/has_pages' ).
-    minimal_repository-has_downloads = mo_json->value_boolean( iv_prefix && '/has_downloads' ).
-    minimal_repository-archived = mo_json->value_boolean( iv_prefix && '/archived' ).
-    minimal_repository-disabled = mo_json->value_boolean( iv_prefix && '/disabled' ).
-    minimal_repository-visibility = mo_json->value_string( iv_prefix && '/visibility' ).
-    minimal_repository-pushed_at = mo_json->value_string( iv_prefix && '/pushed_at' ).
-    minimal_repository-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
-    minimal_repository-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
-    minimal_repository-permissions-admin = mo_json->value_boolean( iv_prefix && '/permissions/admin' ).
-    minimal_repository-permissions-maintain = mo_json->value_boolean( iv_prefix && '/permissions/maintain' ).
-    minimal_repository-permissions-push = mo_json->value_boolean( iv_prefix && '/permissions/push' ).
-    minimal_repository-permissions-triage = mo_json->value_boolean( iv_prefix && '/permissions/triage' ).
-    minimal_repository-permissions-pull = mo_json->value_boolean( iv_prefix && '/permissions/pull' ).
-    minimal_repository-role_name = mo_json->value_string( iv_prefix && '/role_name' ).
-    minimal_repository-template_repository = parse_nullable_repository( iv_prefix ).
-    minimal_repository-temp_clone_token = mo_json->value_string( iv_prefix && '/temp_clone_token' ).
-    minimal_repository-delete_branch_on_merge = mo_json->value_boolean( iv_prefix && '/delete_branch_on_merge' ).
-    minimal_repository-subscribers_count = mo_json->value_string( iv_prefix && '/subscribers_count' ).
-    minimal_repository-network_count = mo_json->value_string( iv_prefix && '/network_count' ).
-    minimal_repository-code_of_conduct = parse_code_of_conduct( iv_prefix ).
-    minimal_repository-license-key = mo_json->value_string( iv_prefix && '/license/key' ).
-    minimal_repository-license-name = mo_json->value_string( iv_prefix && '/license/name' ).
-    minimal_repository-license-spdx_id = mo_json->value_string( iv_prefix && '/license/spdx_id' ).
-    minimal_repository-license-url = mo_json->value_string( iv_prefix && '/license/url' ).
-    minimal_repository-license-node_id = mo_json->value_string( iv_prefix && '/license/node_id' ).
-    minimal_repository-forks = mo_json->value_string( iv_prefix && '/forks' ).
-    minimal_repository-open_issues = mo_json->value_string( iv_prefix && '/open_issues' ).
-    minimal_repository-watchers = mo_json->value_string( iv_prefix && '/watchers' ).
-    minimal_repository-allow_forking = mo_json->value_boolean( iv_prefix && '/allow_forking' ).
   ENDMETHOD.
 
   METHOD parse_thread.
@@ -5006,45 +5050,6 @@ CLASS zcl_githubcom IMPLEMENTATION.
     project-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     project-organization_permission = mo_json->value_string( iv_prefix && '/organization_permission' ).
     project-private = mo_json->value_boolean( iv_prefix && '/private' ).
-  ENDMETHOD.
-
-  METHOD parse_alert_number.
-    alert_number = mo_json->value_integer( iv_prefix && '/' ).
-  ENDMETHOD.
-
-  METHOD parse_alert_created_at.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_alert_url.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_alert_html_url.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_secret_scanning_alert_st.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_secret_scanning_alert_re.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_organization_secret_scan.
-    organization_secret_scanning_a-number = parse_alert_number( iv_prefix ).
-    organization_secret_scanning_a-created_at = parse_alert_created_at( iv_prefix ).
-    organization_secret_scanning_a-url = parse_alert_url( iv_prefix ).
-    organization_secret_scanning_a-html_url = parse_alert_html_url( iv_prefix ).
-    organization_secret_scanning_a-locations_url = mo_json->value_string( iv_prefix && '/locations_url' ).
-    organization_secret_scanning_a-state = parse_secret_scanning_alert_st( iv_prefix ).
-    organization_secret_scanning_a-resolution = parse_secret_scanning_alert_re( iv_prefix ).
-    organization_secret_scanning_a-resolved_at = mo_json->value_string( iv_prefix && '/resolved_at' ).
-    organization_secret_scanning_a-resolved_by = parse_nullable_simple_user( iv_prefix ).
-    organization_secret_scanning_a-secret_type = mo_json->value_string( iv_prefix && '/secret_type' ).
-    organization_secret_scanning_a-secret = mo_json->value_string( iv_prefix && '/secret' ).
-    organization_secret_scanning_a-repository = parse_minimal_repository( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_group_mapping.
@@ -8407,6 +8412,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_secret_scanning_list_ale.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA organization_secret_scanning_a TYPE zif_githubcom=>organization_secret_scanning_a.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR organization_secret_scanning_a.
+      organization_secret_scanning_a = parse_organization_secret_scan( iv_prefix && '/' && lv_member ).
+      APPEND organization_secret_scanning_a TO response_secret_scanning_list_.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_activity_list_public_eve.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -8919,7 +8936,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD parse_secret_scanning_list_ale.
+  METHOD parse_secret_scanning_list_a01.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
     DATA organization_secret_scanning_a TYPE zif_githubcom=>organization_secret_scanning_a.
@@ -8927,7 +8944,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     LOOP AT lt_members INTO lv_member.
       CLEAR organization_secret_scanning_a.
       organization_secret_scanning_a = parse_organization_secret_scan( iv_prefix && '/' && lv_member ).
-      APPEND organization_secret_scanning_a TO response_secret_scanning_list_.
+      APPEND organization_secret_scanning_a TO response_secret_scanning_lis01.
     ENDLOOP.
   ENDMETHOD.
 
@@ -10128,7 +10145,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD parse_secret_scanning_list_a01.
+  METHOD parse_secret_scanning_list_a02.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
     DATA secret_scanning_alert TYPE zif_githubcom=>secret_scanning_alert.
@@ -10136,7 +10153,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     LOOP AT lt_members INTO lv_member.
       CLEAR secret_scanning_alert.
       secret_scanning_alert = parse_secret_scanning_alert( iv_prefix && '/' && lv_member ).
-      APPEND secret_scanning_alert TO response_secret_scanning_lis01.
+      APPEND secret_scanning_alert TO response_secret_scanning_lis02.
     ENDLOOP.
   ENDMETHOD.
 
@@ -10148,7 +10165,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     LOOP AT lt_members INTO lv_member.
       CLEAR secret_scanning_location.
       secret_scanning_location = parse_secret_scanning_locati01( iv_prefix && '/' && lv_member ).
-      APPEND secret_scanning_location TO response_secret_scanning_lis02.
+      APPEND secret_scanning_location TO response_secret_scanning_lis03.
     ENDLOOP.
   ENDMETHOD.
 
@@ -14716,6 +14733,49 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubcom~secret_scanning_list_alerts_fo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/enterprises/{enterprise}/secret-scanning/alerts'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    IF state IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'state' value = state ).
+    ENDIF.
+    IF secret_type IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'secret_type' value = secret_type ).
+    ENDIF.
+    IF resolution IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'resolution' value = resolution ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF before IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'before' value = before ).
+    ENDIF.
+    IF after IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'after' value = after ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_secret_scanning_list_alerts_fo
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_secret_scanning_list_ale( '' ).
+      WHEN 404. " 
+" todo, raise
+      WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubcom~billing_get_github_actions_bil.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19065,7 +19125,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
-  METHOD zif_githubcom~secret_scanning_list_alerts_fo.
+  METHOD zif_githubcom~secret_scanning_list_alerts_01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/secret-scanning/alerts'.
@@ -19097,9 +19157,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json,#/components/schemas/response_secret_scanning_list_alerts_fo
+" application/json,#/components/schemas/response_secret_scanning_list_alerts_01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_secret_scanning_list_ale( '' ).
+        return_data = parse_secret_scanning_list_a01( '' ).
       WHEN 404. " 
 " todo, raise
       WHEN 503. " 
@@ -30303,7 +30363,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
-  METHOD zif_githubcom~secret_scanning_list_alerts_01.
+  METHOD zif_githubcom~secret_scanning_list_alerts_02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/secret-scanning/alerts'.
@@ -30338,9 +30398,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json,#/components/schemas/response_secret_scanning_list_alerts_01
+" application/json,#/components/schemas/response_secret_scanning_list_alerts_02
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_secret_scanning_list_a01( '' ).
+        return_data = parse_secret_scanning_list_a02( '' ).
       WHEN 404. " Repository is public or secret scanning is disabled for the repository
 " todo, raise
       WHEN 503. " 
