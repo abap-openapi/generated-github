@@ -328,6 +328,22 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actions_organization_permissio) TYPE zif_githubcom=>actions_organization_permissio
       RAISING cx_static_check.
+    METHODS parse_actions_default_workflow
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_default_workflow_permi) TYPE zif_githubcom=>actions_default_workflow_permi
+      RAISING cx_static_check.
+    METHODS parse_actions_can_approve_pull
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_can_approve_pull_reque) TYPE zif_githubcom=>actions_can_approve_pull_reque
+      RAISING cx_static_check.
+    METHODS parse_actions_get_default_work
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_get_default_workflow_p) TYPE zif_githubcom=>actions_get_default_workflow_p
+      RAISING cx_static_check.
+    METHODS parse_actions_set_default_work
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(actions_set_default_workflow_p) TYPE zif_githubcom=>actions_set_default_workflow_p
+      RAISING cx_static_check.
     METHODS parse_runner_groups_org
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner_groups_org) TYPE zif_githubcom=>runner_groups_org
@@ -4723,6 +4739,24 @@ CLASS zcl_githubcom IMPLEMENTATION.
     actions_organization_permissio-selected_repositories_url = mo_json->value_string( iv_prefix && '/selected_repositories_url' ).
     actions_organization_permissio-allowed_actions = parse_allowed_actions( iv_prefix ).
     actions_organization_permissio-selected_actions_url = parse_selected_actions_url( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_actions_default_workflow.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_actions_can_approve_pull.
+* todo, handle type boolean
+  ENDMETHOD.
+
+  METHOD parse_actions_get_default_work.
+    actions_get_default_workflow_p-default_workflow_permissions = parse_actions_default_workflow( iv_prefix ).
+    actions_get_default_workflow_p-can_approve_pull_request_revie = parse_actions_can_approve_pull( iv_prefix ).
+  ENDMETHOD.
+
+  METHOD parse_actions_set_default_work.
+    actions_set_default_workflow_p-default_workflow_permissions = parse_actions_default_workflow( iv_prefix ).
+    actions_set_default_workflow_p-can_approve_pull_request_revie = parse_actions_can_approve_pull( iv_prefix ).
   ENDMETHOD.
 
   METHOD parse_runner_groups_org.
@@ -13337,6 +13371,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD json_codespaces_update_for_aut.
     json = json && '{'.
     json = json && |"machine": "{ data-machine }",|.
+*  json = json && '"recent_folders":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -13344,6 +13379,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD json_codespaces_delete_for_aut.
     json = json && '{'.
     json = json && |"machine": "{ data-machine }",|.
+*  json = json && '"recent_folders":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -16408,6 +16444,42 @@ CLASS zcl_githubcom IMPLEMENTATION.
     mi_client->request->set_method( 'PUT' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
 * todo, set body, #/components/schemas/selected-actions
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_get_github_actions_def.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/workflow'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/actions-get-default-workflow-permissions
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_actions_get_default_work( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~actions_set_github_actions_def.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/actions/permissions/workflow'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+* todo, set body, #/components/schemas/actions-set-default-workflow-permissions
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.

@@ -1653,6 +1653,24 @@ INTERFACE zif_githubcom PUBLIC.
            selected_actions_url TYPE selected_actions_url,
          END OF actions_organization_permissio.
 
+* Component schema: actions-default-workflow-permissions, string
+  TYPES actions_default_workflow_permi TYPE string.
+
+* Component schema: actions-can-approve-pull-request-reviews, boolean
+  TYPES actions_can_approve_pull_reque TYPE abap_bool.
+
+* Component schema: actions-get-default-workflow-permissions, object
+  TYPES: BEGIN OF actions_get_default_workflow_p,
+           default_workflow_permissions TYPE actions_default_workflow_permi,
+           can_approve_pull_request_revie TYPE actions_can_approve_pull_reque,
+         END OF actions_get_default_workflow_p.
+
+* Component schema: actions-set-default-workflow-permissions, object
+  TYPES: BEGIN OF actions_set_default_workflow_p,
+           default_workflow_permissions TYPE actions_default_workflow_permi,
+           can_approve_pull_request_revie TYPE actions_can_approve_pull_reque,
+         END OF actions_set_default_workflow_p.
+
 * Component schema: runner-groups-org, object
   TYPES: BEGIN OF runner_groups_org,
            id TYPE f,
@@ -7584,11 +7602,13 @@ INTERFACE zif_githubcom PUBLIC.
 * Component schema: bodycodespaces_update_for_auth, object
   TYPES: BEGIN OF bodycodespaces_update_for_auth,
            machine TYPE string,
+           recent_folders TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodycodespaces_update_for_auth.
 
 * Component schema: bodycodespaces_delete_for_auth, object
   TYPES: BEGIN OF bodycodespaces_delete_for_auth,
            machine TYPE string,
+           recent_folders TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodycodespaces_delete_for_auth.
 
 * Component schema: bodyusers_set_primary_email_vi, object
@@ -10407,6 +10427,29 @@ INTERFACE zif_githubcom PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE selected_actions
+    RAISING cx_static_check.
+
+* GET - "Get default workflow permissions"
+* Operation id: actions/get-github-actions-default-workflow-permissions-organization
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/actions-get-default-workflow-permissions
+  METHODS actions_get_github_actions_def
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE actions_get_default_workflow_p
+    RAISING cx_static_check.
+
+* PUT - "Set default workflow permissions"
+* Operation id: actions/set-github-actions-default-workflow-permissions-organization
+* Parameter: org, required, path
+* Response: 204
+* Body ref: #/components/schemas/actions-set-default-workflow-permissions
+  METHODS actions_set_github_actions_def
+    IMPORTING
+      org TYPE string
+      body TYPE actions_set_default_workflow_p
     RAISING cx_static_check.
 
 * GET - "List self-hosted runner groups for an organization"
