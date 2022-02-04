@@ -1276,6 +1276,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(codespaces_user_public_key) TYPE zif_githubcom=>codespaces_user_public_key
       RAISING cx_static_check.
+    METHODS parse_codespace_export_details
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(codespace_export_details) TYPE zif_githubcom=>codespace_export_details
+      RAISING cx_static_check.
     METHODS parse_email
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(email) TYPE zif_githubcom=>email
@@ -8252,6 +8256,15 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_codespaces_user_public_k.
     codespaces_user_public_key-key_id = mo_json->value_string( iv_prefix && '/key_id' ).
     codespaces_user_public_key-key = mo_json->value_string( iv_prefix && '/key' ).
+  ENDMETHOD.
+
+  METHOD parse_codespace_export_details.
+    codespace_export_details-state = mo_json->value_string( iv_prefix && '/state' ).
+    codespace_export_details-completed_at = mo_json->value_string( iv_prefix && '/completed_at' ).
+    codespace_export_details-branch = mo_json->value_string( iv_prefix && '/branch' ).
+    codespace_export_details-sha = mo_json->value_string( iv_prefix && '/sha' ).
+    codespace_export_details-id = mo_json->value_string( iv_prefix && '/id' ).
+    codespace_export_details-export_url = mo_json->value_string( iv_prefix && '/export_url' ).
   ENDMETHOD.
 
   METHOD parse_email.
@@ -22056,6 +22069,10 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
+      WHEN 403. " 
+" todo, raise
+      WHEN 500. " 
+" todo, raise
     ENDCASE.
   ENDMETHOD.
 
@@ -32633,6 +32650,60 @@ CLASS zcl_githubcom IMPLEMENTATION.
       WHEN 404. " 
 " todo, raise
       WHEN 500. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~codespaces_export_for_authenti.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}/exports'.
+    lv_temp = codespace_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 202. " Response
+" application/json,#/components/schemas/codespace-export-details
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        parse_codespace_export_details( '' ).
+" todo, raise
+      WHEN 401. " 
+" todo, raise
+      WHEN 403. " 
+" todo, raise
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+      WHEN 500. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~codespaces_get_export_details_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/user/codespaces/{codespace_name}/exports/{export_id}'.
+    lv_temp = codespace_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{codespace_name}' IN lv_uri WITH lv_temp.
+    lv_temp = export_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{export_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/codespace-export-details
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_codespace_export_details( '' ).
+      WHEN 404. " 
 " todo, raise
     ENDCASE.
   ENDMETHOD.

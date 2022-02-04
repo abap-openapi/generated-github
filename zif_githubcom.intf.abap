@@ -5762,6 +5762,16 @@ INTERFACE zif_githubcom PUBLIC.
            key TYPE string,
          END OF codespaces_user_public_key.
 
+* Component schema: codespace-export-details, object
+  TYPES: BEGIN OF codespace_export_details,
+           state TYPE string,
+           completed_at TYPE string,
+           branch TYPE string,
+           sha TYPE string,
+           id TYPE string,
+           export_url TYPE string,
+         END OF codespace_export_details.
+
 * Component schema: email, object
   TYPES: BEGIN OF email,
            email TYPE string,
@@ -13808,6 +13818,8 @@ INTERFACE zif_githubcom PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 204
+* Response: 403
+* Response: 500
   METHODS actions_delete_workflow_run_lo
     IMPORTING
       owner TYPE string
@@ -20340,6 +20352,36 @@ INTERFACE zif_githubcom PUBLIC.
     IMPORTING
       codespace_name TYPE string
       body TYPE bodycodespaces_delete_for_auth
+    RAISING cx_static_check.
+
+* POST - "Export a codespace for the authenticated user"
+* Operation id: codespaces/export-for-authenticated-user
+* Parameter: codespace_name, required, path
+* Response: 202
+*     application/json, #/components/schemas/codespace-export-details
+* Response: 401
+* Response: 403
+* Response: 404
+* Response: 422
+* Response: 500
+  METHODS codespaces_export_for_authenti
+    IMPORTING
+      codespace_name TYPE string
+    RAISING cx_static_check.
+
+* GET - "Get details about a codespace export"
+* Operation id: codespaces/get-export-details-for-authenticated-user
+* Parameter: codespace_name, required, path
+* Parameter: export_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/codespace-export-details
+* Response: 404
+  METHODS codespaces_get_export_details_
+    IMPORTING
+      codespace_name TYPE string
+      export_id TYPE string
+    RETURNING
+      VALUE(return_data) TYPE codespace_export_details
     RAISING cx_static_check.
 
 * GET - "List machine types for a codespace"

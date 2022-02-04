@@ -344,6 +344,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(org_membership) TYPE zif_githubae=>org_membership
       RAISING cx_static_check.
+    METHODS parse_migration
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(migration) TYPE zif_githubae=>migration
+      RAISING cx_static_check.
     METHODS parse_project
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(project) TYPE zif_githubae=>project
@@ -1312,6 +1316,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyorgs_remove_membership_for
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_migrations_start_for_org
+      IMPORTING data TYPE zif_githubae=>bodymigrations_start_for_org
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_projects_create_for_org
       IMPORTING data TYPE zif_githubae=>bodyprojects_create_for_org
       RETURNING VALUE(json) TYPE string
@@ -1860,6 +1868,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyorgs_update_membership_for
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_migrations_start_for_auth
+      IMPORTING data TYPE zif_githubae=>bodymigrations_start_for_authe
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_projects_create_for_authe
       IMPORTING data TYPE zif_githubae=>bodyprojects_create_for_authen
       RETURNING VALUE(json) TYPE string
@@ -2027,6 +2039,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_orgs_list_members
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_members) TYPE zif_githubae=>response_orgs_list_members
+      RAISING cx_static_check.
+    METHODS parse_migrations_list_for_org
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_migrations_list_for_o) TYPE zif_githubae=>response_migrations_list_for_o
       RAISING cx_static_check.
     METHODS parse_orgs_list_outside_collab
       IMPORTING iv_prefix TYPE string
@@ -2587,6 +2603,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_orgs_list_memberships_fo
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_memberships) TYPE zif_githubae=>response_orgs_list_memberships
+      RAISING cx_static_check.
+    METHODS parse_migrations_list_for_auth
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_migrations_list_for_a) TYPE zif_githubae=>response_migrations_list_for_a
+      RAISING cx_static_check.
+    METHODS parse_migrations_list_repos_fo
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_migrations_list_repos) TYPE zif_githubae=>response_migrations_list_repos
       RAISING cx_static_check.
     METHODS parse_orgs_list_for_authentica
       IMPORTING iv_prefix TYPE string
@@ -4145,6 +4169,26 @@ CLASS zcl_githubae IMPLEMENTATION.
     org_membership-organization = parse_organization_simple( iv_prefix ).
     org_membership-user = parse_nullable_simple_user( iv_prefix ).
     org_membership-permissions-can_create_repository = mo_json->value_boolean( iv_prefix && '/permissions/can_create_repository' ).
+  ENDMETHOD.
+
+  METHOD parse_migration.
+    migration-id = mo_json->value_string( iv_prefix && '/id' ).
+    migration-owner = parse_nullable_simple_user( iv_prefix ).
+    migration-guid = mo_json->value_string( iv_prefix && '/guid' ).
+    migration-state = mo_json->value_string( iv_prefix && '/state' ).
+    migration-lock_repositories = mo_json->value_boolean( iv_prefix && '/lock_repositories' ).
+    migration-exclude_metadata = mo_json->value_boolean( iv_prefix && '/exclude_metadata' ).
+    migration-exclude_git_data = mo_json->value_boolean( iv_prefix && '/exclude_git_data' ).
+    migration-exclude_attachments = mo_json->value_boolean( iv_prefix && '/exclude_attachments' ).
+    migration-exclude_releases = mo_json->value_boolean( iv_prefix && '/exclude_releases' ).
+    migration-exclude_owner_projects = mo_json->value_boolean( iv_prefix && '/exclude_owner_projects' ).
+* todo, array, repositories
+    migration-url = mo_json->value_string( iv_prefix && '/url' ).
+    migration-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    migration-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+    migration-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    migration-archive_url = mo_json->value_string( iv_prefix && '/archive_url' ).
+* todo, array, exclude
   ENDMETHOD.
 
   METHOD parse_project.
@@ -7462,6 +7506,18 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_migrations_list_for_org.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA migration TYPE zif_githubae=>migration.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR migration.
+      migration = parse_migration( iv_prefix && '/' && lv_member ).
+      APPEND migration TO response_migrations_list_for_o.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_orgs_list_outside_collab.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -8817,6 +8873,30 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_migrations_list_for_auth.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA migration TYPE zif_githubae=>migration.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR migration.
+      migration = parse_migration( iv_prefix && '/' && lv_member ).
+      APPEND migration TO response_migrations_list_for_a.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_migrations_list_repos_fo.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA minimal_repository TYPE zif_githubae=>minimal_repository.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR minimal_repository.
+      minimal_repository = parse_minimal_repository( iv_prefix && '/' && lv_member ).
+      APPEND minimal_repository TO response_migrations_list_repos.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_orgs_list_for_authentica.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -9543,6 +9623,34 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD json_orgs_remove_membership_fo.
     json = json && '{'.
     json = json && |"role": "{ data-role }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_migrations_start_for_org.
+    json = json && '{'.
+*  json = json && '"repositories":' not simple
+    IF data-lock_repositories = abap_true.
+      json = json && |"lock_repositories": true,|.
+    ELSEIF data-lock_repositories = abap_false.
+      json = json && |"lock_repositories": false,|.
+    ENDIF.
+    IF data-exclude_attachments = abap_true.
+      json = json && |"exclude_attachments": true,|.
+    ELSEIF data-exclude_attachments = abap_false.
+      json = json && |"exclude_attachments": false,|.
+    ENDIF.
+    IF data-exclude_releases = abap_true.
+      json = json && |"exclude_releases": true,|.
+    ELSEIF data-exclude_releases = abap_false.
+      json = json && |"exclude_releases": false,|.
+    ENDIF.
+    IF data-exclude_owner_projects = abap_true.
+      json = json && |"exclude_owner_projects": true,|.
+    ELSEIF data-exclude_owner_projects = abap_false.
+      json = json && |"exclude_owner_projects": false,|.
+    ENDIF.
+*  json = json && '"exclude":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -11179,6 +11287,34 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD json_orgs_update_membership_fo.
     json = json && '{'.
     json = json && |"state": "{ data-state }",|.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_migrations_start_for_auth.
+    json = json && '{'.
+    IF data-lock_repositories = abap_true.
+      json = json && |"lock_repositories": true,|.
+    ELSEIF data-lock_repositories = abap_false.
+      json = json && |"lock_repositories": false,|.
+    ENDIF.
+    IF data-exclude_attachments = abap_true.
+      json = json && |"exclude_attachments": true,|.
+    ELSEIF data-exclude_attachments = abap_false.
+      json = json && |"exclude_attachments": false,|.
+    ENDIF.
+    IF data-exclude_releases = abap_true.
+      json = json && |"exclude_releases": true,|.
+    ELSEIF data-exclude_releases = abap_false.
+      json = json && |"exclude_releases": false,|.
+    ENDIF.
+    IF data-exclude_owner_projects = abap_true.
+      json = json && |"exclude_owner_projects": true,|.
+    ELSEIF data-exclude_owner_projects = abap_false.
+      json = json && |"exclude_owner_projects": false,|.
+    ENDIF.
+*  json = json && '"exclude":' not simple
+*  json = json && '"repositories":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -15012,6 +15148,93 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~migrations_list_for_org.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/migrations'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = exclude.
+    CONDENSE lv_temp.
+    IF exclude IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'exclude' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_migrations_list_for_org
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migrations_list_for_org( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_start_for_org.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/migrations'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_migrations_start_for_org( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/migration
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migration( '' ).
+      WHEN 404. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_get_status_for_org.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/migrations/{migration_id}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = migration_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
+    lv_temp = exclude.
+    CONDENSE lv_temp.
+    IF exclude IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'exclude' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " *   `pending`, which means the migration hasn't started yet.\n*   `exporting`, which means the migration is in progress.\n*   `exported`, which means the migration finished successfully.\n*   `failed`, which means the migration failed.
+" application/json,#/components/schemas/migration
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migration( '' ).
+      WHEN 404. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~orgs_list_outside_collaborator.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -17565,6 +17788,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
+      WHEN 403. " 
+" todo, raise
+      WHEN 500. " 
+" todo, raise
     ENDCASE.
   ENDMETHOD.
 
@@ -26738,6 +26965,117 @@ CLASS zcl_githubae IMPLEMENTATION.
       WHEN 404. " 
 " todo, raise
       WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_list_for_authentica.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/user/migrations'.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_migrations_list_for_authentica
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migrations_list_for_auth( '' ).
+      WHEN 304. " 
+" todo, raise
+      WHEN 401. " 
+" todo, raise
+      WHEN 403. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_start_for_authentic.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/user/migrations'.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_migrations_start_for_auth( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/migration
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migration( '' ).
+      WHEN 304. " 
+" todo, raise
+      WHEN 401. " 
+" todo, raise
+      WHEN 403. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_get_archive_for_aut.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/user/migrations/{migration_id}/archive'.
+    lv_temp = migration_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 302. " Response
+" todo, raise
+      WHEN 304. " 
+" todo, raise
+      WHEN 401. " 
+" todo, raise
+      WHEN 403. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~migrations_list_repos_for_auth.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/user/migrations/{migration_id}/repositories'.
+    lv_temp = migration_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{migration_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_migrations_list_repos_for_auth
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_migrations_list_repos_fo( '' ).
+      WHEN 404. " 
 " todo, raise
     ENDCASE.
   ENDMETHOD.

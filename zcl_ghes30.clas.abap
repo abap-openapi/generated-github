@@ -18852,6 +18852,10 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
+      WHEN 403. " 
+" todo, raise
+      WHEN 500. " 
+" todo, raise
     ENDCASE.
   ENDMETHOD.
 

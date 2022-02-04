@@ -1650,6 +1650,27 @@ INTERFACE zif_githubae PUBLIC.
            permissions TYPE suborg_membership_permissions,
          END OF org_membership.
 
+* Component schema: migration, object
+  TYPES: BEGIN OF migration,
+           id TYPE i,
+           owner TYPE nullable_simple_user,
+           guid TYPE string,
+           state TYPE string,
+           lock_repositories TYPE abap_bool,
+           exclude_metadata TYPE abap_bool,
+           exclude_git_data TYPE abap_bool,
+           exclude_attachments TYPE abap_bool,
+           exclude_releases TYPE abap_bool,
+           exclude_owner_projects TYPE abap_bool,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           url TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           node_id TYPE string,
+           archive_url TYPE string,
+           exclude TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF migration.
+
 * Component schema: project, object
   TYPES: BEGIN OF project,
            owner_url TYPE string,
@@ -5486,6 +5507,16 @@ INTERFACE zif_githubae PUBLIC.
            role TYPE string,
          END OF bodyorgs_remove_membership_for.
 
+* Component schema: bodymigrations_start_for_org, object
+  TYPES: BEGIN OF bodymigrations_start_for_org,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           lock_repositories TYPE abap_bool,
+           exclude_attachments TYPE abap_bool,
+           exclude_releases TYPE abap_bool,
+           exclude_owner_projects TYPE abap_bool,
+           exclude TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodymigrations_start_for_org.
+
 * Component schema: bodyprojects_create_for_org, object
   TYPES: BEGIN OF bodyprojects_create_for_org,
            name TYPE string,
@@ -6636,6 +6667,16 @@ INTERFACE zif_githubae PUBLIC.
            state TYPE string,
          END OF bodyorgs_update_membership_for.
 
+* Component schema: bodymigrations_start_for_authe, object
+  TYPES: BEGIN OF bodymigrations_start_for_authe,
+           lock_repositories TYPE abap_bool,
+           exclude_attachments TYPE abap_bool,
+           exclude_releases TYPE abap_bool,
+           exclude_owner_projects TYPE abap_bool,
+           exclude TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF bodymigrations_start_for_authe.
+
 * Component schema: bodyprojects_create_for_authen, object
   TYPES: BEGIN OF bodyprojects_create_for_authen,
            name TYPE string,
@@ -6867,6 +6908,9 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_orgs_list_members, array
   TYPES response_orgs_list_members TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
+
+* Component schema: response_migrations_list_for_org, array
+  TYPES response_migrations_list_for_o TYPE STANDARD TABLE OF migration WITH DEFAULT KEY.
 
 * Component schema: response_orgs_list_outside_collaborator, array
   TYPES response_orgs_list_outside_col TYPE STANDARD TABLE OF simple_user WITH DEFAULT KEY.
@@ -7421,6 +7465,12 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_orgs_list_memberships_for_auth, array
   TYPES response_orgs_list_memberships TYPE STANDARD TABLE OF org_membership WITH DEFAULT KEY.
+
+* Component schema: response_migrations_list_for_authentica, array
+  TYPES response_migrations_list_for_a TYPE STANDARD TABLE OF migration WITH DEFAULT KEY.
+
+* Component schema: response_migrations_list_repos_for_auth, array
+  TYPES response_migrations_list_repos TYPE STANDARD TABLE OF minimal_repository WITH DEFAULT KEY.
 
 * Component schema: response_orgs_list_for_authenticated_us, array
   TYPES response_orgs_list_for_authent TYPE STANDARD TABLE OF organization_simple WITH DEFAULT KEY.
@@ -9704,6 +9754,57 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyorgs_remove_membership_for
     RAISING cx_static_check.
 
+* GET - "List organization migrations"
+* Operation id: migrations/list-for-org
+* Parameter: exclude, optional, query
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_migrations_list_for_org
+  METHODS migrations_list_for_org
+    IMPORTING
+      exclude TYPE string OPTIONAL
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_migrations_list_for_o
+    RAISING cx_static_check.
+
+* POST - "Start an organization migration"
+* Operation id: migrations/start-for-org
+* Parameter: org, required, path
+* Response: 201
+*     application/json, #/components/schemas/migration
+* Response: 404
+* Response: 422
+* Body ref: #/components/schemas/bodymigrations_start_for_org
+  METHODS migrations_start_for_org
+    IMPORTING
+      org TYPE string
+      body TYPE bodymigrations_start_for_org
+    RETURNING
+      VALUE(return_data) TYPE migration
+    RAISING cx_static_check.
+
+* GET - "Get an organization migration status"
+* Operation id: migrations/get-status-for-org
+* Parameter: exclude, optional, query
+* Parameter: org, required, path
+* Parameter: migration_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/migration
+* Response: 404
+  METHODS migrations_get_status_for_org
+    IMPORTING
+      exclude TYPE string OPTIONAL
+      org TYPE string
+      migration_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE migration
+    RAISING cx_static_check.
+
 * GET - "List outside collaborators for an organization"
 * Operation id: orgs/list-outside-collaborators
 * Parameter: filter, optional, query
@@ -11246,6 +11347,8 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 204
+* Response: 403
+* Response: 500
   METHODS actions_delete_workflow_run_lo
     IMPORTING
       owner TYPE string
@@ -16887,6 +16990,68 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyorgs_update_membership_for
     RETURNING
       VALUE(return_data) TYPE org_membership
+    RAISING cx_static_check.
+
+* GET - "List user migrations"
+* Operation id: migrations/list-for-authenticated-user
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_migrations_list_for_authentica
+* Response: 304
+* Response: 401
+* Response: 403
+  METHODS migrations_list_for_authentica
+    IMPORTING
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_migrations_list_for_a
+    RAISING cx_static_check.
+
+* POST - "Start a user migration"
+* Operation id: migrations/start-for-authenticated-user
+* Response: 201
+*     application/json, #/components/schemas/migration
+* Response: 304
+* Response: 401
+* Response: 403
+* Response: 422
+* Body ref: #/components/schemas/bodymigrations_start_for_authe
+  METHODS migrations_start_for_authentic
+    IMPORTING
+      body TYPE bodymigrations_start_for_authe
+    RETURNING
+      VALUE(return_data) TYPE migration
+    RAISING cx_static_check.
+
+* GET - "Download a user migration archive"
+* Operation id: migrations/get-archive-for-authenticated-user
+* Parameter: migration_id, required, path
+* Response: 302
+* Response: 304
+* Response: 401
+* Response: 403
+  METHODS migrations_get_archive_for_aut
+    IMPORTING
+      migration_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List repositories for a user migration"
+* Operation id: migrations/list-repos-for-authenticated-user
+* Parameter: migration_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_migrations_list_repos_for_auth
+* Response: 404
+  METHODS migrations_list_repos_for_auth
+    IMPORTING
+      migration_id TYPE i
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_migrations_list_repos
     RAISING cx_static_check.
 
 * GET - "List organizations for the authenticated user"

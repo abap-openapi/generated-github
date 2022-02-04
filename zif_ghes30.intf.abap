@@ -11979,6 +11979,8 @@ INTERFACE zif_ghes30 PUBLIC.
 * Parameter: repo, required, path
 * Parameter: run_id, required, path
 * Response: 204
+* Response: 403
+* Response: 500
   METHODS actions_delete_workflow_run_lo
     IMPORTING
       owner TYPE string
