@@ -5759,6 +5759,7 @@ INTERFACE zif_ghes30 PUBLIC.
            privacy TYPE string,
            permission TYPE string,
            parent_team_id TYPE i,
+           ldap_dn TYPE string,
          END OF bodyteams_create.
 
 * Component schema: bodyteams_update_in_org, object

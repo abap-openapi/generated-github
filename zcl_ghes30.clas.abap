@@ -10198,6 +10198,7 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     IF data-parent_team_id <> cl_abap_math=>max_int4.
       json = json && |"parent_team_id": { data-parent_team_id },|.
     ENDIF.
+    json = json && |"ldap_dn": "{ data-ldap_dn }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
