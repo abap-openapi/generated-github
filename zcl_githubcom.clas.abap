@@ -360,6 +360,82 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(empty_object) TYPE zif_githubcom=>empty_object
       RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_stat
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_state) TYPE zif_githubcom=>code_scanning_alert_state
+      RAISING cx_static_check.
+    METHODS parse_alert_updated_at
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_updated_at) TYPE zif_githubcom=>alert_updated_at
+      RAISING cx_static_check.
+    METHODS parse_alert_instances_url
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(alert_instances_url) TYPE zif_githubcom=>alert_instances_url
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_fixe
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_fixed_at) TYPE zif_githubcom=>code_scanning_alert_fixed_at
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_dism
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismissed_) TYPE zif_githubcom=>code_scanning_alert_dismissed_
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_di01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_dismisse01) TYPE zif_githubcom=>code_scanning_alert_dismisse01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_rule
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_githubcom=>code_scanning_alert_rule
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_t
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_githubcom=>code_scanning_analysis_tool_na
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_ve) TYPE zif_githubcom=>code_scanning_analysis_tool_ve
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool_gu) TYPE zif_githubcom=>code_scanning_analysis_tool_gu
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis03
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_tool) TYPE zif_githubcom=>code_scanning_analysis_tool
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_ref
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_ref) TYPE zif_githubcom=>code_scanning_ref
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_a
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_analysi) TYPE zif_githubcom=>code_scanning_analysis_analysi
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_envi
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_githubcom=>code_scanning_alert_environmen
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_analysis_c
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_analysis_categor) TYPE zif_githubcom=>code_scanning_analysis_categor
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_loca
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_location) TYPE zif_githubcom=>code_scanning_alert_location
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_clas
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_classifica) TYPE zif_githubcom=>code_scanning_alert_classifica
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_alert_inst
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_alert_instance) TYPE zif_githubcom=>code_scanning_alert_instance
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_organizati
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(code_scanning_organization_ale) TYPE zif_githubcom=>code_scanning_organization_ale
+      RAISING cx_static_check.
     METHODS parse_credential_authorization
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(credential_authorization) TYPE zif_githubcom=>credential_authorization
@@ -632,85 +708,13 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(check_suite_preference) TYPE zif_githubcom=>check_suite_preference
       RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_t
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_tool_na) TYPE zif_githubcom=>code_scanning_analysis_tool_na
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_tool_gu) TYPE zif_githubcom=>code_scanning_analysis_tool_gu
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_ref
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_ref) TYPE zif_githubcom=>code_scanning_ref
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_stat
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_state) TYPE zif_githubcom=>code_scanning_alert_state
-      RAISING cx_static_check.
-    METHODS parse_alert_updated_at
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_updated_at) TYPE zif_githubcom=>alert_updated_at
-      RAISING cx_static_check.
-    METHODS parse_alert_instances_url
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(alert_instances_url) TYPE zif_githubcom=>alert_instances_url
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_fixe
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_fixed_at) TYPE zif_githubcom=>code_scanning_alert_fixed_at
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_dism
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_dismissed_) TYPE zif_githubcom=>code_scanning_alert_dismissed_
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_di01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_dismisse01) TYPE zif_githubcom=>code_scanning_alert_dismisse01
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_rule
+    METHODS parse_code_scanning_alert_ru01
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_rule_summa) TYPE zif_githubcom=>code_scanning_alert_rule_summa
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis02
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_tool_ve) TYPE zif_githubcom=>code_scanning_analysis_tool_ve
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis03
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_tool) TYPE zif_githubcom=>code_scanning_analysis_tool
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_a
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_analysi) TYPE zif_githubcom=>code_scanning_analysis_analysi
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_envi
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_environmen) TYPE zif_githubcom=>code_scanning_alert_environmen
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_analysis_c
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_analysis_categor) TYPE zif_githubcom=>code_scanning_analysis_categor
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_loca
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_location) TYPE zif_githubcom=>code_scanning_alert_location
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_clas
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_classifica) TYPE zif_githubcom=>code_scanning_alert_classifica
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_inst
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_instance) TYPE zif_githubcom=>code_scanning_alert_instance
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert_item
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_alert_items) TYPE zif_githubcom=>code_scanning_alert_items
-      RAISING cx_static_check.
-    METHODS parse_code_scanning_alert_ru01
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(code_scanning_alert_rule) TYPE zif_githubcom=>code_scanning_alert_rule
       RAISING cx_static_check.
     METHODS parse_code_scanning_alert
       IMPORTING iv_prefix TYPE string
@@ -2400,6 +2404,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_blocked_use) TYPE zif_githubcom=>response_orgs_list_blocked_use
       RAISING cx_static_check.
+    METHODS parse_code_scanning_list_alert
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_code_scanning_list_al) TYPE zif_githubcom=>response_code_scanning_list_al
+      RAISING cx_static_check.
     METHODS parse_orgs_list_saml_sso_autho
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_saml_sso_au) TYPE zif_githubcom=>response_orgs_list_saml_sso_au
@@ -2736,13 +2744,13 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_checks_rerequest_suit) TYPE zif_githubcom=>response_checks_rerequest_suit
       RAISING cx_static_check.
-    METHODS parse_code_scanning_list_alert
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_code_scanning_list_al) TYPE zif_githubcom=>response_code_scanning_list_al
-      RAISING cx_static_check.
     METHODS parse_code_scanning_list_ale01
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_code_scanning_list_01) TYPE zif_githubcom=>response_code_scanning_list_01
+      RAISING cx_static_check.
+    METHODS parse_code_scanning_list_ale02
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_code_scanning_list_02) TYPE zif_githubcom=>response_code_scanning_list_02
       RAISING cx_static_check.
     METHODS parse_code_scanning_list_recen
       IMPORTING iv_prefix TYPE string
@@ -4795,6 +4803,118 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_empty_object.
   ENDMETHOD.
 
+  METHOD parse_code_scanning_alert_stat.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_updated_at.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_alert_instances_url.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_fixe.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_dism.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_di01.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_rule.
+    code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
+    code_scanning_alert_rule-name = mo_json->value_string( iv_prefix && '/name' ).
+    code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
+    code_scanning_alert_rule-security_severity_level = mo_json->value_string( iv_prefix && '/security_severity_level' ).
+    code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
+    code_scanning_alert_rule-full_description = mo_json->value_string( iv_prefix && '/full_description' ).
+* todo, array, tags
+    code_scanning_alert_rule-help = mo_json->value_string( iv_prefix && '/help' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_t.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis01.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis02.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis03.
+    code_scanning_analysis_tool-name = parse_code_scanning_analysis_t( iv_prefix && '/name' ).
+    code_scanning_analysis_tool-version = parse_code_scanning_analysis01( iv_prefix && '/version' ).
+    code_scanning_analysis_tool-guid = parse_code_scanning_analysis02( iv_prefix && '/guid' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_ref.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_a.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_envi.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_analysis_c.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_loca.
+    code_scanning_alert_location-path = mo_json->value_string( iv_prefix && '/path' ).
+    code_scanning_alert_location-start_line = mo_json->value_string( iv_prefix && '/start_line' ).
+    code_scanning_alert_location-end_line = mo_json->value_string( iv_prefix && '/end_line' ).
+    code_scanning_alert_location-start_column = mo_json->value_string( iv_prefix && '/start_column' ).
+    code_scanning_alert_location-end_column = mo_json->value_string( iv_prefix && '/end_column' ).
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_clas.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_alert_inst.
+    code_scanning_alert_instance-ref = parse_code_scanning_ref( iv_prefix && '/ref' ).
+    code_scanning_alert_instance-analysis_key = parse_code_scanning_analysis_a( iv_prefix && '/analysis_key' ).
+    code_scanning_alert_instance-environment = parse_code_scanning_alert_envi( iv_prefix && '/environment' ).
+    code_scanning_alert_instance-category = parse_code_scanning_analysis_c( iv_prefix && '/category' ).
+    code_scanning_alert_instance-state = parse_code_scanning_alert_stat( iv_prefix && '/state' ).
+    code_scanning_alert_instance-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
+    code_scanning_alert_instance-message-text = mo_json->value_string( iv_prefix && '/message/text' ).
+    code_scanning_alert_instance-location = parse_code_scanning_alert_loca( iv_prefix && '/location' ).
+    code_scanning_alert_instance-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+* todo, array, classifications
+  ENDMETHOD.
+
+  METHOD parse_code_scanning_organizati.
+    code_scanning_organization_ale-number = parse_alert_number( iv_prefix && '/number' ).
+    code_scanning_organization_ale-created_at = parse_alert_created_at( iv_prefix && '/created_at' ).
+    code_scanning_organization_ale-updated_at = parse_alert_updated_at( iv_prefix && '/updated_at' ).
+    code_scanning_organization_ale-url = parse_alert_url( iv_prefix && '/url' ).
+    code_scanning_organization_ale-html_url = parse_alert_html_url( iv_prefix && '/html_url' ).
+    code_scanning_organization_ale-instances_url = parse_alert_instances_url( iv_prefix && '/instances_url' ).
+    code_scanning_organization_ale-state = parse_code_scanning_alert_stat( iv_prefix && '/state' ).
+    code_scanning_organization_ale-fixed_at = parse_code_scanning_alert_fixe( iv_prefix && '/fixed_at' ).
+    code_scanning_organization_ale-dismissed_by = parse_nullable_simple_user( iv_prefix && '/dismissed_by' ).
+    code_scanning_organization_ale-dismissed_at = parse_code_scanning_alert_dism( iv_prefix && '/dismissed_at' ).
+    code_scanning_organization_ale-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix && '/dismissed_reason' ).
+    code_scanning_organization_ale-rule = parse_code_scanning_alert_rule( iv_prefix && '/rule' ).
+    code_scanning_organization_ale-tool = parse_code_scanning_analysis03( iv_prefix && '/tool' ).
+    code_scanning_organization_ale-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix && '/most_recent_instance' ).
+    code_scanning_organization_ale-repository = parse_minimal_repository( iv_prefix && '/repository' ).
+  ENDMETHOD.
+
   METHOD parse_credential_authorization.
     credential_authorization-login = mo_json->value_string( iv_prefix && '/login' ).
     credential_authorization-credential_id = mo_json->value_string( iv_prefix && '/credential_id' ).
@@ -5890,95 +6010,12 @@ CLASS zcl_githubcom IMPLEMENTATION.
     check_suite_preference-repository = parse_minimal_repository( iv_prefix && '/repository' ).
   ENDMETHOD.
 
-  METHOD parse_code_scanning_analysis_t.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis01.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_ref.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_stat.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_alert_updated_at.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_alert_instances_url.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_fixe.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_dism.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_di01.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_rule.
+  METHOD parse_code_scanning_alert_ru01.
     code_scanning_alert_rule_summa-id = mo_json->value_string( iv_prefix && '/id' ).
     code_scanning_alert_rule_summa-name = mo_json->value_string( iv_prefix && '/name' ).
 * todo, array, tags
     code_scanning_alert_rule_summa-severity = mo_json->value_string( iv_prefix && '/severity' ).
     code_scanning_alert_rule_summa-description = mo_json->value_string( iv_prefix && '/description' ).
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis02.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis03.
-    code_scanning_analysis_tool-name = parse_code_scanning_analysis_t( iv_prefix && '/name' ).
-    code_scanning_analysis_tool-version = parse_code_scanning_analysis02( iv_prefix && '/version' ).
-    code_scanning_analysis_tool-guid = parse_code_scanning_analysis01( iv_prefix && '/guid' ).
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis_a.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_envi.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_analysis_c.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_loca.
-    code_scanning_alert_location-path = mo_json->value_string( iv_prefix && '/path' ).
-    code_scanning_alert_location-start_line = mo_json->value_string( iv_prefix && '/start_line' ).
-    code_scanning_alert_location-end_line = mo_json->value_string( iv_prefix && '/end_line' ).
-    code_scanning_alert_location-start_column = mo_json->value_string( iv_prefix && '/start_column' ).
-    code_scanning_alert_location-end_column = mo_json->value_string( iv_prefix && '/end_column' ).
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_clas.
-* todo, handle type string
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_inst.
-    code_scanning_alert_instance-ref = parse_code_scanning_ref( iv_prefix && '/ref' ).
-    code_scanning_alert_instance-analysis_key = parse_code_scanning_analysis_a( iv_prefix && '/analysis_key' ).
-    code_scanning_alert_instance-environment = parse_code_scanning_alert_envi( iv_prefix && '/environment' ).
-    code_scanning_alert_instance-category = parse_code_scanning_analysis_c( iv_prefix && '/category' ).
-    code_scanning_alert_instance-state = parse_code_scanning_alert_stat( iv_prefix && '/state' ).
-    code_scanning_alert_instance-commit_sha = mo_json->value_string( iv_prefix && '/commit_sha' ).
-    code_scanning_alert_instance-message-text = mo_json->value_string( iv_prefix && '/message/text' ).
-    code_scanning_alert_instance-location = parse_code_scanning_alert_loca( iv_prefix && '/location' ).
-    code_scanning_alert_instance-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
-* todo, array, classifications
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert_item.
@@ -5993,20 +6030,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     code_scanning_alert_items-dismissed_by = parse_nullable_simple_user( iv_prefix && '/dismissed_by' ).
     code_scanning_alert_items-dismissed_at = parse_code_scanning_alert_dism( iv_prefix && '/dismissed_at' ).
     code_scanning_alert_items-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix && '/dismissed_reason' ).
-    code_scanning_alert_items-rule = parse_code_scanning_alert_rule( iv_prefix && '/rule' ).
+    code_scanning_alert_items-rule = parse_code_scanning_alert_ru01( iv_prefix && '/rule' ).
     code_scanning_alert_items-tool = parse_code_scanning_analysis03( iv_prefix && '/tool' ).
     code_scanning_alert_items-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix && '/most_recent_instance' ).
-  ENDMETHOD.
-
-  METHOD parse_code_scanning_alert_ru01.
-    code_scanning_alert_rule-id = mo_json->value_string( iv_prefix && '/id' ).
-    code_scanning_alert_rule-name = mo_json->value_string( iv_prefix && '/name' ).
-    code_scanning_alert_rule-severity = mo_json->value_string( iv_prefix && '/severity' ).
-    code_scanning_alert_rule-security_severity_level = mo_json->value_string( iv_prefix && '/security_severity_level' ).
-    code_scanning_alert_rule-description = mo_json->value_string( iv_prefix && '/description' ).
-    code_scanning_alert_rule-full_description = mo_json->value_string( iv_prefix && '/full_description' ).
-* todo, array, tags
-    code_scanning_alert_rule-help = mo_json->value_string( iv_prefix && '/help' ).
   ENDMETHOD.
 
   METHOD parse_code_scanning_alert.
@@ -6021,7 +6047,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     code_scanning_alert-dismissed_by = parse_nullable_simple_user( iv_prefix && '/dismissed_by' ).
     code_scanning_alert-dismissed_at = parse_code_scanning_alert_dism( iv_prefix && '/dismissed_at' ).
     code_scanning_alert-dismissed_reason = parse_code_scanning_alert_di01( iv_prefix && '/dismissed_reason' ).
-    code_scanning_alert-rule = parse_code_scanning_alert_ru01( iv_prefix && '/rule' ).
+    code_scanning_alert-rule = parse_code_scanning_alert_rule( iv_prefix && '/rule' ).
     code_scanning_alert-tool = parse_code_scanning_analysis03( iv_prefix && '/tool' ).
     code_scanning_alert-most_recent_instance = parse_code_scanning_alert_inst( iv_prefix && '/most_recent_instance' ).
   ENDMETHOD.
@@ -8756,6 +8782,18 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_code_scanning_list_alert.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA code_scanning_organization_ale TYPE zif_githubcom=>code_scanning_organization_ale.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR code_scanning_organization_ale.
+      code_scanning_organization_ale = parse_code_scanning_organizati( iv_prefix && '/' && lv_member ).
+      APPEND code_scanning_organization_ale TO response_code_scanning_list_al.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_orgs_list_saml_sso_autho.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -9523,7 +9561,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_checks_rerequest_suite.
   ENDMETHOD.
 
-  METHOD parse_code_scanning_list_alert.
+  METHOD parse_code_scanning_list_ale01.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
     DATA code_scanning_alert_items TYPE zif_githubcom=>code_scanning_alert_items.
@@ -9531,11 +9569,11 @@ CLASS zcl_githubcom IMPLEMENTATION.
     LOOP AT lt_members INTO lv_member.
       CLEAR code_scanning_alert_items.
       code_scanning_alert_items = parse_code_scanning_alert_item( iv_prefix && '/' && lv_member ).
-      APPEND code_scanning_alert_items TO response_code_scanning_list_al.
+      APPEND code_scanning_alert_items TO response_code_scanning_list_01.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD parse_code_scanning_list_ale01.
+  METHOD parse_code_scanning_list_ale02.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
     DATA code_scanning_alert_instance TYPE zif_githubcom=>code_scanning_alert_instance.
@@ -9543,7 +9581,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     LOOP AT lt_members INTO lv_member.
       CLEAR code_scanning_alert_instance.
       code_scanning_alert_instance = parse_code_scanning_alert_inst( iv_prefix && '/' && lv_member ).
-      APPEND code_scanning_alert_instance TO response_code_scanning_list_01.
+      APPEND code_scanning_alert_instance TO response_code_scanning_list_02.
     ENDLOOP.
   ENDMETHOD.
 
@@ -17388,6 +17426,56 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubcom~code_scanning_list_alerts_for_.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/orgs/{org}/code-scanning/alerts'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    IF state IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'state' value = state ).
+    ENDIF.
+    IF sort IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'sort' value = sort ).
+    ENDIF.
+    IF before IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'before' value = before ).
+    ENDIF.
+    IF after IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'after' value = after ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF direction IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'direction' value = direction ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_code_scanning_list_alerts_for_
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_code_scanning_list_alert( '' ).
+      WHEN 403. " 
+" todo, raise
+      WHEN 404. " 
+" todo, raise
+      WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubcom~orgs_list_saml_sso_authorizati.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -23979,7 +24067,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
-  METHOD zif_githubcom~code_scanning_list_alerts_for_.
+  METHOD zif_githubcom~code_scanning_list_alerts_fo01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/code-scanning/alerts'.
@@ -24023,9 +24111,9 @@ CLASS zcl_githubcom IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json,#/components/schemas/response_code_scanning_list_alerts_for_
+" application/json,#/components/schemas/response_code_scanning_list_alerts_fo01
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_code_scanning_list_alert( '' ).
+        return_data = parse_code_scanning_list_ale01( '' ).
       WHEN 304. " 
 " todo, raise
       WHEN 403. " 
@@ -24136,7 +24224,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
       WHEN 200. " Response
 " application/json,#/components/schemas/response_code_scanning_list_alert_insta
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_code_scanning_list_ale01( '' ).
+        return_data = parse_code_scanning_list_ale02( '' ).
       WHEN 403. " 
 " todo, raise
       WHEN 404. " 
