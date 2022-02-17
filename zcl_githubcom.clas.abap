@@ -764,6 +764,10 @@ CLASS zcl_githubcom DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_sarifs_status) TYPE zif_githubcom=>code_scanning_sarifs_status
       RAISING cx_static_check.
+    METHODS parse_codeowners_errors
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(codeowners_errors) TYPE zif_githubcom=>codeowners_errors
+      RAISING cx_static_check.
     METHODS parse_nullable_codespace_machi
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(nullable_codespace_machine) TYPE zif_githubcom=>nullable_codespace_machine
@@ -6114,6 +6118,10 @@ CLASS zcl_githubcom IMPLEMENTATION.
 * todo, array, errors
   ENDMETHOD.
 
+  METHOD parse_codeowners_errors.
+* todo, array, errors
+  ENDMETHOD.
+
   METHOD parse_nullable_codespace_machi.
     nullable_codespace_machine-name = mo_json->value_string( iv_prefix && '/name' ).
     nullable_codespace_machine-display_name = mo_json->value_string( iv_prefix && '/display_name' ).
@@ -6127,6 +6135,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD parse_codespace.
     codespace-id = mo_json->value_string( iv_prefix && '/id' ).
     codespace-name = mo_json->value_string( iv_prefix && '/name' ).
+    codespace-display_name = mo_json->value_string( iv_prefix && '/display_name' ).
     codespace-environment_id = mo_json->value_string( iv_prefix && '/environment_id' ).
     codespace-owner = parse_simple_user( iv_prefix && '/owner' ).
     codespace-billable_owner = parse_simple_user( iv_prefix && '/billable_owner' ).
@@ -12286,6 +12295,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     IF data-idle_timeout_minutes <> cl_abap_math=>max_int4.
       json = json && |"idle_timeout_minutes": { data-idle_timeout_minutes },|.
     ENDIF.
+    json = json && |"display_name": "{ data-display_name }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -12942,6 +12952,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
     IF data-idle_timeout_minutes <> cl_abap_math=>max_int4.
       json = json && |"idle_timeout_minutes": { data-idle_timeout_minutes },|.
     ENDIF.
+    json = json && |"display_name": "{ data-display_name }",|.
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -13422,6 +13433,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD json_codespaces_update_for_aut.
     json = json && '{'.
     json = json && |"machine": "{ data-machine }",|.
+    json = json && |"display_name": "{ data-display_name }",|.
 *  json = json && '"recent_folders":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
@@ -13430,6 +13442,7 @@ CLASS zcl_githubcom IMPLEMENTATION.
   METHOD json_codespaces_delete_for_aut.
     json = json && '{'.
     json = json && |"machine": "{ data-machine }",|.
+    json = json && |"display_name": "{ data-display_name }",|.
 *  json = json && '"recent_folders":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
@@ -24412,6 +24425,33 @@ CLASS zcl_githubcom IMPLEMENTATION.
       WHEN 404. " Not Found if the sarif id does not match any upload
 " todo, raise
       WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubcom~repos_codeowners_errors.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE 'https://api.github.com/repos/{owner}/{repo}/codeowners/errors'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/codeowners-errors
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_codeowners_errors( '' ).
+      WHEN 404. " Resource not found
 " todo, raise
     ENDCASE.
   ENDMETHOD.

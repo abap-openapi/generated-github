@@ -676,6 +676,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(code_scanning_sarifs_status) TYPE zif_githubae=>code_scanning_sarifs_status
       RAISING cx_static_check.
+    METHODS parse_codeowners_errors
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(codeowners_errors) TYPE zif_githubae=>codeowners_errors
+      RAISING cx_static_check.
     METHODS parse_collaborator
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(collaborator) TYPE zif_githubae=>collaborator
@@ -2027,6 +2031,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_orgs_list_webhooks
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_orgs_list_webhooks) TYPE zif_githubae=>response_orgs_list_webhooks
+      RAISING cx_static_check.
+    METHODS parse_orgs_list_webhook_delive
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_orgs_list_webhook_del) TYPE zif_githubae=>response_orgs_list_webhook_del
       RAISING cx_static_check.
     METHODS parse_orgs_list_app_installati
       IMPORTING iv_prefix TYPE string
@@ -5196,6 +5204,10 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, errors
   ENDMETHOD.
 
+  METHOD parse_codeowners_errors.
+* todo, array, errors
+  ENDMETHOD.
+
   METHOD parse_collaborator.
     collaborator-login = mo_json->value_string( iv_prefix && '/login' ).
     collaborator-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -7474,6 +7486,18 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR org_hook.
       org_hook = parse_org_hook( iv_prefix && '/' && lv_member ).
       APPEND org_hook TO response_orgs_list_webhooks.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_orgs_list_webhook_delive.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA hook_delivery_item TYPE zif_githubae=>hook_delivery_item.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR hook_delivery_item.
+      hook_delivery_item = parse_hook_delivery_item( iv_prefix && '/' && lv_member ).
+      APPEND hook_delivery_item TO response_orgs_list_webhook_del.
     ENDLOOP.
   ENDMETHOD.
 
@@ -14814,6 +14838,40 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~orgs_list_webhook_deliveries.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/hooks/{hook_id}/deliveries'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = hook_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{hook_id}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    IF cursor IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'cursor' value = cursor ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_orgs_list_webhook_deliveries
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_orgs_list_webhook_delive( '' ).
+      WHEN 400. " 
+" todo, raise
+      WHEN 422. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~orgs_get_webhook_delivery.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -19907,6 +19965,33 @@ CLASS zcl_githubae IMPLEMENTATION.
       WHEN 404. " Not Found if the sarif id does not match any upload
 " todo, raise
       WHEN 503. " 
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_codeowners_errors.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/codeowners/errors'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    IF ref IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'ref' value = ref ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/codeowners-errors
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_codeowners_errors( '' ).
+      WHEN 404. " Resource not found
 " todo, raise
     ENDCASE.
   ENDMETHOD.

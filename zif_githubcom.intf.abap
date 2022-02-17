@@ -3241,6 +3241,11 @@ INTERFACE zif_githubcom PUBLIC.
            errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF code_scanning_sarifs_status.
 
+* Component schema: codeowners-errors, object
+  TYPES: BEGIN OF codeowners_errors,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF codeowners_errors.
+
 * Component schema: nullable-codespace-machine, object
   TYPES: BEGIN OF nullable_codespace_machine,
            name TYPE string,
@@ -3266,6 +3271,7 @@ INTERFACE zif_githubcom PUBLIC.
   TYPES: BEGIN OF codespace,
            id TYPE i,
            name TYPE string,
+           display_name TYPE string,
            environment_id TYPE string,
            owner TYPE simple_user,
            billable_owner TYPE simple_user,
@@ -6779,6 +6785,7 @@ INTERFACE zif_githubcom PUBLIC.
            machine TYPE string,
            working_directory TYPE string,
            idle_timeout_minutes TYPE i,
+           display_name TYPE string,
          END OF bodycodespaces_create_with_rep.
 
 * Component schema: bodyrepos_add_collaborator, object
@@ -7293,6 +7300,7 @@ INTERFACE zif_githubcom PUBLIC.
            machine TYPE string,
            working_directory TYPE string,
            idle_timeout_minutes TYPE i,
+           display_name TYPE string,
          END OF bodycodespaces_create_with_pr_.
 
 * Component schema: bodypulls_create_review_commen, object
@@ -7631,12 +7639,14 @@ INTERFACE zif_githubcom PUBLIC.
 * Component schema: bodycodespaces_update_for_auth, object
   TYPES: BEGIN OF bodycodespaces_update_for_auth,
            machine TYPE string,
+           display_name TYPE string,
            recent_folders TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodycodespaces_update_for_auth.
 
 * Component schema: bodycodespaces_delete_for_auth, object
   TYPES: BEGIN OF bodycodespaces_delete_for_auth,
            machine TYPE string,
+           display_name TYPE string,
            recent_folders TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodycodespaces_delete_for_auth.
 
@@ -15287,6 +15297,23 @@ INTERFACE zif_githubcom PUBLIC.
       repo TYPE string
     RETURNING
       VALUE(return_data) TYPE code_scanning_sarifs_status
+    RAISING cx_static_check.
+
+* GET - "List CODEOWNERS errors"
+* Operation id: repos/codeowners-errors
+* Parameter: ref, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/codeowners-errors
+* Response: 404
+  METHODS repos_codeowners_errors
+    IMPORTING
+      ref TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE codeowners_errors
     RAISING cx_static_check.
 
 * GET - "List codespaces in a repository for the authenticated user"

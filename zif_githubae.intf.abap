@@ -2857,6 +2857,11 @@ INTERFACE zif_githubae PUBLIC.
            errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF code_scanning_sarifs_status.
 
+* Component schema: codeowners-errors, object
+  TYPES: BEGIN OF codeowners_errors,
+           errors TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF codeowners_errors.
+
 * Component schema: collaborator, object
   TYPES: BEGIN OF subcollaborator_permissions,
            pull TYPE abap_bool,
@@ -6897,6 +6902,9 @@ INTERFACE zif_githubae PUBLIC.
 * Component schema: response_orgs_list_webhooks, array
   TYPES response_orgs_list_webhooks TYPE STANDARD TABLE OF org_hook WITH DEFAULT KEY.
 
+* Component schema: response_orgs_list_webhook_deliveries, array
+  TYPES response_orgs_list_webhook_del TYPE STANDARD TABLE OF hook_delivery_item WITH DEFAULT KEY.
+
 * Component schema: response_orgs_list_app_installations, object
   TYPES: BEGIN OF response_orgs_list_app_install,
            total_count TYPE i,
@@ -9554,6 +9562,26 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyorgs_update_webhook_config
     RETURNING
       VALUE(return_data) TYPE webhook_config
+    RAISING cx_static_check.
+
+* GET - "List deliveries for an organization webhook"
+* Operation id: orgs/list-webhook-deliveries
+* Parameter: org, required, path
+* Parameter: hook_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: cursor, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_orgs_list_webhook_deliveries
+* Response: 400
+* Response: 422
+  METHODS orgs_list_webhook_deliveries
+    IMPORTING
+      org TYPE string
+      hook_id TYPE i
+      per_page TYPE i DEFAULT 30
+      cursor TYPE string OPTIONAL
+    RETURNING
+      VALUE(return_data) TYPE response_orgs_list_webhook_del
     RAISING cx_static_check.
 
 * GET - "Get a webhook delivery for an organization webhook"
@@ -12680,6 +12708,23 @@ INTERFACE zif_githubae PUBLIC.
       repo TYPE string
     RETURNING
       VALUE(return_data) TYPE code_scanning_sarifs_status
+    RAISING cx_static_check.
+
+* GET - "List CODEOWNERS errors"
+* Operation id: repos/codeowners-errors
+* Parameter: ref, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/codeowners-errors
+* Response: 404
+  METHODS repos_codeowners_errors
+    IMPORTING
+      ref TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE codeowners_errors
     RAISING cx_static_check.
 
 * GET - "List repository collaborators"
