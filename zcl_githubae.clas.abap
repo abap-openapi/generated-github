@@ -11947,9 +11947,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 201. " Response
 " application/json,
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12008,9 +12008,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_apps_list_webhook_deliveries
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_webhook_delive( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12031,9 +12031,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook-delivery
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook_delivery( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12050,11 +12050,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12107,9 +12107,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/installation
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12127,7 +12127,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12149,15 +12149,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/installation-token
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation_token( '' ).
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12175,7 +12175,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12193,7 +12193,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12212,7 +12212,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12234,9 +12234,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/authorization
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authorization( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12258,7 +12258,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/authorization
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_authorization( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12277,7 +12277,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12298,11 +12298,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/integration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_integration( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12320,7 +12320,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_codes_of_conduct_get_all_codes
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_codes_of_conduct_get_all( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12341,9 +12341,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-of-conduct
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_of_conduct( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -12361,7 +12361,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_emojis_get
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_emojis_get( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13082,9 +13082,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13103,13 +13103,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13140,11 +13140,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_public
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_public( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13175,11 +13175,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_starred
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_starred( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13200,11 +13200,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13226,9 +13226,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13247,11 +13247,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13282,11 +13282,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_comments( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13308,11 +13308,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13336,11 +13336,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13365,7 +13365,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_comment( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13387,11 +13387,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13422,11 +13422,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_commits( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13457,11 +13457,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_forks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_forks( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13482,13 +13482,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/base-gist
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_base_gist( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13506,9 +13506,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response if gist is starred
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " Not Found if gist is not starred
 " application/json,#/components/schemas/response_gists_check_is_starred
@@ -13531,11 +13531,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13553,11 +13553,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13581,11 +13581,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gist-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gist_simple( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13603,7 +13603,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gitignore_get_all_templates
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gitignore_get_all_templa( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13624,7 +13624,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gitignore-template
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gitignore_template( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13652,11 +13652,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_apps_list_repos_accessible_to_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_repos_accessib( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13735,11 +13735,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13772,7 +13772,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_licenses_get_all_commonly_used
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_licenses_get_all_commonl( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13793,11 +13793,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/license
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_license( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13813,7 +13813,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13828,7 +13828,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13846,7 +13846,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/api-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_api_overview( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13890,13 +13890,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_activity_list_notifications_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_notificati( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13918,11 +13918,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " todo, raise
       WHEN 205. " Reset Content
 " todo, raise
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13943,11 +13943,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/thread
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13966,9 +13966,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 205. " Reset Content
 " todo, raise
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -13989,11 +13989,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/thread-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread_subscription( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14015,11 +14015,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/thread-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_thread_subscription( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14038,11 +14038,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14086,7 +14086,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_orgs_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14129,7 +14129,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/organization-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_full( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14151,7 +14151,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/organization-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_organization_full( '' ).
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
       WHEN 422. " Validation failed
 " application/json,
@@ -14691,7 +14691,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_orgs_list_webhooks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_webhooks( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14713,9 +14713,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14739,7 +14739,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14764,9 +14764,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_hook( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14788,7 +14788,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14865,9 +14865,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_orgs_list_webhook_deliveries
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_webhook_delive( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14894,9 +14894,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook-delivery
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook_delivery( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14919,11 +14919,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -14944,7 +14944,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15041,7 +15041,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_for_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_org( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15080,7 +15080,7 @@ CLASS zcl_githubae IMPLEMENTATION.
         return_data = parse_orgs_list_members( '' ).
       WHEN 302. " Response if requester is not an organization member
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15124,7 +15124,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15148,9 +15148,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15175,9 +15175,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15199,9 +15199,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15257,9 +15257,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/migration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_migration( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15288,7 +15288,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/migration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_migration( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15348,7 +15348,7 @@ CLASS zcl_githubae IMPLEMENTATION.
       WHEN 204. " User was converted
       WHEN 403. " Forbidden if user is the last owner of the organization or not a member of the organization
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15406,7 +15406,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_for_org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_org( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15428,15 +15428,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15496,9 +15496,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15529,7 +15529,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_teams_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15551,9 +15551,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/team-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_full( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -15577,7 +15577,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/team-full
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_team_full( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16535,13 +16535,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16563,15 +16563,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16590,16 +16590,16 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
       WHEN 403. " Forbidden
 " application/json,#/components/schemas/response_projects_delete_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_delete_card( '' ).
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16621,16 +16621,16 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_move_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_card( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
       WHEN 403. " Forbidden
 " application/json,#/components/schemas/response_projects_move_card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_card( '' ).
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
       WHEN 503. " Response
 " application/json,#/components/schemas/response_projects_move_card
@@ -16656,13 +16656,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16684,11 +16684,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16707,11 +16707,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16745,11 +16745,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_cards
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_cards( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16771,11 +16771,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-card
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_card( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 422. " Validation failed
 " application/json,
@@ -16805,13 +16805,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_move_column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_move_column( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16832,11 +16832,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16858,9 +16858,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
       WHEN 403. " Forbidden
 " application/json,#/components/schemas/response_projects_update
@@ -16869,9 +16869,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " todo, raise
       WHEN 404. " Not Found if the authenticated user does not have access to the project
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16890,18 +16890,18 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Delete Success
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
       WHEN 403. " Forbidden
 " application/json,#/components/schemas/response_projects_delete
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_projects_delete( '' ).
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16935,15 +16935,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_collaborators
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_collaborat( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16965,15 +16965,15 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -16995,15 +16995,15 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17027,15 +17027,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-collaborator-permission
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_collaborator_per( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17066,11 +17066,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_columns
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_columns( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17092,13 +17092,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project-column
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project_column( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17116,9 +17116,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/rate-limit-overview
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_rate_limit_overview( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17142,11 +17142,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/full-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_full_repository( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17171,13 +17171,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/full-repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_full_repository( '' ).
-      WHEN 307. " 
+      WHEN 307.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17199,14 +17199,14 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 307. " 
+      WHEN 307.
 " todo, raise
       WHEN 403. " If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, a member will get this response:
 " application/json,#/components/schemas/response_repos_delete
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_repos_delete( '' ).
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17709,7 +17709,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_actions_list_jobs_for_workflow
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_actions_list_jobs_for_wo( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -17846,9 +17846,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18240,7 +18240,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_assignees
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_assignees( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18319,7 +18319,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/autolink
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_autolink( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18346,7 +18346,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/autolink
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_autolink( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18370,7 +18370,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18409,7 +18409,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_branches
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_branches( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18436,11 +18436,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/branch-with-protection
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_with_protection( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18467,7 +18467,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/branch-protection
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_protection( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18495,11 +18495,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/protected-branch
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18524,7 +18524,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18598,7 +18598,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18651,7 +18651,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/protected-branch-pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_pull_re( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18676,7 +18676,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18703,7 +18703,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18730,7 +18730,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/protected-branch-admin-enforced
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_protected_branch_admin_e( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18754,7 +18754,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18781,7 +18781,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/status-check-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_status_check_policy( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18809,9 +18809,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/status-check-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_status_check_policy( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18861,7 +18861,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_all_status_check_con
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_all_status_che( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18889,11 +18889,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_add_status_check_context
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_status_check_c( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18921,9 +18921,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_set_status_check_context
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_status_check_c( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18951,9 +18951,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_remove_status_check_cont
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_status_chec( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -18980,7 +18980,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/branch-restriction-policy
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_branch_restriction_polic( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19029,7 +19029,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_apps_with_access_to_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_apps_with_acce( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19057,7 +19057,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_add_app_access_restricti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_app_access_res( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19085,7 +19085,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_set_app_access_restricti
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_app_access_res( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19113,7 +19113,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_remove_app_access_restri
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_app_access_( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19140,7 +19140,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_teams_with_access_to
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_teams_with_acc( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19168,7 +19168,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_add_team_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_team_access_re( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19196,7 +19196,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_set_team_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_team_access_re( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19224,7 +19224,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_remove_team_access_restr
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_team_access( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19251,7 +19251,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_users_with_access_to
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_users_with_acc( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19279,7 +19279,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_add_user_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_add_user_access_re( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19307,7 +19307,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_set_user_access_restrict
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_set_user_access_re( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19335,7 +19335,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_remove_user_access_restr
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_remove_user_access( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19476,7 +19476,7 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_basic_error( '' ).
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
       WHEN 422. " Validation error if the check run is not rerequestable
 " application/json,#/components/schemas/basic-error
@@ -19671,11 +19671,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_code_scanning_list_alerts_for_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_alert( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19702,11 +19702,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_alert( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19734,11 +19734,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_alert( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19778,11 +19778,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_code_scanning_list_alert_insta
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_ale01( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19828,11 +19828,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_code_scanning_list_recent_anal
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_list_recen( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19859,11 +19859,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-analysis
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_analysis( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19893,13 +19893,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-analysis-deletion
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_analysis_d( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19927,13 +19927,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " todo, raise
       WHEN 400. " Bad Request if the sarif field is invalid
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
       WHEN 413. " Payload Too Large if the sarif field is too large
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -19960,11 +19960,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/code-scanning-sarifs-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_code_scanning_sarifs_sta( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " Not Found if the sarif id does not match any upload
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20028,7 +20028,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_collaborators
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_collaborators( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20081,9 +20081,9 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_invitation( '' ).
       WHEN 204. " Response when person is already a collaborator
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20133,7 +20133,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/repository-collaborator-permission
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_collaborator_( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20192,7 +20192,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20220,7 +20220,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20245,7 +20245,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20285,7 +20285,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_reactions_list_for_commit_comm
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_commi( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20317,9 +20317,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20393,13 +20393,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_commits( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20426,7 +20426,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_branches_for_head_c
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_branches_for_( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20489,9 +20489,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/commit-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comment( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20563,11 +20563,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20696,7 +20696,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/combined-commit-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_combined_commit_status( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20733,7 +20733,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_commit_statuses_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_commit_status( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20770,9 +20770,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/commit-comparison
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit_comparison( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20800,11 +20800,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 200. " Response
 " application/json,
-      WHEN 302. " 
+      WHEN 302.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20836,11 +20836,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/file-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_file_commit( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20868,13 +20868,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/file-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_file_commit( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20912,9 +20912,9 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_contributors( '' ).
       WHEN 204. " Response if repository is empty
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -20990,7 +20990,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " todo, raise
       WHEN 409. " Conflict when there is a merge conflict or the commit's status checks failed
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21017,7 +21017,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/deployment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21041,9 +21041,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21080,7 +21080,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_deployment_statuses
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_deployment_st( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21108,7 +21108,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/deployment-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment_status( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21138,7 +21138,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/deployment-status
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment_status( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21207,7 +21207,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_forks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_forks( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21233,13 +21233,13 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_full_repository( '' ).
 " todo, raise
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21264,13 +21264,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/short-blob
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_short_blob( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21297,11 +21297,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/blob
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_blob( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21326,9 +21326,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_commit( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21355,7 +21355,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-commit
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_commit( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21417,7 +21417,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21442,7 +21442,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21470,7 +21470,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-ref
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_ref( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21495,7 +21495,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21520,7 +21520,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-tag
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tag( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21547,7 +21547,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-tag
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tag( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21572,11 +21572,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-tree
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tree( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21606,9 +21606,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/git-tree
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_git_tree( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21642,7 +21642,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_webhooks
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_webhooks( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21667,11 +21667,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21698,7 +21698,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21726,9 +21726,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21753,7 +21753,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21839,9 +21839,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_webhook_deliveries
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_webhook_deliv( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21871,9 +21871,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hook-delivery
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hook_delivery( '' ).
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21899,11 +21899,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21927,7 +21927,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21951,7 +21951,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -21975,9 +21975,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/installation
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_installation( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22119,11 +22119,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_repo( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22148,15 +22148,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22199,9 +22199,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_comments_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_comments_for( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22228,7 +22228,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22256,7 +22256,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22319,7 +22319,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_reactions_list_for_issue_comme
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_issue( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22351,7 +22351,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22410,7 +22410,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_events_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events_for_r( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22437,11 +22437,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue-event
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_event( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22468,13 +22468,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22502,17 +22502,17 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue( '' ).
-      WHEN 301. " 
+      WHEN 301.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22604,9 +22604,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_comments
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_comments( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22634,13 +22634,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/issue-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issue_comment( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22677,7 +22677,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_events
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events( '' ).
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22714,7 +22714,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_labels_on_issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_labels_on_is( '' ).
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22742,9 +22742,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_add_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_add_labels( '' ).
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22772,9 +22772,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_set_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_set_labels( '' ).
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22799,7 +22799,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22829,9 +22829,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_remove_label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_remove_label( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22856,13 +22856,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22887,9 +22887,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22929,9 +22929,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_reactions_list_for_issue
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_iss01( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -22963,7 +22963,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23025,9 +23025,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_events_for_timelin
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_events_for_t( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23084,7 +23084,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/deploy-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deploy_key( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23111,7 +23111,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/deploy-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deploy_key( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23167,7 +23167,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_labels_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_labels_for_r( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23192,9 +23192,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_label( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23221,7 +23221,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/label
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_label( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23312,7 +23312,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
       WHEN 403. " We will return a 403 with one of the following messages:\n\n- Git LFS support not enabled because Git LFS is globally disabled.\n- Git LFS support not enabled because Git LFS is disabled for the root repository in the network.\n- Git LFS support not enabled because Git LFS is disabled for <owner>.
 " todo, raise
@@ -23408,13 +23408,13 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_commit( '' ).
       WHEN 204. " Response when already merged
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " Not Found when the base or head does not exist
 " todo, raise
       WHEN 409. " Conflict when there is a merge conflict
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23457,7 +23457,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_milestones
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_milestones( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23482,9 +23482,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/milestone
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_milestone( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23511,7 +23511,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/milestone
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_milestone( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23562,7 +23562,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23695,7 +23695,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/page
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23720,9 +23720,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/page
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_page( '' ).
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23744,9 +23744,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23768,9 +23768,9 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23908,15 +23908,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_for_repo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_repo( '' ).
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23941,15 +23941,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 410. " 
+      WHEN 410.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -23998,9 +23998,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_pulls_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24025,9 +24025,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24095,7 +24095,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24146,7 +24146,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24186,7 +24186,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_reactions_list_for_pull_reques
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reactions_list_for_pull_( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24218,7 +24218,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24270,11 +24270,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24302,9 +24302,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24376,9 +24376,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24409,7 +24409,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review-comment
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review_comm( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24481,9 +24481,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_pulls_list_files
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_files( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 500. " 
+      WHEN 500.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24535,9 +24535,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-merge-result
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_merge_resul( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
       WHEN 405. " Method Not Allowed if merge cannot be performed
 " application/json,#/components/schemas/response_pulls_merge
@@ -24549,7 +24549,7 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pulls_merge( '' ).
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24612,7 +24612,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_simple( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 422. " Unprocessable Entity if user is not a collaborator
 " todo, raise
@@ -24642,7 +24642,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-simple
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_simple( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24705,9 +24705,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24737,7 +24737,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24768,7 +24768,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24799,9 +24799,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24841,7 +24841,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_pulls_list_comments_for_review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pulls_list_comments_for_( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24872,9 +24872,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24905,11 +24905,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/pull-request-review
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_pull_request_review( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24938,9 +24938,9 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_pulls_update_branch( '' ).
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24967,9 +24967,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/content-file
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_content_file( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -24999,9 +24999,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/content-file
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_content_file( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25035,7 +25035,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_releases
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_releases( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25060,7 +25060,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25087,11 +25087,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/release-asset
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release_asset( '' ).
-      WHEN 302. " 
+      WHEN 302.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25189,7 +25189,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25216,7 +25216,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/release
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_release( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25363,7 +25363,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25408,7 +25408,7 @@ CLASS zcl_githubae IMPLEMENTATION.
         return_data = parse_secret_scanning_list_ale( '' ).
       WHEN 404. " Repository is public or secret scanning is disabled for the repository
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25435,11 +25435,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/secret-scanning-alert
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_secret_scanning_alert( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
       WHEN 404. " Repository is public, or secret scanning is disabled for the repository, or the resource is not found
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25471,7 +25471,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " todo, raise
       WHEN 422. " State does not match the resolution
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25503,7 +25503,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 200. " Response
 " application/json,
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25527,9 +25527,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_code_frequency_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_code_frequency( '' ).
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 204. " 
+      WHEN 204.
     ENDCASE.
   ENDMETHOD.
 
@@ -25552,9 +25552,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_commit_activity_stat
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_commit_activit( '' ).
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 204. " 
+      WHEN 204.
     ENDCASE.
   ENDMETHOD.
 
@@ -25577,9 +25577,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_contributors_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_contributors_s( '' ).
-      WHEN 202. " 
+      WHEN 202.
 " todo, raise
-      WHEN 204. " 
+      WHEN 204.
     ENDCASE.
   ENDMETHOD.
 
@@ -25602,7 +25602,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/participation-stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_participation_stats( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25626,7 +25626,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_get_punch_card_stats
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_get_punch_card_sta( '' ).
-      WHEN 204. " 
+      WHEN 204.
     ENDCASE.
   ENDMETHOD.
 
@@ -25707,7 +25707,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/repository-subscription
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository_subscription( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " Not Found if you don't subscribe to the repository
 " todo, raise
@@ -25873,7 +25873,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/topic
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_topic( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25898,9 +25898,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/topic
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_topic( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26151,13 +26151,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_code
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_code( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26192,7 +26192,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_commits
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_commits( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26227,13 +26227,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_issues_and_pull_request
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_issues_and_pull_r( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26271,13 +26271,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_labels
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_labels( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26312,11 +26312,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_repos
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_repos( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26345,7 +26345,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_topics
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_topics( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26380,11 +26380,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_search_users
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_search_users( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
-      WHEN 503. " 
+      WHEN 503.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26400,11 +26400,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 200. " Response
 " application/json,
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26423,15 +26423,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/private-user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_private_user( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26459,11 +26459,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_users_list_followers_for_authe
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_followers_for( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26491,11 +26491,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_users_list_followed_by_authent
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_followed_by_a( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26513,11 +26513,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " if the person is followed by the authenticated user
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " if the person is not followed by the authenticated user
 " application/json,#/components/schemas/basic-error
@@ -26540,13 +26540,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26564,13 +26564,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26598,13 +26598,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_users_list_gpg_keys_for_authen
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_gpg_keys_for_( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26623,15 +26623,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gpg-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gpg_key( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26652,13 +26652,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/gpg-key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gpg_key( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26676,15 +26676,15 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26712,13 +26712,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_apps_list_installations_for_au
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_installations_( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26749,11 +26749,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_apps_list_installation_repos_f
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_apps_list_installation_r( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26774,11 +26774,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26799,11 +26799,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26849,9 +26849,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_issues_list_for_authenticated_
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_issues_list_for_authenti( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26879,13 +26879,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_users_list_public_ssh_keys_for
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list_public_ssh_ke( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26904,15 +26904,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_key( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26933,13 +26933,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/key
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_key( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26957,13 +26957,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -26994,13 +26994,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_orgs_list_memberships_for_auth
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_memberships_fo( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27021,9 +27021,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27045,11 +27045,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/org-membership
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_org_membership( '' ).
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27077,11 +27077,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_migrations_list_for_authentica
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_migrations_list_for_auth( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27100,13 +27100,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/migration
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_migration( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27125,11 +27125,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 302. " Response
 " todo, raise
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27160,7 +27160,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_migrations_list_repos_for_auth
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_migrations_list_repos_fo( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27188,11 +27188,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_orgs_list_for_authenticated_us
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_orgs_list_for_authentica( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27211,15 +27211,15 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/project
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_project( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 415. " 
+      WHEN 415.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27268,13 +27268,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_for_authenticated_u
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_for_authentic( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27293,17 +27293,17 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/repository
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repository( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 400. " 
+      WHEN 400.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27331,13 +27331,13 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_repos_list_invitations_for_aut
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_repos_list_invitations_f( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27355,13 +27355,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27379,13 +27379,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 409. " 
+      WHEN 409.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27419,11 +27419,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_activity_list_repos_starred_by
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_repos_star( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27444,11 +27444,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response if this repository is starred by you
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
       WHEN 404. " Not Found if this repository is not starred by you
 " application/json,#/components/schemas/basic-error
@@ -27474,13 +27474,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27501,13 +27501,13 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27535,11 +27535,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_activity_list_watched_repos_fo
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_activity_list_watched_re( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 401. " 
+      WHEN 401.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27567,11 +27567,11 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_teams_list_for_authenticated_u
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_teams_list_for_authentic( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
-      WHEN 403. " 
+      WHEN 403.
 " todo, raise
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27599,7 +27599,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_users_list
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_users_list( '' ).
-      WHEN 304. " 
+      WHEN 304.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27618,7 +27618,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     CASE lv_code.
       WHEN 200. " Response
 " application/json,
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27792,7 +27792,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_gists_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_gists_list_for_user( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27848,9 +27848,9 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/hovercard
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_hovercard( '' ).
-      WHEN 404. " 
+      WHEN 404.
 " todo, raise
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -27961,7 +27961,7 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_projects_list_for_user
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_projects_list_for_user( '' ).
-      WHEN 422. " 
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
