@@ -2228,6 +2228,7 @@ INTERFACE zif_githubae PUBLIC.
            pull_requests TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            created_at TYPE string,
            updated_at TYPE string,
+           actor TYPE simple_user,
            run_started_at TYPE string,
            jobs_url TYPE string,
            logs_url TYPE string,
@@ -4073,6 +4074,19 @@ INTERFACE zif_githubae PUBLIC.
            performed_via_github_app TYPE nullable_integration,
            assignee TYPE simple_user,
          END OF timeline_unassigned_issue_even.
+
+* Component schema: state-change-issue-event, object
+  TYPES: BEGIN OF state_change_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE nullable_integration,
+         END OF state_change_issue_event.
 
 * Component schema: timeline-issue-events, object
   TYPES: BEGIN OF timeline_issue_events,

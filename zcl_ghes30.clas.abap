@@ -932,6 +932,10 @@ CLASS zcl_ghes30 DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(timeline_unassigned_issue_even) TYPE zif_ghes30=>timeline_unassigned_issue_even
       RAISING cx_static_check.
+    METHODS parse_state_change_issue_event
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(state_change_issue_event) TYPE zif_ghes30=>state_change_issue_event
+      RAISING cx_static_check.
     METHODS parse_timeline_issue_events
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(timeline_issue_events) TYPE zif_ghes30=>timeline_issue_events
@@ -6294,6 +6298,18 @@ CLASS zcl_ghes30 IMPLEMENTATION.
     timeline_unassigned_issue_even-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     timeline_unassigned_issue_even-performed_via_github_app = parse_nullable_integration( iv_prefix && '/performed_via_github_app' ).
     timeline_unassigned_issue_even-assignee = parse_simple_user( iv_prefix && '/assignee' ).
+  ENDMETHOD.
+
+  METHOD parse_state_change_issue_event.
+    state_change_issue_event-id = mo_json->value_string( iv_prefix && '/id' ).
+    state_change_issue_event-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    state_change_issue_event-url = mo_json->value_string( iv_prefix && '/url' ).
+    state_change_issue_event-actor = parse_simple_user( iv_prefix && '/actor' ).
+    state_change_issue_event-event = mo_json->value_string( iv_prefix && '/event' ).
+    state_change_issue_event-commit_id = mo_json->value_string( iv_prefix && '/commit_id' ).
+    state_change_issue_event-commit_url = mo_json->value_string( iv_prefix && '/commit_url' ).
+    state_change_issue_event-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    state_change_issue_event-performed_via_github_app = parse_nullable_integration( iv_prefix && '/performed_via_github_app' ).
   ENDMETHOD.
 
   METHOD parse_timeline_issue_events.

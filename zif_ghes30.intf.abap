@@ -4041,6 +4041,19 @@ INTERFACE zif_ghes30 PUBLIC.
            assignee TYPE simple_user,
          END OF timeline_unassigned_issue_even.
 
+* Component schema: state-change-issue-event, object
+  TYPES: BEGIN OF state_change_issue_event,
+           id TYPE i,
+           node_id TYPE string,
+           url TYPE string,
+           actor TYPE simple_user,
+           event TYPE string,
+           commit_id TYPE string,
+           commit_url TYPE string,
+           created_at TYPE string,
+           performed_via_github_app TYPE nullable_integration,
+         END OF state_change_issue_event.
+
 * Component schema: timeline-issue-events, object
   TYPES: BEGIN OF timeline_issue_events,
            dummy_workaround TYPE i,
