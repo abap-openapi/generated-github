@@ -1999,6 +1999,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF code_of_conduct_simple.
 
 * Component schema: full-repository, object
+  TYPES: BEGIN OF subsubfull_repository_securi02,
+           status TYPE string,
+         END OF subsubfull_repository_securi02.
   TYPES: BEGIN OF subsubfull_repository_securi01,
            status TYPE string,
          END OF subsubfull_repository_securi01.
@@ -2008,6 +2011,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subfull_repository_security_an,
            advanced_security TYPE subsubfull_repository_security,
            secret_scanning TYPE subsubfull_repository_securi01,
+           secret_scanning_push_protectio TYPE subsubfull_repository_securi02,
          END OF subfull_repository_security_an.
   TYPES: BEGIN OF subfull_repository_permissions,
            admin TYPE abap_bool,
@@ -2229,6 +2233,7 @@ INTERFACE zif_githubae PUBLIC.
            created_at TYPE string,
            updated_at TYPE string,
            actor TYPE simple_user,
+           triggering_actor TYPE simple_user,
            run_started_at TYPE string,
            jobs_url TYPE string,
            logs_url TYPE string,
@@ -5744,6 +5749,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyprojects_create_column.
 
 * Component schema: bodyrepos_update, object
+  TYPES: BEGIN OF subsubbodyrepos_update_secur02,
+           status TYPE string,
+         END OF subsubbodyrepos_update_secur02.
   TYPES: BEGIN OF subsubbodyrepos_update_secur01,
            status TYPE string,
          END OF subsubbodyrepos_update_secur01.
@@ -5753,6 +5761,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subbodyrepos_update_security_a,
            advanced_security TYPE subsubbodyrepos_update_securit,
            secret_scanning TYPE subsubbodyrepos_update_secur01,
+           secret_scanning_push_protectio TYPE subsubbodyrepos_update_secur02,
          END OF subbodyrepos_update_security_a.
   TYPES: BEGIN OF bodyrepos_update,
            name TYPE string,
@@ -5776,6 +5785,9 @@ INTERFACE zif_githubae PUBLIC.
          END OF bodyrepos_update.
 
 * Component schema: bodyrepos_delete, object
+  TYPES: BEGIN OF subsubbodyrepos_delete_secur02,
+           status TYPE string,
+         END OF subsubbodyrepos_delete_secur02.
   TYPES: BEGIN OF subsubbodyrepos_delete_secur01,
            status TYPE string,
          END OF subsubbodyrepos_delete_secur01.
@@ -5785,6 +5797,7 @@ INTERFACE zif_githubae PUBLIC.
   TYPES: BEGIN OF subbodyrepos_delete_security_a,
            advanced_security TYPE subsubbodyrepos_delete_securit,
            secret_scanning TYPE subsubbodyrepos_delete_secur01,
+           secret_scanning_push_protectio TYPE subsubbodyrepos_delete_secur02,
          END OF subbodyrepos_delete_security_a.
   TYPES: BEGIN OF bodyrepos_delete,
            name TYPE string,
@@ -11341,6 +11354,7 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: run_id, required, path
 * Response: 202
 *     application/json, #/components/schemas/response_actions_cancel_workflow_run
+* Response: 409
   METHODS actions_cancel_workflow_run
     IMPORTING
       owner TYPE string

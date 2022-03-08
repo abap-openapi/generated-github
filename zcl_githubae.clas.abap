@@ -4602,6 +4602,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     full_repository-code_of_conduct = parse_code_of_conduct_simple( iv_prefix && '/code_of_conduct' ).
     full_repository-security_and_analysis-advanced_security-status = mo_json->value_string( iv_prefix && '/security_and_analysis/advanced_security/status' ).
     full_repository-security_and_analysis-secret_scanning-status = mo_json->value_string( iv_prefix && '/security_and_analysis/secret_scanning/status' ).
+    full_repository-security_and_analysis-secret_scanning_push_protectio-status = mo_json->value_string( iv_prefix && '/security_and_analysis/secret_scanning_push_protection/status' ).
   ENDMETHOD.
 
   METHOD parse_artifact.
@@ -4697,6 +4698,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     workflow_run-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
     workflow_run-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
     workflow_run-actor = parse_simple_user( iv_prefix && '/actor' ).
+    workflow_run-triggering_actor = parse_simple_user( iv_prefix && '/triggering_actor' ).
     workflow_run-run_started_at = mo_json->value_string( iv_prefix && '/run_started_at' ).
     workflow_run-jobs_url = mo_json->value_string( iv_prefix && '/jobs_url' ).
     workflow_run-logs_url = mo_json->value_string( iv_prefix && '/logs_url' ).
@@ -17779,6 +17781,8 @@ CLASS zcl_githubae IMPLEMENTATION.
 " application/json,#/components/schemas/response_actions_cancel_workflow_run
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         parse_actions_cancel_workflow_( '' ).
+" todo, raise
+      WHEN 409.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
