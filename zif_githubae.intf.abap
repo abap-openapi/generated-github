@@ -790,6 +790,29 @@ INTERFACE zif_githubae PUBLIC.
            labels TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF runner.
 
+* Component schema: runner-application, object
+  TYPES: BEGIN OF runner_application,
+           os TYPE string,
+           architecture TYPE string,
+           download_url TYPE string,
+           filename TYPE string,
+           temp_download_token TYPE string,
+           sha256_checksum TYPE string,
+         END OF runner_application.
+
+* Component schema: authentication-token, object
+  TYPES: BEGIN OF subauthentication_token_permis,
+           dummy_workaround TYPE i,
+         END OF subauthentication_token_permis.
+  TYPES: BEGIN OF authentication_token,
+           token TYPE string,
+           expires_at TYPE string,
+           permissions TYPE subauthentication_token_permis,
+           repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           single_file TYPE string,
+           repository_selection TYPE string,
+         END OF authentication_token.
+
 * Component schema: link-with-type, object
   TYPES: BEGIN OF link_with_type,
            href TYPE string,
@@ -1495,11 +1518,6 @@ INTERFACE zif_githubae PUBLIC.
            repository_url TYPE string,
          END OF thread_subscription.
 
-* Component schema: external-groups, object
-  TYPES: BEGIN OF external_groups,
-           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF external_groups.
-
 * Component schema: organization-full, object
   TYPES: BEGIN OF suborganization_full_plan,
            name TYPE string,
@@ -1614,6 +1632,11 @@ INTERFACE zif_githubae PUBLIC.
            teams TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
            members TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF external_group.
+
+* Component schema: external-groups, object
+  TYPES: BEGIN OF external_groups,
+           groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF external_groups.
 
 * Component schema: org-hook, object
   TYPES: BEGIN OF suborg_hook_config,
@@ -6138,6 +6161,15 @@ INTERFACE zif_githubae PUBLIC.
            auto_inactive TYPE abap_bool,
          END OF bodyrepos_create_deployment_st.
 
+* Component schema: bodyrepos_create_dispatch_even, object
+  TYPES: BEGIN OF subbodyrepos_create_dispatch_e,
+           dummy_workaround TYPE i,
+         END OF subbodyrepos_create_dispatch_e.
+  TYPES: BEGIN OF bodyrepos_create_dispatch_even,
+           event_type TYPE string,
+           client_payload TYPE subbodyrepos_create_dispatch_e,
+         END OF bodyrepos_create_dispatch_even.
+
 * Component schema: bodyrepos_create_fork, object
   TYPES: BEGIN OF bodyrepos_create_fork,
            organization TYPE string,
@@ -6858,6 +6890,9 @@ INTERFACE zif_githubae PUBLIC.
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_enterprise_admin_li07.
 
+* Component schema: response_enterprise_admin_list_runner_a, array
+  TYPES response_enterprise_admin_li08 TYPE STANDARD TABLE OF runner_application WITH DEFAULT KEY.
+
 * Component schema: response_gists_list, array
   TYPES response_gists_list TYPE STANDARD TABLE OF base_gist WITH DEFAULT KEY.
 
@@ -6913,6 +6948,21 @@ INTERFACE zif_githubae PUBLIC.
            total_count TYPE f,
            repositories TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_selected.
+
+* Component schema: response_actions_list_self_hosted_runne, object
+  TYPES: BEGIN OF response_actions_list_self_hos,
+           total_count TYPE f,
+           runner_groups TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_self_hos.
+
+* Component schema: response_actions_list_self_hosted_run01, object
+  TYPES: BEGIN OF response_actions_list_self_h01,
+           total_count TYPE i,
+           runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_actions_list_self_h01.
+
+* Component schema: response_actions_list_runner_applicatio, array
+  TYPES response_actions_list_runner_a TYPE STANDARD TABLE OF runner_application WITH DEFAULT KEY.
 
 * Component schema: response_actions_list_org_secrets, object
   TYPES: BEGIN OF response_actions_list_org_secr,
@@ -7075,11 +7125,14 @@ INTERFACE zif_githubae PUBLIC.
            artifacts TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF response_actions_list_artifact.
 
-* Component schema: response_actions_list_self_hosted_runne, object
-  TYPES: BEGIN OF response_actions_list_self_hos,
+* Component schema: response_actions_list_self_hosted_run02, object
+  TYPES: BEGIN OF response_actions_list_self_h02,
            total_count TYPE i,
            runners TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
-         END OF response_actions_list_self_hos.
+         END OF response_actions_list_self_h02.
+
+* Component schema: response_actions_list_runner_applicat01, array
+  TYPES response_actions_list_runner01 TYPE STANDARD TABLE OF runner_application WITH DEFAULT KEY.
 
 * Component schema: response_actions_list_workflow_runs_for, object
   TYPES: BEGIN OF response_actions_list_workflow,
@@ -7396,6 +7449,9 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_release_assets, array
   TYPES response_repos_list_release_as TYPE STANDARD TABLE OF release_asset WITH DEFAULT KEY.
+
+* Component schema: response_reactions_list_for_release, array
+  TYPES response_reactions_list_for_re TYPE STANDARD TABLE OF reaction WITH DEFAULT KEY.
 
 * Component schema: response_secret_scanning_list_alerts_fo, array
   TYPES response_secret_scanning_list_ TYPE STANDARD TABLE OF secret_scanning_alert WITH DEFAULT KEY.
@@ -8499,6 +8555,42 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_enterprise_admin_li07
     RAISING cx_static_check.
 
+* GET - "List runner applications for an enterprise"
+* Operation id: enterprise-admin/list-runner-applications-for-enterprise
+* Parameter: enterprise, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_enterprise_admin_list_runner_a
+  METHODS enterprise_admin_list_runner_a
+    IMPORTING
+      enterprise TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_enterprise_admin_li08
+    RAISING cx_static_check.
+
+* POST - "Create a registration token for an enterprise"
+* Operation id: enterprise-admin/create-registration-token-for-enterprise
+* Parameter: enterprise, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS enterprise_admin_create_regist
+    IMPORTING
+      enterprise TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
+* POST - "Create a remove token for an enterprise"
+* Operation id: enterprise-admin/create-remove-token-for-enterprise
+* Parameter: enterprise, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS enterprise_admin_create_remove
+    IMPORTING
+      enterprise TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
 * GET - "Get a self-hosted runner for an enterprise"
 * Operation id: enterprise-admin/get-self-hosted-runner-for-enterprise
 * Parameter: enterprise, required, path
@@ -9125,20 +9217,6 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE response_orgs_list
     RAISING cx_static_check.
 
-* GET - "List a connection between an external group and a team"
-* Operation id: teams/list-linked-external-idp-groups-to-team-for-org
-* Parameter: org, required, path
-* Parameter: team_slug, required, path
-* Response: 200
-*     application/json, #/components/schemas/external-groups
-  METHODS teams_list_linked_external_idp
-    IMPORTING
-      org TYPE string
-      team_slug TYPE string
-    RETURNING
-      VALUE(return_data) TYPE external_groups
-    RAISING cx_static_check.
-
 * GET - "Get an organization"
 * Operation id: orgs/get
 * Parameter: org, required, path
@@ -9264,6 +9342,22 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE selected_actions
     RAISING cx_static_check.
 
+* GET - "List self-hosted runner groups for an organization"
+* Operation id: actions/list-self-hosted-runner-groups-for-org
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_self_hosted_runne
+  METHODS actions_list_self_hosted_runne
+    IMPORTING
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_self_hos
+    RAISING cx_static_check.
+
 * POST - "Create a self-hosted runner group for an organization"
 * Operation id: actions/create-self-hosted-runner-group-for-org
 * Parameter: org, required, path
@@ -9274,6 +9368,20 @@ INTERFACE zif_githubae PUBLIC.
     IMPORTING
       org TYPE string
       body TYPE bodyactions_create_self_hosted
+    RETURNING
+      VALUE(return_data) TYPE runner_groups_org
+    RAISING cx_static_check.
+
+* GET - "Get a self-hosted runner group for an organization"
+* Operation id: actions/get-self-hosted-runner-group-for-org
+* Parameter: org, required, path
+* Parameter: runner_group_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner-groups-org
+  METHODS actions_get_self_hosted_runner
+    IMPORTING
+      org TYPE string
+      runner_group_id TYPE i
     RETURNING
       VALUE(return_data) TYPE runner_groups_org
     RAISING cx_static_check.
@@ -9305,6 +9413,85 @@ INTERFACE zif_githubae PUBLIC.
       org TYPE string
       runner_group_id TYPE i
       body TYPE bodyactions_delete_self_hosted
+    RAISING cx_static_check.
+
+* PUT - "Add a self-hosted runner to a group for an organization"
+* Operation id: actions/add-self-hosted-runner-to-group-for-org
+* Parameter: org, required, path
+* Parameter: runner_group_id, required, path
+* Parameter: runner_id, required, path
+* Response: 204
+  METHODS actions_add_self_hosted_runner
+    IMPORTING
+      org TYPE string
+      runner_group_id TYPE i
+      runner_id TYPE i
+    RAISING cx_static_check.
+
+* GET - "List self-hosted runners for an organization"
+* Operation id: actions/list-self-hosted-runners-for-org
+* Parameter: org, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_self_hosted_run01
+  METHODS actions_list_self_hosted_run01
+    IMPORTING
+      org TYPE string
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_self_h01
+    RAISING cx_static_check.
+
+* GET - "List runner applications for an organization"
+* Operation id: actions/list-runner-applications-for-org
+* Parameter: org, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_runner_applicatio
+  METHODS actions_list_runner_applicatio
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_runner_a
+    RAISING cx_static_check.
+
+* POST - "Create a registration token for an organization"
+* Operation id: actions/create-registration-token-for-org
+* Parameter: org, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS actions_create_registration_to
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
+* POST - "Create a remove token for an organization"
+* Operation id: actions/create-remove-token-for-org
+* Parameter: org, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS actions_create_remove_token_fo
+    IMPORTING
+      org TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
+* GET - "Get a self-hosted runner for an organization"
+* Operation id: actions/get-self-hosted-runner-for-org
+* Parameter: org, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner
+  METHODS actions_get_self_hosted_runn01
+    IMPORTING
+      org TYPE string
+      runner_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE runner
     RAISING cx_static_check.
 
 * DELETE - "Delete a self-hosted runner from an organization"
@@ -11184,15 +11371,73 @@ INTERFACE zif_githubae PUBLIC.
 * Parameter: per_page, optional, query
 * Parameter: page, optional, query
 * Response: 200
-*     application/json, #/components/schemas/response_actions_list_self_hosted_runne
-  METHODS actions_list_self_hosted_runne
+*     application/json, #/components/schemas/response_actions_list_self_hosted_run02
+  METHODS actions_list_self_hosted_run02
     IMPORTING
       owner TYPE string
       repo TYPE string
       per_page TYPE i DEFAULT 30
       page TYPE i DEFAULT 1
     RETURNING
-      VALUE(return_data) TYPE response_actions_list_self_hos
+      VALUE(return_data) TYPE response_actions_list_self_h02
+    RAISING cx_static_check.
+
+* GET - "List runner applications for a repository"
+* Operation id: actions/list-runner-applications-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_actions_list_runner_applicat01
+  METHODS actions_list_runner_applicat01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_actions_list_runner01
+    RAISING cx_static_check.
+
+* POST - "Create a registration token for a repository"
+* Operation id: actions/create-registration-token-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS actions_create_registration_01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
+* POST - "Create a remove token for a repository"
+* Operation id: actions/create-remove-token-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 201
+*     application/json, #/components/schemas/authentication-token
+  METHODS actions_create_remove_token_01
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE authentication_token
+    RAISING cx_static_check.
+
+* GET - "Get a self-hosted runner for a repository"
+* Operation id: actions/get-self-hosted-runner-for-repo
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: runner_id, required, path
+* Response: 200
+*     application/json, #/components/schemas/runner
+  METHODS actions_get_self_hosted_runn02
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      runner_id TYPE i
+    RETURNING
+      VALUE(return_data) TYPE runner
     RAISING cx_static_check.
 
 * DELETE - "Delete a self-hosted runner from a repository"
@@ -13444,6 +13689,20 @@ INTERFACE zif_githubae PUBLIC.
       deployment_id TYPE i
     RETURNING
       VALUE(return_data) TYPE deployment_status
+    RAISING cx_static_check.
+
+* POST - "Create a repository dispatch event"
+* Operation id: repos/create-dispatch-event
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 204
+* Response: 422
+* Body ref: #/components/schemas/bodyrepos_create_dispatch_even
+  METHODS repos_create_dispatch_event
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      body TYPE bodyrepos_create_dispatch_even
     RAISING cx_static_check.
 
 * GET - "List repository events"
@@ -16046,6 +16305,30 @@ INTERFACE zif_githubae PUBLIC.
       VALUE(return_data) TYPE release_asset
     RAISING cx_static_check.
 
+* GET - "List reactions for a release"
+* Operation id: reactions/list-for-release
+* Parameter: content, optional, query
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: release_id, required, path
+* Parameter: per_page, optional, query
+* Parameter: page, optional, query
+* Response: 200
+*     application/json, #/components/schemas/response_reactions_list_for_release
+* Response: 404
+* Response: 415
+  METHODS reactions_list_for_release
+    IMPORTING
+      content TYPE string OPTIONAL
+      owner TYPE string
+      repo TYPE string
+      release_id TYPE i
+      per_page TYPE i DEFAULT 30
+      page TYPE i DEFAULT 1
+    RETURNING
+      VALUE(return_data) TYPE response_reactions_list_for_re
+    RAISING cx_static_check.
+
 * POST - "Create reaction for a release"
 * Operation id: reactions/create-for-release
 * Parameter: owner, required, path
@@ -16065,6 +16348,21 @@ INTERFACE zif_githubae PUBLIC.
       body TYPE bodyreactions_create_for_relea
     RETURNING
       VALUE(return_data) TYPE reaction
+    RAISING cx_static_check.
+
+* DELETE - "Delete a release reaction"
+* Operation id: reactions/delete-for-release
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: release_id, required, path
+* Parameter: reaction_id, required, path
+* Response: 204
+  METHODS reactions_delete_for_release
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      release_id TYPE i
+      reaction_id TYPE i
     RAISING cx_static_check.
 
 * GET - "List secret scanning alerts for a repository"

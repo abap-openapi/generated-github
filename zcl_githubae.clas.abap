@@ -216,6 +216,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(runner) TYPE zif_githubae=>runner
       RAISING cx_static_check.
+    METHODS parse_runner_application
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(runner_application) TYPE zif_githubae=>runner_application
+      RAISING cx_static_check.
+    METHODS parse_authentication_token
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(authentication_token) TYPE zif_githubae=>authentication_token
+      RAISING cx_static_check.
     METHODS parse_link_with_type
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(link_with_type) TYPE zif_githubae=>link_with_type
@@ -300,10 +308,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(thread_subscription) TYPE zif_githubae=>thread_subscription
       RAISING cx_static_check.
-    METHODS parse_external_groups
-      IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(external_groups) TYPE zif_githubae=>external_groups
-      RAISING cx_static_check.
     METHODS parse_organization_full
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(organization_full) TYPE zif_githubae=>organization_full
@@ -335,6 +339,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_external_group
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(external_group) TYPE zif_githubae=>external_group
+      RAISING cx_static_check.
+    METHODS parse_external_groups
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(external_groups) TYPE zif_githubae=>external_groups
       RAISING cx_static_check.
     METHODS parse_org_hook
       IMPORTING iv_prefix TYPE string
@@ -1572,6 +1580,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_deployment_st
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
+    METHODS json_repos_create_dispatch_eve
+      IMPORTING data TYPE zif_githubae=>bodyrepos_create_dispatch_even
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
     METHODS json_repos_create_fork
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_fork
       RETURNING VALUE(json) TYPE string
@@ -1964,6 +1976,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_enterprise_admin_li07) TYPE zif_githubae=>response_enterprise_admin_li07
       RAISING cx_static_check.
+    METHODS parse_enterprise_admin_list_ru
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_enterprise_admin_li08) TYPE zif_githubae=>response_enterprise_admin_li08
+      RAISING cx_static_check.
     METHODS parse_gists_list
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_gists_list) TYPE zif_githubae=>response_gists_list
@@ -2023,6 +2039,18 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_actions_list_selected_re
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_selected) TYPE zif_githubae=>response_actions_list_selected
+      RAISING cx_static_check.
+    METHODS parse_actions_list_self_hosted
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_self_hos) TYPE zif_githubae=>response_actions_list_self_hos
+      RAISING cx_static_check.
+    METHODS parse_actions_list_self_host01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_self_h01) TYPE zif_githubae=>response_actions_list_self_h01
+      RAISING cx_static_check.
+    METHODS parse_actions_list_runner_appl
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_runner_a) TYPE zif_githubae=>response_actions_list_runner_a
       RAISING cx_static_check.
     METHODS parse_actions_list_org_secrets
       IMPORTING iv_prefix TYPE string
@@ -2168,9 +2196,13 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_actions_list_artifact) TYPE zif_githubae=>response_actions_list_artifact
       RAISING cx_static_check.
-    METHODS parse_actions_list_self_hosted
+    METHODS parse_actions_list_self_host02
       IMPORTING iv_prefix TYPE string
-      RETURNING VALUE(response_actions_list_self_hos) TYPE zif_githubae=>response_actions_list_self_hos
+      RETURNING VALUE(response_actions_list_self_h02) TYPE zif_githubae=>response_actions_list_self_h02
+      RAISING cx_static_check.
+    METHODS parse_actions_list_runner_ap01
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_actions_list_runner01) TYPE zif_githubae=>response_actions_list_runner01
       RAISING cx_static_check.
     METHODS parse_actions_list_workflow_ru
       IMPORTING iv_prefix TYPE string
@@ -2523,6 +2555,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_release_asset
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_release_as) TYPE zif_githubae=>response_repos_list_release_as
+      RAISING cx_static_check.
+    METHODS parse_reactions_list_for_relea
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_reactions_list_for_re) TYPE zif_githubae=>response_reactions_list_for_re
       RAISING cx_static_check.
     METHODS parse_secret_scanning_list_ale
       IMPORTING iv_prefix TYPE string
@@ -3418,6 +3454,23 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, labels
   ENDMETHOD.
 
+  METHOD parse_runner_application.
+    runner_application-os = mo_json->value_string( iv_prefix && '/os' ).
+    runner_application-architecture = mo_json->value_string( iv_prefix && '/architecture' ).
+    runner_application-download_url = mo_json->value_string( iv_prefix && '/download_url' ).
+    runner_application-filename = mo_json->value_string( iv_prefix && '/filename' ).
+    runner_application-temp_download_token = mo_json->value_string( iv_prefix && '/temp_download_token' ).
+    runner_application-sha256_checksum = mo_json->value_string( iv_prefix && '/sha256_checksum' ).
+  ENDMETHOD.
+
+  METHOD parse_authentication_token.
+    authentication_token-token = mo_json->value_string( iv_prefix && '/token' ).
+    authentication_token-expires_at = mo_json->value_string( iv_prefix && '/expires_at' ).
+* todo, array, repositories
+    authentication_token-single_file = mo_json->value_string( iv_prefix && '/single_file' ).
+    authentication_token-repository_selection = mo_json->value_string( iv_prefix && '/repository_selection' ).
+  ENDMETHOD.
+
   METHOD parse_link_with_type.
     link_with_type-href = mo_json->value_string( iv_prefix && '/href' ).
     link_with_type-type = mo_json->value_string( iv_prefix && '/type' ).
@@ -4047,10 +4100,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     thread_subscription-repository_url = mo_json->value_string( iv_prefix && '/repository_url' ).
   ENDMETHOD.
 
-  METHOD parse_external_groups.
-* todo, array, groups
-  ENDMETHOD.
-
   METHOD parse_organization_full.
     organization_full-login = mo_json->value_string( iv_prefix && '/login' ).
     organization_full-id = mo_json->value_string( iv_prefix && '/id' ).
@@ -4154,6 +4203,10 @@ CLASS zcl_githubae IMPLEMENTATION.
     external_group-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
 * todo, array, teams
 * todo, array, members
+  ENDMETHOD.
+
+  METHOD parse_external_groups.
+* todo, array, groups
   ENDMETHOD.
 
   METHOD parse_org_hook.
@@ -7344,6 +7397,18 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, runners
   ENDMETHOD.
 
+  METHOD parse_enterprise_admin_list_ru.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA runner_application TYPE zif_githubae=>runner_application.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR runner_application.
+      runner_application = parse_runner_application( iv_prefix && '/' && lv_member ).
+      APPEND runner_application TO response_enterprise_admin_li08.
+    ENDLOOP.
+  ENDMETHOD.
+
   METHOD parse_gists_list.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -7484,6 +7549,28 @@ CLASS zcl_githubae IMPLEMENTATION.
   METHOD parse_actions_list_selected_re.
 * todo, number, total_count
 * todo, array, repositories
+  ENDMETHOD.
+
+  METHOD parse_actions_list_self_hosted.
+* todo, number, total_count
+* todo, array, runner_groups
+  ENDMETHOD.
+
+  METHOD parse_actions_list_self_host01.
+    response_actions_list_self_h01-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, runners
+  ENDMETHOD.
+
+  METHOD parse_actions_list_runner_appl.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA runner_application TYPE zif_githubae=>runner_application.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR runner_application.
+      runner_application = parse_runner_application( iv_prefix && '/' && lv_member ).
+      APPEND runner_application TO response_actions_list_runner_a.
+    ENDLOOP.
   ENDMETHOD.
 
   METHOD parse_actions_list_org_secrets.
@@ -7808,9 +7895,21 @@ CLASS zcl_githubae IMPLEMENTATION.
 * todo, array, artifacts
   ENDMETHOD.
 
-  METHOD parse_actions_list_self_hosted.
-    response_actions_list_self_hos-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+  METHOD parse_actions_list_self_host02.
+    response_actions_list_self_h02-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
 * todo, array, runners
+  ENDMETHOD.
+
+  METHOD parse_actions_list_runner_ap01.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA runner_application TYPE zif_githubae=>runner_application.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR runner_application.
+      runner_application = parse_runner_application( iv_prefix && '/' && lv_member ).
+      APPEND runner_application TO response_actions_list_runner01.
+    ENDLOOP.
   ENDMETHOD.
 
   METHOD parse_actions_list_workflow_ru.
@@ -8692,6 +8791,18 @@ CLASS zcl_githubae IMPLEMENTATION.
       CLEAR release_asset.
       release_asset = parse_release_asset( iv_prefix && '/' && lv_member ).
       APPEND release_asset TO response_repos_list_release_as.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD parse_reactions_list_for_relea.
+    DATA lt_members TYPE string_table.
+    DATA lv_member LIKE LINE OF lt_members.
+    DATA reaction TYPE zif_githubae=>reaction.
+    lt_members = mo_json->members( iv_prefix && '/' ).
+    LOOP AT lt_members INTO lv_member.
+      CLEAR reaction.
+      reaction = parse_reaction( iv_prefix && '/' && lv_member ).
+      APPEND reaction TO response_reactions_list_for_re.
     ENDLOOP.
   ENDMETHOD.
 
@@ -10546,6 +10657,14 @@ CLASS zcl_githubae IMPLEMENTATION.
     ELSEIF data-auto_inactive = abap_false.
       json = json && |"auto_inactive": false,|.
     ENDIF.
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_create_dispatch_eve.
+    json = json && '{'.
+    json = json && |"event_type": "{ data-event_type }",|.
+*  json = json && '"client_payload":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -13018,6 +13137,63 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~enterprise_admin_list_runner_a.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/enterprises/{enterprise}/actions/runners/downloads'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_enterprise_admin_list_runner_a
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_enterprise_admin_list_ru( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_create_regist.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/enterprises/{enterprise}/actions/runners/registration-token'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~enterprise_admin_create_remove.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/enterprises/{enterprise}/actions/runners/remove-token'.
+    lv_temp = enterprise.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{enterprise}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~enterprise_admin_get_self_ho01.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -14110,28 +14286,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
-  METHOD zif_githubae~teams_list_linked_external_idp.
-    DATA lv_code TYPE i.
-    DATA lv_temp TYPE string.
-    DATA lv_uri TYPE string VALUE '/v3/organizations/{org}/team/{team_slug}/external-groups'.
-    lv_temp = org.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
-    lv_temp = team_slug.
-    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
-    REPLACE ALL OCCURRENCES OF '{team_slug}' IN lv_uri WITH lv_temp.
-    mi_client->request->set_method( 'GET' ).
-    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    lv_code = send_receive( ).
-    WRITE / lv_code.
-    CASE lv_code.
-      WHEN 200. " Response
-" application/json,#/components/schemas/external-groups
-        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_external_groups( '' ).
-    ENDCASE.
-  ENDMETHOD.
-
   METHOD zif_githubae~orgs_get.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -14334,6 +14488,35 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~actions_list_self_hosted_runne.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runner-groups'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_actions_list_self_hosted_runne
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_actions_list_self_hosted( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~actions_create_self_hosted_run.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -14348,6 +14531,28 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 201. " Response
+" application/json,#/components/schemas/runner-groups-org
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_runner_groups_org( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_self_hosted_runner.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runner-groups/{runner_group_id}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_group_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
 " application/json,#/components/schemas/runner-groups-org
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_runner_groups_org( '' ).
@@ -14394,6 +14599,136 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_add_self_hosted_runner.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_group_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_group_id}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_self_hosted_run01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runners'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_actions_list_self_hosted_run01
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_actions_list_self_host01( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_runner_applicatio.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runners/downloads'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_actions_list_runner_applicatio
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_actions_list_runner_appl( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_registration_to.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runners/registration-token'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_remove_token_fo.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runners/remove-token'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_self_hosted_runn01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/orgs/{org}/actions/runners/{runner_id}'.
+    lv_temp = org.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{org}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/runner
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_runner( '' ).
     ENDCASE.
   ENDMETHOD.
 
@@ -15989,7 +16324,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 200. " Response
+      WHEN 200. " Response when the reaction type has already been added to this team discussion comment
 " application/json,#/components/schemas/reaction
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_reaction( '' ).
@@ -17467,7 +17802,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
-  METHOD zif_githubae~actions_list_self_hosted_runne.
+  METHOD zif_githubae~actions_list_self_hosted_run02.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
     DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runners'.
@@ -17493,9 +17828,100 @@ CLASS zcl_githubae IMPLEMENTATION.
     WRITE / lv_code.
     CASE lv_code.
       WHEN 200. " Response
-" application/json,#/components/schemas/response_actions_list_self_hosted_runne
+" application/json,#/components/schemas/response_actions_list_self_hosted_run02
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
-        return_data = parse_actions_list_self_hosted( '' ).
+        return_data = parse_actions_list_self_host02( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_list_runner_applicat01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runners/downloads'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_actions_list_runner_applicat01
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_actions_list_runner_ap01( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_registration_01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runners/registration-token'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_create_remove_token_01.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runners/remove-token'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 201. " Response
+" application/json,#/components/schemas/authentication-token
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_authentication_token( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~actions_get_self_hosted_runn02.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/actions/runners/{runner_id}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = runner_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{runner_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/runner
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_runner( '' ).
     ENDCASE.
   ENDMETHOD.
 
@@ -19523,7 +19949,7 @@ CLASS zcl_githubae IMPLEMENTATION.
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
-      WHEN 200. " when the suite already existed
+      WHEN 200. " Response when the suite already exists
 " application/json,#/components/schemas/check-suite
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_check_suite( '' ).
@@ -21160,6 +21586,28 @@ CLASS zcl_githubae IMPLEMENTATION.
         CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
         return_data = parse_deployment_status( '' ).
       WHEN 404.
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_create_dispatch_event.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/dispatches'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'POST' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_dispatch_eve( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
+      WHEN 422.
 " todo, raise
     ENDCASE.
   ENDMETHOD.
@@ -25357,6 +25805,48 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD zif_githubae~reactions_list_for_release.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/releases/{release_id}/reactions'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = release_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
+    IF content IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'content' value = content ).
+    ENDIF.
+    lv_temp = per_page.
+    CONDENSE lv_temp.
+    IF per_page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'per_page' value = lv_temp ).
+    ENDIF.
+    lv_temp = page.
+    CONDENSE lv_temp.
+    IF page IS SUPPLIED.
+      mi_client->request->set_form_field( name = 'page' value = lv_temp ).
+    ENDIF.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_reactions_list_for_release
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_reactions_list_for_relea( '' ).
+      WHEN 404.
+" todo, raise
+      WHEN 415.
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
   METHOD zif_githubae~reactions_create_for_release.
     DATA lv_code TYPE i.
     DATA lv_temp TYPE string.
@@ -25386,6 +25876,31 @@ CLASS zcl_githubae IMPLEMENTATION.
         return_data = parse_reaction( '' ).
       WHEN 422.
 " todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~reactions_delete_for_release.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/releases/{release_id}/reactions/{reaction_id}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = release_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{release_id}' IN lv_uri WITH lv_temp.
+    lv_temp = reaction_id.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{reaction_id}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Response
     ENDCASE.
   ENDMETHOD.
 
