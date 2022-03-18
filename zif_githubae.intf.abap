@@ -5268,11 +5268,6 @@ INTERFACE zif_githubae PUBLIC.
            scopes TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
          END OF bodyenterprise_admin_delete_im.
 
-* Component schema: bodyapps_create_from_manifest, object
-  TYPES: BEGIN OF bodyapps_create_from_manifest,
-           dummy_workaround TYPE i,
-         END OF bodyapps_create_from_manifest.
-
 * Component schema: bodyapps_update_webhook_config, object
   TYPES: BEGIN OF bodyapps_update_webhook_config,
            url TYPE webhook_config_url,
@@ -7925,11 +7920,9 @@ INTERFACE zif_githubae PUBLIC.
 *     application/json, string
 * Response: 404
 * Response: 422
-* Body ref: #/components/schemas/bodyapps_create_from_manifest
   METHODS apps_create_from_manifest
     IMPORTING
       code TYPE string
-      body TYPE bodyapps_create_from_manifest
     RAISING cx_static_check.
 
 * GET - "Get a webhook configuration for an app"

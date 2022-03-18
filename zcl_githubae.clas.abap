@@ -1180,10 +1180,6 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING data TYPE zif_githubae=>bodyenterprise_admin_delete_im
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
-    METHODS json_apps_create_from_manifest
-      IMPORTING data TYPE zif_githubae=>bodyapps_create_from_manifest
-      RETURNING VALUE(json) TYPE string
-      RAISING cx_static_check.
     METHODS json_apps_update_webhook_confi
       IMPORTING data TYPE zif_githubae=>bodyapps_update_webhook_config
       RETURNING VALUE(json) TYPE string
@@ -9361,12 +9357,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '}'.
   ENDMETHOD.
 
-  METHOD json_apps_create_from_manifest.
-    json = json && '{'.
-    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
-    json = json && '}'.
-  ENDMETHOD.
-
   METHOD json_apps_update_webhook_confi.
     json = json && '{'.
 *  json = json && '"url":' not simple
@@ -12079,7 +12069,6 @@ CLASS zcl_githubae IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '{code}' IN lv_uri WITH lv_temp.
     mi_client->request->set_method( 'POST' ).
     mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
-    mi_client->request->set_cdata( json_apps_create_from_manifest( body ) ).
     lv_code = send_receive( ).
     WRITE / lv_code.
     CASE lv_code.
