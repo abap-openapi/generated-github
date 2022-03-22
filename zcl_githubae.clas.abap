@@ -776,6 +776,22 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(deployment_status) TYPE zif_githubae=>deployment_status
       RAISING cx_static_check.
+    METHODS parse_wait_timer
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(wait_timer) TYPE zif_githubae=>wait_timer
+      RAISING cx_static_check.
+    METHODS parse_deployment_reviewer_type
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_reviewer_type) TYPE zif_githubae=>deployment_reviewer_type
+      RAISING cx_static_check.
+    METHODS parse_deployment_branch_policy
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(deployment_branch_policy) TYPE zif_githubae=>deployment_branch_policy
+      RAISING cx_static_check.
+    METHODS parse_environment
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(environment) TYPE zif_githubae=>environment
+      RAISING cx_static_check.
     METHODS parse_actor
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(actor) TYPE zif_githubae=>actor
@@ -1578,6 +1594,14 @@ CLASS zcl_githubae DEFINITION PUBLIC.
       RAISING cx_static_check.
     METHODS json_repos_create_dispatch_eve
       IMPORTING data TYPE zif_githubae=>bodyrepos_create_dispatch_even
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_create_or_update_en
+      IMPORTING data TYPE zif_githubae=>bodyrepos_create_or_update_env
+      RETURNING VALUE(json) TYPE string
+      RAISING cx_static_check.
+    METHODS json_repos_delete_an_environme
+      IMPORTING data TYPE zif_githubae=>bodyrepos_delete_an_environmen
       RETURNING VALUE(json) TYPE string
       RAISING cx_static_check.
     METHODS json_repos_create_fork
@@ -2395,6 +2419,10 @@ CLASS zcl_githubae DEFINITION PUBLIC.
     METHODS parse_repos_list_deployment_st
       IMPORTING iv_prefix TYPE string
       RETURNING VALUE(response_repos_list_deployme01) TYPE zif_githubae=>response_repos_list_deployme01
+      RAISING cx_static_check.
+    METHODS parse_repos_get_all_environmen
+      IMPORTING iv_prefix TYPE string
+      RETURNING VALUE(response_repos_get_all_environ) TYPE zif_githubae=>response_repos_get_all_environ
       RAISING cx_static_check.
     METHODS parse_activity_list_repo_event
       IMPORTING iv_prefix TYPE string
@@ -5648,6 +5676,31 @@ CLASS zcl_githubae IMPLEMENTATION.
     deployment_status-performed_via_github_app = parse_nullable_integration( iv_prefix && '/performed_via_github_app' ).
   ENDMETHOD.
 
+  METHOD parse_wait_timer.
+    wait_timer = mo_json->value_integer( iv_prefix && '/' ).
+  ENDMETHOD.
+
+  METHOD parse_deployment_reviewer_type.
+* todo, handle type string
+  ENDMETHOD.
+
+  METHOD parse_deployment_branch_policy.
+    deployment_branch_policy-protected_branches = mo_json->value_boolean( iv_prefix && '/protected_branches' ).
+    deployment_branch_policy-custom_branch_policies = mo_json->value_boolean( iv_prefix && '/custom_branch_policies' ).
+  ENDMETHOD.
+
+  METHOD parse_environment.
+    environment-id = mo_json->value_string( iv_prefix && '/id' ).
+    environment-node_id = mo_json->value_string( iv_prefix && '/node_id' ).
+    environment-name = mo_json->value_string( iv_prefix && '/name' ).
+    environment-url = mo_json->value_string( iv_prefix && '/url' ).
+    environment-html_url = mo_json->value_string( iv_prefix && '/html_url' ).
+    environment-created_at = mo_json->value_string( iv_prefix && '/created_at' ).
+    environment-updated_at = mo_json->value_string( iv_prefix && '/updated_at' ).
+* todo, array, protection_rules
+    environment-deployment_branch_policy = parse_deployment_branch_policy( iv_prefix && '/deployment_branch_policy' ).
+  ENDMETHOD.
+
   METHOD parse_actor.
     actor-id = mo_json->value_string( iv_prefix && '/id' ).
     actor-login = mo_json->value_string( iv_prefix && '/login' ).
@@ -8350,6 +8403,11 @@ CLASS zcl_githubae IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
+  METHOD parse_repos_get_all_environmen.
+    response_repos_get_all_environ-total_count = mo_json->value_string( iv_prefix && '/total_count' ).
+* todo, array, environments
+  ENDMETHOD.
+
   METHOD parse_activity_list_repo_event.
     DATA lt_members TYPE string_table.
     DATA lv_member LIKE LINE OF lt_members.
@@ -10655,6 +10713,24 @@ CLASS zcl_githubae IMPLEMENTATION.
     json = json && '{'.
     json = json && |"event_type": "{ data-event_type }",|.
 *  json = json && '"client_payload":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_create_or_update_en.
+    json = json && '{'.
+*  json = json && '"wait_timer":' not simple
+*  json = json && '"reviewers":' not simple
+*  json = json && '"deployment_branch_policy":' not simple
+    json = substring( val = json off = 0 len = strlen( json ) - 1 ).
+    json = json && '}'.
+  ENDMETHOD.
+
+  METHOD json_repos_delete_an_environme.
+    json = json && '{'.
+*  json = json && '"wait_timer":' not simple
+*  json = json && '"reviewers":' not simple
+*  json = json && '"deployment_branch_policy":' not simple
     json = substring( val = json off = 0 len = strlen( json ) - 1 ).
     json = json && '}'.
   ENDMETHOD.
@@ -21598,6 +21674,107 @@ CLASS zcl_githubae IMPLEMENTATION.
       WHEN 204. " Response
       WHEN 422.
 " todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_get_all_environments.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/environments'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/response_repos_get_all_environments
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_repos_get_all_environmen( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_get_environment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/environments/{environment_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = environment_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'GET' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/environment
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_environment( '' ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_create_or_update_environ.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/environments/{environment_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = environment_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'PUT' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_create_or_update_en( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 200. " Response
+" application/json,#/components/schemas/environment
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        return_data = parse_environment( '' ).
+      WHEN 422. " Validation error when the environment name is invalid or when `protected_branches` and `custom_branch_policies` in `deployment_branch_policy` are set to the same value
+" application/json,#/components/schemas/basic-error
+        CREATE OBJECT mo_json EXPORTING iv_json = mi_client->response->get_cdata( ).
+        parse_basic_error( '' ).
+" todo, raise
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD zif_githubae~repos_delete_an_environment.
+    DATA lv_code TYPE i.
+    DATA lv_temp TYPE string.
+    DATA lv_uri TYPE string VALUE '/v3/repos/{owner}/{repo}/environments/{environment_name}'.
+    lv_temp = owner.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{owner}' IN lv_uri WITH lv_temp.
+    lv_temp = repo.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{repo}' IN lv_uri WITH lv_temp.
+    lv_temp = environment_name.
+    lv_temp = cl_http_utility=>escape_url( condense( lv_temp ) ).
+    REPLACE ALL OCCURRENCES OF '{environment_name}' IN lv_uri WITH lv_temp.
+    mi_client->request->set_method( 'DELETE' ).
+    mi_client->request->set_header_field( name = '~request_uri' value = lv_uri ).
+    mi_client->request->set_cdata( json_repos_delete_an_environme( body ) ).
+    lv_code = send_receive( ).
+    WRITE / lv_code.
+    CASE lv_code.
+      WHEN 204. " Default response
     ENDCASE.
   ENDMETHOD.
 

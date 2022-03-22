@@ -3346,6 +3346,31 @@ INTERFACE zif_githubae PUBLIC.
            performed_via_github_app TYPE nullable_integration,
          END OF deployment_status.
 
+* Component schema: wait-timer, integer
+  TYPES wait_timer TYPE i.
+
+* Component schema: deployment-reviewer-type, string
+  TYPES deployment_reviewer_type TYPE string.
+
+* Component schema: deployment_branch_policy, object
+  TYPES: BEGIN OF deployment_branch_policy,
+           protected_branches TYPE abap_bool,
+           custom_branch_policies TYPE abap_bool,
+         END OF deployment_branch_policy.
+
+* Component schema: environment, object
+  TYPES: BEGIN OF environment,
+           id TYPE i,
+           node_id TYPE string,
+           name TYPE string,
+           url TYPE string,
+           html_url TYPE string,
+           created_at TYPE string,
+           updated_at TYPE string,
+           protection_rules TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF environment.
+
 * Component schema: actor, object
   TYPES: BEGIN OF actor,
            id TYPE i,
@@ -6165,6 +6190,20 @@ INTERFACE zif_githubae PUBLIC.
            client_payload TYPE subbodyrepos_create_dispatch_e,
          END OF bodyrepos_create_dispatch_even.
 
+* Component schema: bodyrepos_create_or_update_env, object
+  TYPES: BEGIN OF bodyrepos_create_or_update_env,
+           wait_timer TYPE wait_timer,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF bodyrepos_create_or_update_env.
+
+* Component schema: bodyrepos_delete_an_environmen, object
+  TYPES: BEGIN OF bodyrepos_delete_an_environmen,
+           wait_timer TYPE wait_timer,
+           reviewers TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+           deployment_branch_policy TYPE deployment_branch_policy,
+         END OF bodyrepos_delete_an_environmen.
+
 * Component schema: bodyrepos_create_fork, object
   TYPES: BEGIN OF bodyrepos_create_fork,
            organization TYPE string,
@@ -7315,6 +7354,12 @@ INTERFACE zif_githubae PUBLIC.
 
 * Component schema: response_repos_list_deployment_statuses, array
   TYPES response_repos_list_deployme01 TYPE STANDARD TABLE OF deployment_status WITH DEFAULT KEY.
+
+* Component schema: response_repos_get_all_environments, object
+  TYPES: BEGIN OF response_repos_get_all_environ,
+           total_count TYPE i,
+           environments TYPE STANDARD TABLE OF string WITH DEFAULT KEY, " todo, handle array
+         END OF response_repos_get_all_environ.
 
 * Component schema: response_activity_list_repo_events, array
   TYPES response_activity_list_repo_ev TYPE STANDARD TABLE OF event WITH DEFAULT KEY.
@@ -13696,6 +13741,71 @@ INTERFACE zif_githubae PUBLIC.
       owner TYPE string
       repo TYPE string
       body TYPE bodyrepos_create_dispatch_even
+    RAISING cx_static_check.
+
+* GET - "Get all environments"
+* Operation id: repos/get-all-environments
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Response: 200
+*     application/json, #/components/schemas/response_repos_get_all_environments
+  METHODS repos_get_all_environments
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+    RETURNING
+      VALUE(return_data) TYPE response_repos_get_all_environ
+    RAISING cx_static_check.
+
+* GET - "Get an environment"
+* Operation id: repos/get-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/environment
+  METHODS repos_get_environment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+    RETURNING
+      VALUE(return_data) TYPE environment
+    RAISING cx_static_check.
+
+* PUT - "Create or update an environment"
+* Operation id: repos/create-or-update-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 200
+*     application/json, #/components/schemas/environment
+* Response: 422
+*     application/json, #/components/schemas/basic-error
+* Body ref: #/components/schemas/bodyrepos_create_or_update_env
+  METHODS repos_create_or_update_environ
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+      body TYPE bodyrepos_create_or_update_env
+    RETURNING
+      VALUE(return_data) TYPE environment
+    RAISING cx_static_check.
+
+* DELETE - "Delete an environment"
+* Operation id: repos/delete-an-environment
+* Parameter: owner, required, path
+* Parameter: repo, required, path
+* Parameter: environment_name, required, path
+* Response: 204
+* Body ref: #/components/schemas/bodyrepos_delete_an_environmen
+  METHODS repos_delete_an_environment
+    IMPORTING
+      owner TYPE string
+      repo TYPE string
+      environment_name TYPE string
+      body TYPE bodyrepos_delete_an_environmen
     RAISING cx_static_check.
 
 * GET - "List repository events"
